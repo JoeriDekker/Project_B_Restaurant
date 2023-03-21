@@ -1,4 +1,6 @@
 obj/
+obj/*
+.obj/*
 bin
 .vscode
 obj/Project_B_Restaurant.csproj.nuget.dgspec.json
