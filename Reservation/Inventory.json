@@ -1,5 +1,5 @@
 [
     {"Name": "Burger", 
-    "#Ingredients": "meat||lettuce||buns"
+    "Ingredients": "meat||lettuce||buns"
 }
 ]
