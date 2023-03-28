@@ -1,6 +1,6 @@
 using System.Text.Json;
 
-public class Inventory
+public class Inventory 
 {
     private List<Dish> _dishes = new List<Dish>();
     public void LoadMenu()
