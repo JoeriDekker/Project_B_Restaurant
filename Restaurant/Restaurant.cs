@@ -13,7 +13,7 @@ class Restaurant
         Tables = new List<Table>();
     }
     
-    public string Info() => $"Restaurant: {_name} \nAddress: {_address} \nPhone Number: {_phoneNumber}";
+    public string Info() => $"Restaurant: {Name} \nAddress: {Address} \nPhone Number: {PhoneNumer}";
     
     public string ShowLayout()
     {
