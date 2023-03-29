@@ -5,7 +5,7 @@ public class Dish
     public double Price { get; set; }
     public List<Ingredient> Ingredients { get; set; }
 
-    public Dish(string Name, string Description, double Price, string Ingredients){
+    public Dish(string Name, string Description, double Price){
         this.Name = Name;
         this.Description = Description;
         this.Price = Price;
