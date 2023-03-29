@@ -7,7 +7,7 @@ static class UI
     static public void Start()
     {
         Console.WriteLine("Enter 1 to login");
-        Console.WriteLine("Enter 2 to do something else in the future");
+        Console.WriteLine("Enter 2 to See the menu {Still work in progress}");
 
         string input = Console.ReadLine();
         if (input == "1")
@@ -16,7 +16,54 @@ static class UI
         }
         else if (input == "2")
         {
-            Console.WriteLine("This feature is not yet implemented");
+            // it is still all here bc i have to make an MVC format for the menu
+            Menu menu = new Menu();
+            menu.LoadMenu();
+
+            while (true)
+            {
+                Console.WriteLine("What do you want to do?");
+                Console.WriteLine("1: Show Menu");
+                Console.WriteLine("2: Add a Dish");
+                Console.WriteLine("3: Remove a Dish");
+                Console.WriteLine("4: Change a Dish");
+                Console.WriteLine("5: Save Menu");
+                Console.WriteLine("6: Exit");
+
+                int choice = Convert.ToInt32(Console.ReadLine());
+
+                switch (choice)
+                {
+                    case 1:
+                        menu.ShowMenu();
+                        break;
+                    case 2:
+                        menu.Add();
+                        break;
+                    case 3:
+                        menu.Delete();
+                        break;
+                    case 4:
+                        menu.Update();
+                        break;
+                    case 5:
+                        menu.SaveMenu();
+                        break;
+                    case 6:
+                        Console.WriteLine("Goodbye!");
+                        Start();
+                        break;
+                    default:
+                        Console.WriteLine("Invalid choice.");
+                        break;
+                }
+                
+
+                Console.WriteLine();
+
+            }
+
+            
         }
         else
         {

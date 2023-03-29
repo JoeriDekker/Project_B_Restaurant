@@ -1,4 +1,4 @@
-class Restaurant
+public class Restaurant
 {
     public string Name { get; set; }
     public string Address { get; set; }
@@ -13,7 +13,7 @@ class Restaurant
         Tables = new List<Table>();
     }
     
-    public string Info() => $"Restaurant: {Name} \nAddress: {Address} \nPhone Number: {PhoneNumer}";
+    public string Info() => $"Restaurant: {Name} \nAddress: {Address} \nPhone Number: {PhoneNumber}";
     
     public string ShowLayout()
     {
