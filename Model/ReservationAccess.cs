@@ -20,7 +20,7 @@ static class ReservationAccess
             return new List<ReservationModel>();
         }
 
-        //Null-coalescing operator | it can be either a List<ReservationModel> or null.
+        //Null-coalescing operator it can be either a List<ReservationModel> or null.
         List<ReservationModel>? reservations = JsonSerializer.Deserialize<List<ReservationModel>>(json);
         return reservations ?? new List<ReservationModel>();
     }
