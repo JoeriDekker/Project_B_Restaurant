@@ -6,7 +6,7 @@ public class Menu : IChangeable
    
     public void LoadMenu()
     {
-        using (StreamReader reader = new StreamReader("joeri_menu_place/menu.json"))
+        using (StreamReader reader = new StreamReader("Joeri_menu_place/menu.json"))
         {
             string json = reader.ReadToEnd();
             List<Dish> dishes = JsonSerializer.Deserialize<List<Dish>>(json);
