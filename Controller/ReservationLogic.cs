@@ -3,11 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
+using Newtonsoft.Json.Linq;
 
 public class ReservationLogic{
 
     private List<ReservationModel> _Reservations;
 
+    //Do i need this?
     static public ReservationModel? CurrentReservation { get; private set; }
 
     //Get all reservations
@@ -44,5 +46,9 @@ public class ReservationLogic{
         {
             Console.WriteLine("{0,-5} {1,-20} {2,-20} {3,-10} {4,-10}", Res.R_Id, Res.Contact, Res.R_time, Res.R_TableID, Res.P_Amount);
         }
+    }
+
+    public ReservationModel getReservationByID(int id){
+         return _Reservations.Find(x => x.R_Id == id);
     }
 }
