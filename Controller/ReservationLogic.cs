@@ -48,11 +48,14 @@ public class ReservationLogic{
         }
     }
 
+
+    //! Can be null | Check on null when trying to find a reservation!
     public ReservationModel? getReservationByID(int id){
          ReservationModel? getRes = _Reservations.Find(x => x.R_Id == id);
          return getRes;
     }
 
+    //! Can be null | Check on null when trying to find a reservation!
     public ReservationModel? getReservationByTableID(int id){
          ReservationModel? getRes = _Reservations.Find(x => x.R_TableID == id);
          return getRes;
