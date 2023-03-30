@@ -1,16 +1,23 @@
 [
   {
     "R_Id": 1,
-    "Contact": "ssad",
-    "R_time": "asdasd",
+    "Contact": "Person1",
+    "R_time": "Formatted time",
     "R_TableID": 3,
-    "P_Amount": 1
+    "P_Amount": 2
   },
   {
     "R_Id": 2,
-    "Contact": "ssad",
-    "R_time": "asdasd",
+    "Contact": "Person2",
+    "R_time": "Formatted time",
     "R_TableID": 3,
-    "P_Amount": 1
+    "P_Amount": 6
+  },
+  {
+    "R_Id": 3,
+    "Contact": "Person3",
+    "R_time": "Formatted time",
+    "R_TableID": 3,
+    "P_Amount": 2
   }
 ]
