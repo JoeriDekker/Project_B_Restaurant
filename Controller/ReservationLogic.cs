@@ -19,7 +19,7 @@ public class ReservationLogic{
     public void CreateReservation(){
         
         // We need to create a reservation model
-        ReservationModel res = new ReservationModel(2, "ssad","asdasd", 3, "asdas");
+        ReservationModel res = new ReservationModel(_Reservations.Count() + 1, "ssad","asdasd", 3, "asdas");
         
         //Add to daaaaaaaaaa list c:
         _Reservations.Add(res);
@@ -40,9 +40,9 @@ public class ReservationLogic{
  =============================================================");
     // Get all reservations || Create Table || String formatiing
     Console.WriteLine("{0,-5} {1,-20} {2,-20} {3,-10} {4,-10}", "R_ID", "Contact", "R_time", "R_TableID", "P_Amount");
-    foreach (ReservationModel Res in _Reservations)
-    {
-        Console.WriteLine("{0,-5} {1,-20} {2,-20} {3,-10} {4,-10}", Res.R_Id, Res.Contact, Res.R_time, Res.R_TableID, Res.P_Amount);
+        foreach (ReservationModel Res in _Reservations)
+        {
+            Console.WriteLine("{0,-5} {1,-20} {2,-20} {3,-10} {4,-10}", Res.R_Id, Res.Contact, Res.R_time, Res.R_TableID, Res.P_Amount);
+        }
     }
-}
 }

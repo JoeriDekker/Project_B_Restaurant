@@ -1,13 +1,6 @@
 [
   {
     "R_id": 1,
-    "Contact": "Test",
-    "R_time": "InsertTIME",
-    "R_TableID": 1,
-    "P_Amount": "million"
-  },
-  {
-    "R_id": 2,
     "Contact": "ssad",
     "R_time": "asdasd",
     "R_TableID": 3,
