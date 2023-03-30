@@ -48,7 +48,13 @@ public class ReservationLogic{
         }
     }
 
-    public ReservationModel getReservationByID(int id){
-         return _Reservations.Find(x => x.R_Id == id);
+    public ReservationModel? getReservationByID(int id){
+         ReservationModel? getRes = _Reservations.Find(x => x.R_Id == id);
+         return getRes;
+    }
+
+    public ReservationModel? getReservationByTableID(int id){
+         ReservationModel? getRes = _Reservations.Find(x => x.R_TableID == id);
+         return getRes;
     }
 }
