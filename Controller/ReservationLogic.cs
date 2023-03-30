@@ -16,10 +16,10 @@ public class ReservationLogic{
         _Reservations = ReservationAccess.LoadAll();
     }
 
-    public void CreateReservation(){
+    public void CreateReservation(string c_name , string c_timeR, int c_party){
         
         // We need to create a reservation model
-        ReservationModel res = new ReservationModel(_Reservations.Count() + 1, "ssad","asdasd", 3, "asdas");
+        ReservationModel res = new ReservationModel(_Reservations.Count() + 1, c_name,c_timeR, 3, c_party);
         
         //Add to daaaaaaaaaa list c:
         _Reservations.Add(res);
