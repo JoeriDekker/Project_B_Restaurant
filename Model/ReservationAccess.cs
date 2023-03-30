@@ -13,10 +13,10 @@ static class ReservationAccess
     }
 
 
-    public static void WriteAll(List<ReservationModel> accounts)
+    public static void WriteAll(List<ReservationModel> reservations)
     {
         var options = new JsonSerializerOptions { WriteIndented = true };
-        string json = JsonSerializer.Serialize(accounts, options);
+        string json = JsonSerializer.Serialize(reservations, options);
         File.WriteAllText(path, json);
     }
 }
