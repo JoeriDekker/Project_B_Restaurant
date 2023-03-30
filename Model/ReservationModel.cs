@@ -17,12 +17,12 @@ public class ReservationModel{
     [JsonPropertyName("P_Amount")]
     public string P_Amount { get; set; }
 
-    public ReservationModel(int R_id, string contactInfo, string r_time, int R_tableID, string P_amount)
+    public ReservationModel(int R_id, string Contact, string R_time, int R_TableID, string P_Amount)
     {
         this.R_Id = R_id;
-        this.Contact = contactInfo;
-        this.R_time = r_time;
-        this.R_TableID = R_tableID;
-        this.P_Amount = P_amount;
+        this.Contact = Contact;
+        this.R_time = R_time;
+        this.R_TableID = R_TableID;
+        this.P_Amount = P_Amount;
     }
 }

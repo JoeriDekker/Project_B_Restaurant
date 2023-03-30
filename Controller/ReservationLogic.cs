@@ -19,7 +19,7 @@ public class ReservationLogic{
     public void CreateReservation(){
         
         // We need to create a reservation model
-        ReservationModel res = new ReservationModel(1, "Test","InsertTIME", 1, "million");
+        ReservationModel res = new ReservationModel(2, "ssad","asdasd", 3, "asdas");
         
         //Add to daaaaaaaaaa list c:
         _Reservations.Add(res);
@@ -27,6 +27,11 @@ public class ReservationLogic{
         // Save this data to Reservation.js
         ReservationAccess.WriteAll(_Reservations);
 
+    }
+
+    public ReservationModel GetById(int id)
+    {
+        return _Reservations.Find(i => i.R_Id == id);
     }
 
 
