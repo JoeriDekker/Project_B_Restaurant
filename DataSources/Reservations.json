@@ -1,16 +1,16 @@
 [
   {
-    "R_id": 1,
+    "R_Id": 1,
     "Contact": "ssad",
     "R_time": "asdasd",
     "R_TableID": 3,
-    "P_Amount": "asdas"
+    "P_Amount": 1
   },
   {
-    "R_id": 2,
+    "R_Id": 2,
     "Contact": "ssad",
     "R_time": "asdasd",
     "R_TableID": 3,
-    "P_Amount": "asdas"
+    "P_Amount": 1
   }
 ]
