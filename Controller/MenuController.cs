@@ -1,77 +1,51 @@
 using System.Text.Json;
-public class Menu : IChangeable
+public class MenuController
 {
     private List<Dish> _dishes = new List<Dish>();
 
-   
-    public void LoadMenu()
-    {
-        using (StreamReader reader = new StreamReader("Joeri_menu_place/menu.json"))
-        {
-            string json = reader.ReadToEnd();
-            List<Dish> dishes = JsonSerializer.Deserialize<List<Dish>>(json);
-            _dishes = dishes ?? new List<Dish>(); // assign the deserialized list to _dishes or an empty list if the deserialized value is null
-        }
+    public MenuController(){
+        _dishes = MenuAccess.LoadMenu();
     }
 
-    public void ShowMenu(){
-        foreach (Dish dish in _dishes)
-        {
-            Console.WriteLine($"- {dish.Name}: {dish.Description} (${dish.Price})");
-        }
+    public List<Dish> GetMenu(){
+        return _dishes;
     }
 
 
-    public void Add()
+    public void Add(string dish_name, string dish_description, double dish_price)
     {
-        Console.WriteLine("What is the Dish name?");
-        string dish_name = Console.ReadLine();
-        if (dish_name == null || dish_name == ""){
-            dish_name = "Unknown";
-        }
-        Console.WriteLine("What is the Dish Description?");
-        string dish_description = Console.ReadLine();
-        if (dish_description == null || dish_description == ""){
-            dish_description = "Unknown";
-        }
-        Console.WriteLine("What is the Dish price?");
-        double dish_price = Convert.ToDouble(Console.ReadLine());
-        if (dish_price == null || dish_price == 0){
-            dish_price = 0.0;
-        }
         Dish new_dish = new Dish(dish_name, dish_description, dish_price);
         _dishes.Add(new_dish);
-        SaveMenu();
+        MenuAccess.SaveMenu(_dishes);
     }
 
-    public void Delete()
-{
-    Console.WriteLine("Which Dish do you want to remove? (Give the name of the dish)");
-    string remove_dish = Console.ReadLine();
-    bool found_dish = false;
-    List<Dish> dishesToRemove = new List<Dish>();
-    foreach (Dish dish in _dishes)
+    public void Delete(string remove_dish)
     {
-        if (dish.Name == remove_dish)
+        
+        bool found_dish = false;
+        List<Dish> dishesToRemove = new List<Dish>();
+        foreach (Dish dish in _dishes)
         {
-            dishesToRemove.Add(dish);
-            found_dish = true;
+            if (dish.Name == remove_dish)
+            {
+                dishesToRemove.Add(dish);
+                found_dish = true;
+            }
+        }
+        if (!found_dish)
+        {
+            Console.WriteLine($"{remove_dish} has not been found");
+        }
+        else
+        {
+            foreach (Dish dish in dishesToRemove)
+            {
+                _dishes.Remove(dish);
+            }
+            MenuAccess.SaveMenu(_dishes);
+            Console.WriteLine($"{remove_dish} has been removed from the menu");
         }
     }
-    if (!found_dish)
-    {
-        Console.WriteLine($"{remove_dish} has not been found");
-    }
-    else
-    {
-        foreach (Dish dish in dishesToRemove)
-        {
-            _dishes.Remove(dish);
-        }
-        SaveMenu();
-        Console.WriteLine($"{remove_dish} has been removed from the menu");
-    }
-}
 
 
     public void Update()
@@ -116,18 +90,8 @@ public class Menu : IChangeable
             Console.WriteLine($"{change_dish} has not been found");
         }
         else{
-            SaveMenu();
+            MenuAccess.SaveMenu(_dishes);
             Console.WriteLine($"{change_dish} has been updated");
-        }
-    }
-
-    public void SaveMenu()
-    {
-        string json = JsonSerializer.Serialize(_dishes);
-
-        using (StreamWriter writer = new StreamWriter("joeri_menu_place/menu.json"))
-        {
-            writer.Write(json);
         }
     }
 }
