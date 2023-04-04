@@ -66,7 +66,7 @@ public class Menu
                     break;
                 case 8:
                     Console.WriteLine("Goodbye!");
-                    UI.Start();
+                    OpeningUI.Start();
                     break;
                 default:
                     Console.WriteLine("Invalid choice.");

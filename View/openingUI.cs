@@ -1,9 +1,26 @@
-static class UI
+class OpeningUI : UI
 {
-
     //This shows the menu. You can call back to this method to show the menu again
     //after another presentation method is completed.
     //You could edit this to show different menus depending on the user's role
+
+    // logic not completely refactored yet.
+    public OpeningUI(string[] menuOptions) : base(menuOptions)
+    {
+
+    }
+
+    public override void ShowMenu()
+    {
+        for (int i = 0; i < MenuItems.Length; i++)
+        {
+            Console.WriteLine($"Enter {i + 1} to {MenuItems[i]}");
+        }
+    }
+
+    // Could add validation to input, or seperate function
+    public override string GetInput() => Console.ReadLine() ?? string.Empty;
+
     static public void Start()
     {
         if (UserLogin.loggedIn == true)
@@ -15,7 +32,7 @@ static class UI
         else
         {
             Console.WriteLine("Enter 1 to login");
-        }   
+        }
         Console.WriteLine("Enter 2 to See the menu {Still work in progress}");
         Console.WriteLine("Enter 3 Reservation");
         string input = Console.ReadLine();
@@ -36,7 +53,8 @@ static class UI
             Menu menu = new Menu();
             menu.Start();
         }
-        else if(input == "3"){
+        else if (input == "3")
+        {
             ReservationModule.initReserve();
         }
         else

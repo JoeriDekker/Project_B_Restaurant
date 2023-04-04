@@ -17,7 +17,7 @@ static class UserLogin
             Console.WriteLine("Welcome back " + acc.FullName);
             Console.WriteLine("Your email number is " + acc.EmailAddress);
             loggedIn = true;
-            UI.Start();
+            OpeningUI.Start();
             //Write some code to go back to the menu
             //Menu.Start();
         }
@@ -56,7 +56,7 @@ static class UserLogin
             acc.Password = new_password;
             accountsLogic.UpdateList(acc);
             Console.WriteLine("Your password has been updated!");
-            UI.Start();
+            OpeningUI.Start();
         }
         else
         {
