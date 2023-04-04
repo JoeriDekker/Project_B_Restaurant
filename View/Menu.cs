@@ -2,6 +2,7 @@ using System.Text.Json;
 public class Menu 
 {
     private static MenuController menu = new MenuController();
+    private static InventoryController inventory = new InventoryController();
     public void Start(){
           // it is still all here bc i have to make an MVC format for the menu
         
@@ -13,7 +14,8 @@ public class Menu
             Console.WriteLine("2: Add a Dish");
             Console.WriteLine("3: Remove a Dish");
             Console.WriteLine("4: Change a Dish");
-            Console.WriteLine("5: Exit");
+            Console.WriteLine("5: Show pre orders");
+            Console.WriteLine("6: Exit");
 
             int choice = Convert.ToInt32(Console.ReadLine());
 
@@ -54,6 +56,10 @@ public class Menu
                     menu.Update();
                     break;
                 case 5:
+                    Console.WriteLine("Here is a list of all the pre orders that were made");
+                    inventory.ShowPreOrders();
+                    break;
+                case 6:
                     Console.WriteLine("Goodbye!");
                     UI.Start();
                     break;

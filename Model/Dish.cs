@@ -5,7 +5,7 @@ public class Dish
     public double Price { get; set; }
     public string Type { get; set; }
     public bool InStock { get; set; }
-    public int PreOderAmount { get; set; }
+    public int PreOrderAmount { get; set; }
     public int MaxAmountPreOrder { get; set; }
 
 
@@ -15,7 +15,7 @@ public class Dish
         this.Price = Price;
         this.Type = Type;
         this.InStock = true;
-        this.PreOderAmount = 0;
+        this.PreOrderAmount = 0;
         this.MaxAmountPreOrder = 3;
     }
 }

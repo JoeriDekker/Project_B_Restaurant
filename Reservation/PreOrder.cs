@@ -1,6 +1,12 @@
-static class PreOrder
+using System.Text.Json;
+
+public class PreOrder
 {
-    public static void Start()
+    private static MenuController menu = new MenuController();
+    private static InventoryController inventory = new InventoryController();
+    private static PreOrderController preOrder = new PreOrderController();
+    private List<Dish> _dishes = new List<Dish>();
+    public void Start()
     {
         while (true)
         {
@@ -16,16 +22,30 @@ static class PreOrder
                     Console.WriteLine("dishes");
                     Console.WriteLine("course menu");
                     Console.WriteLine("go back");
-                    string? preOrder = Console.ReadLine();
-                    if (preOrder == "dishes")
+                    string? preOrderAnswer = Console.ReadLine();
+                    if (preOrderAnswer == "dishes")
                     {
+                        preOrder.PreOrderDishes();
                         
+                        while (true)
+                        {
+                            Console.WriteLine("Do you want to pre order more? yes/no");
+                            string morePreOrder = Console.ReadLine().ToLower();
+                            if (morePreOrder == "yes")
+                            {
+                                preOrder.PreOrderDishes();
+                            }
+                            else
+                            {
+                                Console.WriteLine("Thank you for making a pre order. Your total amount will be: "); //need to add prices/total amount.
+                            }
+                        }
                     }
-                    else if (preOrder == "course menu")
+                    else if (preOrderAnswer == "course menu")//menu needs to sort type (starter, head, desert)
                     {
 
                     }
-                    else if (preOrder == "go back")
+                    else if (preOrderAnswer == "go back")
                     {
                         break;
                     }
@@ -45,5 +65,4 @@ static class PreOrder
             }
         }   
     }
-    
 }

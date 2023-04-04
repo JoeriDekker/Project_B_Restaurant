@@ -5,7 +5,7 @@
     "Price": 2,
     "Type": "Unknown",
     "InStock": true,
-    "PreOderAmount": 0,
+    "PreOrderAmount": 0,
     "MaxAmountPreOrder": 3
   },
   {
@@ -14,7 +14,7 @@
     "Price": 15.32,
     "Type": "Meat",
     "InStock": true,
-    "PreOderAmount": 0,
+    "PreOrderAmount": 0,
     "MaxAmountPreOrder": 3
   }
 ]
