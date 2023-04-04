@@ -1,5 +1,6 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Welcome to this amazing program");
-UI.Start();
+﻿public class program{
+    public static void Main(){
+     ReservationModule.initReserve();
 
-
+    }
+}

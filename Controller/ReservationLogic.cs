@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
-using Newtonsoft.Json.Linq;
 
 public class ReservationLogic{
 
@@ -60,4 +59,5 @@ public class ReservationLogic{
          ReservationModel? getRes = _Reservations.Find(x => x.R_TableID == id);
          return getRes;
     }
+
 }
