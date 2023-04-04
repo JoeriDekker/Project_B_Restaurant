@@ -4,6 +4,7 @@ public class Restaurant
     public string Address { get; set; }
     public string PhoneNumber { get; set; }
     public List<Table> Tables { get; set; }
+    public Menu Menu { get; set; }
 
     public Restaurant(string name, string address, string phoneNumber)
     {
@@ -11,6 +12,7 @@ public class Restaurant
         Address = address;
         PhoneNumber = phoneNumber;
         Tables = new List<Table>();
+        Menu = new();
     }
     
     public string Info() => $"Restaurant: {Name} \nAddress: {Address} \nPhone Number: {PhoneNumber}";
