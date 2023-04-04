@@ -11,11 +11,13 @@ public class Menu
         {
             Console.WriteLine("What do you want to do?");
             Console.WriteLine("1: Show Menu");
-            Console.WriteLine("2: Add a Dish");
-            Console.WriteLine("3: Remove a Dish");
-            Console.WriteLine("4: Change a Dish");
-            Console.WriteLine("5: Show pre orders");
-            Console.WriteLine("6: Exit");
+            Console.WriteLine("2: Sort Menu // still in progress");
+            Console.WriteLine("3: Filter Menu // still in progress");
+            Console.WriteLine("4: Add a Dish");
+            Console.WriteLine("5: Remove a Dish");
+            Console.WriteLine("6: Change a Dish");
+            Console.WriteLine("7: Show PreOrders");
+            Console.WriteLine("8: Exit");
 
             int choice = Convert.ToInt32(Console.ReadLine());
 
@@ -25,21 +27,25 @@ public class Menu
                     ShowMenu();
                     break;
                 case 2:
+                    // Upcoming Sort function
+                    ShowMenu();
+                    break;
+                case 3:
+                    Console.WriteLine("On what type do you want to filter?");
+                    string filter = Console.ReadLine() ?? "";
+                    // Upcoming Filter function
+                    ShowMenu();
+                    break;
+                case 4:
                     Console.WriteLine("What is the Dish name?");
-                    string dish_name = Console.ReadLine();
-                    if (dish_name == null || dish_name == ""){
-                        dish_name = "Unknown";
-                    }
+                    string dish_name = Console.ReadLine() ?? "Unknown";
+                    
                     Console.WriteLine("What is the Dish Description?");
-                    string dish_description = Console.ReadLine();
-                    if (dish_description == null || dish_description == ""){
-                        dish_description = "Unknown";
-                    }
+                    string dish_description = Console.ReadLine() ?? "Unknown";
+                   
                     Console.WriteLine("What is the Dish price?");
-                    double dish_price = Convert.ToDouble(Console.ReadLine());
-                    if (dish_price == null || dish_price == 0){
-                        dish_price = 0.0;
-                    }
+                    double dish_price = Convert.ToDouble(Console.ReadLine() ?? "0");
+
                     Console.WriteLine("What is the Dish Type?");
                     string dish_type = Console.ReadLine();
                     if (dish_type == null || dish_type == ""){
@@ -47,19 +53,15 @@ public class Menu
                     }
                     menu.Add(dish_name, dish_description, dish_price, dish_type);
                     break;
-                case 3:
+                case 5:
                     Console.WriteLine("Which Dish do you want to remove? (Give the name of the dish)");
                     string? remove_dish = Console.ReadLine();
                     menu.Delete(remove_dish);
                     break;
-                case 4:
+                case 6:
                     menu.Update();
                     break;
-                case 5:
-                    Console.WriteLine("Here is a list of all the pre orders that were made");
-                    inventory.ShowPreOrders();
-                    break;
-                case 6:
+                case 7:
                     Console.WriteLine("Goodbye!");
                     UI.Start();
                     break;

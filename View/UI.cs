@@ -17,7 +17,7 @@ static class UI
             Console.WriteLine("Enter 1 to login");
         }   
         Console.WriteLine("Enter 2 to See the menu {Still work in progress}");
-
+        Console.WriteLine("Enter 3 Reservation");
         string input = Console.ReadLine();
         if (input == "1")
         {
@@ -35,6 +35,9 @@ static class UI
         {
             Menu menu = new Menu();
             menu.Start();
+        }
+        else if(input == "3"){
+            ReservationModule.initReserve();
         }
         else
         {
