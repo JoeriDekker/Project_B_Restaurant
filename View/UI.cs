@@ -6,13 +6,30 @@ static class UI
     //You could edit this to show different menus depending on the user's role
     static public void Start()
     {
-        Console.WriteLine("Enter 1 to login");
+        if (UserLogin.loggedIn == true)
+        {
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.WriteLine("Enter 1 to login", Console.ForegroundColor);
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+        else
+        {
+            Console.WriteLine("Enter 1 to login");
+        }   
         Console.WriteLine("Enter 2 to See the menu {Still work in progress}");
 
         string input = Console.ReadLine();
         if (input == "1")
         {
-            UserLogin.Start();
+            if (UserLogin.loggedIn == true)
+            {
+                Console.WriteLine("You are already logged in.");
+                Start();
+            }
+            else
+            {
+                UserLogin.Start();
+            }
         }
         else if (input == "2")
         {
