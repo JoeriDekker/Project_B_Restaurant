@@ -62,6 +62,9 @@ public class Menu
                     menu.Update();
                     break;
                 case 7:
+                    inventory.ShowPreOrders();
+                    break;
+                case 8:
                     Console.WriteLine("Goodbye!");
                     UI.Start();
                     break;
