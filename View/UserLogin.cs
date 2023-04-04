@@ -1,6 +1,7 @@
 static class UserLogin
 {
     static private AccountsLogic accountsLogic = new AccountsLogic();
+    static public bool loggedIn = false;
 
 
     public static void Start()
@@ -15,7 +16,8 @@ static class UserLogin
         {
             Console.WriteLine("Welcome back " + acc.FullName);
             Console.WriteLine("Your email number is " + acc.EmailAddress);
-
+            loggedIn = true;
+            UI.Start();
             //Write some code to go back to the menu
             //Menu.Start();
         }
