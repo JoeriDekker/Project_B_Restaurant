@@ -9,17 +9,19 @@ static class MenuAccess{
         {
             string json = reader.ReadToEnd();
             List<Dish> dishes = JsonSerializer.Deserialize<List<Dish>>(json);
-            return dishes ?? new List<Dish>(); // assign the deserialized list to _dishes or an empty list if the deserialized value is null
+            if (string.IsNullOrWhiteSpace(json)){
+                return new List<Dish>();
+            }
+            else{
+                return dishes ?? new List<Dish>();
+            }
         }
     }
 
-    static public void SaveMenu(List<Dish> _dishes)
+    public static void SaveMenu(List<Dish> _dishes)
     {
-        string json = JsonSerializer.Serialize(_dishes);
-
-        using (StreamWriter writer = new StreamWriter(path))
-        {
-            writer.Write(json);
-        }
+        var options = new JsonSerializerOptions { WriteIndented = true };
+        string json = JsonSerializer.Serialize(_dishes, options);
+        File.WriteAllText(path, json);
     }
 }

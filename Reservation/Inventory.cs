@@ -16,7 +16,7 @@ public class Inventory
     public void Showinventory(){
             foreach (Dish dish in _dishes)
             {
-                Console.WriteLine($"- {dish.Name}: {dish.Ingredients}");
+                Console.WriteLine($"- {dish.Name}: ");
             }
         }
 }

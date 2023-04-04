@@ -38,7 +38,12 @@ public class Menu
                     if (dish_price == null || dish_price == 0){
                         dish_price = 0.0;
                     }
-                    menu.Add(dish_name, dish_description, dish_price);
+                    Console.WriteLine("What is the Dish Type?");
+                    string dish_type = Console.ReadLine();
+                    if (dish_type == null || dish_type == ""){
+                        dish_type = "Unknown";
+                    }
+                    menu.Add(dish_name, dish_description, dish_price, dish_type);
                     break;
                 case 3:
                     Console.WriteLine("Which Dish do you want to remove? (Give the name of the dish)");
@@ -63,7 +68,8 @@ public class Menu
     public void ShowMenu(){
         foreach (Dish dish in menu.GetMenu())
         {
-            Console.WriteLine($"- {dish.Name}: {dish.Description} (${dish.Price})");
+            Console.WriteLine($"- {dish.Name}: {dish.Type} (${dish.Price})");
+            Console.WriteLine($" - {dish.Description}");
         }
     }
    

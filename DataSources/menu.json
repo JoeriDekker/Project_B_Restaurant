@@ -1,1 +1,20 @@
-[{"Name":"Burger","Description":"Cheesy burger","Price":3,"Ingredients":[]},{"Name":"KipCorn","Description":"Heerlijke kip","Price":3.67,"Ingredients":[]},{"Name":"Kip20","Description":"MAC kip 20","Price":7,"Ingredients":[]},{"Name":"Zalm","Description":"Zalm, Patat","Price":15.99,"Ingredients":[]}]
+[
+  {
+    "Name": "Test1",
+    "Description": "Unknown",
+    "Price": 2,
+    "Type": "Unknown",
+    "InStock": true,
+    "PreOderAmount": 0,
+    "MaxAmountPreOrder": 3
+  },
+  {
+    "Name": "Cheese Burger",
+    "Description": "Burger, Cheese, Sauce",
+    "Price": 15.32,
+    "Type": "Meat",
+    "InStock": true,
+    "PreOderAmount": 0,
+    "MaxAmountPreOrder": 3
+  }
+]
