@@ -1,15 +1,40 @@
 using System.Text.Json;
-public class Menu 
+public class MenuUI : UI
 {
     private static MenuController menu = new MenuController();
     private static InventoryController inventory = new InventoryController();
-    public void Start(){
-          // it is still all here bc i have to make an MVC format for the menu
-        
-        
+
+    public override string Header
+    {
+        get => @"
+      __  __                  
+     |  \/  |                 
+     | \  / | ___ _ __  _   _ 
+     | |\/| |/ _ \ '_ \| | | |
+     | |  | |  __/ | | | |_| |
+     |_|  |_|\___|_| |_|\__,_|
+    ==========================";
+    }
+
+    public MenuUI(string[] menuItems) : base(menuItems)
+    {
+    }
+
+    public override void ShowUI()
+    {
+        Console.WriteLine(Header);
+        Console.WriteLine("What do you want to do?");
+        for (int i = 0; i < MenuItems.Length; i++)
+        {
+            Console.WriteLine($"{i + 1}: {MenuItems[i]}");
+        }
+    }
+
+    public void Start()
+    {
         while (true)
         {
-            
+
             Console.WriteLine("What do you want to do?");
             Console.WriteLine("1: Show Menu");
             Console.WriteLine("2: Sort Menu // still in progress");
@@ -18,22 +43,25 @@ public class Menu
             {
                 Console.WriteLine("4: Exit");
             }
-            else{
-                if (AccountsLogic.CurrentAccount.Type == "Customer"){
+            else
+            {
+                if (AccountsLogic.CurrentAccount.Type == "Customer")
+                {
                     Console.WriteLine("4: Exit");
                 }
             }
-            
-            if (UserLogin.loggedIn == true )
+
+            if (UserLogin.loggedIn == true)
             {
-                if (AccountsLogic.CurrentAccount.Type == "Admin" ){
+                if (AccountsLogic.CurrentAccount.Type == "Admin")
+                {
                     Console.WriteLine("4: Add a Dish");
                     Console.WriteLine("5: Remove a Dish");
                     Console.WriteLine("6: Change a Dish");
                     Console.WriteLine("7: Show PreOrders");
                     Console.WriteLine("8: Exit");
                 }
-            
+
             }
             int choice = Convert.ToInt32(Console.ReadLine());
 
@@ -53,30 +81,32 @@ public class Menu
                     ShowMenu();
                     break;
                 case 4:
-                    if (UserLogin.loggedIn == false || AccountsLogic.CurrentAccount.Type == "Customer" )
+                    if (UserLogin.loggedIn == false || AccountsLogic.CurrentAccount.Type == "Customer")
                     {
                         OpeningUI.Start();
                         break;
                     }
-                    else{
-                         Console.WriteLine("What is the Dish name?");
+                    else
+                    {
+                        Console.WriteLine("What is the Dish name?");
                         string dish_name = Console.ReadLine() ?? "Unknown";
-                        
+
                         Console.WriteLine("What is the Dish Description?");
                         string dish_description = Console.ReadLine() ?? "Unknown";
-                    
+
                         Console.WriteLine("What is the Dish price?");
                         double dish_price = Convert.ToDouble(Console.ReadLine() ?? "0");
 
                         Console.WriteLine("What is the Dish Type?");
                         string dish_type = Console.ReadLine();
-                        if (dish_type == null || dish_type == ""){
+                        if (dish_type == null || dish_type == "")
+                        {
                             dish_type = "Unknown";
                         }
                         menu.Add(dish_name, dish_description, dish_price, dish_type);
                         break;
                     }
-                   
+
                 case 5:
                     Console.WriteLine("Which Dish do you want to remove? (Give the name of the dish)");
                     string? remove_dish = Console.ReadLine();
@@ -96,15 +126,16 @@ public class Menu
                     break;
             }
             Console.WriteLine();
-        }    
+        }
     }
 
-    public void ShowMenu(){
+    public void ShowMenu()
+    {
         foreach (Dish dish in menu.GetMenu())
         {
             Console.WriteLine($"- {dish.Name}: {dish.Type} (${dish.Price})");
             Console.WriteLine($" - {dish.Description}");
         }
     }
-   
+
 }

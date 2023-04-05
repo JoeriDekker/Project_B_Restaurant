@@ -5,13 +5,26 @@ class OpeningUI : UI
     //You could edit this to show different menus depending on the user's role
 
     // logic not completely refactored yet.
+    public override string Header
+    {
+        get => @"
+     __          __  _                          
+     \ \        / / | |                         
+      \ \  /\  / /__| | ___ ___  _ __ ___   ___ 
+       \ \/  \/ / _ \ |/ __/ _ \| '_ ` _ \ / _ \
+        \  /\  /  __/ | (_| (_) | | | | | |  __/
+         \/  \/ \___|_|\___\___/|_| |_| |_|\___|
+    =============================================
+    ";
+    }
     public OpeningUI(string[] menuItems) : base(menuItems)
     {
 
     }
 
-    public override void ShowMenu()
+    public override void ShowUI()
     {
+        Console.WriteLine(Header);
         for (int i = 0; i < MenuItems.Length; i++)
         {
             Console.WriteLine($"Enter {i + 1} to {MenuItems[i]}");
@@ -19,11 +32,11 @@ class OpeningUI : UI
     }
 
     // Could add validation to input, or seperate function
-    public override string GetInput() => Console.ReadLine() ?? string.Empty;
 
-    static public void Start()
+    public static void Start()
     {
-        Console.WriteLine(Header("menu"));
+        OpeningUI opening = UIFactory.CreateOpeningUI();
+        Console.WriteLine(opening.Header);
         if (UserLogin.loggedIn == true)
         {
             Console.ForegroundColor = ConsoleColor.DarkGray;
@@ -41,7 +54,8 @@ class OpeningUI : UI
             Console.WriteLine("Enter 3 Reservation");
             Console.WriteLine("Enter 4 Leave");
         }
-        else{
+        else
+        {
             Console.WriteLine("Enter 3 Leave");
         }
 
@@ -60,20 +74,21 @@ class OpeningUI : UI
         }
         else if (input == "2")
         {
-            Menu menu = new Menu();
+            MenuUI menu = UIFactory.CreateMenuUI();
             menu.Start();
         }
         else if (input == "3")
         {
             if (UserLogin.loggedIn == true)
             {
-                ReservationModule.initReserve();
+                ReservationUI.initReserve();
             }
-            else{
+            else
+            {
                 Console.WriteLine("Goodbye!");
-                
+
             }
-            
+
         }
         else if (input == "4")
         {
