@@ -3,6 +3,8 @@
 
 class AccountModel
 {
+    private string _password;
+
     [JsonPropertyName("id")]
     public int Id { get; set; }
 
@@ -10,7 +12,11 @@ class AccountModel
     public string EmailAddress { get; set; }
 
     [JsonPropertyName("password")]
-    public string Password { get; set; }
+    public string Password
+    {
+        get => AccountsLogic.Encrypt(_password);
+        set => _password = AccountsLogic.Encrypt(value);
+    }
 
     [JsonPropertyName("fullName")]
     public string FullName { get; set; }
@@ -27,7 +33,3 @@ class AccountModel
         Type = type;
     }
 }
-
-
-
-
