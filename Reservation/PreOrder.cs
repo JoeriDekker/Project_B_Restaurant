@@ -38,6 +38,7 @@ public class PreOrder
                             else
                             {
                                 Console.WriteLine("Thank you for making a pre order. Your total amount will be: "); //need to add prices/total amount.
+                                break;
                             }
                         }
                     }

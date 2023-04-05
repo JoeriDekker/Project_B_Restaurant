@@ -1,14 +1,16 @@
-abstract class UI
+public abstract class UI
 {
-    // Idea of design for an abstract UI. Check openingUI for example.
-    public string[] MenuItems;
+    // Idea of design for an abstract UI. Check OpeningUI for example.
+    public string[] MenuItems { get; set; }
 
     public UI(string[] menuItems)
     {
-        MenuItems = menuItems; 
+        MenuItems = menuItems;
     }
 
-    public abstract void ShowMenu();
+    public abstract void ShowUI();
 
-    public abstract string GetInput();
+    public string GetInput() => Console.ReadLine() ?? string.Empty;
+    
+    public abstract string Header { get; }
 }

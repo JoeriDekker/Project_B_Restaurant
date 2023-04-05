@@ -5,13 +5,26 @@ class OpeningUI : UI
     //You could edit this to show different menus depending on the user's role
 
     // logic not completely refactored yet.
-    public OpeningUI(string[] menuOptions) : base(menuOptions)
+    public override string Header
+    {
+        get => @"
+     __          __  _                          
+     \ \        / / | |                         
+      \ \  /\  / /__| | ___ ___  _ __ ___   ___ 
+       \ \/  \/ / _ \ |/ __/ _ \| '_ ` _ \ / _ \
+        \  /\  /  __/ | (_| (_) | | | | | |  __/
+         \/  \/ \___|_|\___\___/|_| |_| |_|\___|
+    =============================================
+    ";
+    }
+    public OpeningUI(string[] menuItems) : base(menuItems)
     {
 
     }
 
-    public override void ShowMenu()
+    public override void ShowUI()
     {
+        Console.WriteLine(Header);
         for (int i = 0; i < MenuItems.Length; i++)
         {
             Console.WriteLine($"Enter {i + 1} to {MenuItems[i]}");
@@ -19,10 +32,11 @@ class OpeningUI : UI
     }
 
     // Could add validation to input, or seperate function
-    public override string GetInput() => Console.ReadLine() ?? string.Empty;
 
-    static public void Start()
+    public static void Start()
     {
+        OpeningUI opening = UIFactory.CreateOpeningUI();
+        Console.WriteLine(opening.Header);
         if (UserLogin.loggedIn == true)
         {
             Console.ForegroundColor = ConsoleColor.DarkGray;
@@ -33,8 +47,18 @@ class OpeningUI : UI
         {
             Console.WriteLine("Enter 1 to login");
         }
-        Console.WriteLine("Enter 2 to See the menu {Still work in progress}");
-        Console.WriteLine("Enter 3 Reservation");
+        Console.WriteLine("Enter 2 to See the menu");
+        // For Demo
+        if (UserLogin.loggedIn == true)
+        {
+            Console.WriteLine("Enter 3 Reservation");
+            Console.WriteLine("Enter 4 Leave");
+        }
+        else
+        {
+            Console.WriteLine("Enter 3 Leave");
+        }
+
         string input = Console.ReadLine();
         if (input == "1")
         {
@@ -50,12 +74,26 @@ class OpeningUI : UI
         }
         else if (input == "2")
         {
-            Menu menu = new Menu();
+            MenuUI menu = UIFactory.CreateMenuUI();
             menu.Start();
         }
         else if (input == "3")
         {
-            ReservationModule.initReserve();
+            if (UserLogin.loggedIn == true)
+            {
+                ReservationUI.initReserve();
+            }
+            else
+            {
+                Console.WriteLine("Goodbye!");
+
+            }
+
+        }
+        else if (input == "4")
+        {
+            Console.WriteLine("Goodbye!");
+            Environment.Exit(0);
         }
         else
         {

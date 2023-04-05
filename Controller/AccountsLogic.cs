@@ -58,21 +58,20 @@ class AccountsLogic
         CurrentAccount = _accounts.Find(i => i.EmailAddress == email && i.Password == password);
         return CurrentAccount;
     }
-        public void Encrypt(AccountModel acc)
+    public static string Encrypt(string password)
     {
         string secret_key = "Imnotverysecret";
 
-        byte[] key = Encoding.UTF8.GetBytes(acc.Password);
+        byte[] key = Encoding.UTF8.GetBytes(password);
         byte[] secret = Encoding.UTF8.GetBytes(secret_key);
 
         // XOR the key and secret key
-        for(int i = 0; i < key.Length; i++)
+        for (int i = 0; i < key.Length; i++)
         {
             key[i] = (byte)(key[i] ^ secret[i % secret.Length]);
         }
-
-        // Set the password to the encrypted key
-        acc.Password = Encoding.UTF8.GetString(key);
+        // return the password
+        return Convert.ToBase64String(key);
     }
 }
 
