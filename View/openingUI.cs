@@ -23,7 +23,7 @@ class OpeningUI : UI
 
     static public void Start()
     {
-        Console.WriteLine(Header("Menu"));
+        Console.WriteLine(Header("menu"));
         if (UserLogin.loggedIn == true)
         {
             Console.ForegroundColor = ConsoleColor.DarkGray;
@@ -34,8 +34,17 @@ class OpeningUI : UI
         {
             Console.WriteLine("Enter 1 to login");
         }
-        Console.WriteLine("Enter 2 to See the menu {Still work in progress}");
-        Console.WriteLine("Enter 3 Reservation");
+        Console.WriteLine("Enter 2 to See the menu");
+        // For Demo
+        if (UserLogin.loggedIn == true)
+        {
+            Console.WriteLine("Enter 3 Reservation");
+            Console.WriteLine("Enter 4 Leave");
+        }
+        else{
+            Console.WriteLine("Enter 3 Leave");
+        }
+
         string input = Console.ReadLine();
         if (input == "1")
         {
@@ -56,7 +65,20 @@ class OpeningUI : UI
         }
         else if (input == "3")
         {
-            ReservationModule.initReserve();
+            if (UserLogin.loggedIn == true)
+            {
+                ReservationModule.initReserve();
+            }
+            else{
+                Console.WriteLine("Goodbye!");
+                
+            }
+            
+        }
+        else if (input == "4")
+        {
+            Console.WriteLine("Goodbye!");
+            Environment.Exit(0);
         }
         else
         {

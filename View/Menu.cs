@@ -9,16 +9,32 @@ public class Menu
         
         while (true)
         {
+            
             Console.WriteLine("What do you want to do?");
             Console.WriteLine("1: Show Menu");
             Console.WriteLine("2: Sort Menu // still in progress");
             Console.WriteLine("3: Filter Menu // still in progress");
-            Console.WriteLine("4: Add a Dish");
-            Console.WriteLine("5: Remove a Dish");
-            Console.WriteLine("6: Change a Dish");
-            Console.WriteLine("7: Show PreOrders");
-            Console.WriteLine("8: Exit");
-
+            if (UserLogin.loggedIn == false)
+            {
+                Console.WriteLine("4: Exit");
+            }
+            else{
+                if (AccountsLogic.CurrentAccount.Type == "Customer"){
+                    Console.WriteLine("4: Exit");
+                }
+            }
+            
+            if (UserLogin.loggedIn == true )
+            {
+                if (AccountsLogic.CurrentAccount.Type == "Admin" ){
+                    Console.WriteLine("4: Add a Dish");
+                    Console.WriteLine("5: Remove a Dish");
+                    Console.WriteLine("6: Change a Dish");
+                    Console.WriteLine("7: Show PreOrders");
+                    Console.WriteLine("8: Exit");
+                }
+            
+            }
             int choice = Convert.ToInt32(Console.ReadLine());
 
             switch (choice)
@@ -37,22 +53,30 @@ public class Menu
                     ShowMenu();
                     break;
                 case 4:
-                    Console.WriteLine("What is the Dish name?");
-                    string dish_name = Console.ReadLine() ?? "Unknown";
-                    
-                    Console.WriteLine("What is the Dish Description?");
-                    string dish_description = Console.ReadLine() ?? "Unknown";
-                   
-                    Console.WriteLine("What is the Dish price?");
-                    double dish_price = Convert.ToDouble(Console.ReadLine() ?? "0");
-
-                    Console.WriteLine("What is the Dish Type?");
-                    string dish_type = Console.ReadLine();
-                    if (dish_type == null || dish_type == ""){
-                        dish_type = "Unknown";
+                    if (UserLogin.loggedIn == false || AccountsLogic.CurrentAccount.Type == "Customer" )
+                    {
+                        OpeningUI.Start();
+                        break;
                     }
-                    menu.Add(dish_name, dish_description, dish_price, dish_type);
-                    break;
+                    else{
+                         Console.WriteLine("What is the Dish name?");
+                        string dish_name = Console.ReadLine() ?? "Unknown";
+                        
+                        Console.WriteLine("What is the Dish Description?");
+                        string dish_description = Console.ReadLine() ?? "Unknown";
+                    
+                        Console.WriteLine("What is the Dish price?");
+                        double dish_price = Convert.ToDouble(Console.ReadLine() ?? "0");
+
+                        Console.WriteLine("What is the Dish Type?");
+                        string dish_type = Console.ReadLine();
+                        if (dish_type == null || dish_type == ""){
+                            dish_type = "Unknown";
+                        }
+                        menu.Add(dish_name, dish_description, dish_price, dish_type);
+                        break;
+                    }
+                   
                 case 5:
                     Console.WriteLine("Which Dish do you want to remove? (Give the name of the dish)");
                     string? remove_dish = Console.ReadLine();
@@ -65,7 +89,6 @@ public class Menu
                     inventory.ShowPreOrders();
                     break;
                 case 8:
-                    Console.WriteLine("Goodbye!");
                     OpeningUI.Start();
                     break;
                 default:

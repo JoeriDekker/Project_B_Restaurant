@@ -8,9 +8,16 @@
   },
   {
     "id": 2,
-    "emailAddress": "t@b.c",
-    "password": "xyz",
-    "fullName": "Thomas Edison",
+    "emailAddress": "test",
+    "password": "test",
+    "fullName": "Nikola Tesla",
+    "type": "Customer"
+  },
+  {
+    "id": 3,
+    "emailAddress": "admin",
+    "password": "admin",
+    "fullName": "Nikola Tesla",
     "type": "Admin"
   }
 ]

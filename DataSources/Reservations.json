@@ -40,5 +40,12 @@
     "R_time": "sdsda",
     "R_TableID": 3,
     "P_Amount": 6
+  },
+  {
+    "R_Id": 7,
+    "Contact": "Henk",
+    "R_time": "TIME C",
+    "R_TableID": 3,
+    "P_Amount": 2
   }
 ]

@@ -9,12 +9,21 @@ public static class ReservationModule
 
         // Reservation Menu
         while (true)
-        {
-            Console.WriteLine($@"[1] Create Reservation
-[2] Show all Reservations
-[3] Find Reservation by reservation ID
-[4] Find Reservation by table ID
-            ");
+        {   
+            Console.WriteLine("[1] Create Reservation");
+            if (AccountsLogic.CurrentAccount.Type == "Customer" ){
+                Console.WriteLine("[2] Go Back");
+            }
+            if (AccountsLogic.CurrentAccount.Type == "Admin" ){
+            Console.WriteLine("[2] Show all Reservations");
+            Console.WriteLine("[3] Find Reservation by reservation ID");
+            Console.WriteLine("[4] Find Reservation by table ID");
+            }
+            // Console.WriteLine($@"[1] Create Reservation
+            //     [2] Show all Reservations
+            //     [3] Find Reservation by reservation ID
+            //     [4] Find Reservation by table ID
+            // ");
             string userInp = Console.ReadLine();
             // No error handling : 2444VIK
             if (userInp == "1")
@@ -29,8 +38,12 @@ public static class ReservationModule
             }
             else if (userInp == "2")
             {
-                RLogic.GetAllReservations();
-
+                if (AccountsLogic.CurrentAccount.Type == "Admin" ){
+                    RLogic.GetAllReservations();
+                }
+                else{
+                    OpeningUI.Start();
+                }
             }
             else if (userInp == "3")
             {
