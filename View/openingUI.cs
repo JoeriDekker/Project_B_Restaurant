@@ -5,7 +5,7 @@ class OpeningUI : UI
     //You could edit this to show different menus depending on the user's role
 
     // logic not completely refactored yet.
-    public OpeningUI(string[] menuOptions) : base(menuOptions)
+    public OpeningUI(string[] menuItems) : base(menuItems)
     {
 
     }
@@ -23,6 +23,7 @@ class OpeningUI : UI
 
     static public void Start()
     {
+        Console.WriteLine(Header("Menu"));
         if (UserLogin.loggedIn == true)
         {
             Console.ForegroundColor = ConsoleColor.DarkGray;
