@@ -12,7 +12,7 @@ public class InventoryController
     {
        foreach (Dish dish in _dishes)
        {
-            Console.WriteLine($"Dish: {dish.Name}\nPre Order Amount: {dish.PreOrderAmount}\n");
+            Console.WriteLine($"Dish: {dish.Name}\nPre Order Amount: {dish.PreOrderAmount}");
        }
     }
 }
