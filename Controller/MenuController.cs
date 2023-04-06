@@ -12,9 +12,9 @@ public class MenuController
     }
 
 
-    public void Add(string dish_name, string dish_description, double dish_price, string dish_type)
+    public void Add(string dish_name, string dish_ingredients, string dish_allergies, double dish_price, string dish_type)
     {
-        Dish new_dish = new Dish(dish_name, dish_description, dish_price, dish_type);
+        Dish new_dish = new Dish(dish_name, dish_ingredients, dish_allergies, dish_price, dish_type);
         _dishes.Add(new_dish);
         MenuAccess.SaveMenu(_dishes);
     }
@@ -58,11 +58,12 @@ public class MenuController
                 while (true){
                     Console.WriteLine("What do you want to change?");
                     Console.WriteLine("1: Change Name");
-                    Console.WriteLine("2: Change Description");
-                    Console.WriteLine("3: Change Price");
-                    Console.WriteLine("4: Change Type");
-                    Console.WriteLine("5: Change Max amount of pre-order");
-                    Console.WriteLine("6: Save Changes");
+                    Console.WriteLine("2: Change Ingredients");
+                    Console.WriteLine("3: Change Ingredients");
+                    Console.WriteLine("4: Change Price");
+                    Console.WriteLine("5: Change Type");
+                    Console.WriteLine("6: Change Max amount of pre-order");
+                    Console.WriteLine("7: Save Changes");
                     int choosed_number = Convert.ToInt32(Console.ReadLine());
                     if (choosed_number == 1){
                         Console.WriteLine("What is the new dish name?");
@@ -70,26 +71,31 @@ public class MenuController
                         dish.Name = new_dish_name;
                     }
                     else if (choosed_number == 2){
-                        Console.WriteLine("What is the new dish description?");
-                        string? new_dish_description = Console.ReadLine();
-                        dish.Description = new_dish_description;
+                        Console.WriteLine("What are the updated ingredients?");
+                        string? new_dish_ingredients = Console.ReadLine();
+                        dish.Ingredients = new_dish_ingredients;
                     }
                     else if (choosed_number == 3){
+                        Console.WriteLine("What are the updated allergies?");
+                        string? new_dish_allergies = Console.ReadLine();
+                        dish.Allergies = new_dish_allergies;
+                    }
+                    else if (choosed_number == 4){
                         Console.WriteLine("What is the new dish price?");
                         double new_dish_price = Convert.ToDouble(Console.ReadLine());
                         dish.Price = new_dish_price;
                     }
-                    else if (choosed_number == 4){
+                    else if (choosed_number == 5){
                         Console.WriteLine("What is the new dish type?");
                         string? new_dish_type = Console.ReadLine();
                         dish.Type = new_dish_type;
                     }
-                    else if (choosed_number == 5){
+                    else if (choosed_number == 6){
                         Console.WriteLine("What is the new Max amount of pre-order?");
                         int new_max_preoder = Convert.ToInt32(Console.ReadLine());
                         dish.MaxAmountPreOrder = new_max_preoder;
                     }
-                    else if (choosed_number == 6){
+                    else if (choosed_number == 7){
                         MenuAccess.SaveMenu(_dishes);
                         break;
                     }

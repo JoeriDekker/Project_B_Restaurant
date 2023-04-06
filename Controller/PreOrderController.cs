@@ -11,7 +11,7 @@ public class PreOrderController
     public void PreOrderDishes(){
         foreach (Dish dish in _dishes)
         {
-            Console.WriteLine($"- {dish.Name}\n{dish.Description}\n{dish.Price}");
+            Console.WriteLine($"- {dish.Name}\n{dish.Ingredients}\n{dish.Price}");
         }
         Console.WriteLine("Please type here which dish you want to pre order:\n");
         string? preOrderDish = Console.ReadLine();

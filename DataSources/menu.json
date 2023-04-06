@@ -1,7 +1,8 @@
 [
   {
     "Name": "Test1",
-    "Description": "Unknown",
+    "Ingredients": null,
+    "Allergies": null,
     "Price": 2,
     "Type": "Unknown",
     "InStock": true,
@@ -10,9 +11,20 @@
   },
   {
     "Name": "Cheese Burger",
-    "Description": "Burger, Cheese, Sauce",
+    "Ingredients": null,
+    "Allergies": null,
     "Price": 15.32,
     "Type": "Meat",
+    "InStock": true,
+    "PreOrderAmount": 0,
+    "MaxAmountPreOrder": 3
+  },
+  {
+    "Name": "Test",
+    "Ingredients": "kip, noten, hout",
+    "Allergies": "kip",
+    "Price": 23,
+    "Type": "Head",
     "InStock": true,
     "PreOrderAmount": 0,
     "MaxAmountPreOrder": 3

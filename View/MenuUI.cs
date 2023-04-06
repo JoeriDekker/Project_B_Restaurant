@@ -90,8 +90,11 @@ public class MenuUI : UI
                         Console.WriteLine("What is the Dish name?");
                         string dish_name = Console.ReadLine() ?? "Unknown";
 
-                        Console.WriteLine("What is the Dish Description?");
-                        string dish_description = Console.ReadLine() ?? "Unknown";
+                        Console.WriteLine("What are the Dish ingedients?");
+                        string dish_ingredients = Console.ReadLine() ?? "Unknown";
+
+                        Console.WriteLine("What are the Dish allergies?");
+                        string dish_allergies = Console.ReadLine() ?? "Unknown";
 
                         Console.WriteLine("What is the Dish price?");
                         double dish_price = Convert.ToDouble(Console.ReadLine() ?? "0");
@@ -102,7 +105,7 @@ public class MenuUI : UI
                         {
                             dish_type = "Unknown";
                         }
-                        menu.Add(dish_name, dish_description, dish_price, dish_type);
+                        menu.Add(dish_name, dish_ingredients, dish_allergies, dish_price, dish_type);
                         break;
                     }
 
@@ -133,7 +136,7 @@ public class MenuUI : UI
         foreach (Dish dish in menu.GetMenu())
         {
             Console.WriteLine($"- {dish.Name}: {dish.Type} (${dish.Price})");
-            Console.WriteLine($" - {dish.Description}");
+            Console.WriteLine($" - {dish.Ingredients}");
         }
     }
 
