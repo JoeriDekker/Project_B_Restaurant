@@ -4,8 +4,10 @@ public class PreOrder
 {
     private static MenuController menu = new MenuController();
     private static InventoryController inventory = new InventoryController();
-    private static PreOrderController preOrder = new PreOrderController();
+    private static PreOrderController preOrderController = new PreOrderController();
     private List<Dish> _dishes = new List<Dish>();
+    // lijst aan pre order dishes die de gebruiker heeft gekozen
+    private List<Dish> preOrders = new List<Dish>();
     public void Start()
     {
         while (true)
@@ -25,19 +27,31 @@ public class PreOrder
                     string? preOrderAnswer = Console.ReadLine();
                     if (preOrderAnswer == "dishes")
                     {
-                        preOrder.PreOrderDishes();
-                        
+                        //toevoegen aan de pre order lijst
+                        preOrders.Add(preOrderController.PreOrderDishes());
+                                              
                         while (true)
                         {
                             Console.WriteLine("Do you want to pre order more? yes/no");
                             string morePreOrder = Console.ReadLine().ToLower();
                             if (morePreOrder == "yes")
                             {
-                                preOrder.PreOrderDishes();
+                                //toevoegen aan de pre order lijst
+                                preOrders.Add(preOrderController.PreOrderDishes());
                             }
                             else
-                            {
-                                Console.WriteLine("Thank you for making a pre order. Your total amount will be: "); //need to add prices/total amount.
+                            {  
+                                double price = 0;
+                                foreach (Dish dish in preOrders)
+                                {
+                                    //laat naam van pre ordered dishes en prijzen zien
+                                    Console.WriteLine(String.Format("{0,20} {1,6}", dish.Name, dish.Price));
+                                    price += dish.Price;
+                                }
+                                //laat totale prijs zien door alle prijzen op te tellen van de gekozen dishes
+                                Console.WriteLine($"Thank you for making a pre order. Your total amount will be: {price}");
+                                //reset lijst
+                                preOrders.Clear(); 
                                 break;
                             }
                         }
