@@ -25,6 +25,8 @@ static class UIFactory
 
     // OpeningUI options:
     private static string[] OpeningGuestOptions = { Login, ContinueAsGuest, Exit };
+    private static string[] OpeningAdminOptions = { Login, ContinueAsGuest, Exit };
+    private static string[] OpeningCustomerOptions = { Login, ContinueAsGuest, Exit };
 
 
     // ReservationUI constants:
@@ -35,7 +37,7 @@ static class UIFactory
 
 
     // ReservationUI options:
-    private static string[] ReservationGuestOptions = { CreateReservation, Exit };
+    private static string[] ReservationGuestOptions = { CreateReservation, Exit, };
     private static string[] ReservationCustomerOptions = { CreateReservation, Exit };
     private static string[] ReservationAdminOptions = { CreateReservation, ShowAllReservations, FindReservationByID, FindReservationByTableID, Exit };
 
@@ -57,9 +59,9 @@ static class UIFactory
         switch (Restaurant.User?.Type)
         {
             case "Customer":
-                return new(OpeningGuestOptions);
+                return new(OpeningCustomerOptions);
             case "Admin":
-                return new(OpeningGuestOptions);
+                return new(OpeningAdminOptions);
             default:
                 return new(OpeningGuestOptions);
         }

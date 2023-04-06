@@ -29,7 +29,6 @@ public class MenuUI : UI
             Console.WriteLine($"{i + 1}: {MenuItems[i]}");
         }
     }
-
     public void Start()
     {
         while (true)
