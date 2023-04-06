@@ -12,11 +12,11 @@ public class AccountModel
     public string EmailAddress { get; set; }
 
     [JsonPropertyName("password")]
-    public string Password
-    {
-        get => AccountsLogic.Encrypt(_password);
-        set => _password = AccountsLogic.Encrypt(value);
-    }
+    public string Password {get; set;}
+    // {
+    //     get => AccountsLogic.Encrypt(_password);
+    //     set => _password = AccountsLogic.Encrypt(value);
+    // }
 
     [JsonPropertyName("fullName")]
     public string FullName { get; set; }

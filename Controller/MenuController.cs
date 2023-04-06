@@ -47,70 +47,30 @@ public class MenuController
         }
     }
 
-
-    public void Update()
-    {
-        Console.WriteLine("Which Dish do you want to Change? (Give the name of the dish)");
-        string? change_dish = Console.ReadLine();
-        bool found_dish = false;
+    public Dish GetDishByName(string dish_name){
         foreach (Dish dish in _dishes){
-            if (dish.Name == change_dish){
-                while (true){
-                    Console.WriteLine("What do you want to change?");
-                    Console.WriteLine("1: Change Name");
-                    Console.WriteLine("2: Change Ingredients");
-                    Console.WriteLine("3: Change Ingredients");
-                    Console.WriteLine("4: Change Price");
-                    Console.WriteLine("5: Change Type");
-                    Console.WriteLine("6: Change Max amount of pre-order");
-                    Console.WriteLine("7: Save Changes");
-                    int choosed_number = Convert.ToInt32(Console.ReadLine());
-                    if (choosed_number == 1){
-                        Console.WriteLine("What is the new dish name?");
-                        string? new_dish_name = Console.ReadLine();
-                        dish.Name = new_dish_name;
-                    }
-                    else if (choosed_number == 2){
-                        Console.WriteLine("What are the updated ingredients?");
-                        string? new_dish_ingredients = Console.ReadLine();
-                        dish.Ingredients = new_dish_ingredients;
-                    }
-                    else if (choosed_number == 3){
-                        Console.WriteLine("What are the updated allergies?");
-                        string? new_dish_allergies = Console.ReadLine();
-                        dish.Allergies = new_dish_allergies;
-                    }
-                    else if (choosed_number == 4){
-                        Console.WriteLine("What is the new dish price?");
-                        double new_dish_price = Convert.ToDouble(Console.ReadLine());
-                        dish.Price = new_dish_price;
-                    }
-                    else if (choosed_number == 5){
-                        Console.WriteLine("What is the new dish type?");
-                        string? new_dish_type = Console.ReadLine();
-                        dish.Type = new_dish_type;
-                    }
-                    else if (choosed_number == 6){
-                        Console.WriteLine("What is the new Max amount of pre-order?");
-                        int new_max_preoder = Convert.ToInt32(Console.ReadLine());
-                        dish.MaxAmountPreOrder = new_max_preoder;
-                    }
-                    else if (choosed_number == 7){
-                        MenuAccess.SaveMenu(_dishes);
-                        break;
-                    }
-                    else{
-                        Console.WriteLine("Input error! Please enter an number");
-                    }
-                }
+            if (dish.Name == dish_name){
+                return dish;
             }
         }
-        if (!found_dish){
-            Console.WriteLine($"{change_dish} has not been found");
+        return null;
+    }
+
+    public void Update(Dish dish_item)
+    {
+        foreach (Dish dish in _dishes)
+        {
+            if (dish_item.Name == dish.Name){
+                dish.Name = dish_item.Name;
+                dish.Ingredients = dish_item.Ingredients;
+                dish.Allergies = dish_item.Allergies;
+                dish.Price = dish_item.Price;
+                dish.Type = dish_item.Type;
+                dish.InStock = dish_item.InStock;
+                dish.PreOrderAmount = dish_item.PreOrderAmount;
+                dish.MaxAmountPreOrder = dish_item.MaxAmountPreOrder;
+            }
         }
-        else{
-            MenuAccess.SaveMenu(_dishes);
-            Console.WriteLine($"{change_dish} has been updated");
-        }
+        MenuAccess.SaveMenu(_dishes);
     }
 }
