@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Linq;
 using System.Text.Json;
 
 
@@ -72,6 +73,12 @@ class AccountsLogic
         }
         // return the password
         return Convert.ToBase64String(key);
+    }
+
+    public int GetLastId()
+    {
+        AccountModel last = _accounts.Last();
+        return last.Id;
     }
 }
 

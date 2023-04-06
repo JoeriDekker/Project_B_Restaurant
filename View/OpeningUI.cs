@@ -48,6 +48,7 @@ class OpeningUI : UI
             Console.WriteLine("Enter 1 to login");
         }
         Console.WriteLine("Enter 2 to See the menu");
+        Console.WriteLine("Enter 3 to create an account");
         // For Demo
         if (UserLogin.loggedIn == true)
         {
@@ -56,7 +57,7 @@ class OpeningUI : UI
         }
         else
         {
-            Console.WriteLine("Enter 3 Leave");
+            Console.WriteLine("Enter 4 Leave");
         }
 
         string input = Console.ReadLine();
@@ -85,7 +86,7 @@ class OpeningUI : UI
             }
             else
             {
-                Console.WriteLine("Goodbye!");
+                UserLogin.CreateAccount();
 
             }
 

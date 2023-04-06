@@ -63,4 +63,45 @@ static class UserLogin
             ResetPassword();
         }
     }
+
+    public static void CreateAccount()
+    {
+        string type = "";
+        Console.WriteLine("Are you an admin or customer? \nEnter 1 for Admin \nEnter 2 for Customer");
+        string choice = Console.ReadLine();
+        if (choice == "1")
+        {
+            type = "Admin";
+        }
+        else if (choice == "2")
+        {
+            type = "Customer";
+        }
+        else
+        {
+            Console.WriteLine("Invalid input");
+            CreateAccount();
+        }
+        Console.WriteLine("What your full name?");
+        string fullName = Console.ReadLine();
+        Console.WriteLine("What is your e-mailaddress?");
+        string emailAddress = Console.ReadLine();
+        Console.WriteLine("Enter a password:");
+        string password = Console.ReadLine();
+        Console.WriteLine("Confirm your password:");
+        string confirm_password = Console.ReadLine();
+        while (password != confirm_password)
+        {
+            Console.WriteLine("Enter a password:");
+            password = Console.ReadLine();
+            Console.WriteLine("Confirm your password:");
+            confirm_password = Console.ReadLine();
+        }
+        int id = accountsLogic.GetLastId() + 1;
+        AccountModel acc = new AccountModel(id, emailAddress, password, fullName, type);
+        accountsLogic.UpdateList(acc);
+
+        Console.WriteLine("You have succesfulle created an account!");
+        OpeningUI.Start();
+    }
 }
