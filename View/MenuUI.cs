@@ -87,25 +87,7 @@ public class MenuUI : UI
                     }
                     else
                     {
-                        Console.WriteLine("What is the Dish name?");
-                        string dish_name = Console.ReadLine() ?? "Unknown";
-
-                        Console.WriteLine("What are the Dish ingedients?");
-                        string dish_ingredients = Console.ReadLine() ?? "Unknown";
-
-                        Console.WriteLine("What are the Dish allergies?");
-                        string dish_allergies = Console.ReadLine() ?? "Unknown";
-
-                        Console.WriteLine("What is the Dish price?");
-                        double dish_price = Convert.ToDouble(Console.ReadLine() ?? "0");
-
-                        Console.WriteLine("What is the Dish Type?");
-                        string dish_type = Console.ReadLine();
-                        if (dish_type == null || dish_type == "")
-                        {
-                            dish_type = "Unknown";
-                        }
-                        menu.Add(dish_name, dish_ingredients, dish_allergies, dish_price, dish_type);
+                        Add();
                         break;
                     }
 
@@ -138,6 +120,28 @@ public class MenuUI : UI
             Console.WriteLine($"- {dish.Name}: {dish.Type} (${dish.Price})");
             Console.WriteLine($" - {dish.Ingredients}");
         }
+    }
+
+    public void Add(){
+         Console.WriteLine("What is the Dish name?");
+        string dish_name = Console.ReadLine() ?? "Unknown";
+
+        Console.WriteLine("What are the Dish ingedients?");
+        string dish_ingredients = Console.ReadLine() ?? "Unknown";
+
+        Console.WriteLine("What are the Dish allergies?");
+        string dish_allergies = Console.ReadLine() ?? "Unknown";
+
+        Console.WriteLine("What is the Dish price?");
+        double dish_price = Convert.ToDouble(Console.ReadLine() ?? "0");
+
+        Console.WriteLine("What is the Dish Type?");
+        string dish_type = Console.ReadLine();
+        if (dish_type == null || dish_type == "")
+        {
+            dish_type = "Unknown";
+        }
+        menu.Add(dish_name, dish_ingredients, dish_allergies, dish_price, dish_type);
     }
 
 }
