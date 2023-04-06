@@ -92,6 +92,7 @@ static class UserLogin
         string confirm_password = Console.ReadLine();
         while (password != confirm_password)
         {
+            Console.WriteLine("The passwords do not match. Please try again.");
             Console.WriteLine("Enter a password:");
             password = Console.ReadLine();
             Console.WriteLine("Confirm your password:");
