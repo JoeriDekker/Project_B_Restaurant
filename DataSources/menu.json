@@ -4,7 +4,7 @@
     "Ingredients": null,
     "Allergies": null,
     "Price": 2,
-    "Type": "Unknown",
+    "Type": "Appetizer",
     "InStock": true,
     "PreOrderAmount": 0,
     "MaxAmountPreOrder": 3
@@ -14,7 +14,7 @@
     "Ingredients": null,
     "Allergies": null,
     "Price": 15.32,
-    "Type": "Meat",
+    "Type": "Main",
     "InStock": true,
     "PreOrderAmount": 0,
     "MaxAmountPreOrder": 3
@@ -24,7 +24,7 @@
     "Ingredients": "kip, noten, hout",
     "Allergies": "kip",
     "Price": 23,
-    "Type": "Head",
+    "Type": "Main",
     "InStock": true,
     "PreOrderAmount": 0,
     "MaxAmountPreOrder": 3

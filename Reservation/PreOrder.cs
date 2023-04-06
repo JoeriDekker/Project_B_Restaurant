@@ -42,7 +42,7 @@ public class PreOrder
                             }
                         }
                     }
-                    else if (preOrderAnswer == "course menu")//menu needs to sort type (starter, head, desert)
+                    else if (preOrderAnswer == "course menu")//menu needs to sort type (starter, main, desert)
                     {
 
                     }
