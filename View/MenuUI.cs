@@ -92,9 +92,7 @@ public class MenuUI : UI
                     }
 
                 case 5:
-                    Console.WriteLine("Which Dish do you want to remove? (Give the name of the dish)");
-                    string? remove_dish = Console.ReadLine();
-                    menu.Delete(remove_dish);
+                    Delete();
                     break;
                 case 6:
                     menu.Update();
@@ -122,6 +120,7 @@ public class MenuUI : UI
         }
     }
 
+    // Add Dish to the menu method
     public void Add(){
          Console.WriteLine("What is the Dish name?");
         string dish_name = Console.ReadLine() ?? "Unknown";
@@ -142,6 +141,12 @@ public class MenuUI : UI
             dish_type = "Unknown";
         }
         menu.Add(dish_name, dish_ingredients, dish_allergies, dish_price, dish_type);
+    }
+
+    public void Delete(){
+        Console.WriteLine("Which Dish do you want to remove? (Give the name of the dish)");
+        string? remove_dish = Console.ReadLine();
+        menu.Delete(remove_dish);
     }
 
 }
