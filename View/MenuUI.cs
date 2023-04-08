@@ -16,110 +16,57 @@ public class MenuUI : UI
     ==========================";
     }
 
-    public MenuUI(string[] menuItems) : base(menuItems)
+    public MenuUI(UI previousUI) : base(previousUI)
     {
     }
 
-    public override void ShowUI()
+    public override void CreateMenuItems()
     {
-        Console.WriteLine(Header);
-        Console.WriteLine("What do you want to do?");
-        for (int i = 0; i < MenuItems.Length; i++)
+        MenuItems.Clear();
+        Add(new MenuItem(Constants.MenuUI.SHOWMENU));
+        Add(new MenuItem(Constants.MenuUI.SORTMENU));
+        Add(new MenuItem(Constants.MenuUI.FILTERMENU));
+        Add(new MenuItem(Constants.MenuUI.ADD_DISH));
+        Add(new MenuItem(Constants.MenuUI.REMOVE_DISH));
+        Add(new MenuItem(Constants.MenuUI.UPDATE_DISH));
+        Add(new MenuItem(Constants.MenuUI.SHOW_PREORDERS));
+    }
+
+    public override void UserChoosesOption(int option)
+    {
+        switch (UserOptions[option].Name)
         {
-            Console.WriteLine($"{i + 1}: {MenuItems[i]}");
+            case Constants.MenuUI.SHOWMENU:
+                Console.WriteLine("Showing Menu");
+                break;
+            case Constants.MenuUI.SORTMENU:
+                Console.WriteLine("Sorting Menu");
+                break;
+            case Constants.MenuUI.FILTERMENU:
+                Console.WriteLine("Filtering Menu");
+                break;
+            case Constants.MenuUI.ADD_DISH:
+                Add();
+                break;
+            case Constants.MenuUI.REMOVE_DISH:
+                Console.WriteLine("Removing a Dish");
+                break;
+            case Constants.MenuUI.UPDATE_DISH:
+                Update();
+                break;
+            case Constants.MenuUI.SHOW_PREORDERS:
+                Console.WriteLine("Showing Preorders");
+                break;
+            case Constants.UI.EXIT:
+            case Constants.UI.GO_BACK:    
+                Exit();
+                break;
+            default:
+                Console.WriteLine("Invalid option");
+                Start();
+                break; 
         }
     }
-    public void Start()
-    {
-        while (true)
-        {
-
-            Console.WriteLine("What do you want to do?");
-            Console.WriteLine("1: Show Menu");
-            Console.WriteLine("2: Sort Menu // still in progress");
-            Console.WriteLine("3: Filter Menu // still in progress");
-            if (UserLogin.loggedIn == false)
-            {
-                Console.WriteLine("4: Exit");
-            }
-            else
-            {
-                if (AccountsLogic.CurrentAccount.Type == "Customer")
-                {
-                    Console.WriteLine("4: Exit");
-                }
-            }
-
-            if (UserLogin.loggedIn == true)
-            {
-                if (AccountsLogic.CurrentAccount.Type == "Admin")
-                {
-                    Console.WriteLine("4: Add a Dish");
-                    Console.WriteLine("5: Remove a Dish");
-                    Console.WriteLine("6: Change a Dish");
-                    Console.WriteLine("7: Show PreOrders");
-                    Console.WriteLine("8: Exit");
-                }
-
-            }
-            int choice = Convert.ToInt32(Console.ReadLine());
-
-            switch (choice)
-            {
-                case 1:
-                    ShowMenu();
-                    break;
-                case 2:
-                    // Upcoming Sort function
-                    ShowMenu();
-                    break;
-                case 3:
-                    Console.WriteLine("On what type do you want to filter?");
-                    string filter = Console.ReadLine() ?? "";
-                    // Upcoming Filter function
-                    ShowMenu();
-                    break;
-                case 4:
-                    if (UserLogin.loggedIn == false || AccountsLogic.CurrentAccount.Type == "Customer")
-                    {
-                        OpeningUI.Start();
-                        break;
-                    }
-                    else
-                    {
-                        Add();
-                        break;
-                    }
-
-                case 5:
-                    Delete();
-                    break;
-                case 6:
-                    Update();
-                    break;
-                case 7:
-                    inventory.ShowPreOrders();
-                    break;
-                case 8:
-                    OpeningUI.Start();
-                    break;
-                default:
-                    Console.WriteLine("Invalid choice.");
-                    break;
-            }
-            Console.WriteLine();
-        }
-    }
-
-    public void ShowMenu()
-    {
-        foreach (Dish dish in menu.GetMenu())
-        {
-            Console.WriteLine($"- {dish.Name}: {dish.Type} (${dish.Price})");
-            Console.WriteLine($" - {dish.Ingredients}");
-        }
-    }
-
     // Add Dish to the menu method
     public void Add(){
          Console.WriteLine("What is the Dish name?");
@@ -210,5 +157,97 @@ public class MenuUI : UI
         }
        
     }
-
 }
+    // public void Start()
+    // {
+    //     while (true)
+    //     {
+
+    //         Console.WriteLine("What do you want to do?");
+    //         Console.WriteLine("1: Show Menu");
+    //         Console.WriteLine("2: Sort Menu // still in progress");
+    //         Console.WriteLine("3: Filter Menu // still in progress");
+    //         if (UserLogin.loggedIn == false)
+    //         {
+    //             Console.WriteLine("4: Exit");
+    //         }
+    //         else
+    //         {
+    //             if (AccountsLogic.CurrentAccount.Type == "Customer")
+    //             {
+    //                 Console.WriteLine("4: Exit");
+    //             }
+    //         }
+
+    //         if (UserLogin.loggedIn == true)
+    //         {
+    //             if (AccountsLogic.CurrentAccount.Type == "Admin")
+    //             {
+    //                 Console.WriteLine("4: Add a Dish");
+    //                 Console.WriteLine("5: Remove a Dish");
+    //                 Console.WriteLine("6: Change a Dish");
+    //                 Console.WriteLine("7: Show PreOrders");
+    //                 Console.WriteLine("8: Exit");
+    //             }
+
+    //         }
+    //         int choice = Convert.ToInt32(Console.ReadLine());
+
+    //         switch (choice)
+    //         {
+    //             case 1:
+    //                 ShowMenu();
+    //                 break;
+    //             case 2:
+    //                 // Upcoming Sort function
+    //                 ShowMenu();
+    //                 break;
+    //             case 3:
+    //                 Console.WriteLine("On what type do you want to filter?");
+    //                 string filter = Console.ReadLine() ?? "";
+    //                 // Upcoming Filter function
+    //                 ShowMenu();
+    //                 break;
+    //             case 4:
+    //                 if (UserLogin.loggedIn == false || AccountsLogic.CurrentAccount.Type == "Customer")
+    //                 {
+    //                     OpeningUI.Start();
+    //                     break;
+    //                 }
+    //                 else
+    //                 {
+    //                     Add();
+    //                     break;
+    //                 }
+
+    //             case 5:
+    //                 Delete();
+    //                 break;
+    //             case 6:
+    //                 Update();
+    //                 break;
+    //             case 7:
+    //                 inventory.ShowPreOrders();
+    //                 break;
+    //             case 8:
+    //                 OpeningUI.Start();
+    //                 break;
+    //             default:
+    //                 Console.WriteLine("Invalid choice.");
+    //                 break;
+    //         }
+    //         Console.WriteLine();
+    //     }
+    // }
+
+    // public void ShowMenu()
+    // {
+    //     foreach (Dish dish in menu.GetMenu())
+    //     {
+    //         Console.WriteLine($"- {dish.Name}: {dish.Type} (${dish.Price})");
+    //         Console.WriteLine($" - {dish.Ingredients}");
+    //     }
+    // }
+
+
+// }

@@ -1,85 +1,85 @@
-using System.ComponentModel;
+// using System.ComponentModel;
 
-static class UIFactory
-{
-    // MenuUI constants:
-    private const string ShowMenu = "Show Menu";
-    private const string SortMenu = "Sort Menu // still in progress";
-    private const string FilterMenu = "Filter Menu // still in progress";
-    private const string AddDish = "Add a Dish";
-    private const string RemoveDish = "Remove a Dish";
-    private const string UpdateDish = "Update a Dish";
-    private const string Exit = "Exit";
-
-
-    // MenuUI options:
-    private static string[] MenuGuestOptions = { ShowMenu, SortMenu, FilterMenu, Exit };
-    private static string[] MenuCustomerOptions = { ShowMenu, SortMenu, FilterMenu, Exit };
-    private static string[] MenuAdminOptions = { ShowMenu, SortMenu, FilterMenu, AddDish, RemoveDish, UpdateDish, Exit };
+// static class UIFactory
+// {
+//     // MenuUI constants:
+//     private const string ShowMenu = "Show Menu";
+//     private const string SortMenu = "Sort Menu // still in progress";
+//     private const string FilterMenu = "Filter Menu // still in progress";
+//     private const string AddDish = "Add a Dish";
+//     private const string RemoveDish = "Remove a Dish";
+//     private const string UpdateDish = "Update a Dish";
+//     private const string Exit = "Exit";
 
 
-    // OpeningUI constants:
-    private const string Login = "Login";
-    private const string ContinueAsGuest = "Continue as Guest";
+//     // MenuUI options:
+//     private static string[] MenuGuestOptions = { ShowMenu, SortMenu, FilterMenu, Exit };
+//     private static string[] MenuCustomerOptions = { ShowMenu, SortMenu, FilterMenu, Exit };
+//     private static string[] MenuAdminOptions = { ShowMenu, SortMenu, FilterMenu, AddDish, RemoveDish, UpdateDish, Exit };
 
 
-    // OpeningUI options:
-    private static string[] OpeningGuestOptions = { Login, ContinueAsGuest, Exit };
-    private static string[] OpeningAdminOptions = { Login, ContinueAsGuest, Exit };
-    private static string[] OpeningCustomerOptions = { Login, ContinueAsGuest, Exit };
+//     // OpeningUI constants:
+//     private const string Login = "Login";
+//     private const string ContinueAsGuest = "Continue as Guest";
 
 
-    // ReservationUI constants:
-    private const string CreateReservation = "Create Reservation";
-    private const string ShowAllReservations = "Show all Reservations";
-    private const string FindReservationByID = "Find Reservation by reservation ID";
-    private const string FindReservationByTableID = "Find Reservation by table ID";
+//     // OpeningUI options:
+//     private static string[] OpeningGuestOptions = { Login, ContinueAsGuest, Exit };
+//     private static string[] OpeningAdminOptions = { Login, ContinueAsGuest, Exit };
+//     private static string[] OpeningCustomerOptions = { Login, ContinueAsGuest, Exit };
 
 
-    // ReservationUI options:
-    private static string[] ReservationGuestOptions = { CreateReservation, Exit, };
-    private static string[] ReservationCustomerOptions = { CreateReservation, Exit };
-    private static string[] ReservationAdminOptions = { CreateReservation, ShowAllReservations, FindReservationByID, FindReservationByTableID, Exit };
+//     // ReservationUI constants:
+//     private const string CreateReservation = "Create Reservation";
+//     private const string ShowAllReservations = "Show all Reservations";
+//     private const string FindReservationByID = "Find Reservation by reservation ID";
+//     private const string FindReservationByTableID = "Find Reservation by table ID";
 
-    public static MenuUI CreateMenuUI()
-    {
-        switch (Restaurant.User?.Type)
-        {
-            case "Customer":
-                return new(MenuCustomerOptions);
-            case "Admin":
-                return new(MenuAdminOptions);
-            default:
-                return new(MenuGuestOptions);
-        }
-    }
 
-    public static OpeningUI CreateOpeningUI()
-    {
-        switch (Restaurant.User?.Type)
-        {
-            case "Customer":
-                return new(OpeningCustomerOptions);
-            case "Admin":
-                return new(OpeningAdminOptions);
-            default:
-                return new(OpeningGuestOptions);
-        }
-    }
+//     // ReservationUI options:
+//     private static string[] ReservationGuestOptions = { CreateReservation, Exit, };
+//     private static string[] ReservationCustomerOptions = { CreateReservation, Exit };
+//     private static string[] ReservationAdminOptions = { CreateReservation, ShowAllReservations, FindReservationByID, FindReservationByTableID, Exit };
 
-    public static ReservationUI CreateReservationUI()
-    {
-        switch (Restaurant.User?.Type)
-        {
-            case "Customer":
-                return new(ReservationCustomerOptions);
-            case "Admin":
-                return new(ReservationAdminOptions);
-            default:
-                return new(ReservationGuestOptions);
-        }
-    }
-}
+//     public static MenuUI CreateMenuUI()
+//     {
+//         switch (Restaurant.User?.Type)
+//         {
+//             case "Customer":
+//                 return new(MenuCustomerOptions);
+//             case "Admin":
+//                 return new(MenuAdminOptions);
+//             default:
+//                 return new(MenuGuestOptions);
+//         }
+//     }
+
+//     public static OpeningUI CreateOpeningUI()
+//     {
+//         switch (Restaurant.User?.Type)
+//         {
+//             case "Customer":
+//                 return new(OpeningCustomerOptions);
+//             case "Admin":
+//                 return new(OpeningAdminOptions);
+//             default:
+//                 return new(OpeningGuestOptions);
+//         }
+//     }
+
+//     public static ReservationUI CreateReservationUI()
+//     {
+//         switch (Restaurant.User?.Type)
+//         {
+//             case "Customer":
+//                 return new(ReservationCustomerOptions);
+//             case "Admin":
+//                 return new(ReservationAdminOptions);
+//             default:
+//                 return new(ReservationGuestOptions);
+//         }
+//     }
+// }
 // enum MenuUIOptions
 // {
 //     [Description("Show Menu")]
