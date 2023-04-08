@@ -53,6 +53,9 @@ class OpeningUI : UI
             case Constants.UI.EXIT:    
                 Exit();
                 break;
+            default:
+                Console.WriteLine("Invalid input");
+                break;
         }
     }
 

@@ -1,19 +1,27 @@
 public abstract class UI
 {
     // Idea of design for an abstract UI. Each Implementation will implement its own methods to request and validate the corresponding input.
-    // The UI will also be responsible for displaying the UI, the header, populating the dictionary with the menu items,getting the input from the user
+    // The UI will be responsible for displaying the UI, the header, populating the dictionary with the menu items,getting the input from the user
     // And executing the corresponding method in the controller.
+
+    // If a screen results in its own suboptions. Make it a UI class.
     protected List<MenuItem> MenuItems { get; set; } = new();
+
+    // MenuItems mapped to 1 to MenuItems.Count
     protected Dictionary<int, MenuItem> UserOptions = new();
+
     public UI? PreviousUI { get; set; }
     public abstract string Header { get; }
 
+    // When instantiating the new UI, pass 'this' as argument.
     public UI(UI previousUI)
     {
         PreviousUI = previousUI;
         CreateMenuItems();
     }
 
+    // Add the strings as Constants in Constants.cs then create the MenuItems with those constants by implementing this function.
+    // See OpeningUI or MenuUI for example. 
     public abstract void CreateMenuItems();
 
     public void ShowUI()
@@ -29,6 +37,7 @@ public abstract class UI
         }
     }
 
+    // Gets input as int to use in the Dictionary.
     public int GetInput()
     {
         string input;
@@ -62,6 +71,7 @@ public abstract class UI
         }
     }
 
+    // Switch case the option and the Constants used in MenuItems, see OpeningUI or MenuUI for implementation.
     public abstract void UserChoosesOption(int option);
 
     public void Start()
