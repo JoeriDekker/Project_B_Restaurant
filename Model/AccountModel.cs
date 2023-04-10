@@ -12,19 +12,21 @@ public class AccountModel
     public string EmailAddress { get; set; }
 
     [JsonPropertyName("password")]
-    public string Password {get; set;}
-    // {
-    //     get => AccountsLogic.Encrypt(_password);
-    //     set => _password = AccountsLogic.Encrypt(value);
-    // }
+    public string Password
+    {
+        get => AccountsLogic.Decrypt(_password);
+        set => _password = AccountsLogic.Encrypt(value);
+    }
 
     [JsonPropertyName("fullName")]
     public string FullName { get; set; }
 
     [JsonPropertyName("type")]
-    public string Type { get; set; }
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public AccountType Type { get; set; }
 
-    public AccountModel(int id, string emailAddress, string password, string fullName, string type)
+    [JsonConstructor]
+    public AccountModel(int id, string emailAddress, string password, string fullName, AccountType type)
     {
         Id = id;
         EmailAddress = emailAddress;

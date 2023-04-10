@@ -4,34 +4,34 @@
     "emailAddress": "n@b.c",
     "password": "Cgo7QDgyFkM0MhZMNQwlHj0vAzI6JE9E",
     "fullName": "Nikola Tesla",
-    "type": "Customer"
+    "type": 1
   },
   {
     "id": 2,
     "emailAddress": "test",
     "password": "test",
     "fullName": "Nikola Tesla",
-    "type": "Customer"
+    "type": 1
   },
   {
     "id": 3,
     "emailAddress": "admin",
-    "password": "Cgo/NSUyChshIRYLOFREHT0UPgE\u002BHD9AOjEqRC8xcCg=",
+    "password": "admin",
     "fullName": "Nikola Tesla",
-    "type": "Admin"
+    "type": 3
   },
   {
     "id": 4,
     "emailAddress": "john@doe.com",
     "password": "CgUKDTAcJBE6GV1UNQwDKD0sGBg\u002BD0IPMh8qRC8xcCg=",
     "fullName": "John Doe",
-    "type": "Customer"
+    "type": 1
   },
   {
     "id": 5,
     "emailAddress": "test@name.nl",
     "password": "Cz8NDjAiJB4yMRIWPAlFLA==",
     "fullName": "Test Name",
-    "type": "Admin"
+    "type": 3
   }
 ]

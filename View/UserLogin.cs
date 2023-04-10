@@ -11,7 +11,7 @@ static class UserLogin
         string email = Console.ReadLine();
         Console.WriteLine("Please enter your password");
         string password = Console.ReadLine();
-        AccountModel acc = accountsLogic.CheckLogin(email, password);
+        AccountModel? acc = accountsLogic.CheckLogin(email, password);
         if (acc != null)
         {
             Console.WriteLine("Welcome back " + acc.FullName);
@@ -64,16 +64,16 @@ static class UserLogin
 
     public static void CreateAccount()
     {
-        string type = "";
+        var type = AccountType.Guest;
         Console.WriteLine("Are you an admin or customer? \nEnter 1 for Admin \nEnter 2 for Customer");
         string choice = Console.ReadLine();
         if (choice == "1")
         {
-            type = "Admin";
+            type = AccountType.Admin;
         }
         else if (choice == "2")
         {
-            type = "Customer";
+            type = AccountType.Customer;
         }
         else
         {

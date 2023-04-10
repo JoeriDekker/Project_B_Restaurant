@@ -1,3 +1,4 @@
+
 class OpeningUI : UI
 {
     //This shows the menu. You can call back to this method to show the menu again
@@ -25,10 +26,10 @@ class OpeningUI : UI
     public override void CreateMenuItems()
     {
         MenuItems.Clear();
-        Add(new MenuItem(Constants.OpeningUI.LOGIN));
-        Add(new MenuItem(Constants.OpeningUI.MENU));
-        Add(new MenuItem(Constants.OpeningUI.CREATE_ACCOUNT));
-        Add(new MenuItem(Constants.OpeningUI.RESERVATION));
+        MenuItems.Add(new MenuItem(Constants.OpeningUI.LOGIN, AccountType.Guest));
+        MenuItems.Add(new MenuItem(Constants.OpeningUI.MENU, AccountType.Guest));
+        MenuItems.Add(new MenuItem(Constants.OpeningUI.CREATE_ACCOUNT, AccountType.Guest));
+        MenuItems.Add(new MenuItem(Constants.OpeningUI.RESERVATION, AccountType.Guest));
     }
 
     public override void UserChoosesOption(int option)
@@ -50,7 +51,7 @@ class OpeningUI : UI
                 Console.WriteLine("Reservation");
                 break;
             case Constants.UI.GO_BACK:
-            case Constants.UI.EXIT:    
+            case Constants.UI.EXIT:
                 Exit();
                 break;
             default:

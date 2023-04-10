@@ -5,60 +5,87 @@ public abstract class UI
     // And executing the corresponding method in the controller.
 
     // If a screen results in its own suboptions. Make it a UI class.
+    protected AccountType? AccountLevel = null;
     protected List<MenuItem> MenuItems { get; set; } = new();
 
-    // MenuItems mapped to 1 to MenuItems.Count
+    // MenuItems mapped 1 to MenuItems.Count
     protected Dictionary<int, MenuItem> UserOptions = new();
 
     public UI? PreviousUI { get; set; }
     public abstract string Header { get; }
 
-    // When instantiating the new UI, pass 'this' as argument.
     public UI(UI previousUI)
     {
         PreviousUI = previousUI;
+        AccountLevel = AccountsLogic.CurrentAccount?.Type;
         CreateMenuItems();
     }
+
+
+    // Switch case the option and the Constants used in MenuItems, see OpeningUI or MenuUI for implementation.
+    public abstract void UserChoosesOption(int option);
 
     // Add the strings as Constants in Constants.cs then create the MenuItems with those constants by implementing this function.
     // See OpeningUI or MenuUI for example. 
     public abstract void CreateMenuItems();
 
-    public void ShowUI()
+    public void Add(MenuItem menuItem) => MenuItems.Add(menuItem);
+
+    public void Start()
+    {
+        while (true)
+        {
+            ShowUI();
+            Continue();
+        }
+    }
+
+    public virtual void ShowUI()
     {
         Console.Clear();
         Console.WriteLine(Header);
         Console.WriteLine("Please select an option:");
-        UserOptions.Clear();
-        PopulateDictionary();
-        foreach (var option in UserOptions)
+        ResetUserOptions();
+        foreach (var opt in UserOptions)
         {
-            Console.WriteLine($"{option.Key}. {option.Value.Name}");
+            Console.WriteLine($"{opt.Key}. {opt.Value.Name}");
         }
+        int choice = GetInput();
+        UserChoosesOption(choice);
     }
 
     // Gets input as int to use in the Dictionary.
     public int GetInput()
     {
         string input;
+        int choice = 99;
 
         do
         {
+            Console.Write("?: > ");
             input = Console.ReadLine() ?? string.Empty;
+            try
+            {
+                choice = int.Parse(input);
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine($"Incorrect choice.");
+                continue;
+            }
         }
-        while (!UserOptions.ContainsKey(int.Parse(input)));
+        while (!UserOptions.ContainsKey(choice));
 
-        return int.Parse(input);
+        return choice;
     }
 
-    public void Add(MenuItem menuItem) => MenuItems.Add(menuItem);
-
-
-    public void PopulateDictionary()
+    public void ResetUserOptions()
     {
-        for (int i = 1; i <= MenuItems.Count; i++)
+        UserOptions.Clear();
+        List<MenuItem> filteredMenuItems = FilterMenuItems();
+        for (int i = 1; i <= filteredMenuItems.Count; i++)
         {
-            UserOptions.Add(i, MenuItems[i - 1]);
+            UserOptions.Add(i, filteredMenuItems[i - 1]);
         }
 
         if (PreviousUI == null)
@@ -71,17 +98,15 @@ public abstract class UI
         }
     }
 
-    // Switch case the option and the Constants used in MenuItems, see OpeningUI or MenuUI for implementation.
-    public abstract void UserChoosesOption(int option);
-
-    public void Start()
+    public List<MenuItem> FilterMenuItems()
     {
-        while (true)
+        if (AccountLevel == null)
         {
-            ShowUI();
-            int option = GetInput();
-            UserChoosesOption(option);
-            Continue();
+            return MenuItems.FindAll(x => x.AccountLevel == AccountType.Guest);
+        }
+        else
+        {
+            return MenuItems.FindAll(x => x.AccountLevel <= AccountLevel);
         }
     }
 
