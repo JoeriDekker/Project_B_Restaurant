@@ -51,7 +51,7 @@ public class PreOrder
                                 //laat totale prijs zien door alle prijzen op te tellen van de gekozen dishes
                                 Console.WriteLine($"Thank you for making a pre order. Your total amount will be: {price}");
                                 //reset lijst
-                                preOrders.Clear(); 
+                                preOrders.Clear();
                                 break;
                             }
                         }
