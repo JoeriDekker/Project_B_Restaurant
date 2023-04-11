@@ -56,11 +56,13 @@ public class ReservationUI : UI
             {
                 Console.WriteLine("Please enter a Name:");
                 string inp_name = Console.ReadLine();
-                string inp_time = "TIME C";
                 Console.WriteLine("Please enter amount of People");
                 int inp_Pamount = Convert.ToInt32(Console.ReadLine());
-                RLogic.CreateReservation(inp_name, inp_time, inp_Pamount);
+                RLogic.CreateReservation(inp_name, inp_Pamount);
                 Console.WriteLine("Reservation has been made!");
+                // Initialize pre order module ( UI )
+                PreOrder preOrd = new PreOrder();
+                preOrd.Start();
             }
             else if (userInp == "2")
             {

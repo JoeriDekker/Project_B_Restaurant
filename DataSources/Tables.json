@@ -1,0 +1,9 @@
+
+[
+    {
+        "T_ID": 1,
+        "Occupied": false,
+        "ReservedTime": "Formatted time",
+        "T_Seats": 2
+      }
+]
