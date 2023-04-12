@@ -26,15 +26,15 @@ class OpeningUI : UI
     public override void CreateMenuItems()
     {
         MenuItems.Clear();
-        MenuItems.Add(new MenuItem(Constants.OpeningUI.LOGIN, AccountType.Guest));
-        MenuItems.Add(new MenuItem(Constants.OpeningUI.MENU, AccountType.Guest));
-        MenuItems.Add(new MenuItem(Constants.OpeningUI.CREATE_ACCOUNT, AccountType.Guest));
-        MenuItems.Add(new MenuItem(Constants.OpeningUI.RESERVATION, AccountType.Guest));
+        MenuItems.Add(new MenuItem(Constants.OpeningUI.LOGIN, AccountLevel.Guest));
+        MenuItems.Add(new MenuItem(Constants.OpeningUI.MENU, AccountLevel.Guest));
+        MenuItems.Add(new MenuItem(Constants.OpeningUI.CREATE_ACCOUNT, AccountLevel.Guest));
+        MenuItems.Add(new MenuItem(Constants.OpeningUI.RESERVATION, AccountLevel.Guest));
     }
 
-    public override void UserChoosesOption(int option)
+    public override void UserChoosesOption(int choice)
     {
-        switch (UserOptions[option].Name)
+        switch (UserOptions[choice].Name)
         {
             case Constants.OpeningUI.LOGIN:
                 UserLogin.Start();

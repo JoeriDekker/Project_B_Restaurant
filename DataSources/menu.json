@@ -28,5 +28,15 @@
     "InStock": true,
     "PreOrderAmount": 0,
     "MaxAmountPreOrder": 3
+  },
+  {
+    "Name": "testing",
+    "Ingredients": "Testing, testing",
+    "Allergies": "unit tests",
+    "Price": 1000,
+    "Type": "a Type",
+    "InStock": true,
+    "PreOrderAmount": 0,
+    "MaxAmountPreOrder": 3
   }
 ]

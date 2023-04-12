@@ -3,8 +3,12 @@ class UpdateDishUI : UI
     private Dish _dish;
 
     // Lets put this in the Header of the UI
-    public override string Header => $@"Update Dish:
-================================================================    
+    public override string Header => "Update Dish:";
+
+    public override string SubText
+    {
+        get =>
+@$"================================================================    
 Name: {_dish.Name}
 Ingredients: {_dish.Ingredients}
 Allergies: {_dish.Allergies}
@@ -12,6 +16,7 @@ Price: {_dish.Price}
 Type: {_dish.Type}
 Max amount of pre-order: {_dish.MaxAmountPreOrder}
 ================================================================";
+    }
     private string[] options = new string[]
     {
         "Change Name",
@@ -76,13 +81,13 @@ Max amount of pre-order: {_dish.MaxAmountPreOrder}
                 break;
 
             case Constants.UI.EXIT:
-            case Constants.UI.GO_BACK:    
+            case Constants.UI.GO_BACK:
                 Exit();
                 break;
             default:
                 Console.WriteLine("Invalid option");
                 Start();
-                break; 
+                break;
         }
     }
 }

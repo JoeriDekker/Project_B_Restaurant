@@ -23,13 +23,13 @@ public class MenuUI : UI
     public override void CreateMenuItems()
     {
         MenuItems.Clear();
-        MenuItems.Add(new MenuItem(Constants.MenuUI.SHOWMENU, AccountType.Guest));
-        MenuItems.Add(new MenuItem(Constants.MenuUI.SORTMENU, AccountType.Guest));
-        MenuItems.Add(new MenuItem(Constants.MenuUI.FILTERMENU, AccountType.Guest));
-        MenuItems.Add(new MenuItem(Constants.MenuUI.ADD_DISH, AccountType.Admin));
-        MenuItems.Add(new MenuItem(Constants.MenuUI.REMOVE_DISH, AccountType.Admin));
-        MenuItems.Add(new MenuItem(Constants.MenuUI.UPDATE_DISH, AccountType.Admin));
-        MenuItems.Add(new MenuItem(Constants.MenuUI.SHOW_PREORDERS, AccountType.Guest));
+        MenuItems.Add(new MenuItem(Constants.MenuUI.SHOWMENU, AccountLevel.Guest));
+        MenuItems.Add(new MenuItem(Constants.MenuUI.SORTMENU, AccountLevel.Guest));
+        MenuItems.Add(new MenuItem(Constants.MenuUI.FILTERMENU, AccountLevel.Guest));
+        MenuItems.Add(new MenuItem(Constants.MenuUI.ADD_DISH, AccountLevel.Admin));
+        MenuItems.Add(new MenuItem(Constants.MenuUI.REMOVE_DISH, AccountLevel.Admin));
+        MenuItems.Add(new MenuItem(Constants.MenuUI.UPDATE_DISH, AccountLevel.Admin));
+        MenuItems.Add(new MenuItem(Constants.MenuUI.SHOW_PREORDERS, AccountLevel.Guest));
     }
 
     public override void UserChoosesOption(int option)

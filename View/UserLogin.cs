@@ -64,16 +64,16 @@ static class UserLogin
 
     public static void CreateAccount()
     {
-        var type = AccountType.Guest;
+        var type = AccountLevel.Guest;
         Console.WriteLine("Are you an admin or customer? \nEnter 1 for Admin \nEnter 2 for Customer");
         string choice = Console.ReadLine();
         if (choice == "1")
         {
-            type = AccountType.Admin;
+            type = AccountLevel.Admin;
         }
         else if (choice == "2")
         {
-            type = AccountType.Customer;
+            type = AccountLevel.Customer;
         }
         else
         {

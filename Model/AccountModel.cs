@@ -23,15 +23,15 @@ public class AccountModel
 
     [JsonPropertyName("type")]
     [JsonConverter(typeof(JsonStringEnumConverter))]
-    public AccountType Type { get; set; }
+    public AccountLevel Level { get; set; }
 
     [JsonConstructor]
-    public AccountModel(int id, string emailAddress, string password, string fullName, AccountType type)
+    public AccountModel(int id, string emailAddress, string password, string fullName, AccountLevel level)
     {
         Id = id;
         EmailAddress = emailAddress;
         Password = password;
         FullName = fullName;
-        Type = type;
+        Level = level;
     }
 }

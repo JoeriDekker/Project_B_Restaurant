@@ -5,7 +5,7 @@ public abstract class UI
     // And executing the corresponding method in the controller.
 
     // If a screen results in its own suboptions. Make it a UI class.
-    protected AccountType? AccountLevel = null;
+    protected AccountLevel? Level = null;
     protected List<MenuItem> MenuItems { get; set; } = new();
 
     // MenuItems mapped 1 to MenuItems.Count
@@ -14,10 +14,12 @@ public abstract class UI
     public UI? PreviousUI { get; set; }
     public abstract string Header { get; }
 
+    public virtual string SubText { get; set; } = string.Empty;
+
     public UI(UI previousUI)
     {
         PreviousUI = previousUI;
-        AccountLevel = AccountsLogic.CurrentAccount?.Type;
+        Level = AccountsLogic.CurrentAccount?.Level;
         CreateMenuItems();
     }
 
@@ -31,11 +33,14 @@ public abstract class UI
 
     public void Add(MenuItem menuItem) => MenuItems.Add(menuItem);
 
+
     public void Start()
     {
         while (true)
         {
             ShowUI();
+            int choice = RequestChoice();
+            UserChoosesOption(choice);
             Continue();
         }
     }
@@ -43,19 +48,35 @@ public abstract class UI
     public virtual void ShowUI()
     {
         Console.Clear();
+        ShowHeader();
+        ShowSubText();
+        ShowOptions();
+    }
+    public void ShowHeader()
+    {
         Console.WriteLine(Header);
-        Console.WriteLine("Please select an option:");
+    }
+
+    public void ShowSubText()
+    {
+        if (SubText != string.Empty)
+        {
+            Console.WriteLine(SubText);
+        }
+    }
+
+    public void ShowOptions()
+    {
         ResetUserOptions();
+        Console.WriteLine("Please select an option:");
         foreach (var opt in UserOptions)
         {
             Console.WriteLine($"{opt.Key}. {opt.Value.Name}");
         }
-        int choice = GetInput();
-        UserChoosesOption(choice);
     }
 
-    // Gets input as int to use in the Dictionary.
-    public int GetInput()
+    // Gets choice as int to use in the Dictionary.
+    public int RequestChoice()
     {
         string input;
         int choice = 99;
@@ -79,6 +100,66 @@ public abstract class UI
         return choice;
     }
 
+    // Request methods for different types of input.
+    public string RequestString(string message)
+    {
+        string input;
+        do
+        {
+            Console.Write($"{message}: > ");
+            input = Console.ReadLine() ?? string.Empty;
+        }
+        while (input == string.Empty);
+
+        return input;
+    }
+
+    public int RequestInt(string message)
+    {
+        string input;
+        int number = 0;
+        do
+        {
+            Console.Write($"{message}: > ");
+            input = Console.ReadLine() ?? string.Empty;
+            try
+            {
+                number = int.Parse(input);
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine($"Incorrect input.");
+                continue;
+            }
+        }
+        while (input == string.Empty);
+
+        return number;
+    }
+
+    public double RequestDouble(string message)
+    {
+        string input;
+        double number = 0;
+        do
+        {
+            Console.Write($"{message}: > ");
+            input = Console.ReadLine() ?? string.Empty;
+            try
+            {
+                number = double.Parse(input);
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine($"Incorrect input.");
+                continue;
+            }
+        }
+        while (input == string.Empty);
+
+        return number;
+    }
+
     public void ResetUserOptions()
     {
         UserOptions.Clear();
@@ -100,13 +181,13 @@ public abstract class UI
 
     public List<MenuItem> FilterMenuItems()
     {
-        if (AccountLevel == null)
+        if (Level == null)
         {
-            return MenuItems.FindAll(x => x.AccountLevel == AccountType.Guest);
+            return MenuItems.FindAll(x => x.Level == AccountLevel.Guest);
         }
         else
         {
-            return MenuItems.FindAll(x => x.AccountLevel <= AccountLevel);
+            return MenuItems.FindAll(x => x.Level <= this.Level);
         }
     }
 

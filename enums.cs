@@ -1,4 +1,4 @@
-public enum AccountType
+public enum AccountLevel
 {
     Guest,
     Customer,
