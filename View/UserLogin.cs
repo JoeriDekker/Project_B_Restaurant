@@ -11,13 +11,12 @@ static class UserLogin
         string email = Console.ReadLine();
         Console.WriteLine("Please enter your password");
         string password = Console.ReadLine();
-        AccountModel acc = accountsLogic.CheckLogin(email, password);
+        AccountModel? acc = accountsLogic.CheckLogin(email, password);
         if (acc != null)
         {
             Console.WriteLine("Welcome back " + acc.FullName);
             Console.WriteLine("Your email number is " + acc.EmailAddress);
             loggedIn = true;
-            OpeningUI.Start();
             //Write some code to go back to the menu
             //Menu.Start();
         }
@@ -56,7 +55,6 @@ static class UserLogin
             acc.Password = new_password;
             accountsLogic.UpdateList(acc);
             Console.WriteLine("Your password has been updated!");
-            OpeningUI.Start();
         }
         else
         {
@@ -66,16 +64,16 @@ static class UserLogin
 
     public static void CreateAccount()
     {
-        string type = "";
+        var type = AccountLevel.Guest;
         Console.WriteLine("Are you an admin or customer? \nEnter 1 for Admin \nEnter 2 for Customer");
         string choice = Console.ReadLine();
         if (choice == "1")
         {
-            type = "Admin";
+            type = AccountLevel.Admin;
         }
         else if (choice == "2")
         {
-            type = "Customer";
+            type = AccountLevel.Customer;
         }
         else
         {
@@ -103,6 +101,5 @@ static class UserLogin
         accountsLogic.UpdateList(acc);
 
         Console.WriteLine("You have succesfulle created an account!");
-        OpeningUI.Start();
     }
 }

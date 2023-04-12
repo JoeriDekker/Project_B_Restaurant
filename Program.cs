@@ -2,6 +2,7 @@
 {
     public static void Main()
     {
-        OpeningUI.Start();
+        OpeningUI opening = new(null);
+        opening.Start();
     }
 }

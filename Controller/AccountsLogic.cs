@@ -9,12 +9,12 @@ using System.Text.Json;
 //This class is not static so later on we can use inheritance and interfaces
 class AccountsLogic
 {
-    private List<AccountModel> _accounts;
+    public List<AccountModel> _accounts;
 
     //Static properties are shared across all instances of the class
     //This can be used to get the current logged in account from anywhere in the program
     //private set, so this can only be set by the class itself
-    static public AccountModel? CurrentAccount { get; private set; }
+    static public AccountModel CurrentAccount { get; private set; }
 
     public AccountsLogic()
     {
@@ -75,6 +75,21 @@ class AccountsLogic
         return Convert.ToBase64String(key);
     }
 
+    public static string Decrypt(string password)
+    {
+        string secret_key = "Imnotverysecret";
+
+        byte[] key = Convert.FromBase64String(password);
+        byte[] secret = Encoding.UTF8.GetBytes(secret_key);
+
+        // XOR the key and secret key
+        for (int i = 0; i < key.Length; i++)
+        {
+            key[i] = (byte)(key[i] ^ secret[i % secret.Length]);
+        }
+        // return the password
+        return Encoding.UTF8.GetString(key);
+    }
     public int GetLastId()
     {
         AccountModel last = _accounts.Last();
