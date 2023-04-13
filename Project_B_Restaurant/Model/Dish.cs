@@ -1,5 +1,14 @@
 public class Dish
 {
+    private static int _counter = 0;
+
+    private int _id;
+
+    public int ID
+    {
+        get => _id;
+        set => _id = _counter++;
+    }
     public string Name { get; set; }
     public string Ingredients { get; set; }
     public string Allergies { get; set; }
@@ -10,7 +19,8 @@ public class Dish
     public int MaxAmountPreOrder { get; set; }
 
 
-    public Dish(string Name, string Ingredients, string Allergies, double Price, string Type){
+    public Dish(string Name, string Ingredients, string Allergies, double Price, string Type)
+    {
         this.Name = Name;
         this.Ingredients = Ingredients;
         this.Allergies = Allergies;

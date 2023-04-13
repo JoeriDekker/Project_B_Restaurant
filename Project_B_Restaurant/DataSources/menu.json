@@ -1,5 +1,6 @@
 [
   {
+    "_id": 0,
     "Name": "Test1",
     "Ingredients": null,
     "Allergies": null,
@@ -10,6 +11,7 @@
     "MaxAmountPreOrder": 3
   },
   {
+    "_id": 1,
     "Name": "Cheese Burger",
     "Ingredients": null,
     "Allergies": null,
@@ -20,6 +22,7 @@
     "MaxAmountPreOrder": 3
   },
   {
+    "_id": 2,
     "Name": "Test",
     "Ingredients": "kip, noten, hout",
     "Allergies": "kip",
@@ -30,6 +33,7 @@
     "MaxAmountPreOrder": 3
   },
   {
+    "_id": 3,
     "Name": "testing",
     "Ingredients": "Testing, testing",
     "Allergies": "unit tests",
