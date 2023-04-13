@@ -12,7 +12,7 @@ public class MenuController
     }
 
 
-    public void Add(string dish_name, string dish_ingredients, string dish_allergies, double dish_price, string dish_type)
+    public void Add(string dish_name, List<string> dish_ingredients, string dish_allergies, double dish_price, string dish_type)
     {
         Dish new_dish = new Dish(dish_name, dish_ingredients, dish_allergies, dish_price, dish_type);
         _dishes.Add(new_dish);

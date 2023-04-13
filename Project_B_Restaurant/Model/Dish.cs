@@ -4,7 +4,7 @@ public class Dish
 
     public int ID { get; set; }
     public string Name { get; set; }
-    public string Ingredients { get; set; }
+    public List<string> Ingredients { get; set; }
     public string Allergies { get; set; }
     public double Price { get; set; }
     public string Type { get; set; }
@@ -13,7 +13,7 @@ public class Dish
     public int MaxAmountPreOrder { get; set; }
 
 
-    public Dish(string Name, string Ingredients, string Allergies, double Price, string Type)
+    public Dish(string Name, List<string> Ingredients, string Allergies, double Price, string Type)
     {
         this.Name = Name;
         this.Ingredients = Ingredients;

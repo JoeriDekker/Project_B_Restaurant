@@ -14,7 +14,7 @@ public class PreOrderController
         {
             if (dish.PreOrderAmount < dish.MaxAmountPreOrder)
             {
-                Console.WriteLine($"- {dish.Name}\n{dish.Ingredients}\n{dish.Price}");
+                Console.WriteLine($"- {dish.Name}\n{dish.Ingredients.ToString()}\n{dish.Price}");
             }
         }
         Console.WriteLine("Please type here which dish you want to pre order:\n");

@@ -31,34 +31,63 @@ public class MenuUI : UI
 
     public string CreateTableOfDishesNormal()
     {
-        string header = String.Format("{0,-3}| {1,-25}| {2,-30}| {3,-15}| {4,-9}| {5,-18}|",
+        // Strings and appending are a match made in hell so we need a stringbuilder.
+        StringBuilder sb = new();
+        // setting header and padding left
+        string header = String.Format("{0,-3}| {1,-22}| {2,-58}| {3,-17}| {4,-8}| {5,-9}|",
                                     "ID", "Name", "Ingredients", "Allergies", "Price", "Type");
+        // divider set to headers length
         string divider = new('-', header.Length);
 
-        StringBuilder sb = new();
         sb.AppendLine(header);
         sb.AppendLine(divider);
 
+
         for (int i = Index; i < inventory.Dishes.Count; i++)
         {
-            string row = String.Format("{0,-3}| {1,-25}| {2,-30}| {3,-15}| €{4,-8}| {5,-18}|",
-                                    inventory.Dishes[i].ID, inventory.Dishes[i].Name, inventory.Dishes[i].Ingredients.Substring(0, Math.Min(inventory.Dishes[i].Ingredients.Length, 30)),
-                                    inventory.Dishes[i].Allergies, inventory.Dishes[i].Price, inventory.Dishes[i].Type);
+            Dish dish = inventory.Dishes[i];
+            // We need to check how many ingredients can be displayed in our set width
+            int maxAmountOfIngredients = GetMaximumIngredientsToDisplay(dish.Ingredients, 47);
+            string row = string.Empty;
 
-            if (inventory.Dishes[i].Ingredients.Length > 30)
+            if (dish.Ingredients.Count == maxAmountOfIngredients + 1)
             {
-                string remainingIngredients = inventory.Dishes[i].Ingredients.Substring(30);
-                int rows = (int)Math.Ceiling(remainingIngredients.Length / 30.0);
-
-                for (int j = 0; j < rows; i++)
-                {
-                    string line = String.Format("{0,-30}", remainingIngredients.Substring(j * 20, Math.Min(remainingIngredients.Length, 30)));
-                    sb.AppendLine(line);
-                }
+                row = String.Format("{0,3}| {1,22}| {2,50}| {3,17}| €{4,-7}| {5,9}|",
+                                    dish.ID,
+                                    dish.Name,
+                                    string.Join(", ", dish.Ingredients.Take(maxAmountOfIngredients)),
+                                    dish.Allergies,
+                                    dish.Price,
+                                    dish.Type);
             }
+            else
+            {
+                row = String.Format("{0,3}| {1,22}| {2,47}...| {3,17}| €{4,-7}| {5,9}|",
+                                    dish.ID,
+                                    dish.Name,
+                                    string.Join(", ", dish.Ingredients.Take(maxAmountOfIngredients)),
+                                    dish.Allergies,
+                                    dish.Price,
+                                    dish.Type);
+            }
+
             sb.AppendLine(row);
         }
         return sb.ToString();
+    }
+
+    private int GetMaximumIngredientsToDisplay(List<string> ingredients, int maxLength)
+    {
+        // Starting at end of list
+        for (int i = ingredients.Count - 1; i >= 0; i--)
+        {
+            // If the length of the total string is smaller than the max return the index
+            if (inventory.Dishes[i].Ingredients.Take(i).Count() < maxLength)
+            {
+                return i;
+            }
+        }
+        return 0;
     }
 
     public override void CreateMenuItems()
@@ -133,7 +162,7 @@ public class MenuUI : UI
         {
             dish_type = "Unknown";
         }
-        menu.Add(dish_name, dish_ingredients, dish_allergies, dish_price, dish_type);
+        menu.Add(dish_name, dish_ingredients.Split(' ').ToList(), dish_allergies, dish_price, dish_type);
     }
 
     public void Delete()
@@ -171,7 +200,7 @@ public class MenuUI : UI
                 {
                     Console.WriteLine("What are the updated ingredients?");
                     string? new_dish_ingredients = Console.ReadLine();
-                    dish.Ingredients = new_dish_ingredients;
+                    dish.Ingredients = new_dish_ingredients.Split(' ').ToList();
                 }
                 else if (choosed_number == 3)
                 {

@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 static class AccountsAccess
 {
-    static string path = System.IO.Path.GetFullPath(System.IO.Path.Combine(Environment.CurrentDirectory, @"DataSources/accounts.json"));
+    static string path = System.IO.Path.GetFullPath(System.IO.Path.Combine(Environment.CurrentDirectory, @"/DataSources/accounts.json"));
 
 
     //Im having trouble with this method. I want to load all the accounts from the json file.

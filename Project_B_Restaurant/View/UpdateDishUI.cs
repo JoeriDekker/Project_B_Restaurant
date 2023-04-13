@@ -53,7 +53,7 @@ Max amount of pre-order: {_dish.MaxAmountPreOrder}
             case "Change Ingredients":
                 Console.WriteLine("What are the updated ingredients?");
                 string? new_dish_ingredients = Console.ReadLine();
-                _dish.Ingredients = new_dish_ingredients;
+                _dish.Ingredients = new_dish_ingredients.Split(' ').ToList();
                 break;
 
             case "Change Allergies":

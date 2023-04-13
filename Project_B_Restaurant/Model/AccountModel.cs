@@ -3,7 +3,7 @@
 
 public class AccountModel
 {
-    private string _password;
+    private string _password = string.Empty;
 
     [JsonPropertyName("id")]
     public int Id { get; set; }

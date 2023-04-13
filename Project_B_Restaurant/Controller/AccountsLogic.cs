@@ -50,14 +50,18 @@ class AccountsLogic
     {
         return _accounts.Find(i => i.EmailAddress == email);
     }
-    public AccountModel CheckLogin(string email, string password)
+    public AccountModel? CheckLogin(string email, string password)
     {
-        if (email == null || password == null)
+        try
         {
+            CurrentAccount = _accounts.Find(i => i.EmailAddress == email && i.Password == password);
+            return CurrentAccount;
+        }
+        catch (ArgumentNullException)
+        {
+            Console.WriteLine("Account not Found");
             return null;
         }
-        CurrentAccount = _accounts.Find(i => i.EmailAddress == email && i.Password == password);
-        return CurrentAccount;
     }
     public static string Encrypt(string password)
     {

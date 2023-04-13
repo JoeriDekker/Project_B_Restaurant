@@ -2,7 +2,10 @@
   {
     "ID": 1,
     "Name": "Spicy Chicken Wings",
-    "Ingredients": "Chicken, Hot Sauce, Celery",
+    "Ingredients": [
+      "Chicken Wings",
+      "Hot Sauce",
+      "Butter"],
     "Allergies": "Chicken",
     "Price": 8.99,
     "Type": "Appetizer",
@@ -13,7 +16,11 @@
   {
     "ID": 2,
     "Name": "Cheese Pizza",
-    "Ingredients": "Dough, Tomato Sauce, Mozzarella Cheese",
+    "Ingredients": [
+      "Pizza Dough",
+      "Tomato Sauce",
+      "Mozzarella Cheese"
+    ],
     "Allergies": "Dairy",
     "Price": 10.99,
     "Type": "Main",
@@ -24,7 +31,12 @@
   {
     "ID": 3,
     "Name": "Fish and Chips",
-    "Ingredients": "Cod, Potatoes, Oil",
+    "Ingredients": [
+      "Fish",
+      "Potatoes",
+      "Onions",
+      "Oil"
+    ],
     "Allergies": "Fish",
     "Price": 12.49,
     "Type": "Main",
@@ -35,7 +47,12 @@
   {
     "ID": 4,
     "Name": "Caesar Salad",
-    "Ingredients": "Romaine, Parmesan, Croutons, Caesar Dressing",
+    "Ingredients": [
+      "Lettuce",
+      "Croutons",
+      "Parmesan Cheese",
+      "Caesar Dressing"
+    ],
     "Allergies": "Eggs",
     "Price": 7.49,
     "Type": "Side",
@@ -46,7 +63,11 @@
   {
     "ID": 5,
     "Name": "Triple Chocolate Cake",
-    "Ingredients": "Flour, Sugar, Chocolate, Frosting",
+    "Ingredients": [
+      "Chocolate Cake",
+      "Chocolate Frosting",
+      "Chocolate Ganache"
+    ],
     "Allergies": "Wheat, Dairy",
     "Price": 5.99,
     "Type": "Dessert",
@@ -57,7 +78,12 @@
   {
     "ID": 6,
     "Name": "BBQ Ribs",
-    "Ingredients": "Pork Ribs, BBQ Sauce",
+    "Ingredients": [
+      "Pork Ribs",
+      "BBQ Sauce",
+      "Onions",
+      "Celery"
+    ],
     "Allergies": "Pork",
     "Price": 16.99,
     "Type": "Main",
@@ -68,7 +94,13 @@
   {
     "ID": 7,
     "Name": "Garden Salad",
-    "Ingredients": "Mixed Greens, Carrots, Cucumbers, Tomatoes, Salad Dressing",
+    "Ingredients": [
+      "Lettuce",
+      "Tomatoes",
+      "Cucumbers",
+      "Carrots",
+      "Onions"
+    ],
     "Allergies": "None",
     "Price": 5.49,
     "Type": "Side",
@@ -79,7 +111,13 @@
   {
     "ID": 8,
     "Name": "Clam Chowder",
-    "Ingredients": "Clams, Potatoes, Cream, Celery, Onions",
+    "Ingredients": [
+      "Clams",
+      "Potatoes",
+      "Onions",
+      "Celery",
+      "Cream"
+    ],
     "Allergies": "Shellfish",
     "Price": 6.99,
     "Type": "Soup",
@@ -90,7 +128,12 @@
   {
     "ID": 9,
     "Name": "Chicken Fajitas",
-    "Ingredients": "Chicken, Peppers, Onions, Tortillas, Salsa",
+    "Ingredients": [
+      "Chicken",
+      "Onions",
+      "Bell Peppers",
+      "Tortillas"
+    ],
     "Allergies": "Chicken",
     "Price": 12.99,
     "Type": "Main",
@@ -101,7 +144,11 @@
   {
     "ID": 10,
     "Name": "Milkshake",
-    "Ingredients": "Ice Cream, Milk",
+    "Ingredients": [
+      "Milk",
+      "Ice Cream",
+      "Chocolate Syrup"
+    ],
     "Allergies": "Dairy",
     "Price": 4.99,
     "Type": "Drink",
@@ -112,7 +159,14 @@
   {
     "ID": 11,
     "Name": "Cobb Salad",
-    "Ingredients": "Chicken, Bacon, Eggs, Avocado, Salad Greens",
+    "Ingredients": [
+      "Lettuce",
+      "Tomatoes",
+      "Bacon",
+      "Eggs",
+      "Blue Cheese",
+      "Ranch Dressing"
+    ],
     "Allergies": "Eggs, Chicken",
     "Price": 10.99,
     "Type": "Salad",
@@ -123,7 +177,12 @@
   {
     "ID": 12,
     "Name": "Lasagna",
-    "Ingredients": "Pasta, Ricotta, Mozzarella, Parmesan, Tomato Sauce",
+    "Ingredients": [
+      "Pasta",
+      "Tomato Sauce",
+      "Mozzarella Cheese",
+      "Beef"
+    ],
     "Allergies": "Dairy, Wheat",
     "Price": 12.99,
     "Type": "Main",
@@ -134,7 +193,12 @@
   {
     "ID": 13,
     "Name": "French Onion Soup",
-    "Ingredients": "Onions, Beef Broth, Bread, Gruyere Cheese",
+    "Ingredients": [
+      "Onions",
+      "Bread",
+      "Cheese",
+      "Cream"
+    ],
     "Allergies": "Wheat, Dairy",
     "Price": 5.99,
     "Type": "Soup",
@@ -145,7 +209,14 @@
   {
     "ID": 14,
     "Name": "Pasta Primavera",
-    "Ingredients": "Pasta, Fresh Vegetables, Cream Sauce",
+    "Ingredients": [
+      "Pasta",
+      "Tomato Sauce",
+      "Mozzarella Cheese",
+      "Broccoli",
+      "Carrots",
+      "Onions"
+    ],
     "Allergies": "Wheat, Dairy",
     "Price": 10.49,
     "Type": "Main",
@@ -156,7 +227,13 @@
   {
     "ID": 15,
     "Name": "Chicken Marsala",
-    "Ingredients": "Chicken, Mushrooms, Marsala Wine",
+    "Ingredients": [
+      "Chicken",
+      "Marsala Wine",
+      "Mushrooms",
+      "Onions",
+      "Garlic"
+    ],
     "Allergies": "Alcohol, Chicken",
     "Price": 14.99,
     "Type": "Main",
@@ -167,7 +244,12 @@
   {
     "ID": 16,
     "Name": "Baked Potato",
-    "Ingredients": "Potato, Sour Cream, Butter, Bacon, Chives",
+    "Ingredients": [
+      "Potato",
+      "Butter",
+      "Sour Cream",
+      "Chives"
+    ],
     "Allergies": "Dairy",
     "Price": 3.99,
     "Type": "Side",
@@ -178,7 +260,12 @@
   {
     "ID": 17,
     "Name": "Tuna Salad Sandwich",
-    "Ingredients": "Tuna, Mayonnaise, Celery, Onion, Bread",
+    "Ingredients":[
+      "Tuna",
+      "Mayonnaise",
+      "Lettuce",
+      "Tomatoes",
+      "Bread"],
     "Allergies": "Wheat, Eggs",
     "Price": 7.99,
     "Type": "Sandwich",
@@ -189,7 +276,15 @@
   {
     "ID": 18,
     "Name": "Beef Stew",
-    "Ingredients": "Beef, Potatoes, Carrots, Broth",
+    "Ingredients": [
+      "Beef",
+      "Potatoes",
+      "Carrots",
+      "Onions",
+      "Celery",
+      "Tomatoes",
+      "Wine"
+    ],
     "Allergies": "Beef",
     "Price": 8.99,
     "Type": "Main",
@@ -200,7 +295,13 @@
   {
     "ID": 19,
     "Name": "Banana Split",
-    "Ingredients": "Banana, Ice Cream, Chocolate Syrup, Nuts, Whipped Cream",
+    "Ingredients": [
+      "Banana",
+      "Ice Cream",
+      "Chocolate Syrup",
+      "Whipped Cream",
+      "Cherries"
+    ],
     "Allergies": "Dairy, Nuts",
     "Price": 6.99,
     "Type": "Dessert",
@@ -211,7 +312,14 @@
   {
     "ID": 20,
     "Name": "Club Sandwich",
-    "Ingredients": "Bread, Chicken, Bacon, Lettuce, Tomato, Mayo",
+    "Ingredients": [
+      "Bread",
+      "Turkey",
+      "Bacon",
+      "Lettuce",
+      "Tomatoes",
+      "Mayonnaise"
+    ],
     "Allergies": "Wheat, Eggs",
     "Price": 9.99,
     "Type": "Sandwich",
