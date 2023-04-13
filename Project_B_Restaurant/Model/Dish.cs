@@ -1,14 +1,8 @@
 public class Dish
 {
-    private static int _counter = 0;
+    private static int nextID = 1;
 
-    private int _id;
-
-    public int ID
-    {
-        get => _id;
-        set => _id = _counter++;
-    }
+    public int ID { get; set; }
     public string Name { get; set; }
     public string Ingredients { get; set; }
     public string Allergies { get; set; }
@@ -29,5 +23,7 @@ public class Dish
         this.InStock = true;
         this.PreOrderAmount = 0;
         this.MaxAmountPreOrder = 3;
+        ID = nextID;
+        nextID++;
     }
 }

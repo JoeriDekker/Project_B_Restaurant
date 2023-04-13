@@ -14,7 +14,7 @@ public abstract class UI
     public UI? PreviousUI { get; set; }
     public abstract string Header { get; }
 
-    public virtual string SubText { get; set; } = string.Empty;
+    public abstract string SubText { get; }
 
     public UI(UI previousUI)
     {

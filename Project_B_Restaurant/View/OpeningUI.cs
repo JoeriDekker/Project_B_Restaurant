@@ -19,6 +19,11 @@ class OpeningUI : UI
     ";
     }
 
+    public override string SubText
+    {
+        get => string.Empty;
+    }
+
     public OpeningUI(UI previousUI) : base(previousUI)
     {
     }

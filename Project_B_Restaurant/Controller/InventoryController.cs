@@ -4,8 +4,12 @@ public class InventoryController
 {
     private List<Dish> _dishes = new List<Dish>();
 
+    public List<Dish> Dishes {
+        get => _dishes;
+        set => _dishes = value;
+    }
     public InventoryController(){
-        _dishes = MenuAccess.LoadMenu();
+        Dishes = MenuAccess.LoadMenu();
     }
     
     public void ShowPreOrders()

@@ -1,8 +1,11 @@
+using System.Text;
 using System.Text.Json;
 public class MenuUI : UI
 {
     private static MenuController menu = new MenuController();
     private static InventoryController inventory = new InventoryController();
+
+    public int Index;
 
     public override string Header
     {
@@ -16,8 +19,46 @@ public class MenuUI : UI
     ==========================";
     }
 
+    public override string SubText
+    {
+        get => CreateTableOfDishesNormal();
+    }
+
     public MenuUI(UI previousUI) : base(previousUI)
     {
+        Index = 0;
+    }
+
+    public string CreateTableOfDishesNormal()
+    {
+        string header = String.Format("{0,-3}| {1,-25}| {2,-30}| {3,-15}| {4,-9}| {5,-18}|",
+                                    "ID", "Name", "Ingredients", "Allergies", "Price", "Type");
+        string divider = new('-', header.Length);
+
+        StringBuilder sb = new();
+        sb.AppendLine(header);
+        sb.AppendLine(divider);
+
+        for (int i = Index; i < inventory.Dishes.Count; i++)
+        {
+            string row = String.Format("{0,-3}| {1,-25}| {2,-30}| {3,-15}| €{4,-8}| {5,-18}|",
+                                    inventory.Dishes[i].ID, inventory.Dishes[i].Name, inventory.Dishes[i].Ingredients.Substring(0, Math.Min(inventory.Dishes[i].Ingredients.Length, 30)),
+                                    inventory.Dishes[i].Allergies, inventory.Dishes[i].Price, inventory.Dishes[i].Type);
+
+            if (inventory.Dishes[i].Ingredients.Length > 30)
+            {
+                string remainingIngredients = inventory.Dishes[i].Ingredients.Substring(30);
+                int rows = (int)Math.Ceiling(remainingIngredients.Length / 30.0);
+
+                for (int j = 0; j < rows; i++)
+                {
+                    string line = String.Format("{0,-30}", remainingIngredients.Substring(j * 20, Math.Min(remainingIngredients.Length, 30)));
+                    sb.AppendLine(line);
+                }
+            }
+            sb.AppendLine(row);
+        }
+        return sb.ToString();
     }
 
     public override void CreateMenuItems()
@@ -105,7 +146,7 @@ public class MenuUI : UI
     public void Update()
     {
         Console.WriteLine("Which Dish do you want to Change? (Give the name of the dish)");
-        string? change_dish = Console.ReadLine();
+        string change_dish = Console.ReadLine() ?? string.Empty;
         if (menu.GetDishByName(change_dish) != null)
         {
             Dish dish = menu.GetDishByName(change_dish);
