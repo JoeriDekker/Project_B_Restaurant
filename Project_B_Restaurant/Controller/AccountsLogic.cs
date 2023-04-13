@@ -9,12 +9,12 @@ using System.Text.Json;
 //This class is not static so later on we can use inheritance and interfaces
 class AccountsLogic
 {
-    public List<AccountModel> _accounts;
+    private List<AccountModel> _accounts;
 
     //Static properties are shared across all instances of the class
     //This can be used to get the current logged in account from anywhere in the program
     //private set, so this can only be set by the class itself
-    static public AccountModel CurrentAccount { get; private set; }
+    static public AccountModel? CurrentAccount { get; private set; }
 
     public AccountsLogic()
     {
@@ -41,12 +41,12 @@ class AccountsLogic
 
     }
 
-    public AccountModel GetById(int id)
+    public AccountModel? GetById(int id)
     {
         return _accounts.Find(i => i.Id == id);
     }
 
-    public AccountModel GetByEmail(string email)
+    public AccountModel? GetByEmail(string email)
     {
         return _accounts.Find(i => i.EmailAddress == email);
     }

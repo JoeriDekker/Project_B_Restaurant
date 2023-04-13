@@ -5,17 +5,21 @@ static class MenuAccess{
 
     static public List<Dish> LoadMenu()
     {
-        using (StreamReader reader = new StreamReader(path))
+        if (!File.Exists(path))
         {
-            string json = reader.ReadToEnd();
-            List<Dish> dishes = JsonSerializer.Deserialize<List<Dish>>(json);
-            if (string.IsNullOrWhiteSpace(json)){
-                return new List<Dish>();
-            }
-            else{
-                return dishes ?? new List<Dish>();
-            }
+            return new List<Dish>();
         }
+        
+        string json = File.ReadAllText(path);
+        //If json is null or empty ?
+        if (string.IsNullOrEmpty(json))
+        {
+            return new List<Dish>();
+        }
+
+        //Null-coalescing operator it can be either a List<Dish> or null.
+        List<Dish>? dishes = JsonSerializer.Deserialize<List<Dish>>(json);
+        return dishes ?? new List<Dish>();
     }
 
     public static void SaveMenu(List<Dish> _dishes)

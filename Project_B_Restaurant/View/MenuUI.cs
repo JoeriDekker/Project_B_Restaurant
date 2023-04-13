@@ -50,7 +50,7 @@ public class MenuUI : UI
             int maxAmountOfIngredients = GetMaximumIngredientsToDisplay(dish.Ingredients, 47);
             string row = string.Empty;
 
-            if (dish.Ingredients.Count == maxAmountOfIngredients + 1)
+            if (dish.Ingredients.Count > maxAmountOfIngredients)
             {
                 row = String.Format("{0,3}| {1,22}| {2,50}| {3,17}| €{4,-7}| {5,9}|",
                                     dish.ID,

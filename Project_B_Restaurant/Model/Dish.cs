@@ -26,4 +26,8 @@ public class Dish
         ID = nextID;
         nextID++;
     }
+    public Dish() : this(string.Empty, new(), string.Empty, 0.0, string.Empty)
+    {
+
+    }
 }
