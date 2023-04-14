@@ -4,6 +4,8 @@ Project_B_Restaurant/.obj/*
 Project_B_Restaurant/bin
 Project_B_Restaurant/.vscode
 Project_B_Restaurant/obj/Project_B_Restaurant.csproj.nuget.dgspec.json
+Project_B_Restaurant/obj
+Project_B_Restaurant/obj/Debug/*
 
 
 ## Ignore Visual Studio temporary files, build results, and

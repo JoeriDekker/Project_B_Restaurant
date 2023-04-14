@@ -34,10 +34,10 @@ public class MenuUI : UI
         // Strings and appending are a match made in hell so we need a stringbuilder.
         StringBuilder sb = new();
         // setting header and padding left
-        string header = String.Format("{0,-3}| {1,-22}| {2,-40}| {3,-17}| {4,-8}| {5,-9}|",
-                                    "ID", "Name", "Ingredients", "Allergies", "Price", "Type");
+        string header = String.Format("{0,-11}| {1,-30}| {2,-48}| {3,-25}| {4,-16}| {5,-17}|",
+                                    "\x1b[1mID\x1b[0m", "\x1b[1mName\x1b[0m", "\x1b[1mIngredients\x1b[0m", "\x1b[1mAllergies\x1b[0m", "\x1b[1mPrice\x1b[0m", "\x1b[1mType\x1b[0m");
         // divider set to headers length
-        string divider = new('-', header.Length);
+        string divider = new('=', header.Length - 8 * 6);
 
         sb.AppendLine(header);
         sb.AppendLine(divider);
