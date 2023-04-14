@@ -2,7 +2,7 @@ Project_B_Restaurant/obj/
 Project_B_Restaurant/obj/*
 Project_B_Restaurant/.obj/*
 Project_B_Restaurant/bin
-Project_B_Restaurant/.vscode
+# Project_B_Restaurant/.vscode
 Project_B_Restaurant/obj/Project_B_Restaurant.csproj.nuget.dgspec.json
 
 

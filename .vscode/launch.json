@@ -13,7 +13,7 @@
             // If you have changed target frameworks, make sure to update the program path.
             "program": "${workspaceFolder}/Project_B_Restaurant/bin/Debug/net6.0/Project.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/Project_B_Restaurant/obj/Debug/net6.0",
+            "cwd": "${workspaceFolder}/Project_B_Restaurant/",
             // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
             "console": "integratedTerminal",
             "stopAtEntry": false
