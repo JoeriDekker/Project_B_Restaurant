@@ -34,4 +34,25 @@ public class InventoryController
         Dishes.Clear();
         Dishes = MenuAccess.LoadMenu();
     }
+
+    public void SortBy(int type)
+    {
+        switch (type)
+        {
+            case 1:
+                Dishes = Dishes.OrderBy(d => d.ID).ToList();
+                break;
+            case 2:
+                Dishes = Dishes.OrderBy(d => d.Name).ToList();
+                break;
+            case 3:
+                Dishes = Dishes.OrderBy(d => d.Price).ToList();
+                break;
+            case 4:
+                Dishes = Dishes.OrderBy(d => d.Type).ToList();
+                break;
+            default:
+                break;
+        }
+    }
 }

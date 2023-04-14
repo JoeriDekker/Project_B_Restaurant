@@ -6,7 +6,7 @@ public class MenuUI : UI
     private static InventoryController inventory = new InventoryController();
     private int _index;
 
-    private bool _filter; 
+    private bool _filter;
 
     private bool _detailedView;
 
@@ -56,7 +56,7 @@ public class MenuUI : UI
         // setting header and padding left
         string header = String.Format("{0,-11}| {1,-30}| {2,-48}| {3,-25}| {4,-16}| {5,-17}|",
                                     "\x1b[1mID\x1b[0m", "\x1b[1mName\x1b[0m", "\x1b[1mIngredients\x1b[0m", "\x1b[1mAllergies\x1b[0m", "\x1b[1mPrice\x1b[0m", "\x1b[1mType\x1b[0m");
-        // divider set to headers length
+        // divider set to headers length minus the width of the bold escape characters times amount of occurences.
         string divider = new('=', header.Length - 8 * 6);
 
         sb.AppendLine(header);
@@ -85,7 +85,7 @@ public class MenuUI : UI
         for (int i = Index; i < Index + Step && i < inventory.Dishes.Count; i++)
         {
             Dish dish = inventory.Dishes[i];
-            string details = 
+            string details =
 @$"ID: {dish.ID}
 Name: {dish.Name}
 Ingredients: {string.Join(", ", dish.Ingredients)}
@@ -153,7 +153,7 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
                 _detailedView = !_detailedView;
                 break;
             case "Sort Menu":
-                Console.WriteLine("Sorting Menu");
+                Sort();
                 break;
             case "Filter Menu":
                 string toFilter = RequestString("Type any combination to filter on");
@@ -188,7 +188,20 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
                 break;
         }
     }
-    // Add Dish to the menu method
+
+    private void Sort()
+    {
+        Console.WriteLine("     1: Sort by ID");
+        Console.WriteLine("     2: Sort by Name");
+        Console.WriteLine("     3: Sort by Price");
+        Console.WriteLine("     4: Sort by Type");
+        Console.WriteLine("     0: Go Back");
+
+        int choice = RequestInt("Sort by?");
+        if (choice == 0) return;
+        inventory.SortBy(choice);
+    }
+
     public void Add()
     {
         Console.WriteLine("What is the Dish name?");

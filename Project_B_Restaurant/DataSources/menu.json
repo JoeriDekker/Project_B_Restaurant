@@ -120,7 +120,7 @@
     ],
     "Allergies": "Shellfish",
     "Price": 6.99,
-    "Type": "Soup",
+    "Type": "Side",
     "InStock": true,
     "PreOrderAmount": 0,
     "MaxAmountPreOrder": 3
@@ -169,7 +169,7 @@
     ],
     "Allergies": "Eggs, Chicken",
     "Price": 10.99,
-    "Type": "Salad",
+    "Type": "Side",
     "InStock": true,
     "PreOrderAmount": 0,
     "MaxAmountPreOrder": 3
@@ -201,7 +201,7 @@
     ],
     "Allergies": "Wheat, Dairy",
     "Price": 5.99,
-    "Type": "Soup",
+    "Type": "Side",
     "InStock": true,
     "PreOrderAmount": 0,
     "MaxAmountPreOrder": 3
@@ -268,7 +268,7 @@
       "Bread"],
     "Allergies": "Wheat, Eggs",
     "Price": 7.99,
-    "Type": "Sandwich",
+    "Type": "Side",
     "InStock": true,
     "PreOrderAmount": 0,
     "MaxAmountPreOrder": 3
@@ -322,7 +322,7 @@
     ],
     "Allergies": "Wheat, Eggs",
     "Price": 9.99,
-    "Type": "Sandwich",
+    "Type": "Side",
     "InStock": true,
     "PreOrderAmount": 0,
     "MaxAmountPreOrder": 3
