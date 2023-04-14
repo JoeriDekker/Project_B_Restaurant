@@ -34,7 +34,7 @@ public class MenuUI : UI
         // Strings and appending are a match made in hell so we need a stringbuilder.
         StringBuilder sb = new();
         // setting header and padding left
-        string header = String.Format("{0,-3}| {1,-22}| {2,-58}| {3,-17}| {4,-8}| {5,-9}|",
+        string header = String.Format("{0,-3}| {1,-22}| {2,-40}| {3,-17}| {4,-8}| {5,-9}|",
                                     "ID", "Name", "Ingredients", "Allergies", "Price", "Type");
         // divider set to headers length
         string divider = new('-', header.Length);
@@ -46,48 +46,36 @@ public class MenuUI : UI
         for (int i = Index; i < inventory.Dishes.Count; i++)
         {
             Dish dish = inventory.Dishes[i];
-            // We need to check how many ingredients can be displayed in our set width
-            int maxAmountOfIngredients = GetMaximumIngredientsToDisplay(dish.Ingredients, 47);
-            string row = string.Empty;
+            // Check how many ingredients can be displayed in our arbitrarily set width
+            string ingredients = GetMaximumIngredientsToDisplay(dish.Ingredients, 36);
 
-            if (dish.Ingredients.Count > maxAmountOfIngredients)
-            {
-                row = String.Format("{0,3}| {1,22}| {2,50}| {3,17}| €{4,-7}| {5,9}|",
-                                    dish.ID,
-                                    dish.Name,
-                                    string.Join(", ", dish.Ingredients.Take(maxAmountOfIngredients)),
-                                    dish.Allergies,
-                                    dish.Price,
-                                    dish.Type);
-            }
-            else
-            {
-                row = String.Format("{0,3}| {1,22}| {2,47}...| {3,17}| €{4,-7}| {5,9}|",
-                                    dish.ID,
-                                    dish.Name,
-                                    string.Join(", ", dish.Ingredients.Take(maxAmountOfIngredients)),
-                                    dish.Allergies,
-                                    dish.Price,
-                                    dish.Type);
-            }
+            string row = $"{dish.ID,3}| {dish.Name,22}| {ingredients,40}| {dish.Allergies,17}| €{dish.Price,-7}| {dish.Type,9}|";
 
             sb.AppendLine(row);
         }
         return sb.ToString();
     }
 
-    private int GetMaximumIngredientsToDisplay(List<string> ingredients, int maxLength)
+    private string GetMaximumIngredientsToDisplay(List<string> ingredients, int maxLength)
     {
-        // Starting at end of list
-        for (int i = ingredients.Count - 1; i >= 0; i--)
+        // Creating stringbuilder.
+        StringBuilder sb = new();
+        // Appending first item.
+        sb.Append(ingredients[0]);
+        for (int i = 1; i < ingredients.Count; i++)
         {
-            // If the length of the total string is smaller than the max return the index
-            if (inventory.Dishes[i].Ingredients.Take(i).Count() < maxLength)
+            // Appending the next ingredient.
+            sb.Append($", {ingredients[i]}");
+            // If we passed the maxLength
+            if (sb.Length > maxLength)
             {
-                return i;
+                //Remove it, add dots and return
+                sb.Remove(sb.Length - $", {ingredients[i]}".Length, $", {ingredients[i]}".Length);
+                sb.Append("...");
+                return sb.ToString();
             }
         }
-        return 0;
+        return sb.ToString();
     }
 
     public override void CreateMenuItems()
@@ -157,7 +145,7 @@ public class MenuUI : UI
         double dish_price = Convert.ToDouble(Console.ReadLine() ?? "0");
 
         Console.WriteLine("What is the Dish Type?");
-        string dish_type = Console.ReadLine();
+        string? dish_type = Console.ReadLine();
         if (dish_type == null || dish_type == "")
         {
             dish_type = "Unknown";
