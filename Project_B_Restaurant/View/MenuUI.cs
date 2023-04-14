@@ -6,10 +6,25 @@ public class MenuUI : UI
     private static InventoryController inventory = new InventoryController();
     private int _index;
 
+    private bool _filter; 
+
+    private bool _detailedView;
+
+
     public int Index
     {
         get => _index;
-        set => _index = value > 0 ? value : 0;
+        // Clamps the value between a min and max.
+        set => _index = Math.Clamp(
+            value,
+            0,
+            // Upper limit is Length minus Step or 0. Whichever is highest.
+            (inventory.Dishes.Count - Step) > 0 ? inventory.Dishes.Count - Step : 0);
+    }
+
+    public int Step
+    {
+        get => _detailedView ? 5 : 10;
     }
 
     public override string Header
@@ -26,7 +41,7 @@ public class MenuUI : UI
 
     public override string SubText
     {
-        get => CreateTableOfDishesNormal();
+        get => _detailedView ? DetailedViewOfDishes() : NormalViewOfDishes();
     }
 
     public MenuUI(UI previousUI) : base(previousUI)
@@ -34,7 +49,7 @@ public class MenuUI : UI
         Index = 0;
     }
 
-    public string CreateTableOfDishesNormal()
+    public string NormalViewOfDishes()
     {
         // Strings and appending are a match made in hell so we need a stringbuilder.
         StringBuilder sb = new();
@@ -48,7 +63,7 @@ public class MenuUI : UI
         sb.AppendLine(divider);
 
 
-        for (int i = Index; i < Index + 10 && i < inventory.Dishes.Count; i++)
+        for (int i = Index; i < Index + Step && i < inventory.Dishes.Count; i++)
         {
             Dish dish = inventory.Dishes[i];
             // Check how many ingredients can be displayed in our arbitrarily set width
@@ -60,6 +75,30 @@ public class MenuUI : UI
         }
         return sb.ToString();
     }
+
+    public string DetailedViewOfDishes()
+    {
+        StringBuilder sb = new();
+        string header = "================================================================";
+        sb.AppendLine(header);
+
+        for (int i = Index; i < Index + Step && i < inventory.Dishes.Count; i++)
+        {
+            Dish dish = inventory.Dishes[i];
+            string details = 
+@$"ID: {dish.ID}
+Name: {dish.Name}
+Ingredients: {string.Join(", ", dish.Ingredients)}
+Allergies: {dish.Allergies}
+Price: €{dish.Price}
+Type: {dish.Type}
+Max amount of pre-order: {dish.MaxAmountPreOrder}
+================================================================";
+            sb.AppendLine(details);
+        }
+        return sb.ToString();
+    }
+
 
     private void UpdateIndexBy(int amount) => Index += amount;
 
@@ -88,11 +127,12 @@ public class MenuUI : UI
     public override void CreateMenuItems()
     {
         MenuItems.Clear();
-        MenuItems.Add(new MenuItem("Next 10 items"));
-        MenuItems.Add(new MenuItem("Previous 10 items"));
-        MenuItems.Add(new MenuItem(Constants.MenuUI.SHOWMENU, AccountLevel.Guest));
-        MenuItems.Add(new MenuItem(Constants.MenuUI.SORTMENU, AccountLevel.Guest));
-        MenuItems.Add(new MenuItem(Constants.MenuUI.FILTERMENU, AccountLevel.Guest));
+        MenuItems.Add(new MenuItem("Next items"));
+        MenuItems.Add(new MenuItem("Previous items"));
+        MenuItems.Add(new MenuItem("Change View"));
+        MenuItems.Add(new MenuItem("Sort Menu", AccountLevel.Guest));
+        MenuItems.Add(new MenuItem("Filter Menu", AccountLevel.Guest));
+        MenuItems.Add(new MenuItem("Reset Filter", AccountLevel.Guest));
         MenuItems.Add(new MenuItem(Constants.MenuUI.ADD_DISH, AccountLevel.Admin));
         MenuItems.Add(new MenuItem(Constants.MenuUI.REMOVE_DISH, AccountLevel.Admin));
         MenuItems.Add(new MenuItem(Constants.MenuUI.UPDATE_DISH, AccountLevel.Admin));
@@ -103,20 +143,24 @@ public class MenuUI : UI
     {
         switch (UserOptions[option].Name)
         {
-            case "Next 10 items":
-                UpdateIndexBy(10);
+            case "Next items":
+                UpdateIndexBy(Step);
                 break;
-            case "Previous 10 items":
-                UpdateIndexBy(-10);
+            case "Previous items":
+                UpdateIndexBy(-Step);
                 break;
-            case Constants.MenuUI.SHOWMENU:
-                Console.WriteLine("Showing Menu");
+            case "Change View":
+                _detailedView = !_detailedView;
                 break;
-            case Constants.MenuUI.SORTMENU:
+            case "Sort Menu":
                 Console.WriteLine("Sorting Menu");
                 break;
-            case Constants.MenuUI.FILTERMENU:
-                Console.WriteLine("Filtering Menu");
+            case "Filter Menu":
+                string toFilter = RequestString("Type any combination to filter on");
+                inventory.Filter(toFilter.ToLower());
+                break;
+            case "Reset Filter":
+                inventory.Reset();
                 break;
             case Constants.MenuUI.ADD_DISH:
                 Add();

@@ -30,4 +30,9 @@ public class Dish
     {
 
     }
+
+    public override string ToString()
+    {
+        return  $"{ID}:{Name}:{string.Join(", ", Ingredients)}:{Allergies}:{Price}:{Type}";
+    }
 }

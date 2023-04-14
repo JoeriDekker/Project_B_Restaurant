@@ -91,7 +91,7 @@ public abstract class UI
             }
             catch (FormatException)
             {
-                Console.WriteLine($"Incorrect choice.");
+                Console.WriteLine($"Incorrect choice. Please provide a number between 0 and {MenuItems.Count}");
                 continue;
             }
         }
@@ -101,12 +101,13 @@ public abstract class UI
     }
 
     // Request methods for different types of input.
-    public string RequestString(string message)
+    public string RequestString(string question)
     {
         string input;
         do
         {
-            Console.Write($"{message}: > ");
+            Console.WriteLine(question);
+            Console.Write("?: >");
             input = Console.ReadLine() ?? string.Empty;
         }
         while (input == string.Empty);
@@ -114,13 +115,14 @@ public abstract class UI
         return input;
     }
 
-    public int RequestInt(string message)
+    public int RequestInt(string question)
     {
         string input;
         int number = 0;
         do
         {
-            Console.Write($"{message}: > ");
+            Console.WriteLine(question);
+            Console.Write("?: >");
             input = Console.ReadLine() ?? string.Empty;
             try
             {
@@ -128,7 +130,7 @@ public abstract class UI
             }
             catch (FormatException)
             {
-                Console.WriteLine($"Incorrect input.");
+                Console.WriteLine("Incorrect input. Please supply a whole number.");
                 continue;
             }
         }
@@ -137,13 +139,14 @@ public abstract class UI
         return number;
     }
 
-    public double RequestDouble(string message)
+    public double RequestDouble(string question)
     {
         string input;
         double number = 0;
         do
         {
-            Console.Write($"{message}: > ");
+            Console.WriteLine(question);
+            Console.Write("?: >");
             input = Console.ReadLine() ?? string.Empty;
             try
             {
@@ -151,7 +154,7 @@ public abstract class UI
             }
             catch (FormatException)
             {
-                Console.WriteLine($"Incorrect input.");
+                Console.WriteLine("Incorrect input. Follow the following format: 0.0");
                 continue;
             }
         }

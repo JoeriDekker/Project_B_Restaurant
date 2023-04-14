@@ -8,7 +8,7 @@ class UpdateDishUI : UI
     public override string SubText
     {
         get =>
-@$"================================================================    
+@$"================================================================
 Name: {_dish.Name}
 Ingredients: {_dish.Ingredients}
 Allergies: {_dish.Allergies}
