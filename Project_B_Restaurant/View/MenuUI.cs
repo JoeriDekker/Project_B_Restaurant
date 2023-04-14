@@ -4,8 +4,13 @@ public class MenuUI : UI
 {
     private static MenuController menu = new MenuController();
     private static InventoryController inventory = new InventoryController();
+    private int _index;
 
-    public int Index;
+    public int Index
+    {
+        get => _index;
+        set => _index = value > 0 ? value : 0;
+    }
 
     public override string Header
     {
@@ -43,7 +48,7 @@ public class MenuUI : UI
         sb.AppendLine(divider);
 
 
-        for (int i = Index; i < inventory.Dishes.Count; i++)
+        for (int i = Index; i < Index + 10 && i < inventory.Dishes.Count; i++)
         {
             Dish dish = inventory.Dishes[i];
             // Check how many ingredients can be displayed in our arbitrarily set width
@@ -55,6 +60,8 @@ public class MenuUI : UI
         }
         return sb.ToString();
     }
+
+    private void UpdateIndexBy(int amount) => Index += amount;
 
     private string GetMaxItemsToPrint(List<string> items, int maxLength)
     {
@@ -81,6 +88,8 @@ public class MenuUI : UI
     public override void CreateMenuItems()
     {
         MenuItems.Clear();
+        MenuItems.Add(new MenuItem("Next 10 items"));
+        MenuItems.Add(new MenuItem("Previous 10 items"));
         MenuItems.Add(new MenuItem(Constants.MenuUI.SHOWMENU, AccountLevel.Guest));
         MenuItems.Add(new MenuItem(Constants.MenuUI.SORTMENU, AccountLevel.Guest));
         MenuItems.Add(new MenuItem(Constants.MenuUI.FILTERMENU, AccountLevel.Guest));
@@ -94,6 +103,12 @@ public class MenuUI : UI
     {
         switch (UserOptions[option].Name)
         {
+            case "Next 10 items":
+                UpdateIndexBy(10);
+                break;
+            case "Previous 10 items":
+                UpdateIndexBy(-10);
+                break;
             case Constants.MenuUI.SHOWMENU:
                 Console.WriteLine("Showing Menu");
                 break;
