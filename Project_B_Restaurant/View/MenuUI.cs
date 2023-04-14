@@ -47,7 +47,7 @@ public class MenuUI : UI
         {
             Dish dish = inventory.Dishes[i];
             // Check how many ingredients can be displayed in our arbitrarily set width
-            string ingredients = GetMaximumIngredientsToDisplay(dish.Ingredients, 36);
+            string ingredients = GetMaxItemsToPrint(dish.Ingredients, 36);
 
             string row = $"{dish.ID,3}| {dish.Name,22}| {ingredients,40}| {dish.Allergies,17}| €{dish.Price,-7}| {dish.Type,9}|";
 
@@ -56,21 +56,21 @@ public class MenuUI : UI
         return sb.ToString();
     }
 
-    private string GetMaximumIngredientsToDisplay(List<string> ingredients, int maxLength)
+    private string GetMaxItemsToPrint(List<string> items, int maxLength)
     {
         // Creating stringbuilder.
         StringBuilder sb = new();
         // Appending first item.
-        sb.Append(ingredients[0]);
-        for (int i = 1; i < ingredients.Count; i++)
+        sb.Append(items[0]);
+        for (int i = 1; i < items.Count; i++)
         {
-            // Appending the next ingredient.
-            sb.Append($", {ingredients[i]}");
-            // If we passed the maxLength
+            // Appending the next item to the string.
+            sb.Append($", {items[i]}");
+            // If we the length of the string passed the maxLength
             if (sb.Length > maxLength)
             {
-                //Remove it, add dots and return
-                sb.Remove(sb.Length - $", {ingredients[i]}".Length, $", {ingredients[i]}".Length);
+                // We remove the last addition, add dots and return
+                sb.Remove(sb.Length - $", {items[i]}".Length, $", {items[i]}".Length);
                 sb.Append("...");
                 return sb.ToString();
             }
