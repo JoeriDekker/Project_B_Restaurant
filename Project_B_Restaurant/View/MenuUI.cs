@@ -61,6 +61,7 @@ public class MenuUI : UI
 
         sb.AppendLine(header);
         sb.AppendLine(divider);
+        Console.OutputEncoding = System.Text.Encoding.Unicode;
 
 
         for (int i = Index; i < Index + Step && i < inventory.Dishes.Count; i++)
@@ -69,7 +70,7 @@ public class MenuUI : UI
             // Check how many ingredients can be displayed in our arbitrarily set width
             string ingredients = GetMaxItemsToPrint(dish.Ingredients, 36);
 
-            string row = $"{dish.ID,3}| {dish.Name,22}| {ingredients,40}| {dish.Allergies,17}| €{dish.Price,-7}| {dish.Type,9}|";
+            string row = $"{dish.ID,3}| {dish.Name,22}| {ingredients,40}| {dish.Allergies,17}|  €{dish.Price,-7}| {dish.Type,9}|";
 
             sb.AppendLine(row);
         }
