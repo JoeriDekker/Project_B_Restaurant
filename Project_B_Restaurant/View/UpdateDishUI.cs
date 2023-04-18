@@ -10,7 +10,7 @@ class UpdateDishUI : UI
         get =>
 @$"================================================================
 Name: {_dish.Name}
-Ingredients: {_dish.Ingredients}
+Ingredients: {string.Join(", ", _dish.Ingredients)}
 Allergies: {_dish.Allergies}
 Price: {_dish.Price}
 Type: {_dish.Type}
@@ -53,7 +53,7 @@ Max amount of pre-order: {_dish.MaxAmountPreOrder}
             case "Change Ingredients":
                 Console.WriteLine("What are the updated ingredients?");
                 string? new_dish_ingredients = Console.ReadLine();
-                _dish.Ingredients = new_dish_ingredients.Split(' ').ToList();
+                _dish.Ingredients = new_dish_ingredients.Split(',').ToList();
                 break;
 
             case "Change Allergies":
