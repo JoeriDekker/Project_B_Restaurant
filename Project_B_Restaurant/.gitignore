@@ -1,15 +1,15 @@
-Project_B_Restaurant/obj/
-Project_B_Restaurant/obj/*
-Project_B_Restaurant/.obj/*
-Project_B_Restaurant/bin/*
-Project_B_Restaurant/.vscode
-Project_B_Restaurant/obj/Project_B_Restaurant.csproj.nuget.dgspec.json
-Project_B_Restaurant/obj
-Project_B_Restaurant/obj/Debug/*
-Project_B_Restaurant.Test/obj/*
-Project_B_Restaurant.Test/bin/*
-Project_B_Restaurant/bin/Debug/net6.0/*
-Project_B_Restaurant/obj/*
+obj/
+obj/*
+.obj/*
+bin/*
+.vscode
+obj/Project_B_Restaurant.csproj.nuget.dgspec.json
+obj
+obj/Debug/*
+Test/obj/*
+Test/bin/*
+bin/Debug/net6.0/*
+obj/*
 
 
 ## Ignore Visual Studio temporary files, build results, and
