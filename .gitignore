@@ -9,6 +9,7 @@ Project_B_Restaurant/obj/Debug/*
 Project_B_Restaurant.Test/obj/*
 Project_B_Restaurant.Test/bin/*
 Project_B_Restaurant/bin/Debug/net6.0/*
+Project_B_Restaurant\obj\*
 
 
 ## Ignore Visual Studio temporary files, build results, and
