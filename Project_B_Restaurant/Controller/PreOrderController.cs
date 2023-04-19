@@ -24,19 +24,14 @@ public class PreOrderController
             if (dish.Name == preOrderDish)
             {
                 dish.PreOrderAmount++;
-                //show price of dish --> dish.price
-                //return dish
                 return dish;
             }
         }
         return null;
     }
 
-    public void GetPrice(){
-        
-    }
-
-    public void PreOrderCourseMenu(){
+    public void PreOrderCourseMenu()
+    {
         
     }
 }
