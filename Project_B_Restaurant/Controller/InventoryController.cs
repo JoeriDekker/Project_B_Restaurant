@@ -20,7 +20,7 @@ public class InventoryController
     {
         foreach (Dish dish in _dishes)
         {
-            Console.WriteLine($"Dish: {dish.Name}\nPre Order Amount: {dish.PreOrderAmount}");
+            if (dish.PreOrderAmount > 0) Console.WriteLine($"Dish: {dish.Name}\nPre Order Amount: {dish.PreOrderAmount}");
         }
     }
 

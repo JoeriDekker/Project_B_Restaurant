@@ -177,7 +177,7 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
                 updateDishUI.Start();
                 break;
             case Constants.MenuUI.SHOW_PREORDERS:
-                Console.WriteLine("Showing Preorders");
+                inventory.ShowPreOrders();
                 break;
             case Constants.UI.EXIT:
             case Constants.UI.GO_BACK:
