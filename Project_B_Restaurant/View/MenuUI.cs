@@ -157,7 +157,7 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
                 Sort();
                 break;
             case "Filter Menu":
-                string toFilter = RequestString("Type any combination to filter on");
+                string toFilter = GetString("Type any combination to filter on");
                 inventory.Filter(toFilter.ToLower());
                 break;
             case "Reset Filter":
@@ -198,7 +198,7 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
         Console.WriteLine("     4: Sort by Type");
         Console.WriteLine("     0: Go Back");
 
-        int choice = RequestInt("Sort by?");
+        int choice = GetInt("Sort by?");
         if (choice == 0) return;
         inventory.SortBy(choice);
     }

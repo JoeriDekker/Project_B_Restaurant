@@ -101,7 +101,7 @@ public abstract class UI
     }
 
     // Request methods for different types of input.
-    public string RequestString(string question)
+    public string GetString(string question)
     {
         string input;
         do
@@ -115,7 +115,7 @@ public abstract class UI
         return input;
     }
 
-    public int RequestInt(string question)
+    public int GetInt(string question)
     {
         string input;
         int number = 0;

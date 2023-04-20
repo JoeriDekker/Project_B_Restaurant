@@ -52,8 +52,8 @@ class OpeningUI : UI
                 UserLogin.Start();
                 break;
             case Constants.OpeningUI.RESERVATION:
-                // ReservationUI reservation = new(this);
-                Console.WriteLine("Reservation");
+                ReservationUI reservation = new(this);
+                reservation.Start();
                 break;
             case Constants.UI.GO_BACK:
             case Constants.UI.EXIT:
