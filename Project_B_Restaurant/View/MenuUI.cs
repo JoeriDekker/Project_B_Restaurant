@@ -134,10 +134,10 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
         MenuItems.Add(new MenuItem("Sort Menu", AccountLevel.Guest));
         MenuItems.Add(new MenuItem("Filter Menu", AccountLevel.Guest));
         MenuItems.Add(new MenuItem("Reset Filter", AccountLevel.Guest));
-        MenuItems.Add(new MenuItem(Constants.MenuUI.ADD_DISH, AccountLevel.Admin));
-        MenuItems.Add(new MenuItem(Constants.MenuUI.REMOVE_DISH, AccountLevel.Admin));
-        MenuItems.Add(new MenuItem(Constants.MenuUI.UPDATE_DISH, AccountLevel.Admin));
-        MenuItems.Add(new MenuItem(Constants.MenuUI.SHOW_PREORDERS, AccountLevel.Guest));
+        MenuItems.Add(new MenuItem("Add Dish", AccountLevel.Admin));
+        MenuItems.Add(new MenuItem("Remove Dish", AccountLevel.Admin));
+        MenuItems.Add(new MenuItem("Update Dish", AccountLevel.Admin));
+        MenuItems.Add(new MenuItem("Show Preorder", AccountLevel.Guest));
     }
 
     public override void UserChoosesOption(int option)
@@ -163,20 +163,20 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
             case "Reset Filter":
                 inventory.Reset();
                 break;
-            case Constants.MenuUI.ADD_DISH:
+            case "Add Dish":
                 Add();
                 break;
-            case Constants.MenuUI.REMOVE_DISH:
+            case "Remove Dish":
                 Console.WriteLine("Removing a Dish");
                 break;
-            case Constants.MenuUI.UPDATE_DISH:
+            case "Update Dish":
                 Console.WriteLine("Which Dish do you want to Change? (Give the name of the dish)");
                 string? change_dish = Console.ReadLine();
                 Dish dish = menu.GetDishByName(change_dish);
                 UpdateDishUI updateDishUI = new UpdateDishUI(this, dish);
                 updateDishUI.Start();
                 break;
-            case Constants.MenuUI.SHOW_PREORDERS:
+            case "Show Preorder":
                 inventory.ShowPreOrders();
                 break;
             case Constants.UI.EXIT:
