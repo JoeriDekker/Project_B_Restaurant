@@ -52,4 +52,18 @@ public class ReservationLogic{
          
          return getRes;
     }
+
+    //Delete reservation by ID
+    public void DeleteReservationByID(int id){
+
+        //Find reservation model
+         ReservationModel? Res = _Reservations.Find(x => x.R_Id == id);
+
+         //Remove out of Reservations list
+         _Reservations.Remove(Res);    
+
+        // Save this data to Reservation.js
+        ReservationAccess.WriteAll(_Reservations);
+    }
+
 }

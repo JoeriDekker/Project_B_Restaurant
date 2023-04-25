@@ -31,6 +31,7 @@ public class ReservationUI : UI
         MenuItems.Add(new MenuItem("Show all Reservations", AccountLevel.Guest));
         MenuItems.Add(new MenuItem("Find Reservation by Reservation ID", AccountLevel.Employee));
         MenuItems.Add(new MenuItem("Find Reservation by Table ID", AccountLevel.Employee));
+        MenuItems.Add(new MenuItem("Delete Reservation by ID", AccountLevel.Employee));
     }
 
     public override void UserChoosesOption(int choice)
@@ -78,6 +79,12 @@ public class ReservationUI : UI
                 {
                     Console.WriteLine($"Name: {ReservationByTable.Contact} | Party amount: {ReservationByTable.P_Amount} | TableID: {ReservationByTable.R_TableID} | ReservationID: {ReservationByTable.R_Id}");
                 }
+                break;
+            case "Delete Reservation by ID":
+                int userInputID = GetInt("Please enter a Reservation ID:");
+                ReservationLogic.DeleteReservationByID(userInputID);
+                Console.WriteLine("Reservation has been deleted");
+
                 break;
             case Constants.UI.GO_BACK:
             case Constants.UI.EXIT:
