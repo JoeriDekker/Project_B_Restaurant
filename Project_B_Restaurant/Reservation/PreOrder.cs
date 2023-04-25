@@ -58,7 +58,37 @@ public class PreOrder
                     }
                     else if (preOrderAnswer == "course menu")//menu needs to sort type (starter, main, desert)
                     {
+                        preOrders.Add(preOrderController.PreOrderAppetizer());
+                        preOrders.Add(preOrderController.PreOrderMain());
+                        preOrders.Add(preOrderController.preOrderDessert());
 
+                        while (true)
+                        {
+                            Console.WriteLine("Do you want to pre order more? yes/no");
+                            string morePreOrder = Console.ReadLine().ToLower();
+                            if (morePreOrder == "yes")
+                            {
+                                //toevoegen aan de pre order lijst
+                                preOrders.Add(preOrderController.PreOrderAppetizer());
+                                preOrders.Add(preOrderController.PreOrderMain());
+                                preOrders.Add(preOrderController.preOrderDessert());
+                            }
+                            else
+                            {  
+                                double price = 0;
+                                foreach (Dish dish in preOrders)
+                                {
+                                    //laat naam van pre ordered dishes en prijzen zien
+                                    Console.WriteLine(String.Format("{0,20} {1,6}", dish.Name, dish.Price));
+                                    price += dish.Price;
+                                }
+                                //laat totale prijs zien door alle prijzen op te tellen van de gekozen dishes
+                                Console.WriteLine($"Thank you for making a pre order. Your total amount will be: {price}");
+                                //reset lijst
+                                preOrders.Clear();
+                                break;
+                            }
+                        }
                     }
                     else if (preOrderAnswer == "go back")
                     {
@@ -68,6 +98,7 @@ public class PreOrder
                     {
                         Console.WriteLine("This is not available.");
                     }
+                    break;
                 }
             }
             else if (answer == "no")
@@ -78,6 +109,7 @@ public class PreOrder
             {
             Console.WriteLine("This is not available.");
             }
+            break;
         }   
     }
 }
