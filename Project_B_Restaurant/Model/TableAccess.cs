@@ -2,7 +2,7 @@ using System.Text.Json;
 
 static class TableAccess
 {
-    static string path = System.IO.Path.GetFullPath(System.IO.Path.Combine(Environment.CurrentDirectory, @"DataSources/Reservations.json"));
+    static string path = System.IO.Path.GetFullPath(System.IO.Path.Combine(Environment.CurrentDirectory, @"DataSources/Tables.json"));
 
 
     public static List<TableModel> LoadAll()

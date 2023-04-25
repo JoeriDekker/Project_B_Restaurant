@@ -2,6 +2,7 @@ public class ReservationUI : UI
 {
 
     ReservationLogic ReservationLogic = new ReservationLogic();
+    TableLogic TableLogic = new TableLogic();
     public override string Header
     {
         get => @"
@@ -32,6 +33,8 @@ public class ReservationUI : UI
         MenuItems.Add(new MenuItem("Find Reservation by Reservation ID", AccountLevel.Employee));
         MenuItems.Add(new MenuItem("Find Reservation by Table ID", AccountLevel.Employee));
         MenuItems.Add(new MenuItem("Delete Reservation by ID", AccountLevel.Employee));
+        MenuItems.Add(new MenuItem("Testing", AccountLevel.Guest));
+
     }
 
     public override void UserChoosesOption(int choice)
@@ -98,6 +101,14 @@ public class ReservationUI : UI
                 }
 
 
+                break;
+            case "Testing":
+            if(TableLogic.TableAvailableCheck("1A")){
+                Console.WriteLine("Table is not available");
+            }else{
+                Console.WriteLine("Table is available");
+            }
+               
                 break;
             case Constants.UI.GO_BACK:
             case Constants.UI.EXIT:
