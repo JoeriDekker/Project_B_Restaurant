@@ -10,6 +10,10 @@ public class MenuUI : UI
 
     private bool _detailedView;
 
+    private bool _futuremenu;
+
+    public string CurrentMenu {get => _futuremenu ? "Show Current Menu" : "Show Future Menu";}
+
 
     public int Index
     {
@@ -127,6 +131,7 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
 
     public override void CreateMenuItems()
     {
+        
         MenuItems.Clear();
         MenuItems.Add(new MenuItem("Next items"));
         MenuItems.Add(new MenuItem("Previous items"));
@@ -138,6 +143,7 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
         MenuItems.Add(new MenuItem("Remove Dish", AccountLevel.Admin));
         MenuItems.Add(new MenuItem("Update Dish", AccountLevel.Admin));
         MenuItems.Add(new MenuItem("Show Preorder", AccountLevel.Guest));
+        MenuItems.Add(new MenuItem(CurrentMenu, AccountLevel.Guest));
     }
 
     public override void UserChoosesOption(int option)
@@ -178,6 +184,14 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
                 break;
             case "Show Preorder":
                 inventory.ShowPreOrders();
+                break;
+            case "Show Future Menu":
+                _futuremenu = !_futuremenu;
+                CreateMenuItems();
+                break;
+            case "Show Current Menu":
+                _futuremenu = !_futuremenu;
+                CreateMenuItems();
                 break;
             case Constants.UI.EXIT:
             case Constants.UI.GO_BACK:
