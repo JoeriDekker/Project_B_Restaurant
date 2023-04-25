@@ -84,6 +84,7 @@ public class ReservationUI : UI
                 int userInputID = GetInt("Please enter a Reservation ID:");
                 ReservationLogic.DeleteReservationByID(userInputID);
                 Console.WriteLine("Reservation has been deleted");
+                ReservationLogic.createReservationCode();
 
                 break;
             case Constants.UI.GO_BACK:

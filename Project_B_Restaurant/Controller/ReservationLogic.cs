@@ -17,6 +17,18 @@ public class ReservationLogic{
         _Reservations = ReservationAccess.LoadAll();
     }
 
+    public string createReservationCode(){
+        // Instantiate random number generator.
+        Random random = new Random();
+
+        // We create 5 random numbers
+        int num = random.Next(10000);
+
+        string Rcode = $"R{num}";
+
+        return Rcode;
+    }
+
     public void CreateReservation(string c_name, int c_party){
 
         //Get time of when they made the reservation.
