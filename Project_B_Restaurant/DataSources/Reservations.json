@@ -75,5 +75,12 @@
     "R_time": "15:21",
     "R_TableID": 3,
     "P_Amount": 4
+  },
+  {
+    "R_Id": 12,
+    "Contact": "Vik",
+    "R_time": "2023-04-26 12:22",
+    "R_TableID": 3,
+    "P_Amount": 4
   }
 ]

@@ -35,7 +35,7 @@ public class ReservationLogic{
         TimeSpan currentTime = DateTime.Now.TimeOfDay; 
         
         // We need to create a reservation model
-        ReservationModel res = new ReservationModel(_Reservations.Count() + 1, c_name, $"{currentTime.Hours}:{currentTime.Minutes}", 3, c_party);
+        ReservationModel res = new ReservationModel(_Reservations.Count() + 1, c_name, $"{DateTime.Now.ToString("yyyy-MM-dd h:mm")}", 3, c_party);
         
         //Add to daaaaaaaaaa list c:
         _Reservations.Add(res);
