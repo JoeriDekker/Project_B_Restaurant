@@ -69,16 +69,21 @@ public class ReservationLogic{
     }
 
     //Delete reservation by ID
-    public void DeleteReservationByID(int id){
+    public bool DeleteReservationByID(int id){
 
         //Find reservation model
          ReservationModel? Res = _Reservations.Find(x => x.R_Id == id);
 
          //Remove out of Reservations list
-         _Reservations.Remove(Res);    
+         if(_Reservations.Remove(Res) == true){
+            // Save this data to Reservation.js
+            ReservationAccess.WriteAll(_Reservations);
+            return true;
+         }else{
+            return false;
+         }   
 
-        // Save this data to Reservation.js
-        ReservationAccess.WriteAll(_Reservations);
+
     }
 
 }

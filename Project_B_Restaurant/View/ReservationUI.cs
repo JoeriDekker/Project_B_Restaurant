@@ -40,7 +40,6 @@ public class ReservationUI : UI
         {
             case "Create Reservation":
                 string inp_name = GetString("Please enter a Name");
-                Console.WriteLine("Please enter amount of People");
                 int inp_Pamount = GetInt("Please enter amount of People");
                 ReservationLogic.CreateReservation(inp_name, inp_Pamount);
                 Console.WriteLine("Reservation has been made!");
@@ -81,10 +80,23 @@ public class ReservationUI : UI
                 }
                 break;
             case "Delete Reservation by ID":
-                int userInputID = GetInt("Please enter a Reservation ID:");
-                ReservationLogic.DeleteReservationByID(userInputID);
-                Console.WriteLine("Reservation has been deleted");
-                ReservationLogic.createReservationCode();
+
+                Console.WriteLine("{0,-5} {1,-10} {2,-10} {3,-25} {4,-10} {5,-10}", "R_ID", "R_Code" ,"Contact", "R_time", "R_TableID", "P_Amount");
+                foreach (ReservationModel Res in ReservationLogic.GetAllReservations())
+                {
+                    Console.WriteLine("{0,-5} {1,-10} {2,-10} {3,-25} {4,-10} {5,-10}", Res.R_Id, Res.R_Code, Res.Contact, Res.R_time, Res.R_TableID, Res.P_Amount);
+                }
+
+                Console.WriteLine("================================================================================");
+
+                int userInputID = GetInt("Please enter a Reservation ID to delete:");
+
+                if(ReservationLogic.DeleteReservationByID(userInputID)){
+                    Console.WriteLine("Reservation has been deleted");
+                }else{
+                    Console.WriteLine("Reservation could not be found! Please try another code.");
+                }
+
 
                 break;
             case Constants.UI.GO_BACK:

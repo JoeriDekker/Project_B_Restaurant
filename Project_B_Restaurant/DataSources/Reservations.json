@@ -1,21 +1,5 @@
 [
   {
-    "R_Id": 1,
-    "R_Code": null,
-    "Contact": "Person1",
-    "R_time": "Formatted time",
-    "R_TableID": 1,
-    "P_Amount": 2
-  },
-  {
-    "R_Id": 2,
-    "R_Code": null,
-    "Contact": "Boy",
-    "R_time": "15:24",
-    "R_TableID": 3,
-    "P_Amount": 8
-  },
-  {
     "R_Id": 3,
     "R_Code": null,
     "Contact": "Boy",
@@ -110,5 +94,13 @@
     "R_time": "2023-04-26 12:27",
     "R_TableID": 3,
     "P_Amount": 4
+  },
+  {
+    "R_Id": 15,
+    "R_Code": "R4172",
+    "Contact": "Viktor",
+    "R_time": "2023-04-26 12:36",
+    "R_TableID": 3,
+    "P_Amount": 10
   }
 ]
