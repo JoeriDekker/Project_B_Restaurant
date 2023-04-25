@@ -5,7 +5,8 @@
     "Ingredients": [
       "Chicken Wings",
       "Hot Sauce",
-      "Butter"],
+      "Butter"
+    ],
     "Allergies": "Chicken",
     "Price": 8.99,
     "Type": "Appetizer",
@@ -260,12 +261,13 @@
   {
     "ID": 17,
     "Name": "Tuna Salad Sandwich",
-    "Ingredients":[
+    "Ingredients": [
       "Tuna",
       "Mayonnaise",
       "Lettuce",
       "Tomatoes",
-      "Bread"],
+      "Bread"
+    ],
     "Allergies": "Wheat, Eggs",
     "Price": 7.99,
     "Type": "Side",
@@ -323,6 +325,87 @@
     "Allergies": "Wheat, Eggs",
     "Price": 9.99,
     "Type": "Side",
+    "InStock": true,
+    "PreOrderAmount": 0,
+    "MaxAmountPreOrder": 3
+  },
+  {
+    "ID": 21,
+    "Name": "Cheese Quesadillas",
+    "Ingredients": [
+      "Flour Tortillas",
+      "Shredded Cheese",
+      "Diced Onions",
+      "Diced Bell Peppers"
+    ],
+    "Allergies": "",
+    "Price": 6.99,
+    "Type": "Appetizer",
+    "InStock": true,
+    "PreOrderAmount": 0,
+    "MaxAmountPreOrder": 3
+  },
+  {
+    "ID": 22,
+    "Name": "Garlic Bread",
+    "Ingredients": [
+      "French Bread",
+      "Butter",
+      "Garlic",
+      "Parsley"
+    ],
+    "Allergies": "Gluten",
+    "Price": 2.99,
+    "Type": "Appetizer",
+    "InStock": true,
+    "PreOrderAmount": 0,
+    "MaxAmountPreOrder": 3
+  },
+  {
+    "ID": 23,
+    "Name": "Buffalo Chicken Strips",
+    "Ingredients": [
+      "Chicken Strips",
+      "Hot Sauce",
+      "Blue Cheese Dressing"
+    ],
+    "Allergies": "Chicken",
+    "Price": 7.99,
+    "Type": "Appetizer",
+    "InStock": true,
+    "PreOrderAmount": 0,
+    "MaxAmountPreOrder": 3
+  },
+  {
+    "ID": 24,
+    "Name": "Loaded Nachos",
+    "Ingredients": [
+      "Chips",
+      "Shredded Cheese",
+      "Diced Tomatoes",
+      "Jalapenos",
+      "Black Olives",
+      "Sour Cream"
+    ],
+    "Allergies": "",
+    "Price": 8.99,
+    "Type": "Appetizer",
+    "InStock": true,
+    "PreOrderAmount": 0,
+    "MaxAmountPreOrder": 3
+  },
+  {
+    "ID": 25,
+    "Name": "Fried Mozzarella",
+    "Ingredients": [
+      "Mozzarella Cheese",
+      "Bread Crumbs",
+      "Flour",
+      "Eggs"
+    ],
+    "Allergies": "Eggs",
+    "Price": 6.99,
+    "Type": "Appetizer",
     "InStock": true,
     "PreOrderAmount": 0,
     "MaxAmountPreOrder": 3
