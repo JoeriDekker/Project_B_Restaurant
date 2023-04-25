@@ -14,6 +14,8 @@ public abstract class UI
     public UI? PreviousUI { get; set; }
     public abstract string Header { get; }
 
+    public bool _futuremenu;
+
     public abstract string SubText { get; }
 
     public UI(UI previousUI)
@@ -50,6 +52,7 @@ public abstract class UI
         Console.Clear();
         ShowHeader();
         ShowSubText();
+        ShowUser();
         ShowOptions();
     }
     public void ShowHeader()
@@ -73,6 +76,15 @@ public abstract class UI
         {
             Console.WriteLine($"{opt.Key}. {opt.Value.Name}");
         }
+    }
+
+    public void ShowUser()
+    {
+        Console.Write("Hello, ");
+        if (AccountsLogic.CurrentAccount != null)
+            Console.WriteLine(AccountsLogic.CurrentAccount.ToString());
+        else 
+            Console.WriteLine("Guest");
     }
 
     // Gets choice as int to use in the Dictionary.

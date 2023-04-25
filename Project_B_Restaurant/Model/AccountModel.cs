@@ -34,4 +34,9 @@ public class AccountModel
         FullName = fullName;
         Level = level;
     }
+
+    public override string ToString()
+    {
+        return $"{FullName} ({Level})";
+    }
 }
