@@ -34,8 +34,11 @@ public class ReservationLogic{
         //Get time of when they made the reservation.
         TimeSpan currentTime = DateTime.Now.TimeOfDay; 
         
+        // Reservation code needed for customer/employees ... 
+        string ResCode = createReservationCode();
+        
         // We need to create a reservation model
-        ReservationModel res = new ReservationModel(_Reservations.Count() + 1, c_name, $"{DateTime.Now.ToString("yyyy-MM-dd h:mm")}", 3, c_party);
+        ReservationModel res = new ReservationModel(_Reservations.Count() + 1,ResCode, c_name ,$"{DateTime.Now.ToString("yyyy-MM-dd h:mm")}", 3, c_party);
         
         //Add to daaaaaaaaaa list c:
         _Reservations.Add(res);

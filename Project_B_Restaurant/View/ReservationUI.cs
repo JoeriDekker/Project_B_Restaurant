@@ -49,10 +49,10 @@ public class ReservationUI : UI
                 preOrd.Start();
                 break;
             case "Show all Reservations":
-                Console.WriteLine("{0,-5} {1,-20} {2,-20} {3,-10} {4,-10}", "R_ID", "Contact", "R_time", "R_TableID", "P_Amount");
+                Console.WriteLine("{0,-5} {1,-10} {2,-10} {3,-25} {4,-10} {5,-10}", "R_ID", "R_Code" ,"Contact", "R_time", "R_TableID", "P_Amount");
                 foreach (ReservationModel Res in ReservationLogic.GetAllReservations())
                 {
-                    Console.WriteLine("{0,-5} {1,-20} {2,-20} {3,-10} {4,-10}", Res.R_Id, Res.Contact, Res.R_time, Res.R_TableID, Res.P_Amount);
+                    Console.WriteLine("{0,-5} {1,-10} {2,-10} {3,-25} {4,-10} {5,-10}", Res.R_Id, Res.R_Code, Res.Contact, Res.R_time, Res.R_TableID, Res.P_Amount);
                 }
                 break;
             case "Find Reservation by Reservation ID":

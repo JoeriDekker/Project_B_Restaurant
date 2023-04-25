@@ -1,6 +1,7 @@
 [
   {
     "R_Id": 1,
+    "R_Code": null,
     "Contact": "Person1",
     "R_time": "Formatted time",
     "R_TableID": 1,
@@ -8,6 +9,7 @@
   },
   {
     "R_Id": 2,
+    "R_Code": null,
     "Contact": "Boy",
     "R_time": "15:24",
     "R_TableID": 3,
@@ -15,6 +17,7 @@
   },
   {
     "R_Id": 3,
+    "R_Code": null,
     "Contact": "Boy",
     "R_time": "15:24",
     "R_TableID": 3,
@@ -22,6 +25,7 @@
   },
   {
     "R_Id": 4,
+    "R_Code": null,
     "Contact": "boy",
     "R_time": "15:26",
     "R_TableID": 3,
@@ -29,6 +33,7 @@
   },
   {
     "R_Id": 5,
+    "R_Code": null,
     "Contact": "char",
     "R_time": "14:49",
     "R_TableID": 3,
@@ -36,6 +41,7 @@
   },
   {
     "R_Id": 6,
+    "R_Code": null,
     "Contact": "char",
     "R_time": "14:56",
     "R_TableID": 3,
@@ -43,6 +49,7 @@
   },
   {
     "R_Id": 7,
+    "R_Code": null,
     "Contact": "Char",
     "R_time": "15:13",
     "R_TableID": 3,
@@ -50,6 +57,7 @@
   },
   {
     "R_Id": 8,
+    "R_Code": null,
     "Contact": "Char",
     "R_time": "15:14",
     "R_TableID": 3,
@@ -57,6 +65,7 @@
   },
   {
     "R_Id": 9,
+    "R_Code": null,
     "Contact": "Char",
     "R_time": "15:16",
     "R_TableID": 3,
@@ -64,6 +73,7 @@
   },
   {
     "R_Id": 10,
+    "R_Code": null,
     "Contact": "char",
     "R_time": "15:19",
     "R_TableID": 3,
@@ -71,6 +81,7 @@
   },
   {
     "R_Id": 11,
+    "R_Code": null,
     "Contact": "Char",
     "R_time": "15:21",
     "R_TableID": 3,
@@ -78,8 +89,25 @@
   },
   {
     "R_Id": 12,
+    "R_Code": null,
     "Contact": "Vik",
     "R_time": "2023-04-26 12:22",
+    "R_TableID": 3,
+    "P_Amount": 4
+  },
+  {
+    "R_Id": 13,
+    "R_Code": "Viktor",
+    "Contact": "R8392",
+    "R_time": "2023-04-26 12:26",
+    "R_TableID": 3,
+    "P_Amount": 4
+  },
+  {
+    "R_Id": 14,
+    "R_Code": "R2811",
+    "Contact": "Viktor",
+    "R_time": "2023-04-26 12:27",
     "R_TableID": 3,
     "P_Amount": 4
   }
