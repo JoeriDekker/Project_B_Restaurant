@@ -49,7 +49,7 @@ class OpeningUI : UI
                 menu.Start();
                 break;
             case Constants.OpeningUI.CREATE_ACCOUNT:
-                UserLogin.Start();
+                UserLogin.CreateAccount();
                 break;
             case Constants.OpeningUI.RESERVATION:
                 ReservationUI reservation = new(this);
