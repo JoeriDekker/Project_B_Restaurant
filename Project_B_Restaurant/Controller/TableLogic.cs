@@ -28,4 +28,14 @@ public class TableLogic{
         return getTable.Occupied;
     }
 
+    public List<TableModel> AllAvailabletables(){
+        List<TableModel> AvailableList = new List<TableModel>();
+        foreach(TableModel table in _Tables){
+            if(table.Occupied == false){
+                AvailableList.Add(table);
+            }
+        }
+        return AvailableList;
+    }
+
 }

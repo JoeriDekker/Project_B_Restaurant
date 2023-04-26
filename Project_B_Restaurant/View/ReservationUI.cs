@@ -108,6 +108,9 @@ public class ReservationUI : UI
             }else{
                 Console.WriteLine("Table is available");
             }
+            foreach(TableModel table in TableLogic.AllAvailabletables()){
+                Console.WriteLine($"{table.T_ID}, {table.T_Seats}, {table.Occupied}");
+            }
                
                 break;
             case Constants.UI.GO_BACK:
