@@ -12,18 +12,18 @@ public class PreOrder
     {
         while (true)
         {
-            Console.WriteLine("Do you want to pre order?");
-            Console.WriteLine("yes");
-            Console.WriteLine("no");
+            Console.WriteLine("\nThere's an option to make a pre order, so the dish will definitely be available when you arrive.\nWould you like to choose this option?");
+            Console.WriteLine("\nyes");
+            Console.WriteLine("no\n");
             string? answer = Console.ReadLine();
             if (answer == "yes")
             {
                 while (true)
                 {
-                    Console.WriteLine("What would you like to pre order?");
+                    Console.WriteLine("\nWhat would you like to pre order?\n");
                     Console.WriteLine("dishes");
                     Console.WriteLine("course menu");
-                    Console.WriteLine("go back");
+                    Console.WriteLine("go back\n");
                     string? preOrderAnswer = Console.ReadLine();
                     if (preOrderAnswer == "dishes")
                     {
@@ -32,7 +32,8 @@ public class PreOrder
                                               
                         while (true)
                         {
-                            Console.WriteLine("Do you want to pre order more? yes/no");
+                            Console.WriteLine("\nDo you want to pre order more? yes/no");
+                            Console.WriteLine("yes\nno\n");
                             string morePreOrder = Console.ReadLine().ToLower();
                             if (morePreOrder == "yes")
                             {
@@ -49,7 +50,8 @@ public class PreOrder
                                     price += dish.Price;
                                 }
                                 //laat totale prijs zien door alle prijzen op te tellen van de gekozen dishes
-                                Console.WriteLine($"Thank you for making a pre order. Your total amount will be: {price}");
+                                price = Math.Round(price, 2);
+                                Console.WriteLine($"\nThank you for making a pre order. Your total amount will be: {price}");
                                 //reset lijst
                                 preOrders.Clear();
                                 break;
@@ -83,6 +85,7 @@ public class PreOrder
                                     price += dish.Price;
                                 }
                                 //laat totale prijs zien door alle prijzen op te tellen van de gekozen dishes
+                                price = Math.Round(price, 2);
                                 Console.WriteLine($"Thank you for making a pre order. Your total amount will be: {price}");
                                 //reset lijst
                                 preOrders.Clear();

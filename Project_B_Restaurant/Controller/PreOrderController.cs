@@ -9,7 +9,10 @@ public class PreOrderController
         _dishes = MenuAccess.LoadMenu();
     }
 // void veranderen --> moet een dish returnen
-    public Dish PreOrderDishes(){
+    public Dish PreOrderDishes()
+    {
+        Console.WriteLine("\nThe menu will be showed after you pressed the enter button.");
+        Console.ReadLine();
         foreach (Dish dish in _dishes)
         {
             if (dish.PreOrderAmount < dish.MaxAmountPreOrder)
@@ -34,6 +37,8 @@ public class PreOrderController
     {
         //pre order appetizer
         Console.WriteLine("What appetizer do you want to order?");
+        Console.WriteLine("The appetizer menu will be showed after you pressed enter.");
+        Console.ReadLine();
         foreach (Dish dish in _dishes)
         {
             if (dish.PreOrderAmount < dish.MaxAmountPreOrder && dish.Type == "Appetizer")
@@ -58,6 +63,8 @@ public class PreOrderController
     {
         //pre order main
         Console.WriteLine("\nWhat main dish do you want to order?");
+        Console.WriteLine("The main menu will be showed after you pressed enter.");
+        Console.ReadLine();
         foreach (Dish dish in _dishes)
         {
             if (dish.PreOrderAmount < dish.MaxAmountPreOrder && dish.Type == "Main")
@@ -65,7 +72,7 @@ public class PreOrderController
                 Console.WriteLine($"- {dish.Name}\n{string.Join(", ",dish.Ingredients)}\n{dish.Price}");
             }
         }
-        Console.WriteLine("Please type here which main you want to pre order:\n");
+        Console.WriteLine("\nPlease type here which main you want to pre order:");
         string? preOrderMain = Console.ReadLine();
         foreach (Dish dish in _dishes)
         {
@@ -82,6 +89,8 @@ public class PreOrderController
     {
         //pre order dessert
         Console.WriteLine("\nWhat dessert do you want to order?");
+        Console.WriteLine("The dessert menu will be showed after you pressed enter.");
+        Console.ReadLine();
         foreach (Dish dish in _dishes)
         {
             if (dish.PreOrderAmount < dish.MaxAmountPreOrder && dish.Type == "Dessert")

@@ -22,49 +22,49 @@
   },
   {
     "T_ID": "4A",
-    "Occupied": false,
+    "Occupied": true,
     "ReservedTime": "Formatted time",
     "T_Seats": 2,
     "R_Code": ""
   },
   {
     "T_ID": "5A",
-    "Occupied": false,
+    "Occupied": true,
     "ReservedTime": "Formatted time",
     "T_Seats": 2,
     "R_Code": ""
   },
   {
     "T_ID": "7A",
-    "Occupied": false,
+    "Occupied": true,
     "ReservedTime": "Formatted time",
     "T_Seats": 2,
     "R_Code": ""
   },
   {
     "T_ID": "8A",
-    "Occupied": false,
+    "Occupied": true,
     "ReservedTime": "Formatted time",
     "T_Seats": 2,
     "R_Code": ""
   },
   {
     "T_ID": "1B",
-    "Occupied": false,
+    "Occupied": true,
     "ReservedTime": "Formatted time",
     "T_Seats": 4,
     "R_Code": ""
   },
   {
     "T_ID": "2B",
-    "Occupied": false,
+    "Occupied": true,
     "ReservedTime": "Formatted time",
     "T_Seats": 4,
     "R_Code": ""
   },
   {
     "T_ID": "3B",
-    "Occupied": false,
+    "Occupied": true,
     "ReservedTime": "Formatted time",
     "T_Seats": 4,
     "R_Code": ""
