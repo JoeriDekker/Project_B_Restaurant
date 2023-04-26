@@ -1,66 +1,10 @@
 [
   {
-    "R_Id": 13,
-    "R_Code": "Viktor",
-    "Contact": "R8392",
-    "R_time": "2023-04-26 12:26",
-    "R_TableID": 3,
-    "P_Amount": 4
-  },
-  {
-    "R_Id": 14,
-    "R_Code": "R2811",
-    "Contact": "Viktor",
-    "R_time": "2023-04-26 12:27",
-    "R_TableID": 3,
-    "P_Amount": 4
-  },
-  {
-    "R_Id": 15,
-    "R_Code": "R4172",
-    "Contact": "Viktor",
-    "R_time": "2023-04-26 12:36",
-    "R_TableID": 3,
-    "P_Amount": 10
-  },
-  {
-    "R_Id": 4,
-    "R_Code": "R614",
+    "R_Id": 1,
+    "R_Code": "R6135",
     "Contact": "Vik",
-    "R_time": "2023-04-26 3:21",
-    "R_TableID": 3,
-    "P_Amount": 2
-  },
-  {
-    "R_Id": 5,
-    "R_Code": "R2380",
-    "Contact": "Vik",
-    "R_time": "2023-04-26 3:27",
-    "R_TableID": 3,
-    "P_Amount": 2
-  },
-  {
-    "R_Id": 6,
-    "R_Code": "R2844",
-    "Contact": "Vik",
-    "R_time": "2023-04-26 3:28",
-    "R_TableID": 3,
-    "P_Amount": 2
-  },
-  {
-    "R_Id": 7,
-    "R_Code": "R7795",
-    "Contact": "vik",
-    "R_time": "2023-04-26 3:29",
-    "R_TableID": 3,
-    "P_Amount": 2
-  },
-  {
-    "R_Id": 8,
-    "R_Code": "R3368",
-    "Contact": "vik",
-    "R_time": "2023-04-26 3:34",
-    "R_TableID": 3,
+    "R_time": "2023-04-26 3:46",
+    "R_TableID": "3A",
     "P_Amount": 2
   }
 ]

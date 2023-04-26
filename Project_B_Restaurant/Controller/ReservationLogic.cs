@@ -29,7 +29,7 @@ public class ReservationLogic{
         return Rcode;
     }
 
-    public void CreateReservation(string c_name, int c_party){
+    public void CreateReservation(string c_name, int c_party, string TableID){
 
         //Get time of when they made the reservation.
         TimeSpan currentTime = DateTime.Now.TimeOfDay; 
@@ -38,7 +38,7 @@ public class ReservationLogic{
         string ResCode = createReservationCode();
         
         // We need to create a reservation model
-        ReservationModel res = new ReservationModel(_Reservations.Count() + 1,ResCode, c_name ,$"{DateTime.Now.ToString("yyyy-MM-dd h:mm")}", 3, c_party);
+        ReservationModel res = new ReservationModel(_Reservations.Count() + 1,ResCode, c_name ,$"{DateTime.Now.ToString("yyyy-MM-dd h:mm")}", TableID, c_party);
         
         //Add to daaaaaaaaaa list c:
         _Reservations.Add(res);
@@ -62,7 +62,7 @@ public class ReservationLogic{
     }
 
     //! Can be null | Check on null when trying to find a reservation!
-    public ReservationModel? getReservationByTableID(int id){
+    public ReservationModel? getReservationByTableID(string id){
          ReservationModel? getRes = _Reservations.Find(x => x.R_TableID == id);
          
          return getRes;

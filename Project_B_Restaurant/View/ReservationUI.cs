@@ -55,7 +55,7 @@ public class ReservationUI : UI
                 }else{
                     Console.WriteLine($"{table.T_ID}, {table.T_Seats} ");
                     TableLogic.OccupiedTable(table.T_ID);
-                    ReservationLogic.CreateReservation(inp_name, inp_Pamount);
+                    ReservationLogic.CreateReservation(inp_name, inp_Pamount, table.T_ID);
                     Console.WriteLine("Reservation has been made!");
                 }
 
@@ -85,7 +85,7 @@ public class ReservationUI : UI
                 }
                 break;
             case "Find Reservation by Table ID":
-                int IDinput = GetInt("Please enter a Table ID:");
+                string IDinput = GetString("Please enter a Table ID:");
                 ReservationModel ReservationByTable = ReservationLogic.getReservationByTableID(IDinput);
                 if (ReservationByTable == null)
                 {
