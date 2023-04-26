@@ -57,12 +57,10 @@ public class ReservationUI : UI
                     TableLogic.OccupiedTable(table.T_ID);
                     ReservationLogic.CreateReservation(inp_name, inp_Pamount, table.T_ID);
                     Console.WriteLine("Reservation has been made!");
+                    // Initialize pre order module ( UI )
+                    PreOrder preOrd = new PreOrder();
+                    preOrd.Start();
                 }
-
-
-                // Initialize pre order module ( UI )
-                PreOrder preOrd = new PreOrder();
-                preOrd.Start();
                 break;
             case "Show all Reservations":
                 Console.WriteLine("{0,-5} {1,-10} {2,-10} {3,-25} {4,-10} {5,-10}", "R_ID", "R_Code" ,"Contact", "R_time", "R_TableID", "P_Amount");
