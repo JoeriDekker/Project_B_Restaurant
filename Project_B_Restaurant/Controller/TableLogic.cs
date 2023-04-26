@@ -38,4 +38,31 @@ public class TableLogic{
         return AvailableList;
     }
 
+    public TableModel getTable(int peopleAmount){
+         foreach(TableModel table in _Tables){
+            if(table.Occupied == false && table.T_Seats >= peopleAmount){
+                return table;
+            }
+        }
+        return null;
+    }
+
+    public void OccupiedTable(string checkTable){
+    
+    bool availableTable = TableAvailableCheck(checkTable);
+
+    if(!availableTable){
+        foreach(TableModel table in _Tables){
+            if(table.Occupied == false && table.T_ID == checkTable){
+                table.Occupied = true;
+            }
+        }
+        // Create a new list with the updated table objects
+        List<TableModel> updatedTables = new List<TableModel>(_Tables);
+
+        // Call the WriteAll method to write the updated list back to the JSON file
+        TableAccess.WriteAll(updatedTables);    
+     }
+    }
+
 }

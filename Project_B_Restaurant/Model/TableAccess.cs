@@ -21,8 +21,8 @@ static class TableAccess
         }
 
         //Null-coalescing operator it can be either a List<ReservationModel> or null.
-        List<TableModel>? reservations = JsonSerializer.Deserialize<List<TableModel>>(json);
-        return reservations ?? new List<TableModel>();
+        List<TableModel>? tables = JsonSerializer.Deserialize<List<TableModel>>(json);
+        return tables ?? new List<TableModel>();
     }
 
 

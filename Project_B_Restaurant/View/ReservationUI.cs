@@ -43,9 +43,23 @@ public class ReservationUI : UI
         {
             case "Create Reservation":
                 string inp_name = GetString("Please enter a Name");
+
                 int inp_Pamount = GetInt("Please enter amount of People");
-                ReservationLogic.CreateReservation(inp_name, inp_Pamount);
-                Console.WriteLine("Reservation has been made!");
+
+                Console.WriteLine("Checking for available seats...");
+
+                TableModel table = TableLogic.getTable(inp_Pamount);
+
+                if(table == null){
+                    Console.WriteLine("No available seats at the moment.");
+                }else{
+                    Console.WriteLine($"{table.T_ID}, {table.T_Seats} ");
+                    TableLogic.OccupiedTable(table.T_ID);
+                    ReservationLogic.CreateReservation(inp_name, inp_Pamount);
+                    Console.WriteLine("Reservation has been made!");
+                }
+
+
                 // Initialize pre order module ( UI )
                 PreOrder preOrd = new PreOrder();
                 preOrd.Start();
@@ -108,8 +122,8 @@ public class ReservationUI : UI
             }else{
                 Console.WriteLine("Table is available");
             }
-            foreach(TableModel table in TableLogic.AllAvailabletables()){
-                Console.WriteLine($"{table.T_ID}, {table.T_Seats}, {table.Occupied}");
+            foreach(TableModel tableI in TableLogic.AllAvailabletables()){
+                Console.WriteLine($"{tableI.T_ID}, {tableI.T_Seats}, {tableI.Occupied}");
             }
                
                 break;
