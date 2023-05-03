@@ -4,6 +4,8 @@ public class MenuUI : UI
 {
     private static MenuController menu = new MenuController();
     private static InventoryController inventory = new InventoryController();
+    private static InventoryController future_inventory = new InventoryController(true);
+    private static MenuController future_menu = new MenuController();
     private int _index;
 
     private bool _filter;
@@ -19,8 +21,7 @@ public class MenuUI : UI
     {
         get => _index;
         // Clamps the value between a min and max.
-        set => _index = Math.Clamp(
-            value,
+        set => _index = Math.Clamp(value,
             0,
             // Upper limit is Length minus Step or 0. Whichever is highest.
             (inventory.Dishes.Count - Step) > 0 ? inventory.Dishes.Count - Step : 0);
@@ -67,17 +68,31 @@ public class MenuUI : UI
         sb.AppendLine(divider);
         Console.OutputEncoding = System.Text.Encoding.Unicode;
 
+        if (_futuremenu){
+            for (int i = Index; i < Index + Step && i < future_inventory.Dishes.Count; i++)
+            {
+                Dish dish = future_inventory.Dishes[i];
+                // Check how many ingredients can be displayed in our arbitrarily set width
+                string ingredients = GetMaxItemsToPrint(dish.Ingredients, 36);
 
-        for (int i = Index; i < Index + Step && i < inventory.Dishes.Count; i++)
-        {
-            Dish dish = inventory.Dishes[i];
-            // Check how many ingredients can be displayed in our arbitrarily set width
-            string ingredients = GetMaxItemsToPrint(dish.Ingredients, 36);
+                string row = $"{dish.ID,3}| {dish.Name,22}| {ingredients,40}| {dish.Allergies,17}|  €{dish.Price,-7}| {dish.Type,9}|";
 
-            string row = $"{dish.ID,3}| {dish.Name,22}| {ingredients,40}| {dish.Allergies,17}|  €{dish.Price,-7}| {dish.Type,9}|";
-
-            sb.AppendLine(row);
+                sb.AppendLine(row);
+            }
         }
+        else{
+            for (int i = Index; i < Index + Step && i < inventory.Dishes.Count; i++)
+            {
+                Dish dish = inventory.Dishes[i];
+                // Check how many ingredients can be displayed in our arbitrarily set width
+                string ingredients = GetMaxItemsToPrint(dish.Ingredients, 36);
+
+                string row = $"{dish.ID,3}| {dish.Name,22}| {ingredients,40}| {dish.Allergies,17}|  €{dish.Price,-7}| {dish.Type,9}|";
+
+                sb.AppendLine(row);
+            }
+        }
+        
         return sb.ToString();
     }
 
@@ -86,8 +101,8 @@ public class MenuUI : UI
         StringBuilder sb = new();
         string header = "================================================================";
         sb.AppendLine(header);
-
-        for (int i = Index; i < Index + Step && i < inventory.Dishes.Count; i++)
+       
+ for (int i = Index; i < Index + Step && i < inventory.Dishes.Count; i++)
         {
             Dish dish = inventory.Dishes[i];
             string details =
@@ -101,6 +116,8 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
 ================================================================";
             sb.AppendLine(details);
         }
+        
+       
         return sb.ToString();
     }
 
@@ -142,7 +159,9 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
         MenuItems.Add(new MenuItem("Add Dish", AccountLevel.Admin));
         MenuItems.Add(new MenuItem("Remove Dish", AccountLevel.Admin));
         MenuItems.Add(new MenuItem("Update Dish", AccountLevel.Admin));
-        MenuItems.Add(new MenuItem("Show Preorder", AccountLevel.Guest));
+        if (!_futuremenu){
+            MenuItems.Add(new MenuItem("Show Preorder", AccountLevel.Guest));
+        }
         MenuItems.Add(new MenuItem(CurrentMenu, AccountLevel.Guest));
     }
 
@@ -164,10 +183,22 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
                 break;
             case "Filter Menu":
                 string toFilter = GetString("Type any combination to filter on");
-                inventory.Filter(toFilter.ToLower());
+                if (_futuremenu){
+                    future_inventory.Filter(toFilter.ToLower());
+                }
+                else{
+                    inventory.Filter(toFilter.ToLower());
+                }
+                
                 break;
             case "Reset Filter":
-                inventory.Reset();
+                if (_futuremenu){
+                    future_inventory.Reset();
+                }
+                else{
+                    inventory.Reset();
+                }
+                
                 break;
             case "Add Dish":
                 Add();
@@ -214,7 +245,13 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
 
         int choice = GetInt("Sort by?");
         if (choice == 0) return;
-        inventory.SortBy(choice);
+        if (_futuremenu){
+            future_inventory.SortBy(choice);
+        }
+        else{
+            inventory.SortBy(choice);
+        }
+        
     }
 
     public void Add()
@@ -237,14 +274,26 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
         {
             dish_type = "Unknown";
         }
-        menu.Add(dish_name, dish_ingredients.Split(' ').ToList(), dish_allergies, dish_price, dish_type);
+        if (_futuremenu){
+            future_menu.Add(dish_name, dish_ingredients.Split(' ').ToList(), dish_allergies, dish_price, dish_type, _futuremenu);
+        }
+        else{
+            menu.Add(dish_name, dish_ingredients.Split(' ').ToList(), dish_allergies, dish_price, dish_type, _futuremenu);
+        }
+        
     }
 
     public void Delete()
     {
         Console.WriteLine("Which Dish do you want to remove? (Give the name of the dish)");
         string? remove_dish = Console.ReadLine();
-        menu.Delete(remove_dish);
+        if (_futuremenu){
+            future_menu.Delete(remove_dish, _futuremenu);
+        }
+        else{
+            menu.Delete(remove_dish, _futuremenu);
+        }
+        
     }
 
     public void Update()
@@ -303,7 +352,13 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
                 }
                 else if (choosed_number == 7)
                 {
-                    menu.Update(dish);
+                    if (_futuremenu){
+                        future_menu.Update(dish, _futuremenu);
+                    }
+                    else{
+                         menu.Update(dish, _futuremenu);
+                    }
+                   
                     Console.WriteLine($"{dish.Name} has been updated");
                     break;
                 }

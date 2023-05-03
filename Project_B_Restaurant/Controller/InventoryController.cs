@@ -16,6 +16,17 @@ public class InventoryController
         Dishes = MenuAccess.LoadMenu();
     }
 
+     public InventoryController(bool isFuture)
+    {
+        if (isFuture){
+            Dishes = MenuAccess.LoadFutureMenu();
+        }
+        else{
+            Dishes = MenuAccess.LoadMenu();
+        }
+        
+    }
+
     public void ShowPreOrders()
     {
         foreach (Dish dish in _dishes)
