@@ -193,7 +193,7 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
                 break;
             case "Reset Filter":
                 if (_futuremenu){
-                    future_inventory.Reset();
+                    future_inventory.Reset(_futuremenu);
                 }
                 else{
                     inventory.Reset();
@@ -202,6 +202,12 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
                 break;
             case "Add Dish":
                 Add();
+                if (_futuremenu){
+                    future_inventory.Reset(_futuremenu);
+                }
+                else{
+                    inventory.Reset();
+                }
                 break;
             case "Remove Dish":
                 Console.WriteLine("Removing a Dish");

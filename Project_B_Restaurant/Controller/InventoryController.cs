@@ -46,6 +46,17 @@ public class InventoryController
         Dishes = MenuAccess.LoadMenu();
     }
 
+    public void Reset(bool isFuture)
+    {
+        Dishes.Clear();
+         if (isFuture){
+            Dishes = MenuAccess.LoadFutureMenu();
+        }
+        else{
+            Dishes = MenuAccess.LoadMenu();
+        }
+    }
+
     public void SortBy(int type)
     {
         switch (type)
