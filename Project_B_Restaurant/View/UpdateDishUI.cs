@@ -2,6 +2,11 @@ class UpdateDishUI : UI
 {
     private Dish _dish;
 
+    private bool _futureMenu;
+
+    private static MenuController menu = new MenuController();
+    private static MenuController future_menu = new MenuController();
+
     // Lets put this in the Header of the UI
     public override string Header => "Update Dish:";
 
@@ -25,11 +30,13 @@ Max amount of pre-order: {_dish.MaxAmountPreOrder}
         "Change Price",
         "Change Type",
         "Change Max amount of pre-order",
+        "Save Changes",
     };
 
-    public UpdateDishUI(UI previousUI, Dish dish) : base(previousUI)
+    public UpdateDishUI(UI previousUI, Dish dish, bool future_menu) : base(previousUI)
     {
         _dish = dish;
+        _futureMenu = future_menu;
     }
 
     public override void CreateMenuItems()
@@ -78,6 +85,17 @@ Max amount of pre-order: {_dish.MaxAmountPreOrder}
                 Console.WriteLine("What is the new max amount of pre-order?");
                 int new_dish_max_amount_pre_order = Convert.ToInt32(Console.ReadLine());
                 _dish.MaxAmountPreOrder = new_dish_max_amount_pre_order;
+                break;
+            
+            case "Save Changes":
+                if (_futureMenu){
+                    future_menu.Update(_dish, _futureMenu);
+                }
+                else{
+                    menu.Update(_dish, _futureMenu);
+                }
+                
+                
                 break;
 
             case Constants.UI.EXIT:

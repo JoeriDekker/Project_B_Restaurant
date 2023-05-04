@@ -84,19 +84,29 @@ public class MenuController
         
     }
 
-    public Dish GetDishByName(string dish_name){
-        foreach (Dish dish in _dishes){
-            if (dish.Name == dish_name){
-                return dish;
+    public Dish GetDishByName(string dish_name, bool isFutureMenu){
+        if (isFutureMenu){
+            foreach (Dish dish in _future_dishes){
+                if (dish.Name == dish_name){
+                    return dish;
+                }
             }
         }
+        else{
+            foreach (Dish dish in _dishes){
+                if (dish.Name == dish_name){
+                    return dish;
+                }
+            }
+        }
+        
         return null;
     }
 
     public void Update(Dish dish_item, bool isFutureMenu)
     {   
         if (isFutureMenu){
-            foreach (Dish dish in _dishes)
+            foreach (Dish dish in _future_dishes)
             {
                 if (dish_item.Name == dish.Name){
                     dish.Name = dish_item.Name;

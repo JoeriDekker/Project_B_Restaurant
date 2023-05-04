@@ -215,8 +215,8 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
             case "Update Dish":
                 Console.WriteLine("Which Dish do you want to Change? (Give the name of the dish)");
                 string? change_dish = Console.ReadLine();
-                Dish dish = menu.GetDishByName(change_dish);
-                UpdateDishUI updateDishUI = new UpdateDishUI(this, dish);
+                Dish dish = menu.GetDishByName(change_dish, _futuremenu);
+                UpdateDishUI updateDishUI = new UpdateDishUI(this, dish, _futuremenu);
                 updateDishUI.Start();
                 break;
             case "Show Preorder":
@@ -306,9 +306,9 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
     {
         Console.WriteLine("Which Dish do you want to Change? (Give the name of the dish)");
         string change_dish = Console.ReadLine() ?? string.Empty;
-        if (menu.GetDishByName(change_dish) != null)
+        if (menu.GetDishByName(change_dish, _futuremenu) != null)
         {
-            Dish dish = menu.GetDishByName(change_dish);
+            Dish dish = menu.GetDishByName(change_dish, _futuremenu);
             while (true)
             {
                 Console.WriteLine("What do you want to change?");
