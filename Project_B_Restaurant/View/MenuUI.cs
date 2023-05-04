@@ -210,7 +210,8 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
                 }
                 break;
             case "Remove Dish":
-                Console.WriteLine("Removing a Dish");
+                Delete();
+                inventory.Reset();
                 break;
             case "Update Dish":
                 Console.WriteLine("Which Dish do you want to Change? (Give the name of the dish)");
