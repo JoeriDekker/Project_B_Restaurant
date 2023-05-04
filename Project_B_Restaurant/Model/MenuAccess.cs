@@ -3,24 +3,28 @@ static class MenuAccess{
 
     static string path = System.IO.Path.GetFullPath(System.IO.Path.Combine(Environment.CurrentDirectory, @"DataSources/menu.json"));
     static string future_menu_path = System.IO.Path.GetFullPath(System.IO.Path.Combine(Environment.CurrentDirectory, @"DataSources/future_menu.json"));
+    static public List<Dish> Dishes = new List<Dish>();
 
-    static public List<Dish> LoadMenu()
+    static public void LoadMenu()
     {
         if (!File.Exists(path))
         {
-            return new List<Dish>();
+            Console.WriteLine("File does not exist");
         }
         
         string json = File.ReadAllText(path);
         //If json is null or empty ?
         if (string.IsNullOrEmpty(json))
         {
-            return new List<Dish>();
+            Console.WriteLine("File is empty");
         }
 
         //Null-coalescing operator it can be either a List<Dish> or null.
-        List<Dish>? dishes = JsonSerializer.Deserialize<List<Dish>>(json);
-        return dishes ?? new List<Dish>();
+        List<Dish>? jsonDishes = JsonSerializer.Deserialize<List<Dish>>(json);
+        if (jsonDishes is not null)
+        {
+            Dishes = jsonDishes;
+        }
     }
 
     public static void SaveMenu(List<Dish> _dishes)

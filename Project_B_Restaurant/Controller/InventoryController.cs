@@ -2,18 +2,13 @@ using System.Text.Json;
 
 public class InventoryController
 {
-    private List<Dish> _dishes = new List<Dish>();
 
     private bool _filter;
 
-    public List<Dish> Dishes
-    {
-        get => _dishes;
-        set => _dishes = value;
-    }
+    public List<Dish> Dishes = new List<Dish>();
     public InventoryController()
     {
-        Dishes = MenuAccess.LoadMenu();
+        Dishes = MenuAccess.Dishes;
     }
 
      public InventoryController(bool isFuture)
@@ -22,16 +17,16 @@ public class InventoryController
             Dishes = MenuAccess.LoadFutureMenu();
         }
         else{
-            Dishes = MenuAccess.LoadMenu();
+            Dishes = MenuAccess.Dishes;
         }
         
     }
 
     public void ShowPreOrders()
     {
-        foreach (Dish dish in _dishes)
+        foreach (Dish dish in MenuAccess.Dishes)
         {
-            if (dish.PreOrderAmount > 0) Console.WriteLine($"Dish: {dish.Name}\nPre Order Amount: {dish.PreOrderAmount}");
+           if (dish.PreOrderAmount > 0) Console.WriteLine($"Dish: {dish.Name}\nPre Order Amount: {dish.PreOrderAmount}");
         }
     }
 
@@ -43,7 +38,7 @@ public class InventoryController
     public void Reset()
     {
         Dishes.Clear();
-        Dishes = MenuAccess.LoadMenu();
+        MenuAccess.LoadMenu();
     }
 
     public void Reset(bool isFuture)
@@ -53,7 +48,7 @@ public class InventoryController
             Dishes = MenuAccess.LoadFutureMenu();
         }
         else{
-            Dishes = MenuAccess.LoadMenu();
+            MenuAccess.LoadMenu();
         }
     }
 

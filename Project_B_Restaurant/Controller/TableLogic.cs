@@ -39,7 +39,7 @@ public class TableLogic{
     }
 
     public TableModel getTable(int peopleAmount){
-         foreach(TableModel table in _Tables){
+          foreach(TableModel table in _Tables){
             if(table.Occupied == false && table.T_Seats >= peopleAmount){
                 return table;
             }

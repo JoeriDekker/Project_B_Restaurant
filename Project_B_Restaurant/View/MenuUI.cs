@@ -308,7 +308,7 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
         Console.WriteLine("Which Dish do you want to Change? (Give the name of the dish)");
         string change_dish = Console.ReadLine() ?? string.Empty;
         if (menu.GetDishByName(change_dish, _futuremenu) != null)
-        {
+    {
             Dish dish = menu.GetDishByName(change_dish, _futuremenu);
             while (true)
             {

@@ -5,7 +5,6 @@ public class PreOrder
     private static MenuController menu = new MenuController();
     private static InventoryController inventory = new InventoryController();
     private static PreOrderController preOrderController = new PreOrderController();
-    private List<Dish> _dishes = new List<Dish>();
     // lijst aan pre order dishes die de gebruiker heeft gekozen
     private List<Dish> preOrders = new List<Dish>();
     public void Start()
