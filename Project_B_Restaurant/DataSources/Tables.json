@@ -71,14 +71,14 @@
   },
   {
     "T_ID": "4B",
-    "Occupied": false,
+    "Occupied": true,
     "ReservedTime": "Formatted time",
     "T_Seats": 4,
     "R_Code": ""
   },
   {
     "T_ID": "5B",
-    "Occupied": false,
+    "Occupied": true,
     "ReservedTime": "Formatted time",
     "T_Seats": 4,
     "R_Code": ""
