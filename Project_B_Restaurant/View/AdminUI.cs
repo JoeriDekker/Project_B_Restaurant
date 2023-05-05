@@ -1,4 +1,4 @@
-public class AdminUI : UI
+public class AdminUI
 {
     public void AddEmployee()
     {

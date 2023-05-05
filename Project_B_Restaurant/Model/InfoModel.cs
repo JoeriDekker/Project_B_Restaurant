@@ -19,7 +19,7 @@ public class InfoModel
     public string Telephone { get; set; }
 
     [JsonConstructor]
-    public infoModel(string address, string postalCode, string city, string emailAddress, string telephone)
+    public InfoModel(string address, string postalCode, string city, string emailAddress, string telephone)
     {
         Address = address;
         PostalCode = postalCode;
