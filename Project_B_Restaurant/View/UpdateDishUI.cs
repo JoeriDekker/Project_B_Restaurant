@@ -3,10 +3,7 @@ class UpdateDishUI : UI
     private Dish _dish;
     private string _dish_name;
 
-    private bool _futureMenu;
-
-    private static MenuController menu = new MenuController();
-    private static MenuController future_menu = new MenuController();
+    private static MenuController Menu = new MenuController();
 
     // Lets put this in the Header of the UI
     public override string Header => "Update Dish:";
@@ -31,14 +28,13 @@ Max amount of pre-order: {_dish.MaxAmountPreOrder}
         "Change Price",
         "Change Type",
         "Change Max amount of pre-order",
-        "Save Changes",
+        "Save Changes\n(Changes Won't be automatically saved for future uses)",
     };
 
-    public UpdateDishUI(UI previousUI, Dish dish, bool future_menu) : base(previousUI)
+    public UpdateDishUI(UI previousUI, Dish dish) : base(previousUI)
     {
         _dish = dish;
         _dish_name = dish.Name;
-        _futureMenu = future_menu;
     }
 
     public override void CreateMenuItems()
@@ -88,14 +84,9 @@ Max amount of pre-order: {_dish.MaxAmountPreOrder}
                 int new_dish_max_amount_pre_order = Convert.ToInt32(Console.ReadLine());
                 _dish.MaxAmountPreOrder = new_dish_max_amount_pre_order;
                 break;
-            
-            case "Save Changes":
-                if (_futureMenu){
-                    future_menu.Update(_dish, _dish_name, _futureMenu);
-                }
-                else{
-                    menu.Update(_dish, _dish_name, _futureMenu);
-                }
+
+            case "Save Changes\n(Changes Won't be automatically saved for future uses)":
+                Menu.Update(_dish, _dish_name);
                 break;
 
             case Constants.UI.EXIT:

@@ -83,7 +83,7 @@ public abstract class UI
         Console.Write("Hello, ");
         if (AccountsLogic.CurrentAccount != null)
             Console.WriteLine(AccountsLogic.CurrentAccount.ToString());
-        else 
+        else
             Console.WriteLine("Guest");
     }
 
@@ -119,7 +119,7 @@ public abstract class UI
         do
         {
             Console.WriteLine(question);
-            Console.Write("?: >");
+            Console.Write("?: > ");
             input = Console.ReadLine() ?? string.Empty;
         }
         while (input == string.Empty);
@@ -136,17 +136,12 @@ public abstract class UI
             Console.WriteLine(question);
             Console.Write("?: >");
             input = Console.ReadLine() ?? string.Empty;
-            try
-            {
-                number = int.Parse(input);
-            }
-            catch (FormatException)
+            if (!int.TryParse(input, out number))
             {
                 Console.WriteLine("Incorrect input. Please supply a whole number.");
                 continue;
             }
-        }
-        while (input == string.Empty);
+        } while (!int.TryParse(input, out number));
 
         return number;
     }

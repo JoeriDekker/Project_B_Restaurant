@@ -30,12 +30,12 @@ static class MenuAccess{
 
     static public List<Dish> LoadMenu()
     {
-        if (!File.Exists(future_menu_path))
+        if (!File.Exists(path))
         {
             return new List<Dish>();
         }
         
-        string json = File.ReadAllText(future_menu_path);
+        string json = File.ReadAllText(path);
         //If json is null or empty ?
         if (string.IsNullOrEmpty(json))
         {

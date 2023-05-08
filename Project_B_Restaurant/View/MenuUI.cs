@@ -2,19 +2,15 @@ using System.Text;
 using System.Text.Json;
 public class MenuUI : UI
 {
-    private static MenuController menu = new MenuController();
-    private static InventoryController inventory = new InventoryController();
-    private static InventoryController future_inventory = new InventoryController(true);
-    private static MenuController future_menu = new MenuController();
+    private static MenuController Menu = new MenuController();
+
     private int _index;
 
     private bool _filter;
 
     private bool _detailedView;
 
-    private bool _futuremenu;
-
-    public string CurrentMenu {get => _futuremenu ? "Show Current Menu" : "Show Future Menu";}
+    private string SwitchMenu { get => MenuController.IsFuture ? "Show Current Menu" : "Show Future Menu"; }
 
 
     public int Index
@@ -24,7 +20,7 @@ public class MenuUI : UI
         set => _index = Math.Clamp(value,
             0,
             // Upper limit is Length minus Step or 0. Whichever is highest.
-            (inventory.Dishes.Count - Step) > 0 ? inventory.Dishes.Count - Step : 0);
+            (Menu.Dishes.Count - Step) > 0 ? Menu.Dishes.Count - Step : 0);
     }
 
     public int Step
@@ -67,32 +63,16 @@ public class MenuUI : UI
         sb.AppendLine(header);
         sb.AppendLine(divider);
         Console.OutputEncoding = System.Text.Encoding.Unicode;
+        for (int i = Index; i < Index + Step && i < Menu.Dishes.Count; i++)
+        {
+            Dish dish = Menu.Dishes[i];
+            // Check how many ingredients can be displayed in our arbitrarily set width
+            string ingredients = GetMaxItemsToPrint(dish.Ingredients, 36);
 
-        if (_futuremenu){
-            for (int i = Index; i < Index + Step && i < future_inventory.Dishes.Count; i++)
-            {
-                Dish dish = future_inventory.Dishes[i];
-                // Check how many ingredients can be displayed in our arbitrarily set width
-                string ingredients = GetMaxItemsToPrint(dish.Ingredients, 36);
+            string row = $"{dish.ID,3}| {dish.Name,22}| {ingredients,40}| {dish.Allergies,17}|  €{dish.Price,-7}| {dish.Type,9}|";
 
-                string row = $"{dish.ID,3}| {dish.Name,22}| {ingredients,40}| {dish.Allergies,17}|  €{dish.Price,-7}| {dish.Type,9}|";
-
-                sb.AppendLine(row);
-            }
+            sb.AppendLine(row);
         }
-        else{
-            for (int i = Index; i < Index + Step && i < inventory.Dishes.Count; i++)
-            {
-                Dish dish = inventory.Dishes[i];
-                // Check how many ingredients can be displayed in our arbitrarily set width
-                string ingredients = GetMaxItemsToPrint(dish.Ingredients, 36);
-
-                string row = $"{dish.ID,3}| {dish.Name,22}| {ingredients,40}| {dish.Allergies,17}|  €{dish.Price,-7}| {dish.Type,9}|";
-
-                sb.AppendLine(row);
-            }
-        }
-        
         return sb.ToString();
     }
 
@@ -101,10 +81,10 @@ public class MenuUI : UI
         StringBuilder sb = new();
         string header = "================================================================";
         sb.AppendLine(header);
-       
- for (int i = Index; i < Index + Step && i < inventory.Dishes.Count; i++)
+
+        for (int i = Index; i < Index + Step && i < Menu.Dishes.Count; i++)
         {
-            Dish dish = inventory.Dishes[i];
+            Dish dish = Menu.Dishes[i];
             string details =
 @$"ID: {dish.ID}
 Name: {dish.Name}
@@ -116,8 +96,8 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
 ================================================================";
             sb.AppendLine(details);
         }
-        
-       
+
+
         return sb.ToString();
     }
 
@@ -148,7 +128,7 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
 
     public override void CreateMenuItems()
     {
-        
+
         MenuItems.Clear();
         MenuItems.Add(new MenuItem("Next items"));
         MenuItems.Add(new MenuItem("Previous items"));
@@ -159,10 +139,11 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
         MenuItems.Add(new MenuItem("Add Dish", AccountLevel.Admin));
         MenuItems.Add(new MenuItem("Remove Dish", AccountLevel.Admin));
         MenuItems.Add(new MenuItem("Update Dish", AccountLevel.Admin));
-        if (!_futuremenu){
+        if (!MenuController.IsFuture)
+        {
             MenuItems.Add(new MenuItem("Show Preorder", AccountLevel.Guest));
         }
-        MenuItems.Add(new MenuItem(CurrentMenu, AccountLevel.Guest));
+        MenuItems.Add(new MenuItem(SwitchMenu, AccountLevel.Guest));
     }
 
     public override void UserChoosesOption(int option)
@@ -183,69 +164,60 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
                 break;
             case "Filter Menu":
                 string toFilter = GetString("Type any combination to filter on");
-                if (_futuremenu){
-                    future_inventory.Filter(toFilter.ToLower());
-                }
-                else{
-                    inventory.Filter(toFilter.ToLower());
-                }
-                
+                Menu.Filter(toFilter.ToLower());
                 break;
             case "Reset Filter":
-                if (_futuremenu){
-                    future_inventory.Reset(_futuremenu);
-                }
-                else{
-                    inventory.Reset();
-                }
-                
+                Menu.Reset();
                 break;
             case "Add Dish":
-                Add();
-                if (_futuremenu){
-                    future_inventory.Reset(_futuremenu);
-                }
-                else{
-                    inventory.Reset();
-                }
+                this.Add();
+                Menu.Reset();
                 break;
             case "Remove Dish":
-                Delete();
-                inventory.Reset();
+                this.Delete();
+                Menu.Reset();
                 break;
             case "Update Dish":
-                Console.WriteLine("Which Dish do you want to Change? (Give the name of the dish)");
-                string? change_dish = Console.ReadLine();
-                if (!menu.FindDishByName(change_dish, _futuremenu)){ 
-                    Console.WriteLine($"Dish with the name {change_dish} has not been found!");  
-                    break;
-                }
-                Dish dish = menu.GetDishByName(change_dish, _futuremenu);
-                UpdateDishUI updateDishUI = new UpdateDishUI(this, dish, _futuremenu);
-                updateDishUI.Start();
-                CreateMenuItems();
+                this.Update();
                 break;
-                
             case "Show Preorder":
-                inventory.ShowPreOrders();
+                Menu.ShowPreOrders();
                 break;
             case "Show Future Menu":
-                _futuremenu = !_futuremenu;
-                CreateMenuItems();
-                break;
             case "Show Current Menu":
-                _futuremenu = !_futuremenu;
+                MenuController.IsFuture = !MenuController.IsFuture;
                 CreateMenuItems();
                 break;
             case Constants.UI.EXIT:
             case Constants.UI.GO_BACK:
-                Exit();
+                this.Exit();
                 break;
             default:
                 Console.WriteLine("Invalid option");
-                Start();
+                this.Start();
                 break;
         }
+    }
+
+    private void Update()
+    {
+        string dishToChange;
+        do
+        {
+            dishToChange = GetString("Which Dish do you want to Change? (Give the name of the dish)");
+
+            if (!Menu.FindDishByName(dishToChange))
+            {
+                Console.WriteLine($"Dish with the name {dishToChange} has not been found!");
+                dishToChange = string.Empty;
+            }
+        }
+        while (dishToChange == string.Empty);
+
+        Dish dish = Menu.GetDishByName(dishToChange);
+        UpdateDishUI updateDishUI = new UpdateDishUI(this, dish);
+        updateDishUI.Start();
+        CreateMenuItems();
     }
 
     private void Sort()
@@ -257,14 +229,10 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
         Console.WriteLine("     0: Go Back");
 
         int choice = GetInt("Sort by?");
-        if (choice == 0) return;
-        if (_futuremenu){
-            future_inventory.SortBy(choice);
-        }
-        else{
-            inventory.SortBy(choice);
-        }
-        
+        if (choice == 0)
+            return;
+
+        Menu.SortBy(choice);
     }
 
     public void Add()
@@ -287,200 +255,17 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
         {
             dish_type = "Unknown";
         }
-        if (_futuremenu){
-            future_menu.Add(dish_name, dish_ingredients.Split(' ').ToList(), dish_allergies, dish_price, dish_type, _futuremenu);
-        }
-        else{
-            menu.Add(dish_name, dish_ingredients.Split(' ').ToList(), dish_allergies, dish_price, dish_type, _futuremenu);
-        }
-        
-    }
 
+        Menu.Add(dish_name, dish_ingredients.Split(' ').ToList(), dish_allergies, dish_price, dish_type);
+
+
+    }
     public void Delete()
     {
-        Console.WriteLine("Which Dish do you want to remove? (Give the name of the dish)");
-        string? remove_dish = Console.ReadLine();
-        if (_futuremenu){
-            future_menu.Delete(remove_dish, _futuremenu);
-        }
-        else{
-            menu.Delete(remove_dish, _futuremenu);
-        }
-        
+        string remove_dish = GetString("Which Dish do you want to remove? (Give the name of the dish)");
+        if (Menu.Delete(remove_dish))
+            Console.WriteLine($"{remove_dish} has been removed from the menu");
+        else
+            Console.WriteLine($"{remove_dish} has not been found");
     }
-
-   
 }
-
- // public void Update()
-    // {
-    //     Console.WriteLine("Which Dish do you want to Change? (Give the name of the dish)");
-    //     string change_dish = Console.ReadLine() ?? string.Empty;
-    //     if (menu.GetDishByName(change_dish, _futuremenu) != null)
-    // {
-    //         Dish dish = menu.GetDishByName(change_dish, _futuremenu);
-    //         while (true)
-    //         {
-    //             Console.WriteLine("What do you want to change?");
-    //             Console.WriteLine("1: Change Name");
-    //             Console.WriteLine("2: Change Ingredients");
-    //             Console.WriteLine("3: Change Allergies");
-    //             Console.WriteLine("4: Change Price");
-    //             Console.WriteLine("5: Change Type");
-    //             Console.WriteLine("6: Change Max amount of pre-order");
-    //             Console.WriteLine("7: Save Changes");
-    //             int choosed_number = Convert.ToInt32(Console.ReadLine());
-    //             if (choosed_number == 1)
-    //             {
-    //                 Console.WriteLine("What is the new dish name?");
-    //                 string? new_dish_name = Console.ReadLine();
-    //                 dish.Name = new_dish_name;
-    //             }
-    //             else if (choosed_number == 2)
-    //             {
-    //                 Console.WriteLine("What are the updated ingredients?");
-    //                 string? new_dish_ingredients = Console.ReadLine();
-    //                 dish.Ingredients = new_dish_ingredients.Split(' ').ToList();
-    //             }
-    //             else if (choosed_number == 3)
-    //             {
-    //                 Console.WriteLine("What are the updated allergies?");
-    //                 string? new_dish_allergies = Console.ReadLine();
-    //                 dish.Allergies = new_dish_allergies;
-    //             }
-    //             else if (choosed_number == 4)
-    //             {
-    //                 Console.WriteLine("What is the new dish price?");
-    //                 double new_dish_price = Convert.ToDouble(Console.ReadLine());
-    //                 dish.Price = new_dish_price;
-    //             }
-    //             else if (choosed_number == 5)
-    //             {
-    //                 Console.WriteLine("What is the new dish type?");
-    //                 string? new_dish_type = Console.ReadLine();
-    //                 dish.Type = new_dish_type;
-    //             }
-    //             else if (choosed_number == 6)
-    //             {
-    //                 Console.WriteLine("What is the new Max amount of pre-order?");
-    //                 int new_max_preoder = Convert.ToInt32(Console.ReadLine());
-    //                 dish.MaxAmountPreOrder = new_max_preoder;
-    //             }
-    //             else if (choosed_number == 7)
-    //             {
-    //                 if (_futuremenu){
-    //                     future_menu.Update(dish, _futuremenu);
-    //                 }
-    //                 else{
-    //                      menu.Update(dish, _futuremenu);
-    //                 }
-                   
-    //                 Console.WriteLine($"{dish.Name} has been updated");
-    //                 break;
-    //             }
-    //             else
-    //             {
-    //                 Console.WriteLine("Input error! Please enter an number");
-    //             }
-    //         }
-    //     }
-    //     else
-    //     {
-    //         Console.WriteLine("Dish does not exist");
-    //         Start();
-    //     }
-
-    // }
-// public void Start()
-// {
-//     while (true)
-//     {
-
-//         Console.WriteLine("What do you want to do?");
-//         Console.WriteLine("1: Show Menu");
-//         Console.WriteLine("2: Sort Menu // still in progress");
-//         Console.WriteLine("3: Filter Menu // still in progress");
-//         if (UserLogin.loggedIn == false)
-//         {
-//             Console.WriteLine("4: Exit");
-//         }
-//         else
-//         {
-//             if (AccountsLogic.CurrentAccount.Type == "Customer")
-//             {
-//                 Console.WriteLine("4: Exit");
-//             }
-//         }
-
-//         if (UserLogin.loggedIn == true)
-//         {
-//             if (AccountsLogic.CurrentAccount.Type == "Admin")
-//             {
-//                 Console.WriteLine("4: Add a Dish");
-//                 Console.WriteLine("5: Remove a Dish");
-//                 Console.WriteLine("6: Change a Dish");
-//                 Console.WriteLine("7: Show PreOrders");
-//                 Console.WriteLine("8: Exit");
-//             }
-
-//         }
-//         int choice = Convert.ToInt32(Console.ReadLine());
-
-//         switch (choice)
-//         {
-//             case 1:
-//                 ShowMenu();
-//                 break;
-//             case 2:
-//                 // Upcoming Sort function
-//                 ShowMenu();
-//                 break;
-//             case 3:
-//                 Console.WriteLine("On what type do you want to filter?");
-//                 string filter = Console.ReadLine() ?? "";
-//                 // Upcoming Filter function
-//                 ShowMenu();
-//                 break;
-//             case 4:
-//                 if (UserLogin.loggedIn == false || AccountsLogic.CurrentAccount.Type == "Customer")
-//                 {
-//                     OpeningUI.Start();
-//                     break;
-//                 }
-//                 else
-//                 {
-//                     Add();
-//                     break;
-//                 }
-
-//             case 5:
-//                 Delete();
-//                 break;
-//             case 6:
-//                 Update();
-//                 break;
-//             case 7:
-//                 inventory.ShowPreOrders();
-//                 break;
-//             case 8:
-//                 OpeningUI.Start();
-//                 break;
-//             default:
-//                 Console.WriteLine("Invalid choice.");
-//                 break;
-//         }
-//         Console.WriteLine();
-//     }
-// }
-
-// public void ShowMenu()
-// {
-//     foreach (Dish dish in menu.GetMenu())
-//     {
-//         Console.WriteLine($"- {dish.Name}: {dish.Type} (${dish.Price})");
-//         Console.WriteLine($" - {dish.Ingredients}");
-//     }
-// }
-
-
-// }
