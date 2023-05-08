@@ -223,6 +223,7 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
                 Dish dish = menu.GetDishByName(change_dish, _futuremenu);
                 UpdateDishUI updateDishUI = new UpdateDishUI(this, dish, _futuremenu);
                 updateDishUI.Start();
+                CreateMenuItems();
                 break;
                 
             case "Show Preorder":

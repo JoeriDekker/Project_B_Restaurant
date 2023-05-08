@@ -1,7 +1,7 @@
 class UpdateDishUI : UI
 {
-    private Dish _dish = new();
-    private Dish _new_dish;
+    private Dish _dish;
+    private string _dish_name;
 
     private bool _futureMenu;
 
@@ -37,7 +37,7 @@ Max amount of pre-order: {_dish.MaxAmountPreOrder}
     public UpdateDishUI(UI previousUI, Dish dish, bool future_menu) : base(previousUI)
     {
         _dish = dish;
-        _new_dish = dish;
+        _dish_name = dish.Name;
         _futureMenu = future_menu;
     }
 
@@ -56,45 +56,45 @@ Max amount of pre-order: {_dish.MaxAmountPreOrder}
             case "Change Name":
                 Console.WriteLine("What is the new dish name?");
                 string? new_dish_name = Console.ReadLine();
-                _new_dish.Name = new_dish_name;
+                _dish.Name = new_dish_name;
                 break;
 
             case "Change Ingredients":
                 Console.WriteLine("What are the updated ingredients?");
                 string? new_dish_ingredients = Console.ReadLine();
-                _new_dish.Ingredients = new_dish_ingredients.Split(',').ToList();
+                _dish.Ingredients = new_dish_ingredients.Split(',').ToList();
                 break;
 
             case "Change Allergies":
                 Console.WriteLine("What are the updated allergies?");
                 string? new_dish_allergies = Console.ReadLine();
-                _new_dish.Allergies = new_dish_allergies;
+                _dish.Allergies = new_dish_allergies;
                 break;
 
             case "Change Price":
                 Console.WriteLine("What is the new dish price?");
                 double new_dish_price = Convert.ToDouble(Console.ReadLine());
-                _new_dish.Price = new_dish_price;
+                _dish.Price = new_dish_price;
                 break;
 
             case "Change Type":
                 Console.WriteLine("What is the new dish type?");
                 string? new_dish_type = Console.ReadLine();
-                _new_dish.Type = new_dish_type;
+                _dish.Type = new_dish_type;
                 break;
 
             case "Change Max amount of pre-order":
                 Console.WriteLine("What is the new max amount of pre-order?");
                 int new_dish_max_amount_pre_order = Convert.ToInt32(Console.ReadLine());
-                _new_dish.MaxAmountPreOrder = new_dish_max_amount_pre_order;
+                _dish.MaxAmountPreOrder = new_dish_max_amount_pre_order;
                 break;
             
             case "Save Changes":
                 if (_futureMenu){
-                    future_menu.Update(_dish, _new_dish, _futureMenu);
+                    future_menu.Update(_dish, _dish_name, _futureMenu);
                 }
                 else{
-                    menu.Update(_dish, _new_dish, _futureMenu);
+                    menu.Update(_dish, _dish_name, _futureMenu);
                 }
                 break;
 

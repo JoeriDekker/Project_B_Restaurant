@@ -122,24 +122,24 @@ public class MenuController
         return null;
     }
 
-    public void Update(Dish dish_item, Dish new_dish_item, bool isFutureMenu)
+    public void Update(Dish dish_item, string dish_name, bool isFutureMenu)
     {   
         if (isFutureMenu){
             foreach (Dish dish in _future_dishes)
             {
                 Console.WriteLine("-");
-                Console.WriteLine(dish_item.Name + "-" + new_dish_item.Name);
+                Console.WriteLine(dish_item.Name + "-" + dish_item.Name);
                 Console.WriteLine(dish.Name);
                 Console.WriteLine("-");
-                if (dish_item.Name == dish.Name){
-                    dish.Name = new_dish_item.Name;
-                    dish.Ingredients = new_dish_item.Ingredients;
-                    dish.Allergies = new_dish_item.Allergies;
-                    dish.Price = new_dish_item.Price;
-                    dish.Type = new_dish_item.Type;
-                    dish.InStock = new_dish_item.InStock;
-                    dish.PreOrderAmount = new_dish_item.PreOrderAmount;
-                    dish.MaxAmountPreOrder = new_dish_item.MaxAmountPreOrder;
+                if (dish_name == dish.Name){
+                    dish.Name = dish_item.Name;
+                    dish.Ingredients = dish_item.Ingredients;
+                    dish.Allergies = dish_item.Allergies;
+                    dish.Price = dish_item.Price;
+                    dish.Type = dish_item.Type;
+                    dish.InStock = dish_item.InStock;
+                    dish.PreOrderAmount = dish_item.PreOrderAmount;
+                    dish.MaxAmountPreOrder = dish_item.MaxAmountPreOrder;
                 }
             }
            
@@ -149,15 +149,15 @@ public class MenuController
         else{
             foreach (Dish dish in _dishes)
             {
-                if (dish_item.Name == dish.Name){
-                    dish.Name = new_dish_item.Name;
-                    dish.Ingredients = new_dish_item.Ingredients;
-                    dish.Allergies = new_dish_item.Allergies;
-                    dish.Price = new_dish_item.Price;
-                    dish.Type = new_dish_item.Type;
-                    dish.InStock = new_dish_item.InStock;
-                    dish.PreOrderAmount = new_dish_item.PreOrderAmount;
-                    dish.MaxAmountPreOrder = new_dish_item.MaxAmountPreOrder;
+                if (dish_name == dish.Name){
+                    dish.Name = dish_item.Name;
+                    dish.Ingredients = dish_item.Ingredients;
+                    dish.Allergies = dish_item.Allergies;
+                    dish.Price = dish_item.Price;
+                    dish.Type = dish_item.Type;
+                    dish.InStock = dish_item.InStock;
+                    dish.PreOrderAmount = dish_item.PreOrderAmount;
+                    dish.MaxAmountPreOrder = dish_item.MaxAmountPreOrder;
                 }
             }
             MenuAccess.SaveMenu(_dishes);
