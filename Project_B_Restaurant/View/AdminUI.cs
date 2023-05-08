@@ -1,5 +1,6 @@
 public class AdminUI
 {
+    private static AccountsLogic accountsLogic = new AccountsLogic();
     public void AddEmployee()
     {
         var type = AccountLevel.Employee;

@@ -1,11 +1,12 @@
 using System.Text.Json;
 public class MenuController
 {
-
+    private List<Dish> _dishes = new List<Dish>();
     private List<Dish> _future_dishes = new List<Dish>();
 
     public MenuController()
     {
+        _dishes = MenuAccess.LoadMenu();
         _future_dishes = MenuAccess.LoadFutureMenu();
     }
 
@@ -18,8 +19,8 @@ public class MenuController
             MenuAccess.SaveFutureMenu(_future_dishes);
         }
         else{
-            MenuAccess.Dishes.Add(new_dish);
-            MenuAccess.SaveMenu(MenuAccess.Dishes);
+            _dishes.Add(new_dish);
+            MenuAccess.SaveMenu(_dishes);
         }
     }
 
@@ -56,7 +57,7 @@ public class MenuController
         else{
             bool found_dish = false;
             List<Dish> dishesToRemove = new List<Dish>();
-            foreach (Dish dish in MenuAccess.Dishes)
+            foreach (Dish dish in _dishes)
             {
                 if (dish.Name == remove_dish)
                 {
@@ -72,10 +73,10 @@ public class MenuController
             {
                 foreach (Dish dish in dishesToRemove)
                 {
-                    MenuAccess.Dishes.Remove(dish);
+                    _dishes.Remove(dish);
                 }
                 
-                MenuAccess.SaveMenu(MenuAccess.Dishes);
+                MenuAccess.SaveMenu(_dishes);
                 
                 Console.WriteLine($"{remove_dish} has been removed from the menu");
             }
@@ -92,7 +93,7 @@ public class MenuController
             }
         }
         else{
-            foreach (Dish dish in MenuAccess.Dishes){
+            foreach (Dish dish in _dishes){
                 if (dish.Name == dish_name){
                     return dish;
                 }
@@ -123,7 +124,7 @@ public class MenuController
            
         }
         else{
-            foreach (Dish dish in MenuAccess.Dishes)
+            foreach (Dish dish in _dishes)
             {
                 if (dish_item.Name == dish.Name){
                     dish.Name = dish_item.Name;
@@ -136,7 +137,7 @@ public class MenuController
                     dish.MaxAmountPreOrder = dish_item.MaxAmountPreOrder;
                 }
             }
-            MenuAccess.SaveMenu(MenuAccess.Dishes);
+            MenuAccess.SaveMenu(_dishes);
         }
         
     }

@@ -4,7 +4,7 @@ public class InfoModel
 {
 
     [JsonPropertyName("Address")]
-    public int Address { get; set; }
+    public string Address { get; set; }
 
     [JsonPropertyName("PostalCode")]
     public string PostalCode { get; set; }
