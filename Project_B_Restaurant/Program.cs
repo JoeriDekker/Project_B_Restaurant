@@ -2,7 +2,7 @@
 {
     public static void Main()
     {
-        MenuAccess.LoadMenuPreOder();
+        // MenuAccess.LoadMenuPreOder();
         OpeningUI opening = new(null);
         opening.Start();
     }

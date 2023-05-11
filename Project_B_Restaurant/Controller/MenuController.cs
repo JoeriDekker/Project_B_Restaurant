@@ -7,7 +7,14 @@ public class MenuController
     public List<Dish> Dishes
     {
         get => IsFuture ? _future_dishes : _dishes;
-        set => value = IsFuture ? _future_dishes : _dishes;
+        set 
+        {
+            if (IsFuture)
+                _future_dishes = value;
+            
+            else
+                _dishes = value;
+        }
     }
 
     public static bool IsFuture { get; set; }
