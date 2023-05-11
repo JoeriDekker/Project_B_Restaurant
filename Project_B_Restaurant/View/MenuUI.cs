@@ -135,7 +135,8 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
         MenuItems.Add(new MenuItem("Change View"));
         MenuItems.Add(new MenuItem("Sort Menu", AccountLevel.Guest));
         MenuItems.Add(new MenuItem("Filter Menu", AccountLevel.Guest));
-        MenuItems.Add(new MenuItem("Reset Filter", AccountLevel.Guest));
+        MenuItems.Add(new MenuItem("Search Menu", AccountLevel.Guest));
+        MenuItems.Add(new MenuItem("Reset Menu", AccountLevel.Guest));
         MenuItems.Add(new MenuItem("Add Dish", AccountLevel.Admin));
         MenuItems.Add(new MenuItem("Remove Dish", AccountLevel.Admin));
         MenuItems.Add(new MenuItem("Update Dish", AccountLevel.Admin));
@@ -163,10 +164,13 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
                 Sort();
                 break;
             case "Filter Menu":
-                string toFilter = GetString("Type any combination to filter on");
-                Menu.Filter(toFilter.ToLower());
+                Filter();
                 break;
-            case "Reset Filter":
+            case "Search Menu":
+                string searchTo = GetString("Type any combination to search on");
+                Menu.Search(searchTo.ToLower());
+                break;
+            case "Reset Menu":
                 Menu.Reset();
                 break;
             case "Add Dish":
@@ -233,6 +237,75 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
             return;
 
         Menu.SortBy(choice);
+    }
+
+    private void Filter(){
+
+        Console.WriteLine("     1: Allergies");
+        Console.WriteLine("     2: Course Type");
+        Console.WriteLine("     0: Go Back");
+
+        string choice = GetString("Filter by?");
+        if (choice == "0")
+            return;
+        else if(choice == "1"){
+            Console.WriteLine("     1: Fish");
+            Console.WriteLine("     2: Chicken");
+            Console.WriteLine("     3: Dairy");
+            Console.WriteLine("     4: Eggs");
+            Console.WriteLine("     5: Wheat");
+            Console.WriteLine("     6: Nuts");
+            Console.WriteLine("     0: Go Back");
+            string new_choice = GetString("Filter by type?");
+            switch (new_choice){
+                case "1":
+                    Menu.Filter("Fish");
+                    break;
+                case "2":
+                    Menu.Filter("Chicken");
+                    break;
+                case "3":
+                    Menu.Filter("Dairy");
+                    break;
+                case "4":
+                    Menu.Filter("Eggs");
+                    break;
+                case "5":
+                    Menu.Filter("Wheat");
+                    break;
+                case "6":
+                    Menu.Filter("Nuts");
+                    break;
+                case "0":
+                    Filter();
+                    break;
+                default:
+                    return;
+            }
+        }
+        else if(choice == "2"){
+            Console.WriteLine("     1: Side");
+            Console.WriteLine("     2: Main");
+            Console.WriteLine("     3: Appetizer");
+            Console.WriteLine("     0: Go Back");
+            string new_choice = GetString("Filter by type?");
+            switch (new_choice){
+                case "1":
+                    Menu.Filter("Side");
+                    break;
+                case "2":
+                    Menu.Filter("Main");
+                    break;
+                case "3":
+                    Menu.Filter("Appetizer");
+                    break;
+                case "0":
+                    Filter();
+                    break;
+                default:
+                    return;
+            }
+        }
     }
 
     public void Add()

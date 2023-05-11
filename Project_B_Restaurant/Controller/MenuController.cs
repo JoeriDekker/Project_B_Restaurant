@@ -65,7 +65,7 @@ public class MenuController
     public bool Delete(string remove_dish)
     {
         Dish dishToRemove = new();
-        foreach (Dish dish in _future_dishes)
+        foreach (Dish dish in Dishes)
         {
             if (dish.Name == remove_dish)
             {
@@ -73,7 +73,7 @@ public class MenuController
             }
         }
 
-        if (dishToRemove != null)
+        if (dishToRemove == null)
         {
             return false;
         }
@@ -109,12 +109,8 @@ public class MenuController
 
     public void Update(Dish dish_item, string dish_name)
     {
-        foreach (Dish dish in _future_dishes)
+        foreach (Dish dish in Dishes)
         {
-            Console.WriteLine("-");
-            Console.WriteLine(dish_item.Name + "-" + dish_item.Name);
-            Console.WriteLine(dish.Name);
-            Console.WriteLine("-");
             if (dish_name == dish.Name)
             {
                 dish.Name = dish_item.Name;
@@ -139,9 +135,25 @@ public class MenuController
         }
     }
 
-    public void Filter(string query)
+    public void Search(string query)
     {
         Dishes = Dishes.FindAll(d => d.ToString().ToLower().Contains(query));
+    }
+
+    public void Filter(string query)
+    {
+        List<Dish> filteredItems = new List<Dish>();
+
+        foreach (Dish dish in Dishes)
+        {
+            if (!dish.Allergies.Contains(query)){
+                if(!dish.Type.Contains(query)){
+                    filteredItems.Add(dish);
+                }
+                    
+            }
+        }
+        Dishes = filteredItems;
     }
 
     public void SortBy(int type)
