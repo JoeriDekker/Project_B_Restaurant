@@ -259,22 +259,22 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
             int new_choice = GetInt("Filter by type?");
             switch (new_choice){
                 case 1:
-                    Menu.Filter("Fish");
+                    Menu.Filter("Fish", true);
                     break;
                 case 2:
-                    Menu.Filter("Chicken");
+                    Menu.Filter("Chicken", true);
                     break;
                 case 3:
-                    Menu.Filter("Dairy");
+                    Menu.Filter("Dairy", true);
                     break;
                 case 4:
-                    Menu.Filter("Eggs");
+                    Menu.Filter("Eggs", true);
                     break;
                 case 5:
-                    Menu.Filter("Wheat");
+                    Menu.Filter("Wheat", true);
                     break;
                 case 6:
-                    Menu.Filter("Nuts");
+                    Menu.Filter("Nuts", true);
                     break;
                 case 0:
                     Filter();
@@ -291,13 +291,13 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
             int new_choice = GetInt("Filter by type?");
             switch (new_choice){
                 case 1:
-                    Menu.Filter("Side");
+                    Menu.Filter("Side", false);
                     break;
                 case 2:
-                    Menu.Filter("Main");
+                    Menu.Filter("Main", false);
                     break;
                 case 3:
-                    Menu.Filter("Appetizer");
+                    Menu.Filter("Appetizer", false);
                     break;
                 case 0:
                     Filter();
