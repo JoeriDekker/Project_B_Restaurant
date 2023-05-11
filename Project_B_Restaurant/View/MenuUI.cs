@@ -245,10 +245,10 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
         Console.WriteLine("     2: Course Type");
         Console.WriteLine("     0: Go Back");
 
-        string choice = GetString("Filter by?");
-        if (choice == "0")
+        int choice = GetInt("Filter by?");
+        if (choice == 0)
             return;
-        else if(choice == "1"){
+        else if(choice == 1){
             Console.WriteLine("     1: Fish");
             Console.WriteLine("     2: Chicken");
             Console.WriteLine("     3: Dairy");
@@ -256,50 +256,50 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
             Console.WriteLine("     5: Wheat");
             Console.WriteLine("     6: Nuts");
             Console.WriteLine("     0: Go Back");
-            string new_choice = GetString("Filter by type?");
+            int new_choice = GetInt("Filter by type?");
             switch (new_choice){
-                case "1":
+                case 1:
                     Menu.Filter("Fish");
                     break;
-                case "2":
+                case 2:
                     Menu.Filter("Chicken");
                     break;
-                case "3":
+                case 3:
                     Menu.Filter("Dairy");
                     break;
-                case "4":
+                case 4:
                     Menu.Filter("Eggs");
                     break;
-                case "5":
+                case 5:
                     Menu.Filter("Wheat");
                     break;
-                case "6":
+                case 6:
                     Menu.Filter("Nuts");
                     break;
-                case "0":
+                case 0:
                     Filter();
                     break;
                 default:
                     return;
             }
         }
-        else if(choice == "2"){
+        else if(choice == 2){
             Console.WriteLine("     1: Side");
             Console.WriteLine("     2: Main");
             Console.WriteLine("     3: Appetizer");
             Console.WriteLine("     0: Go Back");
-            string new_choice = GetString("Filter by type?");
+            int new_choice = GetInt("Filter by type?");
             switch (new_choice){
-                case "1":
+                case 1:
                     Menu.Filter("Side");
                     break;
-                case "2":
+                case 2:
                     Menu.Filter("Main");
                     break;
-                case "3":
+                case 3:
                     Menu.Filter("Appetizer");
                     break;
-                case "0":
+                case 0:
                     Filter();
                     break;
                 default:
