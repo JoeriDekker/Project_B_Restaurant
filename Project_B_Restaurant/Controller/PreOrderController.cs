@@ -2,8 +2,6 @@ using System.Text.Json;
 
 public class PreOrderController
 {
-
-// void veranderen --> moet een dish returnen
     public Dish PreOrderDishes()
     {
         Console.WriteLine("\nThe menu will be showed after you pressed the enter button.");
