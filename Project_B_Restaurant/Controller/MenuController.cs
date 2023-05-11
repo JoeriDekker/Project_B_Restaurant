@@ -140,18 +140,23 @@ public class MenuController
         Dishes = Dishes.FindAll(d => d.ToString().ToLower().Contains(query));
     }
 
-    public void Filter(string query)
+    public void Filter(string query, bool isAlergies)
     {
         List<Dish> filteredItems = new List<Dish>();
 
         foreach (Dish dish in Dishes)
         {
-            if (!dish.Allergies.Contains(query)){
+            if (isAlergies){
+                if (!dish.Allergies.Contains(query)){
+                    filteredItems.Add(dish);
+                }
+            }
+            else{
                 if(!dish.Type.Contains(query)){
                     filteredItems.Add(dish);
                 }
-                    
             }
+            
         }
         Dishes = filteredItems;
     }
