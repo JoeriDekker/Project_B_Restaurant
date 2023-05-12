@@ -316,11 +316,8 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
 
         string dish_allergies = GetString("What are the Dish allergies?");
         
-
-        Console.WriteLine("What is the Dish price?");
-        double dish_price = Convert.ToDouble(Console.ReadLine() ?? "0");
-
-        Console.WriteLine("What is the Dish Type?");
+        double dish_price = RequestDouble("What is the Dish price?");
+        
         string dish_type = GetString("What is the Dish Type?");
         
         Menu.Add(dish_name, dish_ingredients.Split(' ').ToList(), dish_allergies, dish_price, dish_type);
