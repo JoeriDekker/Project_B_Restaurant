@@ -310,25 +310,19 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
 
     public void Add()
     {
-        Console.WriteLine("What is the Dish name?");
-        string dish_name = Console.ReadLine() ?? "Unknown";
+        string dish_name = GetString("What is the Dish name?");
 
-        Console.WriteLine("What are the Dish ingedients?");
-        string dish_ingredients = Console.ReadLine() ?? "Unknown";
+        string dish_ingredients = GetString("What are the Dish ingedients?");
 
-        Console.WriteLine("What are the Dish allergies?");
-        string dish_allergies = Console.ReadLine() ?? "Unknown";
+        string dish_allergies = GetString("What are the Dish allergies?");
+        
 
         Console.WriteLine("What is the Dish price?");
         double dish_price = Convert.ToDouble(Console.ReadLine() ?? "0");
 
         Console.WriteLine("What is the Dish Type?");
-        string? dish_type = Console.ReadLine();
-        if (dish_type == null || dish_type == "")
-        {
-            dish_type = "Unknown";
-        }
-
+        string dish_type = GetString("What is the Dish Type?");
+        
         Menu.Add(dish_name, dish_ingredients.Split(' ').ToList(), dish_allergies, dish_price, dish_type);
 
 
