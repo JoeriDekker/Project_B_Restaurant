@@ -205,20 +205,20 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
 
     private void Update()
     {
-        string dishToChange;
+        int dishToChange;
         do
         {
-            dishToChange = GetString("Which Dish do you want to Change? (Give the name of the dish)");
+            dishToChange = GetInt("Which Dish do you want to Change? (Give the ID of the dish)");
 
-            if (!Menu.FindDishByName(dishToChange))
+            if (!Menu.FindDishWithID(dishToChange))
             {
                 Console.WriteLine($"Dish with the name {dishToChange} has not been found!");
-                dishToChange = string.Empty;
+                dishToChange = 0;
             }
         }
-        while (dishToChange == string.Empty);
+        while (dishToChange == 0);
 
-        Dish dish = Menu.GetDishByName(dishToChange);
+        Dish dish = Menu.Dishes[Menu.GetDishIndexWithID(dishToChange)];
         UpdateDishUI updateDishUI = new UpdateDishUI(this, dish);
         updateDishUI.Start();
         CreateMenuItems();
@@ -326,10 +326,10 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
     }
     public void Delete()
     {
-        string remove_dish = GetString("Which Dish do you want to remove? (Give the name of the dish)");
+        int remove_dish = GetInt("Which Dish do you want to remove? (Give the ID of the dish)");
         if (Menu.Delete(remove_dish))
-            Console.WriteLine($"{remove_dish} has been removed from the menu");
+            Console.WriteLine($"The Dish with ID ({remove_dish}) has been removed from the menu");
         else
-            Console.WriteLine($"{remove_dish} has not been found");
+            Console.WriteLine($"The Dish with ID ({remove_dish}) has not been found");
     }
 }

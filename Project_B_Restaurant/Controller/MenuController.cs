@@ -62,22 +62,16 @@ public class MenuController
     }
 
 
-    public bool Delete(string remove_dish)
+    public bool Delete(int DishID)
     {
         Dish dishToRemove = new();
-        foreach (Dish dish in Dishes)
-        {
-            if (dish.Name == remove_dish)
-            {
-                dishToRemove = dish;
-            }
-        }
 
-        if (dishToRemove == null)
-        {
+        if (FindDishWithID(DishID)){
+            dishToRemove = Dishes[GetDishIndexWithID(DishID)];
+        }
+        else{
             return false;
         }
-
         Dishes.Remove(dishToRemove!);
         this.Save();
         return true;
@@ -179,6 +173,62 @@ public class MenuController
                 break;
             default:
                 break;
+        }
+    }
+
+    public bool FindDishWithID(int value)
+    {
+        return FindDishWithID(value, 0, Dishes.Count - 1);
+    }
+
+    private bool FindDishWithID(int value, int first, int last)
+    {
+        if (first > last)
+        {
+            return false;
+        }
+
+        int mid = (first + last) / 2;
+
+        if (Dishes[mid].ID == value)
+        {
+            return true;
+        }
+        else if (Dishes[mid].ID > value)
+        {
+            return FindDishWithID(value, first, mid - 1);
+        }
+        else
+        {
+            return FindDishWithID(value, mid + 1, last);
+        }
+    }
+
+    public int GetDishIndexWithID(int value)
+    {
+        return GetDishIndexWithID(value, 0, Dishes.Count - 1);
+    }
+
+    private int GetDishIndexWithID(int value, int first, int last)
+    {
+        if (first > last)
+        {
+            return -1;
+        }
+
+        int mid = (first + last) / 2;
+
+        if (Dishes[mid].ID == value)
+        {
+            return mid;
+        }
+        else if (Dishes[mid].ID > value)
+        {
+            return GetDishIndexWithID(value, first, mid - 1);
+        }
+        else
+        {
+            return GetDishIndexWithID(value, mid + 1, last);
         }
     }
 }
