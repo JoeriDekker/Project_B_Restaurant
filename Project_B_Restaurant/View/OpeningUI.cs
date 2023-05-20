@@ -35,6 +35,9 @@ class OpeningUI : UI
         MenuItems.Add(new MenuItem(Constants.OpeningUI.MENU, AccountLevel.Guest));
         MenuItems.Add(new MenuItem(Constants.OpeningUI.CREATE_ACCOUNT, AccountLevel.Guest));
         MenuItems.Add(new MenuItem(Constants.OpeningUI.RESERVATION, AccountLevel.Guest));
+        MenuItems.Add(new MenuItem("Show Restaurant Info", AccountLevel.Guest));
+        MenuItems.Add(new MenuItem("Create Employee Account", AccountLevel.Admin));
+        MenuItems.Add(new MenuItem("Change Restaurant Info", AccountLevel.Admin));
     }
 
     public override void UserChoosesOption(int choice)
@@ -54,6 +57,15 @@ class OpeningUI : UI
             case Constants.OpeningUI.RESERVATION:
                 ReservationUI reservation = new(this);
                 reservation.Start();
+                break;
+            case "Show Restaurant Info":
+                RestaurantInfo.Show();
+                break;
+            case "Create Employee Account":
+                UserLogin.AddEmployee();
+                break;
+            case "Change Restaurant Info":
+                RestaurantInfo.Change();
                 break;
             case Constants.UI.GO_BACK:
             case Constants.UI.EXIT:

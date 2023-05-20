@@ -3,6 +3,9 @@ using System.Text.Json.Serialization;
 public class InfoModel
 {
 
+    [JsonPropertyName("Name")]
+    public string Name { get; set; }
+
     [JsonPropertyName("Address")]
     public string Address { get; set; }
 
@@ -18,14 +21,15 @@ public class InfoModel
     [JsonPropertyName("Telephone")]
     public string Telephone { get; set; }
 
-    [JsonConstructor]
-    public InfoModel(string address, string postalCode, string city, string emailAddress, string telephone)
+/*    [JsonConstructor]
+    public InfoModel(string name, string address, string postalCode, string city, string emailAddress, string telephone)
     {
+        Name = name;
         Address = address;
         PostalCode = postalCode;
         City = city;
         EmailAddress = emailAddress;
         Telephone = telephone;
     }
-
+*/
 }

@@ -1,5 +1,6 @@
 [
     {
+        "Name" : "RestaurantName",
         "Address" : "Wijnhaven 107",
         "PostalCode" : "3011 WN",
         "City" : "Rotterdam",

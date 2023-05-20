@@ -16,6 +16,7 @@ static class UserLogin
         {
             Console.WriteLine("Welcome back " + acc.FullName);
             Console.WriteLine("Your email number is " + acc.EmailAddress);
+
             loggedIn = true;
             //Write some code to go back to the menu
             //Menu.Start();
@@ -64,16 +65,16 @@ static class UserLogin
 
     public static void CreateAccount()
     {
-        var type = AccountLevel.Guest;
+        var level = AccountLevel.Guest;
         Console.WriteLine("Are you an admin or customer? \nEnter 1 for Admin \nEnter 2 for Customer");
         string choice = Console.ReadLine();
         if (choice == "1")
         {
-            type = AccountLevel.Admin;
+            level = AccountLevel.Admin;
         }
         else if (choice == "2")
         {
-            type = AccountLevel.Customer;
+            level = AccountLevel.Customer;
         }
         else
         {
@@ -97,9 +98,35 @@ static class UserLogin
             confirm_password = Console.ReadLine();
         }
         int id = accountsLogic.GetLastId() + 1;
-        AccountModel acc = new AccountModel(id, emailAddress, password, fullName, type);
+        AccountModel acc = new AccountModel(id, emailAddress, password, fullName, level);
         accountsLogic.UpdateList(acc);
 
-        Console.WriteLine("You have succesfulle created an account!");
+        Console.WriteLine("You have succesfully created an account!");
+    }
+
+    public static void AddEmployee()
+    {
+        var level = AccountLevel.Employee;
+        Console.WriteLine("What their full name?");
+        string fullName = Console.ReadLine();
+        Console.WriteLine("What is their e-mailaddress?");
+        string emailAddress = Console.ReadLine();
+        Console.WriteLine("Enter a password:");
+        string password = Console.ReadLine();
+        Console.WriteLine("Confirm the password:");
+        string confirm_password = Console.ReadLine();
+        while (password != confirm_password)
+        {
+            Console.WriteLine("The passwords do not match. Please try again.");
+            Console.WriteLine("Enter a password:");
+            password = Console.ReadLine();
+            Console.WriteLine("Confirm the password:");
+            confirm_password = Console.ReadLine();
+        }
+        int id = accountsLogic.GetLastId() + 1;
+        AccountModel acc = new AccountModel(id, emailAddress, password, fullName, level);
+        accountsLogic.UpdateList(acc);
+
+        Console.WriteLine("You have succesfully created an employee account!");
     }
 }
