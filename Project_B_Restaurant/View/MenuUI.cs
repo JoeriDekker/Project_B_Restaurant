@@ -57,7 +57,7 @@ public class MenuUI : UI
         // setting header and padding left
         string header = String.Format("{0,-11}| {1,-30}| {2,-48}| {3,-25}| {4,-16}| {5,-17}|",
                                     "\x1b[1mID\x1b[0m", "\x1b[1mName\x1b[0m", "\x1b[1mIngredients\x1b[0m", "\x1b[1mAllergies\x1b[0m", "\x1b[1mPrice\x1b[0m", "\x1b[1mType\x1b[0m");
-        // divider set to headers length minus the width of the bold escape characters times amount of occurences.
+        // divider set to headers length minus the width of the bold escape characters times amount of elements.
         string divider = new('=', header.Length - 8 * 6);
 
         sb.AppendLine(header);

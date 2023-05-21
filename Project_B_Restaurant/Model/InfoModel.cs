@@ -21,7 +21,7 @@ public class InfoModel
     [JsonPropertyName("Telephone")]
     public string Telephone { get; set; }
 
-/*    [JsonConstructor]
+    [JsonConstructor]
     public InfoModel(string name, string address, string postalCode, string city, string emailAddress, string telephone)
     {
         Name = name;
@@ -31,5 +31,9 @@ public class InfoModel
         EmailAddress = emailAddress;
         Telephone = telephone;
     }
-*/
+
+    public override string ToString()
+    {
+        return $"Name: {Name}\nAddress: {Address}\nPostalCode: {PostalCode}\nCity: {City}\nEmail:{EmailAddress}\nPhone number: {Telephone}";
+    }
 }
