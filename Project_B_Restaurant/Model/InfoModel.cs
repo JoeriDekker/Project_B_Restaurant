@@ -34,6 +34,6 @@ public class InfoModel
 
     public override string ToString()
     {
-        return $"Name: {Name}\nAddress: {Address}\nPostalCode: {PostalCode}\nCity: {City}\nEmail:{EmailAddress}\nPhone number: {Telephone}";
+        return $"Name: {Name}\nAddress: {Address}\nPostalCode: {PostalCode}\nCity: {City}\nEmail: {EmailAddress}\nPhone number: {Telephone}";
     }
 }
