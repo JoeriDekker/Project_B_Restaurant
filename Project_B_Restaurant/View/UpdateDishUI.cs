@@ -50,38 +50,32 @@ Max amount of pre-order: {_dish.MaxAmountPreOrder}
         switch (UserOptions[option].Name)
         {
             case "Change Name":
-                Console.WriteLine("What is the new dish name?");
-                string? new_dish_name = Console.ReadLine();
+                string? new_dish_name = GetString("What is the new dish name?");
                 _dish.Name = new_dish_name;
                 break;
 
             case "Change Ingredients":
-                Console.WriteLine("What are the updated ingredients?");
-                string? new_dish_ingredients = Console.ReadLine();
+                string? new_dish_ingredients = GetString("What are the updated ingredients?");
                 _dish.Ingredients = new_dish_ingredients.Split(',').ToList();
                 break;
 
             case "Change Allergies":
-                Console.WriteLine("What are the updated allergies?");
-                string? new_dish_allergies = Console.ReadLine();
+                string? new_dish_allergies = GetString("What are the updated allergies?");
                 _dish.Allergies = new_dish_allergies;
                 break;
 
             case "Change Price":
-                Console.WriteLine("What is the new dish price?");
-                double new_dish_price = Convert.ToDouble(Console.ReadLine());
+                double new_dish_price = RequestDouble("What is the new dish price?");
                 _dish.Price = new_dish_price;
                 break;
 
             case "Change Type":
-                Console.WriteLine("What is the new dish type?");
-                string? new_dish_type = Console.ReadLine();
+                string? new_dish_type = GetString("What is the new dish type?");
                 _dish.Type = new_dish_type;
                 break;
 
             case "Change Max amount of pre-order":
-                Console.WriteLine("What is the new max amount of pre-order?");
-                int new_dish_max_amount_pre_order = Convert.ToInt32(Console.ReadLine());
+                int new_dish_max_amount_pre_order = GetInt("What is the new max amount of pre-order?");
                 _dish.MaxAmountPreOrder = new_dish_max_amount_pre_order;
                 break;
 

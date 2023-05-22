@@ -57,7 +57,7 @@ public class MenuUI : UI
         // setting header and padding left
         string header = String.Format("{0,-11}| {1,-30}| {2,-48}| {3,-25}| {4,-16}| {5,-17}|",
                                     "\x1b[1mID\x1b[0m", "\x1b[1mName\x1b[0m", "\x1b[1mIngredients\x1b[0m", "\x1b[1mAllergies\x1b[0m", "\x1b[1mPrice\x1b[0m", "\x1b[1mType\x1b[0m");
-        // divider set to headers length minus the width of the bold escape characters times amount of occurences.
+        // divider set to headers length minus the width of the bold escape characters times amount of elements.
         string divider = new('=', header.Length - 8 * 6);
 
         sb.AppendLine(header);
@@ -205,20 +205,20 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
 
     private void Update()
     {
-        string dishToChange;
+        int dishToChange;
         do
         {
-            dishToChange = GetString("Which Dish do you want to Change? (Give the name of the dish)");
+            dishToChange = GetInt("Which Dish do you want to Change? (Give the ID of the dish)");
 
-            if (!Menu.FindDishByName(dishToChange))
+            if (!Menu.FindDishWithID(dishToChange))
             {
                 Console.WriteLine($"Dish with the name {dishToChange} has not been found!");
-                dishToChange = string.Empty;
+                dishToChange = 0;
             }
         }
-        while (dishToChange == string.Empty);
+        while (dishToChange == 0);
 
-        Dish dish = Menu.GetDishByName(dishToChange);
+        Dish dish = Menu.Dishes[Menu.GetDishIndexWithID(dishToChange)];
         UpdateDishUI updateDishUI = new UpdateDishUI(this, dish);
         updateDishUI.Start();
         CreateMenuItems();
@@ -259,22 +259,22 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
             int new_choice = GetInt("Filter by type?");
             switch (new_choice){
                 case 1:
-                    Menu.Filter("Fish");
+                    Menu.Filter("Fish", true);
                     break;
                 case 2:
-                    Menu.Filter("Chicken");
+                    Menu.Filter("Chicken", true);
                     break;
                 case 3:
-                    Menu.Filter("Dairy");
+                    Menu.Filter("Dairy", true);
                     break;
                 case 4:
-                    Menu.Filter("Eggs");
+                    Menu.Filter("Eggs", true);
                     break;
                 case 5:
-                    Menu.Filter("Wheat");
+                    Menu.Filter("Wheat", true);
                     break;
                 case 6:
-                    Menu.Filter("Nuts");
+                    Menu.Filter("Nuts", true);
                     break;
                 case 0:
                     Filter();
@@ -291,13 +291,13 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
             int new_choice = GetInt("Filter by type?");
             switch (new_choice){
                 case 1:
-                    Menu.Filter("Side");
+                    Menu.Filter("Side", false);
                     break;
                 case 2:
-                    Menu.Filter("Main");
+                    Menu.Filter("Main", false);
                     break;
                 case 3:
-                    Menu.Filter("Appetizer");
+                    Menu.Filter("Appetizer", false);
                     break;
                 case 0:
                     Filter();
@@ -310,35 +310,26 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
 
     public void Add()
     {
-        Console.WriteLine("What is the Dish name?");
-        string dish_name = Console.ReadLine() ?? "Unknown";
+        string dish_name = GetString("What is the Dish name?");
 
-        Console.WriteLine("What are the Dish ingedients?");
-        string dish_ingredients = Console.ReadLine() ?? "Unknown";
+        string dish_ingredients = GetString("What are the Dish ingedients?");
 
-        Console.WriteLine("What are the Dish allergies?");
-        string dish_allergies = Console.ReadLine() ?? "Unknown";
-
-        Console.WriteLine("What is the Dish price?");
-        double dish_price = Convert.ToDouble(Console.ReadLine() ?? "0");
-
-        Console.WriteLine("What is the Dish Type?");
-        string? dish_type = Console.ReadLine();
-        if (dish_type == null || dish_type == "")
-        {
-            dish_type = "Unknown";
-        }
-
+        string dish_allergies = GetString("What are the Dish allergies?");
+        
+        double dish_price = RequestDouble("What is the Dish price?");
+        
+        string dish_type = GetString("What is the Dish Type?");
+        
         Menu.Add(dish_name, dish_ingredients.Split(' ').ToList(), dish_allergies, dish_price, dish_type);
 
 
     }
     public void Delete()
     {
-        string remove_dish = GetString("Which Dish do you want to remove? (Give the name of the dish)");
+        int remove_dish = GetInt("Which Dish do you want to remove? (Give the ID of the dish)");
         if (Menu.Delete(remove_dish))
-            Console.WriteLine($"{remove_dish} has been removed from the menu");
+            Console.WriteLine($"The Dish with ID ({remove_dish}) has been removed from the menu");
         else
-            Console.WriteLine($"{remove_dish} has not been found");
+            Console.WriteLine($"The Dish with ID ({remove_dish}) has not been found");
     }
 }

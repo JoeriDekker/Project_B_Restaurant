@@ -34,4 +34,10 @@ static class InfoAccess
         string json = JsonSerializer.Serialize(info, options);
         File.WriteAllText(path, json);
     }
+
+    public static void WriteAll(InfoModel info)
+    {
+        List<InfoModel> infoModel = new List<InfoModel> { info };
+        WriteAll(infoModel);
+    } 
 }
