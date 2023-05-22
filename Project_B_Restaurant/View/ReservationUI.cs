@@ -91,7 +91,7 @@ public class ReservationUI : UI
                     Console.WriteLine("No available seats at the moment.");
                 }else{
                     Console.WriteLine($"{table.T_ID}, {table.T_Seats} ");
-                    TableLogic.OccupiedTable(table.T_ID, false);
+                    TableLogic.OccupiedTable(table.T_ID, true);
                     ReservationLogic.CreateReservation(inp_name, inp_Pamount, table.T_ID);
                     Console.WriteLine("Reservation has been made!");
                     // Initialize pre order module ( UI )
