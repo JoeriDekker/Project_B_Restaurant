@@ -9,15 +9,13 @@ public class UnitTest1
         string startLogin = "1";
         string username = "admin";
         string password = "admin";
-        string input = string.Join(Environment.NewLine, startLogin, username, password);
-
-        StringReader inputReader = new(input);
-        Console.SetIn(inputReader);
 
         OpeningUI openingUI = new(null!);
+        Console.SetIn(new StringReader(startLogin));
+        Console.SetIn(new StringReader(username));
+        Console.SetIn(new StringReader(password));
         openingUI.Start();
 
-        Console.OpenStandardInput();
 
         Assert.AreEqual(AccountsLogic.CurrentAccount.Level, AccountLevel.Admin);
     }
