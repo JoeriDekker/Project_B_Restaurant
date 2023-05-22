@@ -54,7 +54,7 @@ public class ReservationUI : UI
                     Console.WriteLine("No available seats at the moment.");
                 }else{
                     Console.WriteLine($"{table.T_ID}, {table.T_Seats} ");
-                    TableLogic.OccupiedTable(table.T_ID);
+                    TableLogic.OccupiedTable(table.T_ID, false);
                     ReservationLogic.CreateReservation(inp_name, inp_Pamount, table.T_ID);
                     Console.WriteLine("Reservation has been made!");
                     // Initialize pre order module ( UI )
@@ -73,6 +73,7 @@ public class ReservationUI : UI
                 Console.WriteLine("Please enter a Reservation ID:");
                 int IDinp = Convert.ToInt32(Console.ReadLine());
                 ReservationModel ReservationMUD = ReservationLogic.getReservationByID(IDinp);
+                
                 if (ReservationMUD == null)
                 {
                     Console.WriteLine("Cannot be found");

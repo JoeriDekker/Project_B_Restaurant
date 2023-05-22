@@ -47,14 +47,15 @@ public class TableLogic{
         return null;
     }
 
-    public void OccupiedTable(string checkTable){
+
+    public void OccupiedTable(string checkTable, bool setBool){
     
     bool availableTable = TableAvailableCheck(checkTable);
 
     if(!availableTable){
         foreach(TableModel table in _Tables){
             if(table.Occupied == false && table.T_ID == checkTable){
-                table.Occupied = true;
+                table.Occupied = setBool; 
             }
         }
         // Create a new list with the updated table objects
@@ -64,5 +65,4 @@ public class TableLogic{
         TableAccess.WriteAll(updatedTables);    
      }
     }
-
 }

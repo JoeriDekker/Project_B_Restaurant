@@ -15,6 +15,7 @@ public class ReservationLogic{
     public ReservationLogic()
     {
         _Reservations = ReservationAccess.LoadAll();
+        TableLogic TableLogic = new TableLogic();
     }
 
     public string createReservationCode(){
@@ -76,8 +77,9 @@ public class ReservationLogic{
 
          //Remove out of Reservations list
          if(_Reservations.Remove(Res) == true){
-            // Save this data to Reservation.js
-            ReservationAccess.WriteAll(_Reservations);
+            // Save this data to Reservation.js 
+            ReservationAccess.WriteAll(_Reservations); 
+
             return true;
          }else{
             return false;
