@@ -11,9 +11,9 @@ public class UnitTest1
         string password = "admin";
 
         OpeningUI openingUI = new(null!);
-        Console.SetIn(new StringReader(startLogin));
-        Console.SetIn(new StringReader(username));
-        Console.SetIn(new StringReader(password));
+        Console.SetIn(new StringReader($"{startLogin}\n{username}\n{password}"));
         openingUI.Start();
+
+        
     }
 }

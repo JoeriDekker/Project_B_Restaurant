@@ -7,6 +7,8 @@ class PreOrderView : UI
 
     public ReservationModel Reservation { get; set; }
 
+    public int TotalPrice { get => Reservation.PreOrders.ForEach(dish => TotalPrice + dish.Price)}
+
     public override string Header
     {
         get => @"
@@ -21,10 +23,25 @@ class PreOrderView : UI
 
     public override string SubText
     {
-        get => (Reservation.PreOrders.Count > 0) ? "No Preorders yet" : ShowPreOrders();
+        get
+        {
+            if (Reservation.PreOrders.Count <= 0)
+                return $"No Preorders yet";
+            else
+            {
+                StringBuilder sb = new();
+                for (int i = 0; i < Reservation.PreOrders.Count; i++)
+                {
+                    Dish dish = Reservation.PreOrders[i];
+                    sb.Append($"{dish.Name}\n{dish.Price}\n");
+                }
+                sb.Append(TotalPrice);
+                return sb.ToString();
+            }
+        }
     }
 
-    public string  ShowPreOrders()
+    public string ShowPreOrders()
     {
         StringBuilder sb = new();
 
@@ -42,8 +59,8 @@ class PreOrderView : UI
     public override void CreateMenuItems()
     {
         MenuItems.Clear();
-        MenuItems.Add(new MenuItem("Add single Dish", AccountLevel.Guest)); 
-        MenuItems.Add(new MenuItem("Add course menu", AccountLevel.Guest)); 
+        MenuItems.Add(new MenuItem("Add single Dish", AccountLevel.Guest));
+        MenuItems.Add(new MenuItem("Add course menu", AccountLevel.Guest));
         MenuItems.Add(new MenuItem("Remove PreOrder", AccountLevel.Guest));
         MenuItems.Add(new MenuItem("Update PreOrder", AccountLevel.Guest));
     }
