@@ -2,12 +2,12 @@ using System.Text;
 
 class PreOrderView : UI
 {
-    private PreOrderController PreOrderController = new PreOrderController();
-    private MenuController Menu = new();
+    private PreOrderController preOrderController = new PreOrderController();
+    private MenuController menu = new();
 
     public ReservationModel Reservation { get; set; }
 
-    public int TotalPrice { get => Reservation.PreOrders.ForEach(dish => TotalPrice + dish.Price)}
+    private double totalPrice;
 
     public override string Header
     {
@@ -30,12 +30,14 @@ class PreOrderView : UI
             else
             {
                 StringBuilder sb = new();
+                totalPrice = 0;
                 for (int i = 0; i < Reservation.PreOrders.Count; i++)
                 {
                     Dish dish = Reservation.PreOrders[i];
+                    totalPrice += dish.Price;
                     sb.Append($"{dish.Name}\n{dish.Price}\n");
                 }
-                sb.Append(TotalPrice);
+                sb.Append($"\nYour total price is: {totalPrice} euro");
                 return sb.ToString();
             }
         }
@@ -61,8 +63,6 @@ class PreOrderView : UI
         MenuItems.Clear();
         MenuItems.Add(new MenuItem("Add single Dish", AccountLevel.Guest));
         MenuItems.Add(new MenuItem("Add course menu", AccountLevel.Guest));
-        MenuItems.Add(new MenuItem("Remove PreOrder", AccountLevel.Guest));
-        MenuItems.Add(new MenuItem("Update PreOrder", AccountLevel.Guest));
     }
 
     public override void UserChoosesOption(int option)
@@ -70,16 +70,12 @@ class PreOrderView : UI
         switch (UserOptions[option].Name)
         {
             case "Add single Dish":
-                Reservation.PreOrders.Add(PreOrderController.PreOrderDishes());
+                Reservation.PreOrders.Add(preOrderController.PreOrderDishes());
                 break;
             case "Add course menu":
-                Reservation.PreOrders.Add(PreOrderController.PreOrderAppetizer());
-                PreOrderController.PreOrderMain();
-                PreOrderController.preOrderDessert();
-                break;
-            case "Remove PreOrder":
-                break;
-            case "Update PreOrder":
+                Reservation.PreOrders.Add(preOrderController.PreOrderAppetizer());
+                Reservation.PreOrders.Add(preOrderController.PreOrderMain());
+                Reservation.PreOrders.Add(preOrderController.preOrderDessert());
                 break;
             case Constants.UI.GO_BACK:
             case Constants.UI.EXIT:
@@ -89,6 +85,11 @@ class PreOrderView : UI
                 Console.WriteLine("Invalid input");
                 break; ;
         }
+    }
+
+    public ReservationModel EndPreOrder()
+    {
+        return this.Reservation;
     }
     public static void Change()
     {

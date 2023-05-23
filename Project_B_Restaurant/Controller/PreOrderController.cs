@@ -2,6 +2,7 @@ using System.Text.Json;
 
 public class PreOrderController
 {
+    private List<Dish> preOrders = new List<Dish>();
     public MenuController Menu = new();
     public Dish PreOrderDishes()
     {
@@ -14,7 +15,7 @@ public class PreOrderController
                 Console.WriteLine($"- {dish.Name}\n{string.Join(", ",dish.Ingredients)}\n{dish.Price}");
             }
         }
-        Console.WriteLine("Please type here which dish you want to pre order:\n");
+        Console.WriteLine("\nPlease type here which dish you want to pre order:\n");
         string? preOrderDish = Console.ReadLine();
         foreach (Dish dish in Menu.Dishes)
         {
@@ -103,5 +104,21 @@ public class PreOrderController
             }
         }
     return null;
+    }
+
+    public void EndPreOrder()
+    {
+        double price = 0;
+        foreach (Dish dish in preOrders)
+        {
+            //laat naam van pre ordered dishes en prijzen zien
+            Console.WriteLine(String.Format("{0,20} {1,6}", dish.Name, dish.Price));
+            price += dish.Price;
+        }
+        //laat totale prijs zien door alle prijzen op te tellen van de gekozen dishes
+        price = Math.Round(price, 2);
+        Console.WriteLine($"\nThank you for making a pre order. Your total amount will be: {price}");
+        //reset lijst
+        preOrders.Clear();
     }
 }

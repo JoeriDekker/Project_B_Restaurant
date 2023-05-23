@@ -39,4 +39,11 @@ static class ReservationAccess
         string json = JsonSerializer.Serialize(reservations, options);
         File.WriteAllText(path, json);
     }
+
+    public static void SaveReservation(List<ReservationModel> reservations)
+    {
+        var options = new JsonSerializerOptions { WriteIndented = true };
+        string json = JsonSerializer.Serialize(reservations, options);
+        File.WriteAllText(path, json);
+    }
 }

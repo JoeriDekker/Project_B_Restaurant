@@ -48,7 +48,7 @@ public class ReservationLogic
         //Add to daaaaaaaaaa list c:
         _Reservations.Add(res);
 
-        // Save this data to Reservation.js
+        // Save this data to Reservation.json
         ReservationAccess.WriteAll(_Reservations);
 
         return res;

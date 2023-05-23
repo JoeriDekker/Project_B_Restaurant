@@ -3,6 +3,7 @@ public class ReservationUI : UI
 
     ReservationLogic ReservationLogic = new ReservationLogic();
     TableLogic TableLogic = new TableLogic();
+    PreOrderView preOrd; 
     public override string Header
     {
         get => @"
@@ -99,9 +100,12 @@ public class ReservationUI : UI
                     answer = Console.ReadLine() ?? string.Empty;
                     if (answer == "Y")
                     {
-                        PreOrderView preOrd = new PreOrderView(this, res);
+                        preOrd = new PreOrderView(this, res);
                         preOrd.Start();
                     }
+                    res = preOrd.EndPreOrder();
+                    Console.WriteLine($"The amount is" + res.PreOrders.Count);
+                    ReservationAccess.SaveReservation(ReservationLogic.GetAllReservations());
                 }
                 break;
             case "Show all Reservations":
