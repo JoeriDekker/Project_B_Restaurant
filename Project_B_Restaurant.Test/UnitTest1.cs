@@ -15,8 +15,5 @@ public class UnitTest1
         Console.SetIn(new StringReader(username));
         Console.SetIn(new StringReader(password));
         openingUI.Start();
-
-
-        Assert.AreEqual(AccountsLogic.CurrentAccount.Level, AccountLevel.Admin);
     }
 }

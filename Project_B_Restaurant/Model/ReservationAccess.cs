@@ -4,6 +4,10 @@ static class ReservationAccess
 {
     static string path = System.IO.Path.GetFullPath(System.IO.Path.Combine(Environment.CurrentDirectory, @"DataSources/Reservations.json"));
 
+    // public static readonly JsonSerializerOptions DefaultOptions = new JsonSerializerOptions
+    // {
+    //     DefaultIgnoreCondition = default
+    // };
 
     public static List<ReservationModel> LoadAll()
     {
@@ -12,7 +16,7 @@ static class ReservationAccess
         {
             return new List<ReservationModel>();
         }
-        
+
         string json = File.ReadAllText(path);
         //If json is null or empty ?
         if (string.IsNullOrEmpty(json))
@@ -27,7 +31,10 @@ static class ReservationAccess
 
 
     public static void WriteAll(List<ReservationModel> reservations)
-    {
+    {   
+        foreach (ReservationModel res in reservations){
+            Console.WriteLine(res);
+        }
         var options = new JsonSerializerOptions { WriteIndented = true };
         string json = JsonSerializer.Serialize(reservations, options);
         File.WriteAllText(path, json);

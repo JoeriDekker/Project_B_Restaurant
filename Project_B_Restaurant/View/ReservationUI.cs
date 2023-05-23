@@ -87,20 +87,30 @@ public class ReservationUI : UI
 
                 TableModel table = TableLogic.getTable(inp_Pamount);
 
-                if(table == null){
+                if (table == null)
+                {
                     Console.WriteLine("No available seats at the moment.");
-                }else{
+                }
+                else
+                {
                     Console.WriteLine($"{table.T_ID}, {table.T_Seats} ");
                     TableLogic.OccupiedTable(table.T_ID, true);
-                    ReservationLogic.CreateReservation(inp_name, inp_Pamount, table.T_ID);
+                    ReservationModel res = ReservationLogic.CreateReservation(inp_name, inp_Pamount, table.T_ID);
                     Console.WriteLine("Reservation has been made!");
                     // Initialize pre order module ( UI )
-                    PreOrder preOrd = new PreOrder();
-                    preOrd.Start();
+                    Console.WriteLine("Do you want to make a preorder? Y/N");
+                    string answer;
+
+                    answer = Console.ReadLine() ?? string.Empty;
+                    if (answer == "Y")
+                    {
+                        PreOrderView preOrd = new PreOrderView(this, res);
+                        preOrd.Start();
+                    }
                 }
                 break;
             case "Show all Reservations":
-                Console.WriteLine("{0,-5} {1,-10} {2,-10} {3,-25} {4,-10} {5,-10}", "R_ID", "R_Code" ,"Contact", "R_time", "R_TableID", "P_Amount");
+                Console.WriteLine("{0,-5} {1,-10} {2,-10} {3,-25} {4,-10} {5,-10}", "R_ID", "R_Code", "Contact", "R_time", "R_TableID", "P_Amount");
                 foreach (ReservationModel Res in ReservationLogic.GetAllReservations())
                 {
                     Console.WriteLine("{0,-5} {1,-10} {2,-10} {3,-25} {4,-10} {5,-10}", Res.R_Id, Res.R_Code, Res.Contact, Res.R_time, Res.R_TableID, Res.P_Amount);
@@ -110,7 +120,7 @@ public class ReservationUI : UI
                 Console.WriteLine("Please enter a Reservation ID:");
                 int IDinp = Convert.ToInt32(Console.ReadLine());
                 ReservationModel ReservationMUD = ReservationLogic.getReservationByID(IDinp);
-                
+
                 if (ReservationMUD == null)
                 {
                     Console.WriteLine("Cannot be found");
@@ -134,7 +144,7 @@ public class ReservationUI : UI
                 break;
             case "Delete Reservation by ID":
 
-                Console.WriteLine("{0,-5} {1,-10} {2,-10} {3,-25} {4,-10} {5,-10}", "R_ID", "R_Code" ,"Contact", "R_time", "R_TableID", "P_Amount");
+                Console.WriteLine("{0,-5} {1,-10} {2,-10} {3,-25} {4,-10} {5,-10}", "R_ID", "R_Code", "Contact", "R_time", "R_TableID", "P_Amount");
                 foreach (ReservationModel Res in ReservationLogic.GetAllReservations())
                 {
                     Console.WriteLine("{0,-5} {1,-10} {2,-10} {3,-25} {4,-10} {5,-10}", Res.R_Id, Res.R_Code, Res.Contact, Res.R_time, Res.R_TableID, Res.P_Amount);
@@ -144,24 +154,31 @@ public class ReservationUI : UI
 
                 int userInputID = GetInt("Please enter a Reservation ID to delete:");
 
-                if(ReservationLogic.DeleteReservationByID(userInputID)){
+                if (ReservationLogic.DeleteReservationByID(userInputID))
+                {
                     Console.WriteLine("Reservation has been deleted");
-                }else{
+                }
+                else
+                {
                     Console.WriteLine("Reservation could not be found! Please try another code.");
                 }
 
 
                 break;
             case "Testing":
-            if(TableLogic.TableAvailableCheck("1A")){
-                Console.WriteLine("Table is not available");
-            }else{
-                Console.WriteLine("Table is available");
-            }
-            foreach(TableModel tableI in TableLogic.AllAvailabletables()){
-                Console.WriteLine($"{tableI.T_ID}, {tableI.T_Seats}, {tableI.Occupied}");
-            }
-               
+                if (TableLogic.TableAvailableCheck("1A"))
+                {
+                    Console.WriteLine("Table is not available");
+                }
+                else
+                {
+                    Console.WriteLine("Table is available");
+                }
+                foreach (TableModel tableI in TableLogic.AllAvailabletables())
+                {
+                    Console.WriteLine($"{tableI.T_ID}, {tableI.T_Seats}, {tableI.Occupied}");
+                }
+
                 break;
             case Constants.UI.GO_BACK:
             case Constants.UI.EXIT:

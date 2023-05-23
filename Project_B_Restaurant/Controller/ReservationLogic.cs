@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 
-public class ReservationLogic{
+public class ReservationLogic
+{
 
     private List<ReservationModel> _Reservations;
 
@@ -20,7 +21,8 @@ public class ReservationLogic{
         _Reservations = ReservationAccess.LoadAll();
     }
 
-    public string createReservationCode(){
+    public string createReservationCode()
+    {
         // Instantiate random number generator.
         Random random = new Random();
 
@@ -32,23 +34,24 @@ public class ReservationLogic{
         return Rcode;
     }
 
-    public void CreateReservation(string c_name, int c_party, string TableID){
-
+    public ReservationModel CreateReservation(string c_name, int c_party, string TableID)
+    {
         //Get time of when they made the reservation.
-        TimeSpan currentTime = DateTime.Now.TimeOfDay; 
-        
+        TimeSpan currentTime = DateTime.Now.TimeOfDay;
+
         // Reservation code needed for customer/employees ... 
         string ResCode = createReservationCode();
-        
+
         // We need to create a reservation model
-        ReservationModel res = new ReservationModel(_Reservations.Count() + 1,ResCode, c_name ,$"{DateTime.Now.ToString("yyyy-MM-dd h:mm")}", TableID, c_party);
-        
+        ReservationModel res = new ReservationModel(_Reservations.Count() + 1, ResCode, c_name, $"{DateTime.Now.ToString("yyyy-MM-dd h:mm")}", TableID, c_party, new());
+
         //Add to daaaaaaaaaa list c:
         _Reservations.Add(res);
 
         // Save this data to Reservation.js
         ReservationAccess.WriteAll(_Reservations);
 
+        return res;
     }
 
     // This gets all reservations that are made at the moment.
@@ -59,37 +62,43 @@ public class ReservationLogic{
 
 
     //! Can be null | Check on null when trying to find a reservation!
-    public ReservationModel? getReservationByID(int id){
-         ReservationModel? getRes = _Reservations.Find(x => x.R_Id == id);
-         return getRes;
+    public ReservationModel? getReservationByID(int id)
+    {
+        ReservationModel? getRes = _Reservations.Find(x => x.R_Id == id);
+        return getRes;
     }
 
     //! Can be null | Check on null when trying to find a reservation!
-    public ReservationModel? getReservationByTableID(string id){
-         ReservationModel? getRes = _Reservations.Find(x => x.R_TableID == id);
-         
-         return getRes;
+    public ReservationModel? getReservationByTableID(string id)
+    {
+        ReservationModel? getRes = _Reservations.Find(x => x.R_TableID == id);
+
+        return getRes;
     }
 
     //Delete reservation by ID
-    public bool DeleteReservationByID(int id){
+    public bool DeleteReservationByID(int id)
+    {
 
         //Find reservation model
-         ReservationModel? Res = _Reservations.Find(x => x.R_Id == id);
+        ReservationModel? Res = _Reservations.Find(x => x.R_Id == id);
 
-         //Remove out of Reservations list
-         if(_Reservations.Remove(Res) == true){
+        //Remove out of Reservations list
+        if (_Reservations.Remove(Res) == true)
+        {
             // Save this data to Reservation.js 
             ReservationAccess.WriteAll(_Reservations);
-            
+
             // Occupied to false || on deletions
             tableLogic.OccupiedTable(Res.R_TableID, false);
-            
+
 
             return true;
-         }else{
+        }
+        else
+        {
             return false;
-         }   
+        }
 
 
     }

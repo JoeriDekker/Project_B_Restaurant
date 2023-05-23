@@ -1,1 +1,38 @@
-[]
+[
+  {
+    "R_Id": 1,
+    "R_Code": "R9781",
+    "Contact": "Boy",
+    "R_time": "2023-05-23 3:14",
+    "R_TableID": "2C",
+    "P_Amount": 4,
+    "PreOrders": []
+  },
+  {
+    "R_Id": 2,
+    "R_Code": "R4916",
+    "Contact": "char",
+    "R_time": "2023-05-23 3:19",
+    "R_TableID": "5A",
+    "P_Amount": 2,
+    "PreOrders": []
+  },
+  {
+    "R_Id": 3,
+    "R_Code": "R5820",
+    "Contact": "b",
+    "R_time": "2023-05-23 3:21",
+    "R_TableID": "7A",
+    "P_Amount": 2,
+    "PreOrders": []
+  },
+  {
+    "R_Id": 4,
+    "R_Code": "R5716",
+    "Contact": "b",
+    "R_time": "2023-05-23 3:27",
+    "R_TableID": "8A",
+    "P_Amount": 1,
+    "PreOrders": []
+  }
+]

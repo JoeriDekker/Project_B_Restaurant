@@ -2,11 +2,12 @@ using System.Text.Json;
 
 public class PreOrderController
 {
+    public MenuController Menu = new();
     public Dish PreOrderDishes()
     {
         Console.WriteLine("\nThe menu will be showed after you pressed the enter button.");
         Console.ReadLine();
-        foreach (Dish dish in MenuAccess.Dishes)
+        foreach (Dish dish in Menu.Dishes)
         {
             if (dish.PreOrderAmount < dish.MaxAmountPreOrder)
             {
@@ -15,7 +16,7 @@ public class PreOrderController
         }
         Console.WriteLine("Please type here which dish you want to pre order:\n");
         string? preOrderDish = Console.ReadLine();
-        foreach (Dish dish in MenuAccess.Dishes)
+        foreach (Dish dish in Menu.Dishes)
         {
             if (dish.Name == preOrderDish)
             {
@@ -32,7 +33,7 @@ public class PreOrderController
         Console.WriteLine("What appetizer do you want to order?");
         Console.WriteLine("The appetizer menu will be showed after you pressed enter.");
         Console.ReadLine();
-        foreach (Dish dish in MenuAccess.Dishes)
+        foreach (Dish dish in Menu.Dishes)
         {
             if (dish.PreOrderAmount < dish.MaxAmountPreOrder && dish.Type == "Appetizer")
             {
@@ -41,7 +42,7 @@ public class PreOrderController
         }
         Console.WriteLine("Please type here which appetizer you want to pre order:\n");
         string? preOrderAppetizer = Console.ReadLine();
-        foreach (Dish dish in MenuAccess.Dishes)
+        foreach (Dish dish in Menu.Dishes)
         {
             if (dish.Name == preOrderAppetizer)
             {
@@ -58,7 +59,7 @@ public class PreOrderController
         Console.WriteLine("\nWhat main dish do you want to order?");
         Console.WriteLine("The main menu will be showed after you pressed enter.");
         Console.ReadLine();
-        foreach (Dish dish in MenuAccess.Dishes)
+        foreach (Dish dish in Menu.Dishes)
         {
             if (dish.PreOrderAmount < dish.MaxAmountPreOrder && dish.Type == "Main")
             {
@@ -67,7 +68,7 @@ public class PreOrderController
         }
         Console.WriteLine("\nPlease type here which main you want to pre order:");
         string? preOrderMain = Console.ReadLine();
-        foreach (Dish dish in MenuAccess.Dishes)
+        foreach (Dish dish in Menu.Dishes)
         {
             if (dish.Name == preOrderMain)
             {
@@ -84,7 +85,7 @@ public class PreOrderController
         Console.WriteLine("\nWhat dessert do you want to order?");
         Console.WriteLine("The dessert menu will be showed after you pressed enter.");
         Console.ReadLine();
-        foreach (Dish dish in MenuAccess.Dishes)
+        foreach (Dish dish in Menu.Dishes)
         {
             if (dish.PreOrderAmount < dish.MaxAmountPreOrder && dish.Type == "Dessert")
             {
@@ -93,7 +94,7 @@ public class PreOrderController
         }
         Console.WriteLine("Please type here which dessert you want to pre order:\n");
         string? preOrderDessert = Console.ReadLine();
-        foreach (Dish dish in MenuAccess.Dishes)
+        foreach (Dish dish in Menu.Dishes)
         {
             if (dish.Name == preOrderDessert)
             {
