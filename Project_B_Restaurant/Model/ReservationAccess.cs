@@ -2,12 +2,37 @@ using System.Text.Json;
 
 static class ReservationAccess
 {
+    // Access needed data
+
     static string path = System.IO.Path.GetFullPath(System.IO.Path.Combine(Environment.CurrentDirectory, @"DataSources/Reservations.json"));
+
+    static string openingHoursPath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"DataSources/openingHours.json"));
 
     // public static readonly JsonSerializerOptions DefaultOptions = new JsonSerializerOptions
     // {
     //     DefaultIgnoreCondition = default
     // };
+
+
+
+    // Access without model ( Dynamic ) static string openingHoursPath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"DataSources/openingHours.json"));
+
+    public static List<Dictionary<string, object>> LoadOpeningHours()
+    {
+        if (!File.Exists(openingHoursPath))
+        {
+            return new List<Dictionary<string, object>>();
+        }
+
+        string json = File.ReadAllText(openingHoursPath);
+        if (string.IsNullOrEmpty(json))
+        {
+            return new List<Dictionary<string, object>>();
+        }
+
+        List<Dictionary<string, object>> reservations = JsonSerializer.Deserialize<List<Dictionary<string, object>>>(json);
+        return reservations ?? new List<Dictionary<string, object>>();
+    }
 
     public static List<ReservationModel> LoadAll()
     {

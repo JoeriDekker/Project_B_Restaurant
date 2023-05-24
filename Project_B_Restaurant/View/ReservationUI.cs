@@ -165,18 +165,23 @@ public class ReservationUI : UI
 
                 break;
             case "Testing":
-                if (TableLogic.TableAvailableCheck("1A"))
-                {
-                    Console.WriteLine("Table is not available");
-                }
-                else
-                {
-                    Console.WriteLine("Table is available");
-                }
-                foreach (TableModel tableI in TableLogic.AllAvailabletables())
-                {
-                    Console.WriteLine($"{tableI.T_ID}, {tableI.T_Seats}, {tableI.Occupied}");
-                }
+
+            ReservationLogic.GetAvailableHours();
+
+
+
+                // if (TableLogic.TableAvailableCheck("1A"))
+                // {
+                //     Console.WriteLine("Table is not available");
+                // }
+                // else
+                // {
+                //     Console.WriteLine("Table is available");
+                // }
+                // foreach (TableModel tableI in TableLogic.AllAvailabletables())
+                // {
+                //     Console.WriteLine($"{tableI.T_ID}, {tableI.T_Seats}, {tableI.Occupied}");
+                // }
 
                 break;
             case Constants.UI.GO_BACK:
