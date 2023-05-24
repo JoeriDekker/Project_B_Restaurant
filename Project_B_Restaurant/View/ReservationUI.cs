@@ -166,7 +166,10 @@ public class ReservationUI : UI
                 break;
             case "Testing":
 
-            ReservationLogic.GetAvailableHours();
+            TimeSpan desiredTime = TimeSpan.Parse("14:00"); // Example desired reservation time
+            ReservationLogic.GetAvailableResTimes(desiredTime);
+
+
 
 
 

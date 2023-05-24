@@ -110,7 +110,7 @@ public class ReservationLogic
         }
     }
 
-public void GetAvailableHours()
+public void GetAvailableResTimes(TimeSpan desiredReservationTime)
 {
     foreach (Dictionary<string, object> openingHour in _openingHours)
     {
@@ -151,30 +151,29 @@ public void GetAvailableHours()
                 // Check if the reservation time falls within any existing reservations
                 foreach (ReservationModel reservation in _Reservations)
                 {
-                string[] dayTime = reservation.R_time.Split('#');
-                string ResDay = dayTime[0].Trim();
+                    string[] dayTime = reservation.R_time.Split('#');
+                    string ResDay = dayTime[0].Trim();
 
-                // Split the date into year, month, and day components :C
-                string[] splitDate = ResDay.Split('-');
-                int year = Convert.ToInt32(splitDate[0]);
-                int month = Convert.ToInt32(splitDate[1]);
-                int dayOfMonth = Convert.ToInt32(splitDate[2]);
+                    // Split the date into year, month, and day components
+                    string[] splitDate = ResDay.Split('-');
+                    int year = Convert.ToInt32(splitDate[0]);
+                    int month = Convert.ToInt32(splitDate[1]);
+                    int dayOfMonth = Convert.ToInt32(splitDate[2]);
 
-                // Create a DateTime object for the reservation date
-                DateTime reservationDate = new DateTime(year, month, dayOfMonth);
+                    // Create a DateTime object for the reservation date
+                    DateTime reservationDate = new DateTime(year, month, dayOfMonth);
 
-                string ResTime = dayTime[1].Trim();
-                TimeSpan resTimeParsed = TimeSpan.Parse(ResTime);
+                    string ResTime = dayTime[1].Trim();
+                    TimeSpan resTimeParsed = TimeSpan.Parse(ResTime);
 
-
-                // Check if the reservation time overlaps with the existing reservation
-                if (reservationDate.DayOfWeek == Enum.Parse<DayOfWeek>(day) &&
-                    ((reservationTime >= resTimeParsed && reservationTime < resTimeParsed.Add(interval)) ||
-                    (nextReservationTime > resTimeParsed && nextReservationTime <= resTimeParsed.Add(interval))))
-                {
-                    isAvailable = false;
-                    break;
-                }
+                    // Check if the reservation time overlaps with the existing reservation
+                    if (reservationDate.DayOfWeek == Enum.Parse<DayOfWeek>(day) &&
+                        ((reservationTime >= resTimeParsed && reservationTime < resTimeParsed.Add(interval)) ||
+                        (nextReservationTime > resTimeParsed && nextReservationTime <= resTimeParsed.Add(interval))))
+                    {
+                        isAvailable = false;
+                        break;
+                    }
                 }
 
                 if (isAvailable)
@@ -191,7 +190,55 @@ public void GetAvailableHours()
 
             Console.WriteLine("-----------------------------------");
             Console.WriteLine();
+
+            // Check if the desired reservation time is available
+            bool isDesiredTimeAvailable = IsDesiredTimeAvailable(desiredReservationTime, start, end, interval, day);
+            // Probably gonna change this
+            Console.WriteLine($"Desired Reservation Time ({desiredReservationTime.ToString(@"hh\:mm")}) Availability: {(isDesiredTimeAvailable ? "Available" : "Not Available")}");
         }
     }
+}
+
+private bool IsDesiredTimeAvailable(TimeSpan desiredReservationTime, TimeSpan start, TimeSpan end, TimeSpan interval, string day)
+{
+    for (TimeSpan reservationTime = start; reservationTime.Add(interval) <= end; reservationTime = reservationTime.Add(interval))
+    {
+        TimeSpan nextReservationTime = reservationTime.Add(interval);
+
+        if (desiredReservationTime >= reservationTime && desiredReservationTime < nextReservationTime)
+        {
+            bool isAvailable = true;
+
+            foreach (ReservationModel reservation in _Reservations)
+            {
+                string[] dayTime = reservation.R_time.Split('#');
+                string ResDay = dayTime[0].Trim();
+
+                // Split the date into year, month, and day components
+                string[] splitDate = ResDay.Split('-');
+                int year = Convert.ToInt32(splitDate[0]);
+                int month = Convert.ToInt32(splitDate[1]);
+                int dayOfMonth = Convert.ToInt32(splitDate[2]);
+
+                // Create a DateTime object for the reservation date
+                DateTime reservationDate = new DateTime(year, month, dayOfMonth);
+
+                string ResTime = dayTime[1].Trim();
+                TimeSpan resTimeParsed = TimeSpan.Parse(ResTime);
+
+                // Check if the reservation time overlaps with the existing reservation
+                if (reservationDate.DayOfWeek == Enum.Parse<DayOfWeek>(day) &&
+                    (desiredReservationTime >= resTimeParsed && desiredReservationTime < resTimeParsed.Add(interval)))
+                {
+                    isAvailable = false;
+                    break;
+                }
+            }
+
+            return isAvailable;
+        }
+    }
+
+    return false;
 }
 }
