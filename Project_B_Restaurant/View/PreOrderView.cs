@@ -3,7 +3,7 @@ using System.Text;
 class PreOrderView : UI
 {
     private PreOrderController preOrderController = new PreOrderController();
-    private MenuController menu = new();
+    private ReservationLogic ReservationController = new();
 
     public ReservationModel Reservation { get; set; }
 
@@ -79,6 +79,7 @@ class PreOrderView : UI
                 break;
             case Constants.UI.GO_BACK:
             case Constants.UI.EXIT:
+                ReservationController.Update(Reservation);
                 Exit();
                 break;
             default:

@@ -65,7 +65,7 @@ Max amount of pre-order: {_dish.MaxAmountPreOrder}
                 break;
 
             case "Change Price":
-                double new_dish_price = RequestDouble("What is the new dish price?");
+                double new_dish_price = GetDouble("What is the new dish price?");
                 _dish.Price = new_dish_price;
                 break;
 

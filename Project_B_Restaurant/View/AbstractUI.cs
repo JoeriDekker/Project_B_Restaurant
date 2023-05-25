@@ -80,11 +80,8 @@ public abstract class UI
 
     public void ShowUser()
     {
-        Console.Write("Hello, ");
-        if (AccountsLogic.CurrentAccount != null)
-            Console.WriteLine(AccountsLogic.CurrentAccount.ToString());
-        else
-            Console.WriteLine("Guest");
+        string user = (AccountsLogic.CurrentAccount != null) ? AccountsLogic.CurrentAccount.ToString() : "Guest";
+        Console.WriteLine($"Hello, {user}");
     }
 
     // Gets choice as int to use in the Dictionary.
@@ -103,7 +100,7 @@ public abstract class UI
             }
             catch (FormatException)
             {
-                Console.WriteLine($"Incorrect choice. Please provide a number between 0 and {MenuItems.Count}");
+                Console.WriteLine($"Incorrect choice. Please provide a number between 0 and {MenuItems.Count(x => x.Level >= this.Level)}");
                 continue;
             }
         }
@@ -146,7 +143,7 @@ public abstract class UI
         return number;
     }
 
-    public double RequestDouble(string question)
+    public double GetDouble(string question)
     {
         string input;
         double number = 0;

@@ -16,5 +16,66 @@
     "R_TableID": "5A",
     "P_Amount": 2,
     "PreOrders": []
+  },
+  {
+    "R_Id": 3,
+    "R_Code": "R272",
+    "Contact": "Boy",
+    "R_time": "2023-05-25#10:59",
+    "R_TableID": "7A",
+    "P_Amount": 2,
+    "PreOrders": []
+  },
+  {
+    "R_Id": 4,
+    "R_Code": "R5981",
+    "Contact": "boy",
+    "R_time": "2023-05-25#11:00",
+    "R_TableID": "8A",
+    "P_Amount": 2,
+    "PreOrders": []
+  },
+  {
+    "R_Id": 5,
+    "R_Code": "R2751",
+    "Contact": "B",
+    "R_time": "2023-05-25#11:00",
+    "R_TableID": "1B",
+    "P_Amount": 2,
+    "PreOrders": []
+  },
+  {
+    "R_Id": 6,
+    "R_Code": "R980",
+    "Contact": "b",
+    "R_time": "2023-05-25#13:58",
+    "R_TableID": "2B",
+    "P_Amount": 2,
+    "PreOrders": []
+  },
+  {
+    "R_Id": 7,
+    "R_Code": "R9129",
+    "Contact": "b",
+    "R_time": "2023-05-25#15:48",
+    "R_TableID": "3B",
+    "P_Amount": 2,
+    "PreOrders": [
+      {
+        "ID": 10,
+        "Name": "Milkshake",
+        "Ingredients": [
+          "Milk",
+          "Ice Cream",
+          "Chocolate Syrup"
+        ],
+        "Allergies": "Dairy",
+        "Price": 4.99,
+        "Type": "Drink",
+        "InStock": true,
+        "PreOrderAmount": 1,
+        "MaxAmountPreOrder": 3
+      }
+    ]
   }
 ]
