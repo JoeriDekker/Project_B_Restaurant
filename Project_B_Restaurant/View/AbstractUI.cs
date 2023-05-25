@@ -50,6 +50,7 @@ public abstract class UI
 
     public void Reset()
     {
+        ResetUserOptions();
         MenuItems.Clear();
         CreateMenuItems();
     }
@@ -77,7 +78,6 @@ public abstract class UI
 
     public void ShowOptions()
     {
-        ResetUserOptions();
         Console.WriteLine("Please select an option:");
         foreach (var opt in UserOptions)
         {
