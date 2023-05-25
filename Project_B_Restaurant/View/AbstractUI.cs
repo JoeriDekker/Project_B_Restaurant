@@ -44,7 +44,14 @@ public abstract class UI
             int choice = RequestChoice();
             UserChoosesOption(choice);
             Continue();
+            Reset();
         }
+    }
+
+    public void Reset()
+    {
+        MenuItems.Clear();
+        CreateMenuItems();
     }
 
     public virtual void ShowUI()
