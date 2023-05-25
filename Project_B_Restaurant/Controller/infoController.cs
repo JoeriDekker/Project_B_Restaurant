@@ -20,8 +20,6 @@ class infoController
 
     public void UpdateInfo()
     {
-    //    _info[0][ToChange] = Value;
-    //    Console.WriteLine(_info);
-    //    InfoAccess.WriteAll(_info);
+        InfoAccess.WriteAll(Restaurant);
     }
 }

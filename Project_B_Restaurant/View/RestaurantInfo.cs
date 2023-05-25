@@ -41,6 +41,8 @@ class RestaurantInfoUI : UI
                 UserLogin.AddEmployee();
                 break;
             case "Change Restaurant Info":
+                UpdateInfoUI updateInfo = new(this);
+                updateInfo.Start();
                 break;
             case "Show Restaurant Info":
                 Console.WriteLine(infoLogic.Restaurant.ToString());
@@ -53,9 +55,5 @@ class RestaurantInfoUI : UI
                 Console.WriteLine("Invalid input");
                 break; ;
         }
-    }
-    public static void Change()
-    {
-        Console.WriteLine($"What info would you like to change?");
     }
 }
