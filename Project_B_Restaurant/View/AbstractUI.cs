@@ -50,9 +50,9 @@ public abstract class UI
 
     public void Reset()
     {
-        ResetUserOptions();
         MenuItems.Clear();
         CreateMenuItems();
+        ResetUserOptions();
     }
 
     public virtual void ShowUI()
