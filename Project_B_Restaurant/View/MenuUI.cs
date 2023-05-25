@@ -143,10 +143,6 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
         MenuItems.Add(new MenuItem("Add Dish", AccountLevel.Admin));
         MenuItems.Add(new MenuItem("Remove Dish", AccountLevel.Admin));
         MenuItems.Add(new MenuItem("Update Dish", AccountLevel.Admin));
-        if (!MenuController.IsFuture)
-        {
-            MenuItems.Add(new MenuItem("Show Preorder", AccountLevel.Guest));
-        }
         MenuItems.Add(new MenuItem(SwitchMenu, AccountLevel.Guest));
     }
 
@@ -190,9 +186,6 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
                 break;
             case "Update Dish":
                 this.Update();
-                break;
-            case "Show Preorder":
-                Menu.ShowPreOrders();
                 break;
             case "Show Future Menu":
             case "Show Current Menu":

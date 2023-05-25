@@ -25,5 +25,33 @@
     "R_TableID": "7A",
     "P_Amount": 2,
     "PreOrders": []
+  },
+  {
+    "R_Id": 4,
+    "R_Code": "R7178",
+    "Contact": "Char",
+    "R_time": "2023-05-25#16:10",
+    "R_TableID": "4B",
+    "P_Amount": 2,
+    "PreOrders": [
+      {
+        "ID": 24,
+        "Name": "Loaded Nachos",
+        "Ingredients": [
+          "Chips",
+          "Shredded Cheese",
+          "Diced Tomatoes",
+          "Jalapenos",
+          "Black Olives",
+          "Sour Cream"
+        ],
+        "Allergies": "",
+        "Price": 8.99,
+        "Type": "Appetizer",
+        "InStock": true,
+        "PreOrderAmount": 1,
+        "MaxAmountPreOrder": 3
+      }
+    ]
   }
 ]

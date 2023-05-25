@@ -122,14 +122,7 @@ public class MenuController
 
         this.Save();
     }
-    public void ShowPreOrders()
-    {
-        foreach (Dish dish in MenuAccess.Dishes)
-        {
-            if (dish.PreOrderAmount > 0)
-                Console.WriteLine($"Dish: {dish.Name}\nPre Order Amount: {dish.PreOrderAmount}");
-        }
-    }
+
 
     public void Search(string query)
     {

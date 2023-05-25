@@ -31,6 +31,7 @@ public class ReservationUI : UI
     {
         MenuItems.Add(new MenuItem("Create Reservation", AccountLevel.Guest));
         MenuItems.Add(new MenuItem("Show all Reservations", AccountLevel.Guest));
+        MenuItems.Add(new MenuItem("Show pre orders", AccountLevel.Admin));
         MenuItems.Add(new MenuItem("Find Reservation by Reservation ID", AccountLevel.Employee));
         MenuItems.Add(new MenuItem("Find Reservation by Table ID", AccountLevel.Employee));
         MenuItems.Add(new MenuItem("Delete Reservation by ID", AccountLevel.Employee));
@@ -114,6 +115,9 @@ public class ReservationUI : UI
                     Console.WriteLine("{0,-5} {1,-10} {2,-10} {3,-25} {4,-10} {5,-10}", Res.R_Id, Res.R_Code, Res.Contact, Res.R_time, Res.R_TableID, Res.P_Amount);
                 }
                 break;
+            case "Show pre orders":
+                ShowPreOrders();
+                break;
             case "Find Reservation by Reservation ID":
                 Console.WriteLine("Please enter a Reservation ID:");
                 int IDinp = Convert.ToInt32(Console.ReadLine());
@@ -193,6 +197,20 @@ public class ReservationUI : UI
             default:
                 Console.WriteLine("Invalid input");
                 break;
+        }
+    }
+
+    public void ShowPreOrders()
+    {
+        ReservationLogic ReservationLogic = new ReservationLogic();
+        foreach (ReservationModel Res in ReservationLogic.GetAllReservations())
+        {
+            if (Res.PreOrders.Count > 0)
+                Console.WriteLine($"\n{Res.R_Id}. {Res.Contact}");
+                foreach (var item in Res.PreOrders)
+                {
+                    Console.WriteLine($"{item.Name}\n");
+                }
         }
     }
 }
