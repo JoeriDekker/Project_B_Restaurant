@@ -57,9 +57,6 @@ static class ReservationAccess
 
     public static void WriteAll(List<ReservationModel> reservations)
     {   
-        foreach (ReservationModel res in reservations){
-            Console.WriteLine(res);
-        }
         var options = new JsonSerializerOptions { WriteIndented = true };
         string json = JsonSerializer.Serialize(reservations, options);
         File.WriteAllText(path, json);

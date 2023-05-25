@@ -323,7 +323,7 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
 
         string dish_allergies = GetString("What are the Dish allergies?");
         
-        double dish_price = RequestDouble("What is the Dish price?");
+        double dish_price = GetDouble("What is the Dish price?");
         
         string dish_type = GetString("What is the Dish Type?");
         

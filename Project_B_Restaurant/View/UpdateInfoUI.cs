@@ -46,7 +46,6 @@ class UpdateInfoUI : UI
                 infoLogic.Restaurant.Name = Name;
                 infoLogic.UpdateInfo();
                 Console.WriteLine("The restaurant name has been updated!");
-            //    RestaurantInfoUI.Start();
                 break;
             case "Change address":
                 Console.WriteLine("What would you like to be the new address?");

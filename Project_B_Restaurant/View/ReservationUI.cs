@@ -103,7 +103,6 @@ public class ReservationUI : UI
                         preOrd = new PreOrderView(this, res);
                         preOrd.Start();
                     }
-                    res = preOrd.EndPreOrder();
                     Console.WriteLine($"The amount is" + res.PreOrders.Count);
                     ReservationAccess.SaveReservation(ReservationLogic.GetAllReservations());
                 }
