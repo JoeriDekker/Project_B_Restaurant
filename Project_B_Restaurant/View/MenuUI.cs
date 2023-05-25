@@ -133,7 +133,7 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
         MenuItems.Add(new MenuItem("Next items"));
         MenuItems.Add(new MenuItem("Previous items"));
         MenuItems.Add(new MenuItem("Change View"));
-        if (MenuController.IsAlchoholeDrink){
+        if (!MenuController.IsAlchoholeDrink){
             MenuItems.Add(new MenuItem("See Alchohol Menu", AccountLevel.Guest));
         }
         MenuItems.Add(new MenuItem("Sort Menu", AccountLevel.Guest));
