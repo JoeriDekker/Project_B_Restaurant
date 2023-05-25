@@ -34,10 +34,12 @@ public static class UserLogin
                 if (answer == "1")
                 {
                     ResetPassword();
+                    break;
                 }
                 else if (answer == "2")
                 {
                     Start();
+                    break;
                 }
             }
         }
