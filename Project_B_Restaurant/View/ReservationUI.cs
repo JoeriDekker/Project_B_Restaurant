@@ -104,8 +104,10 @@ public class ReservationUI : UI
                         preOrd = new PreOrderView(this, res);
                         preOrd.Start();
                     }
-                    Console.WriteLine($"The amount is" + res.PreOrders.Count);
-                    ReservationAccess.SaveReservation(ReservationLogic.GetAllReservations());
+                    else if (answer == "N")
+                    {
+                        break;
+                    }
                 }
                 break;
             case "Show all Reservations":
