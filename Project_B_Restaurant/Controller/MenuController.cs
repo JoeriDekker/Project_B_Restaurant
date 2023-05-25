@@ -17,6 +17,8 @@ public class MenuController
         }
     }
 
+    public static bool IsAlchoholeDrink { get; set; } 
+
     public static bool IsFuture { get; set; }
 
     public MenuController()
