@@ -36,7 +36,7 @@
   },
   {
     "T_ID": "7A",
-    "Occupied": false,
+    "Occupied": true,
     "ReservedTime": "Formatted time",
     "T_Seats": 2,
     "R_Code": ""

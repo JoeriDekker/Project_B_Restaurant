@@ -16,5 +16,14 @@
     "R_TableID": "5A",
     "P_Amount": 2,
     "PreOrders": []
+  },
+  {
+    "R_Id": 3,
+    "R_Code": "R1976",
+    "Contact": "Char",
+    "R_time": "2023-05-25#14:55",
+    "R_TableID": "7A",
+    "P_Amount": 2,
+    "PreOrders": []
   }
 ]

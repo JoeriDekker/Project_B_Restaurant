@@ -12,14 +12,14 @@ public class PreOrderController
         {
             if (dish.PreOrderAmount < dish.MaxAmountPreOrder)
             {
-                Console.WriteLine($"- {dish.Name}\n{string.Join(", ",dish.Ingredients)}\n{dish.Price}");
+                Console.WriteLine($"- {dish.ID}: {dish.Name}\n{string.Join(", ",dish.Ingredients)}\n{dish.Price}");
             }
         }
-        Console.WriteLine("\nPlease type here which dish you want to pre order:\n");
-        string? preOrderDish = Console.ReadLine();
+        Console.WriteLine("\nPlease type here the dish ID you want to pre order:\n");
+        int? preOrderID = Convert.ToInt32(Console.ReadLine());
         foreach (Dish dish in Menu.Dishes)
         {
-            if (dish.Name == preOrderDish)
+            if (dish.ID == preOrderID)
             {
                 dish.PreOrderAmount++;
                 return dish;
@@ -38,14 +38,14 @@ public class PreOrderController
         {
             if (dish.PreOrderAmount < dish.MaxAmountPreOrder && dish.Type == "Appetizer")
             {
-                Console.WriteLine($"- {dish.Name}\n{string.Join(", ",dish.Ingredients)}\n{dish.Price}");
+                Console.WriteLine($"- {dish.ID}: {dish.Name}\n{string.Join(", ",dish.Ingredients)}\n{dish.Price}");
             }
         }
         Console.WriteLine("Please type here which appetizer you want to pre order:\n");
-        string? preOrderAppetizer = Console.ReadLine();
+        int? preOrderAppetizer = Convert.ToInt32(Console.ReadLine());
         foreach (Dish dish in Menu.Dishes)
         {
-            if (dish.Name == preOrderAppetizer)
+            if (dish.ID == preOrderAppetizer)
             {
                 dish.PreOrderAmount++;
                 return dish;
@@ -64,14 +64,14 @@ public class PreOrderController
         {
             if (dish.PreOrderAmount < dish.MaxAmountPreOrder && dish.Type == "Main")
             {
-                Console.WriteLine($"- {dish.Name}\n{string.Join(", ",dish.Ingredients)}\n{dish.Price}");
+                Console.WriteLine($"- {dish.ID}: {dish.Name}\n{string.Join(", ",dish.Ingredients)}\n{dish.Price}");
             }
         }
         Console.WriteLine("\nPlease type here which main you want to pre order:");
-        string? preOrderMain = Console.ReadLine();
+        int? preOrderMain = Convert.ToInt32(Console.ReadLine());
         foreach (Dish dish in Menu.Dishes)
         {
-            if (dish.Name == preOrderMain)
+            if (dish.ID == preOrderMain)
             {
                 dish.PreOrderAmount++;
                 return dish;
@@ -90,14 +90,14 @@ public class PreOrderController
         {
             if (dish.PreOrderAmount < dish.MaxAmountPreOrder && dish.Type == "Dessert")
             {
-                Console.WriteLine($"- {dish.Name}\n{string.Join(", ",dish.Ingredients)}\n{dish.Price}");
+                Console.WriteLine($"- {dish.ID}: {dish.Name}\n{string.Join(", ",dish.Ingredients)}\n{dish.Price}");
             } 
         }
         Console.WriteLine("Please type here which dessert you want to pre order:\n");
-        string? preOrderDessert = Console.ReadLine();
+        int? preOrderDessert = Convert.ToInt32(Console.ReadLine());
         foreach (Dish dish in Menu.Dishes)
         {
-            if (dish.Name == preOrderDessert)
+            if (dish.ID == preOrderDessert)
             {
                 dish.PreOrderAmount++;
                 return dish;
