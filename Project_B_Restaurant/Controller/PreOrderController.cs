@@ -8,6 +8,7 @@ public class PreOrderController
     {
         Console.WriteLine("\nThe menu will be showed after you pressed the enter button.");
         Console.ReadLine();
+        Menu.GetEverythingExeptDrinks();
         foreach (Dish dish in Menu.Dishes)
         {
             if (dish.PreOrderAmount < dish.MaxAmountPreOrder)

@@ -28,7 +28,8 @@ public class MenuController
     }
 
     public void Add(string dish_name, List<string> dish_ingredients, string dish_allergies, double dish_price, string dish_type)
-    {
+    {   
+        Reset();
         Dish new_dish = new Dish(dish_name, dish_ingredients, dish_allergies, dish_price, dish_type);
         Dishes.Add(new_dish);
         this.Save();
@@ -65,7 +66,8 @@ public class MenuController
 
 
     public bool Delete(int DishID)
-    {
+    {   
+        Reset();
         Dish dishToRemove = new();
 
         if (FindDishWithID(DishID)){
@@ -104,7 +106,9 @@ public class MenuController
     }
 
     public void Update(Dish dish_item, string dish_name)
-    {
+    {   
+
+        Reset();
         foreach (Dish dish in Dishes)
         {
             if (dish_name == dish.Name)
@@ -123,6 +127,13 @@ public class MenuController
         this.Save();
     }
 
+    public void GetEverythingExeptDrinks(){
+        Dishes = Dishes.FindAll(d => !d.ToString().ToLower().Contains("drink"));
+    }
+
+    public void SearchDrink(string query){
+        Dishes = Dishes.FindAll(d => d.ToString().ToLower().Contains(query) && d.ToString().ToLower().Contains("drink"));
+    }
 
     public void Search(string query)
     {

@@ -73,6 +73,9 @@ public class MenuUI : UI
 
             sb.AppendLine(row);
         }
+        if (Menu.Dishes.Count == 0){
+            sb.AppendLine("There are no items found");
+        }
         return sb.ToString();
     }
 
@@ -136,6 +139,9 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
         if (!MenuController.IsAlchoholeDrink){
             MenuItems.Add(new MenuItem("See Alchohol Menu", AccountLevel.Guest));
         }
+        else{
+            MenuItems.Add(new MenuItem("See Full Menu", AccountLevel.Guest));
+        }
         MenuItems.Add(new MenuItem("Sort Menu", AccountLevel.Guest));
         MenuItems.Add(new MenuItem("Filter Menu", AccountLevel.Guest));
         MenuItems.Add(new MenuItem("Search Menu", AccountLevel.Guest));
@@ -160,8 +166,14 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
                 _detailedView = !_detailedView;
                 break;
             case "See Alchohol Menu":
-                Menu.Search("Alchohol");
+                Menu.SearchDrink("alcohol");
                 MenuController.IsAlchoholeDrink = !MenuController.IsAlchoholeDrink;
+                CreateMenuItems();
+                break;
+            case "See Full Menu":
+                MenuController.IsAlchoholeDrink = !MenuController.IsAlchoholeDrink;
+                Menu.Reset();
+                CreateMenuItems();
                 break;
             case "Sort Menu":
                 Sort();
