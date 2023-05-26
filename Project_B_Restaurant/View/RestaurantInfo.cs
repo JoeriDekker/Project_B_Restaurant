@@ -28,7 +28,6 @@ class RestaurantInfoUI : UI
     public override void CreateMenuItems()
     {
         MenuItems.Clear();
-        MenuItems.Add(new MenuItem("Show Restaurant Info", AccountLevel.Guest));
         MenuItems.Add(new MenuItem("Create Employee Account", AccountLevel.Admin));
         MenuItems.Add(new MenuItem("Change Restaurant Info", AccountLevel.Admin));
     }
