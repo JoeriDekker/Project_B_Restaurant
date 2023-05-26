@@ -211,7 +211,7 @@ public class ReservationUI : UI
                 Console.WriteLine($"\n{Res.R_Id}. {Res.Contact}");
                 foreach (var item in Res.PreOrders)
                 {
-                    Console.WriteLine($"{item.Name}\n");
+                    Console.WriteLine($"{item.ID}: {item.Name}");
                 }
         }
     }

@@ -35,6 +35,7 @@ public class PreOrderController
         Console.WriteLine("What appetizer do you want to order?");
         Console.WriteLine("The appetizer menu will be showed after you pressed enter.");
         Console.ReadLine();
+        Menu.GetEverythingExeptDrinks();
         foreach (Dish dish in Menu.Dishes)
         {
             if (dish.PreOrderAmount < dish.MaxAmountPreOrder && dish.Type == "Appetizer")
@@ -61,6 +62,7 @@ public class PreOrderController
         Console.WriteLine("\nWhat main dish do you want to order?");
         Console.WriteLine("The main menu will be showed after you pressed enter.");
         Console.ReadLine();
+        Menu.GetEverythingExeptDrinks();
         foreach (Dish dish in Menu.Dishes)
         {
             if (dish.PreOrderAmount < dish.MaxAmountPreOrder && dish.Type == "Main")
@@ -87,6 +89,7 @@ public class PreOrderController
         Console.WriteLine("\nWhat dessert do you want to order?");
         Console.WriteLine("The dessert menu will be showed after you pressed enter.");
         Console.ReadLine();
+        Menu.GetEverythingExeptDrinks();
         foreach (Dish dish in Menu.Dishes)
         {
             if (dish.PreOrderAmount < dish.MaxAmountPreOrder && dish.Type == "Dessert")
@@ -105,21 +108,5 @@ public class PreOrderController
             }
         }
     return null;
-    }
-
-    public void EndPreOrder()
-    {
-        double price = 0;
-        foreach (Dish dish in preOrders)
-        {
-            //laat naam van pre ordered dishes en prijzen zien
-            Console.WriteLine(String.Format("{0,20} {1,6}", dish.Name, dish.Price));
-            price += dish.Price;
-        }
-        //laat totale prijs zien door alle prijzen op te tellen van de gekozen dishes
-        price = Math.Round(price, 2);
-        Console.WriteLine($"\nThank you for making a pre order. Your total amount will be: {price}");
-        //reset lijst
-        preOrders.Clear();
     }
 }
