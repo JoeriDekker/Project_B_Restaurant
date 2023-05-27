@@ -8,11 +8,30 @@ public static class UserLogin
     {
         Console.WriteLine("Welcome to the login page");
         string email = GetString("Please enter your email address");
-        string password = GetString("Please enter your password");
+        Console.WriteLine("Please enter your password");
+        var password = string.Empty;
+        ConsoleKey key;
+        do
+        {
+            var keyInfo = Console.ReadKey(intercept: true);
+            key = keyInfo.Key;
+
+            if (key == ConsoleKey.Backspace && password.Length > 0)
+            {
+                Console.Write("\b \b");
+                password = password[0..^1];
+            }
+            else if (!char.IsControl(keyInfo.KeyChar))
+            {
+                Console.Write("*");
+                password += keyInfo.KeyChar;
+            }
+        } while (key != ConsoleKey.Enter);
+        
         AccountModel? acc = accountsLogic.CheckLogin(email, password);
         if (acc != null)
         {
-            Console.WriteLine("Welcome back " + acc.FullName);
+            Console.WriteLine("\nWelcome back " + acc.FullName);
             Console.WriteLine("Your email number is " + acc.EmailAddress);
 
             loggedIn = true;
