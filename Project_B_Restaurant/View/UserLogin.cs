@@ -8,25 +8,7 @@ public static class UserLogin
     {
         Console.WriteLine("Welcome to the login page");
         string email = GetString("Please enter your email address");
-        Console.WriteLine("Please enter your password");
-        var password = string.Empty;
-        ConsoleKey key;
-        do
-        {
-            var keyInfo = Console.ReadKey(intercept: true);
-            key = keyInfo.Key;
-
-            if (key == ConsoleKey.Backspace && password.Length > 0)
-            {
-                Console.Write("\b \b");
-                password = password[0..^1];
-            }
-            else if (!char.IsControl(keyInfo.KeyChar))
-            {
-                Console.Write("*");
-                password += keyInfo.KeyChar;
-            }
-        } while (key != ConsoleKey.Enter);
+        var password = GetPassword("Please enter your password");
         
         AccountModel? acc = accountsLogic.CheckLogin(email, password);
         if (acc != null)
@@ -108,13 +90,13 @@ public static class UserLogin
         
         string fullName = GetString("What your full name?");
         string emailAddress = GetString("What is your email address?");
-        string password = GetString("Enter a password:");
-        string confirm_password = GetString("Confirm your password:");
+        string password = GetPassword("What is your password?");
+        var confirm_password = GetPassword("Confirm your password:");
         while (password != confirm_password)
         {
-            Console.WriteLine("The passwords do not match. Please try again.");
-            password = GetString("Enter a password:");
-            confirm_password = GetString("Confirm your password:");
+            Console.WriteLine("\nThe passwords do not match. Please try again.");
+            password = GetPassword("Enter a password:");
+            confirm_password = GetPassword("Confirm your password:");
         }
         int id = accountsLogic.GetLastId() + 1;
         AccountModel acc = new AccountModel(id, emailAddress, password, fullName, level);
@@ -161,6 +143,31 @@ public static class UserLogin
         while (input == string.Empty);
 
         return input;
+    }
+
+    public static string GetPassword(string question){
+        Console.WriteLine($"{question}");
+        var password = string.Empty;
+        ConsoleKey key;
+        Console.Write("?: > ");
+        do
+        {
+            var keyInfo = Console.ReadKey(intercept: true);
+            key = keyInfo.Key;
+
+            if (key == ConsoleKey.Backspace && password.Length > 0)
+            {
+                Console.Write("\b \b");
+                password = password[0..^1];
+            }
+            else if (!char.IsControl(keyInfo.KeyChar))
+            {
+                Console.Write("*");
+                password += keyInfo.KeyChar;
+            }
+        } while (key != ConsoleKey.Enter);
+        Console.WriteLine("");
+        return password;
     }
 
 }
