@@ -48,8 +48,12 @@ public static class UserLogin
     {
         string email = GetString("Please enter your email: ");
         AccountModel acc = accountsLogic.GetByEmail(email);
-        string new_password = GetString("Please enter your new password: ");
-        string confirm_password = GetString("Please enter your new password again to confirm: ");
+        if (acc == null){
+            Console.WriteLine("Email has not been found!");
+            ResetPassword();
+        }
+        string new_password = GetPassword("Please enter your new password: ");
+        string confirm_password = GetPassword("Please enter your new password again to confirm: ");
         if (new_password == confirm_password)
         {
             acc.Password = new_password;
