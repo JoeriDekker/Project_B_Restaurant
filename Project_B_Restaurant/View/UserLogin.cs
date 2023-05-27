@@ -40,7 +40,7 @@ public static class UserLogin
         }
         else
         {
-            Console.WriteLine("No account found with that email and password");
+            Console.WriteLine("\nNo account found with that email and password");
             Console.WriteLine("Did you forget your password?");
             string answer = "";
             while (answer != "1" || answer != "2" || answer != "3")
