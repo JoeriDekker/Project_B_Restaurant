@@ -202,7 +202,6 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
             case "Show Future Menu":
             case "Show Current Menu":
                 MenuController.IsFuture = !MenuController.IsFuture;
-                CreateMenuItems();
                 break;
             case Constants.UI.EXIT:
             case Constants.UI.GO_BACK:
