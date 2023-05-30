@@ -52,7 +52,7 @@ public abstract class UI
     {
         MenuItems.Clear();
         CreateMenuItems();
-        
+
     }
 
     public virtual void ShowUI()
@@ -108,8 +108,18 @@ public abstract class UI
             }
             catch (FormatException)
             {
-                Console.WriteLine($"Incorrect choice. Please provide a number between 0 and {MenuItems.Count(x => x.Level >= this.Level)}");
+                Console.WriteLine("Incorrect format. Please provide a number");
                 continue;
+            }
+
+            if (UserOptions.Count(x => x.Value.Level <= AccountsLogic.CurrentAccount?.Level) <= 0)
+            {
+                Console.WriteLine($"Incorrect choice. Please select 0 to go back");
+                continue;
+            }
+            else
+            {
+                Console.WriteLine($"Incorrect choice. Please provide a number between 0 and {UserOptions.Count() - 1}");
             }
         }
         while (!UserOptions.ContainsKey(choice));
