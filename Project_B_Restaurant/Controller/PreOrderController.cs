@@ -17,7 +17,8 @@ public class PreOrderController
             }
         }
         Console.WriteLine("\nPlease type here the dish ID you want to pre order:\n");
-        int? preOrderID = Convert.ToInt32(Console.ReadLine());
+        int preOrderID = Convert.ToInt32(Console.ReadLine());
+        Menu.FindDishWithID(preOrderID);
         foreach (Dish dish in Menu.Dishes)
         {
             if (dish.ID == preOrderID)
@@ -44,7 +45,8 @@ public class PreOrderController
             }
         }
         Console.WriteLine("Please type here which appetizer you want to pre order:\n");
-        int? preOrderAppetizer = Convert.ToInt32(Console.ReadLine());
+        int preOrderAppetizer = Convert.ToInt32(Console.ReadLine());
+        Menu.FindDishWithID(preOrderAppetizer);
         foreach (Dish dish in Menu.Dishes)
         {
             if (dish.ID == preOrderAppetizer)
@@ -71,7 +73,8 @@ public class PreOrderController
             }
         }
         Console.WriteLine("\nPlease type here which main you want to pre order:");
-        int? preOrderMain = Convert.ToInt32(Console.ReadLine());
+        int preOrderMain = Convert.ToInt32(Console.ReadLine());
+        Menu.FindDishWithID(preOrderMain);
         foreach (Dish dish in Menu.Dishes)
         {
             if (dish.ID == preOrderMain)
@@ -98,7 +101,8 @@ public class PreOrderController
             } 
         }
         Console.WriteLine("Please type here which dessert you want to pre order:\n");
-        int? preOrderDessert = Convert.ToInt32(Console.ReadLine());
+        int preOrderDessert = Convert.ToInt32(Console.ReadLine());
+        Menu.FindDishWithID(preOrderDessert);
         foreach (Dish dish in Menu.Dishes)
         {
             if (dish.ID == preOrderDessert)
@@ -107,6 +111,6 @@ public class PreOrderController
                 return dish;
             }
         }
-    return null;
+        return null;
     }
 }
