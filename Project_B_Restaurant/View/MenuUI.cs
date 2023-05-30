@@ -73,7 +73,8 @@ public class MenuUI : UI
 
             sb.AppendLine(row);
         }
-        if (Menu.Dishes.Count == 0){
+        if (Menu.Dishes.Count == 0)
+        {
             sb.AppendLine("There are no items found");
         }
         return sb.ToString();
@@ -136,10 +137,12 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
         MenuItems.Add(new MenuItem("Next items"));
         MenuItems.Add(new MenuItem("Previous items"));
         MenuItems.Add(new MenuItem("Change View"));
-        if (!MenuController.IsAlchoholeDrink){
+        if (!MenuController.IsAlchoholeDrink)
+        {
             MenuItems.Add(new MenuItem("See Alchohol Menu", AccountLevel.Guest));
         }
-        else{
+        else
+        {
             MenuItems.Add(new MenuItem("See Full Menu", AccountLevel.Guest));
         }
         MenuItems.Add(new MenuItem("Sort Menu", AccountLevel.Guest));
@@ -250,7 +253,8 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
         Menu.SortBy(choice);
     }
 
-    private void Filter(){
+    private void Filter()
+    {
 
         Console.WriteLine("     1: Allergies");
         Console.WriteLine("     2: Course Type");
@@ -259,7 +263,8 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
         int choice = GetInt("Filter by?");
         if (choice == 0)
             return;
-        else if(choice == 1){
+        else if (choice == 1)
+        {
             Console.WriteLine("     1: Fish");
             Console.WriteLine("     2: Chicken");
             Console.WriteLine("     3: Dairy");
@@ -268,7 +273,8 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
             Console.WriteLine("     6: Nuts");
             Console.WriteLine("     0: Go Back");
             int new_choice = GetInt("Filter by type?");
-            switch (new_choice){
+            switch (new_choice)
+            {
                 case 1:
                     Menu.Filter("Fish", true);
                     break;
@@ -294,13 +300,15 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
                     return;
             }
         }
-        else if(choice == 2){
+        else if (choice == 2)
+        {
             Console.WriteLine("     1: Side");
             Console.WriteLine("     2: Main");
             Console.WriteLine("     3: Appetizer");
             Console.WriteLine("     0: Go Back");
             int new_choice = GetInt("Filter by type?");
-            switch (new_choice){
+            switch (new_choice)
+            {
                 case 1:
                     Menu.Filter("Side", false);
                     break;
@@ -326,11 +334,11 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
         string dish_ingredients = GetString("What are the Dish ingedients?");
 
         string dish_allergies = GetString("What are the Dish allergies?");
-        
+
         double dish_price = GetDouble("What is the Dish price?");
-        
+
         string dish_type = GetString("What is the Dish Type?");
-        
+
         Menu.Add(dish_name, dish_ingredients.Split(' ').ToList(), dish_allergies, dish_price, dish_type);
 
 

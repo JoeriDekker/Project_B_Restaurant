@@ -45,7 +45,8 @@ public class OpeningUI : UI
         switch (UserOptions[choice].Name)
         {
             case Constants.OpeningUI.LOGIN:
-                UserLogin.Start();
+                UserLogin accountUI = new(this);
+                accountUI.Start();
                 break;
             case "Show Restaurant Info":
                 RestaurantInfoUI restaurantInfo = new(this);
@@ -56,7 +57,7 @@ public class OpeningUI : UI
                 menu.Start();
                 break;
             case Constants.OpeningUI.CREATE_ACCOUNT:
-                UserLogin.CreateAccount();
+                // UserLogin.CreateAccount();
                 break;
             case Constants.OpeningUI.RESERVATION:
                 ReservationUI reservation = new(this);

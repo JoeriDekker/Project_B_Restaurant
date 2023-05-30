@@ -5,7 +5,6 @@ public abstract class UI
     // And executing the corresponding method in the controller.
 
     // If a screen results in its own suboptions. Make it a UI class.
-    protected AccountLevel? Level = null;
     protected List<MenuItem> MenuItems { get; set; } = new();
 
     // MenuItems mapped 1 to MenuItems.Count
@@ -21,7 +20,6 @@ public abstract class UI
     public UI(UI previousUI)
     {
         PreviousUI = previousUI;
-        Level = AccountsLogic.CurrentAccount?.Level;
         CreateMenuItems();
     }
 
@@ -52,7 +50,7 @@ public abstract class UI
     {
         MenuItems.Clear();
         CreateMenuItems();
-
+        ResetUserOptions();
     }
 
     public virtual void ShowUI()
@@ -196,13 +194,13 @@ public abstract class UI
 
     public List<MenuItem> FilterMenuItems()
     {
-        if (Level == null)
+        if (AccountsLogic.CurrentAccount == null)
         {
             return MenuItems.FindAll(x => x.Level == AccountLevel.Guest);
         }
         else
         {
-            return MenuItems.FindAll(x => x.Level <= this.Level);
+            return MenuItems.FindAll(x => x.Level <= AccountsLogic.CurrentAccount.Level);
         }
     }
 
