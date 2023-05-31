@@ -99,7 +99,7 @@ public class ReservationLogic
             ReservationAccess.WriteAll(_Reservations);
 
             // Occupied to false || on deletions
-            tableLogic.OccupiedTable(Res.R_TableID, false);
+            tableLogic.RestoreOccupiedTable(Res.R_TableID);
 
 
             return true;

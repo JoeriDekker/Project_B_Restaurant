@@ -50,15 +50,30 @@ public class TableLogic{
 
     public void OccupiedTable(string checkTable, bool setBool)
     {
+        _Tables = TableAccess.LoadAll();
         TableModel foundTable = _Tables.Find(x => x.T_ID == checkTable && !x.Occupied);
 
         if (foundTable != null)
         {
             foundTable.Occupied = setBool;
-
             // Update the table in the list
             int index = _Tables.IndexOf(foundTable);
-            _Tables[index] = foundTable;
+            _Tables[index]= foundTable;
+
+            // Save the updated list to the JSON file
+            TableAccess.WriteAll(_Tables);
+        }
+    }
+
+    public void RestoreOccupiedTable(string checkTable){
+        _Tables = TableAccess.LoadAll();
+        TableModel foundTable = _Tables.Find(x => x.T_ID == checkTable && x.Occupied);
+
+        if (foundTable != null)
+        {
+            // Update the table in the list
+            int index = _Tables.IndexOf(foundTable);
+            _Tables[index].Occupied = false;
 
             // Save the updated list to the JSON file
             TableAccess.WriteAll(_Tables);
