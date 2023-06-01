@@ -31,7 +31,12 @@ public class OpeningUI : UI
     public override void CreateMenuItems()
     {
         MenuItems.Clear();
-        MenuItems.Add(new MenuItem(Constants.OpeningUI.LOGIN, AccountLevel.Guest));
+        if (!UserLogin.loggedIn){
+            MenuItems.Add(new MenuItem(Constants.OpeningUI.LOGIN, AccountLevel.Guest));
+        }
+        else{
+            MenuItems.Add(new MenuItem("Account Information", AccountLevel.Guest));
+        }
         MenuItems.Add(new MenuItem("Show Restaurant Info", AccountLevel.Guest));
         MenuItems.Add(new MenuItem(Constants.OpeningUI.MENU, AccountLevel.Guest));
         MenuItems.Add(new MenuItem(Constants.OpeningUI.CREATE_ACCOUNT, AccountLevel.Guest));
@@ -46,6 +51,9 @@ public class OpeningUI : UI
         {
             case Constants.OpeningUI.LOGIN:
                 UserLogin.Start();
+                break;
+            case "Account Information":
+                // Here should come the Account information link
                 break;
             case "Show Restaurant Info":
                 RestaurantInfoUI restaurantInfo = new(this);
