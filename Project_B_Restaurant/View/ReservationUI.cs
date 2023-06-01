@@ -94,6 +94,7 @@ public class ReservationUI : UI
                     TableLogic.OccupiedTable(table.T_ID, true);
                     ReservationModel res = ReservationLogic.CreateReservation(inp_name, inp_Pamount, table.T_ID);
                     Console.WriteLine("Reservation has been made!");
+                    Console.WriteLine($"Your Reservation Code: {res.R_Code}\n");
                     // Initialize pre order module ( UI )
                     Console.WriteLine("Do you want to make a preorder? Y/N");
                     string answer;
@@ -105,7 +106,7 @@ public class ReservationUI : UI
                         preOrd.Start();
                     }
                     else if (answer == "N")
-                    {
+                    {   
                         break;
                     }
                 }

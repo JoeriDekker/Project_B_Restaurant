@@ -39,7 +39,9 @@ class PreOrderView : UI
                     totalPrice += dish.Price;
                     sb.Append($"{dish.Name}\n{dish.Price}\n");
                 }
+                
                 sb.Append($"\nYour total price is: {totalPrice} euro\n");
+                sb.Append($"Your Reservation Code: {Reservation.R_Code}\n");
                 return sb.ToString();
             }
         }
