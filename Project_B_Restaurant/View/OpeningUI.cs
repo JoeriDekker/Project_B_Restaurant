@@ -44,16 +44,17 @@ public class OpeningUI : UI
         MenuItems.Add(new MenuItem("Create Employee Account", AccountLevel.Admin));
         MenuItems.Add(new MenuItem("Change Restaurant Info", AccountLevel.Admin));
     }
-
+    public AccountModel acc;
     public override void UserChoosesOption(int choice)
     {
         switch (UserOptions[choice].Name)
         {
             case Constants.OpeningUI.LOGIN:
-                UserLogin.Start();
+                acc = UserLogin.Start();
                 break;
             case "Account Information":
                 // Here should come the Account information link
+                UserLogin.Print(acc);
                 break;
             case "Show Restaurant Info":
                 RestaurantInfoUI restaurantInfo = new(this);

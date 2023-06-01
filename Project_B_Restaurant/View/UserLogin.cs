@@ -4,7 +4,7 @@ public static class UserLogin
     static public bool loggedIn = false;
 
 
-    public static void Start()
+    public static AccountModel Start()
     {
         Console.WriteLine("Welcome to the login page");
         string email = GetString("Please enter your email address");
@@ -19,6 +19,7 @@ public static class UserLogin
             loggedIn = true;
             //Write some code to go back to the menu
             //Menu.Start();
+            return acc;
         }
         else
         {
@@ -34,14 +35,15 @@ public static class UserLogin
                 if (answer == "1")
                 {
                     ResetPassword();
-                    break;
+                    return acc;
                 }
                 else if (answer == "2")
                 {
                     Start();
-                    break;
+                    return acc;
                 }
             }
+            return acc;
         }
     }
     private static void ResetPassword()
@@ -174,4 +176,8 @@ public static class UserLogin
         return password;
     }
 
+    public static void Print(AccountModel acc)
+    {
+        Console.WriteLine($"\nAccount Information:\nID: {acc.Id} \nFull Name: {acc.FullName} \nEmail address {acc.EmailAddress} \nAccount Level: {acc.Level}\n");
+    }
 }
