@@ -91,8 +91,7 @@ class PreOrderView : UI
     }
 
     public void AddSingleDish(){
-        ShowDishs();
-
+        ShowDishes();
         int appetizer_id = GetInt("Please type here the dish ID you want to pre order:");
         if (!Menu.FindDishWithID(appetizer_id)){
             AddSingleDish();
@@ -127,7 +126,7 @@ class PreOrderView : UI
     
     public void AddAppetizer(){
         Console.Clear();
-        ShowDishs("Appetizer");
+        ShowDishes("Appetizer");
         int appetizer_id = GetInt("Please type here the dish ID you want to pre order:");
         if (!Menu.FindDishWithID(appetizer_id)){
             AddAppetizer();
@@ -154,7 +153,7 @@ class PreOrderView : UI
 
     public void AddMain(){
         Console.Clear();
-        ShowDishs("Main");
+        ShowDishes("Main");
         int main_id = GetInt("Please type here the dish ID you want to pre order:");
         if (!Menu.FindDishWithID(main_id)){
             AddMain();
@@ -181,7 +180,7 @@ class PreOrderView : UI
 
     public void AddDessert(){
         Console.Clear();
-        ShowDishs("Dessert");
+        ShowDishes("Dessert");
         int dessert_id = GetInt("Please type here the dish ID you want to pre order:");
         if (!Menu.FindDishWithID(dessert_id)){
             AddDessert();
@@ -214,7 +213,7 @@ class PreOrderView : UI
         Console.WriteLine($"What info would you like to change?");
     }
 
-    public void ShowDishs(){
+    public void ShowDishes(){
         StringBuilder sb = new();
         string top = @"
       __  __                  
@@ -233,7 +232,7 @@ class PreOrderView : UI
        
         foreach (Dish dish in Menu.Dishes)
         {
-            if (dish.PreOrderAmount < dish.MaxAmountPreOrder && dish.PreOrderAmount < dish.MaxAmountPreOrder)
+            if (dish.PreOrderAmount < dish.MaxAmountPreOrder && dish.PreOrderAmount < dish.MaxAmountPreOrder && dish.Type != "Drink")
             {
                 string ingredients = GetMaxItemsToPrint(dish.Ingredients, 36);
                 string row = $"{dish.ID,3}| {dish.Name,22}| {ingredients,40}| {dish.Allergies,17}|  €{dish.Price,-7}| {dish.Type,9}|";
@@ -244,7 +243,7 @@ class PreOrderView : UI
         Console.WriteLine(sb.ToString());
     }
 
-    public void ShowDishs(string type){
+    public void ShowDishes(string type){
         StringBuilder sb = new();
         string top = @"
       __  __                  
