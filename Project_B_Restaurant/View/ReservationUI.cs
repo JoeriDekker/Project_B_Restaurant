@@ -39,6 +39,31 @@ public class ReservationUI : UI
 
     }
 
+    public DateOnly GetDate()
+    {
+        string input;
+        DateOnly Date = new();
+
+        DateTime today = DateTime.Today;
+        DateTime sevenDaysAhead = today.AddDays(7);
+        DateOnly maxDateToOrderAhead = new DateOnly(sevenDaysAhead.Year, sevenDaysAhead.Month, sevenDaysAhead.Day);
+        do
+        {
+            Console.WriteLine($"Please provide the date in the following format: {DateTime.Today.ToShortDateString()}");
+            Console.Write("?: > ");
+            input = Console.ReadLine() ?? string.Empty;
+        }
+        while (!DateOnly.TryParse(input, out Date) & Date > maxDateToOrderAhead);
+
+        if (Date > maxDateToOrderAhead)
+        {
+            Console.WriteLine("You can only reserve 7 days ahead\n");
+            return GetDate();
+        }
+        return Date;
+    }
+
+
     public override void UserChoosesOption(int choice)
     {
         switch (UserOptions[choice].Name)
