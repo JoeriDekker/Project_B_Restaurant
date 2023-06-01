@@ -237,4 +237,13 @@ public class MenuController
             return GetDishIndexWithID(value, mid + 1, last);
         }
     }
+
+    public void RemovePreOderInDish(Dish dish){
+        foreach (Dish menu_dish in _dishes){
+            if (dish.ID == menu_dish.ID){
+                menu_dish.PreOrderAmount -= 1;
+                Save();
+            }
+        }
+    }
 }

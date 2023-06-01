@@ -11,7 +11,7 @@
     "Price": 8.99,
     "Type": "Appetizer",
     "InStock": true,
-    "PreOrderAmount": 0,
+    "PreOrderAmount": -1,
     "MaxAmountPreOrder": 3
   },
   {
@@ -56,7 +56,7 @@
     ],
     "Allergies": "Eggs",
     "Price": 7.49,
-    "Type": "Side",
+    "Type": "Main",
     "InStock": true,
     "PreOrderAmount": 0,
     "MaxAmountPreOrder": 3
@@ -104,7 +104,7 @@
     ],
     "Allergies": "None",
     "Price": 5.49,
-    "Type": "Side",
+    "Type": "Main",
     "InStock": true,
     "PreOrderAmount": 0,
     "MaxAmountPreOrder": 3
@@ -121,7 +121,7 @@
     ],
     "Allergies": "Shellfish",
     "Price": 6.99,
-    "Type": "Side",
+    "Type": "Main",
     "InStock": true,
     "PreOrderAmount": 0,
     "MaxAmountPreOrder": 3
@@ -170,7 +170,7 @@
     ],
     "Allergies": "Eggs, Chicken",
     "Price": 10.99,
-    "Type": "Side",
+    "Type": "Main",
     "InStock": true,
     "PreOrderAmount": 0,
     "MaxAmountPreOrder": 3
@@ -202,7 +202,7 @@
     ],
     "Allergies": "Wheat, Dairy",
     "Price": 5.99,
-    "Type": "Side",
+    "Type": "Main",
     "InStock": true,
     "PreOrderAmount": 0,
     "MaxAmountPreOrder": 3
@@ -253,7 +253,7 @@
     ],
     "Allergies": "Dairy",
     "Price": 3.99,
-    "Type": "Side",
+    "Type": "Main",
     "InStock": true,
     "PreOrderAmount": 0,
     "MaxAmountPreOrder": 3
@@ -270,7 +270,7 @@
     ],
     "Allergies": "Wheat, Eggs",
     "Price": 7.99,
-    "Type": "Side",
+    "Type": "Main",
     "InStock": true,
     "PreOrderAmount": 0,
     "MaxAmountPreOrder": 3
@@ -324,7 +324,7 @@
     ],
     "Allergies": "Wheat, Eggs",
     "Price": 9.99,
-    "Type": "Side",
+    "Type": "Main",
     "InStock": true,
     "PreOrderAmount": 0,
     "MaxAmountPreOrder": 3
@@ -342,7 +342,7 @@
     "Price": 6.99,
     "Type": "Appetizer",
     "InStock": true,
-    "PreOrderAmount": 0,
+    "PreOrderAmount": 1,
     "MaxAmountPreOrder": 3
   },
   {
@@ -358,7 +358,7 @@
     "Price": 2.99,
     "Type": "Appetizer",
     "InStock": true,
-    "PreOrderAmount": 0,
+    "PreOrderAmount": 1,
     "MaxAmountPreOrder": 3
   },
   {

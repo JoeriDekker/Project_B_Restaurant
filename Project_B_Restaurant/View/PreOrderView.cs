@@ -112,6 +112,7 @@ class PreOrderView : UI
         }
         else{
             Menu.Dishes[dish_index].PreOrderAmount += 1;
+            Menu.Save();
             Reservation.PreOrders.Add(chosen_dish);
         }
     }

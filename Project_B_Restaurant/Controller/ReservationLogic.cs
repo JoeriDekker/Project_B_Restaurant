@@ -94,7 +94,11 @@ public class ReservationLogic
 
         //Remove out of Reservations list
         if (_Reservations.Remove(Res) == true)
-        {
+        {   
+            MenuController Menu = new MenuController();
+            foreach (Dish dish in Res.PreOrders){
+                Menu.RemovePreOderInDish(dish);
+            }
             // Save this data to Reservation.js 
             ReservationAccess.WriteAll(_Reservations);
 
