@@ -11,7 +11,7 @@
     "Price": 8.99,
     "Type": "Appetizer",
     "InStock": true,
-    "PreOrderAmount": -1,
+    "PreOrderAmount": 0,
     "MaxAmountPreOrder": 3
   },
   {
@@ -342,7 +342,7 @@
     "Price": 6.99,
     "Type": "Appetizer",
     "InStock": true,
-    "PreOrderAmount": 1,
+    "PreOrderAmount": 0,
     "MaxAmountPreOrder": 3
   },
   {
@@ -358,7 +358,7 @@
     "Price": 2.99,
     "Type": "Appetizer",
     "InStock": true,
-    "PreOrderAmount": 1,
+    "PreOrderAmount": 0,
     "MaxAmountPreOrder": 3
   },
   {
