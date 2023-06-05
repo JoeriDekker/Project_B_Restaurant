@@ -31,12 +31,12 @@ public class OpeningUI : UI
     public override void CreateMenuItems()
     {
         MenuItems.Clear();
-        if (!UserLogin.loggedIn){
-            MenuItems.Add(new MenuItem(Constants.OpeningUI.LOGIN, AccountLevel.Guest));
-        }
-        else{
-            MenuItems.Add(new MenuItem("Account Information", AccountLevel.Guest));
-        }
+        // if (!UserLogin.loggedIn){
+        //     MenuItems.Add(new MenuItem(Constants.OpeningUI.LOGIN, AccountLevel.Guest));
+        // }
+        // else{
+        //     MenuItems.Add(new MenuItem("Account Information", AccountLevel.Guest));
+        // }
         MenuItems.Add(new MenuItem("Show Restaurant Info", AccountLevel.Guest));
         MenuItems.Add(new MenuItem(Constants.OpeningUI.MENU, AccountLevel.Guest));
         MenuItems.Add(new MenuItem(Constants.OpeningUI.CREATE_ACCOUNT, AccountLevel.Guest));
@@ -50,12 +50,12 @@ public class OpeningUI : UI
         switch (UserOptions[choice].Name)
         {
             case Constants.OpeningUI.LOGIN:
-                UserLogin accountUI = new(this);
-                accountUI.Start();
+                // UserLogin accountUI = new(this);
+                // accountUI.Start();
                 break;
             case "Show Restaurant Info":
-                RestaurantInfoUI restaurantInfo = new(this);
-                restaurantInfo.Start();
+                // RestaurantInfoUI restaurantInfo = new(this);
+                // restaurantInfo.Start();
                 break;
             case Constants.OpeningUI.MENU:
                 MenuUI menu = new(this);

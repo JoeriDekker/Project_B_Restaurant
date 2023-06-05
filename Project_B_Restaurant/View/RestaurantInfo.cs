@@ -38,7 +38,7 @@ class RestaurantInfoUI : UI
         switch (UserOptions[option].Name)
         {
             case "Create Employee Account":
-                UserLogin.AddEmployee();
+                // UserLogin.AddEmployee();
                 break;
             case "Change Restaurant Info":
                 UpdateInfoUI updateInfo = new(this);

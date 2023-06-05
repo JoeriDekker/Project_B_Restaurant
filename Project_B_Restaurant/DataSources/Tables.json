@@ -1,99 +1,109 @@
 [
   {
     "T_ID": "1A",
-    "Occupied": false,
-    "ReservedTime": "Formatted time",
+    "Occupied": true,
+    "ReservedTime": [
+      "16:00"
+    ],
     "T_Seats": 2,
     "R_Code": ""
   },
   {
     "T_ID": "2A",
-    "Occupied": false,
-    "ReservedTime": "Formatted time",
+    "Occupied": true,
+    "ReservedTime": [
+      "18:00"
+    ],
     "T_Seats": 2,
     "R_Code": ""
   },
   {
     "T_ID": "3A",
-    "Occupied": false,
-    "ReservedTime": "Formatted time",
+    "Occupied": true,
+    "ReservedTime": [
+      "14:00"
+    ],
     "T_Seats": 2,
     "R_Code": ""
   },
   {
     "T_ID": "4A",
-    "Occupied": false,
-    "ReservedTime": "Formatted time",
+    "Occupied": true,
+    "ReservedTime": [
+      "14:00"
+    ],
     "T_Seats": 2,
     "R_Code": ""
   },
   {
     "T_ID": "5A",
-    "Occupied": false,
-    "ReservedTime": "Formatted time",
+    "Occupied": true,
+    "ReservedTime": [
+      "20:00"
+    ],
     "T_Seats": 2,
     "R_Code": ""
   },
   {
     "T_ID": "7A",
     "Occupied": false,
-    "ReservedTime": "Formatted time",
+    "ReservedTime": [],
     "T_Seats": 2,
     "R_Code": ""
   },
   {
     "T_ID": "8A",
     "Occupied": false,
-    "ReservedTime": "Formatted time",
+    "ReservedTime": [],
     "T_Seats": 2,
     "R_Code": ""
   },
   {
     "T_ID": "1B",
     "Occupied": false,
-    "ReservedTime": "Formatted time",
+    "ReservedTime": [],
     "T_Seats": 4,
     "R_Code": ""
   },
   {
     "T_ID": "2B",
     "Occupied": false,
-    "ReservedTime": "Formatted time",
+    "ReservedTime": [],
     "T_Seats": 4,
     "R_Code": ""
   },
   {
     "T_ID": "3B",
     "Occupied": false,
-    "ReservedTime": "Formatted time",
+    "ReservedTime": [],
     "T_Seats": 4,
     "R_Code": ""
   },
   {
     "T_ID": "4B",
     "Occupied": false,
-    "ReservedTime": "Formatted time",
+    "ReservedTime": [],
     "T_Seats": 4,
     "R_Code": ""
   },
   {
     "T_ID": "5B",
     "Occupied": false,
-    "ReservedTime": "Formatted time",
+    "ReservedTime": [],
     "T_Seats": 4,
     "R_Code": ""
   },
   {
     "T_ID": "1C",
     "Occupied": false,
-    "ReservedTime": "Formatted time",
+    "ReservedTime": [],
     "T_Seats": 6,
     "R_Code": ""
   },
   {
     "T_ID": "2C",
     "Occupied": false,
-    "ReservedTime": "Formatted time",
+    "ReservedTime": [],
     "T_Seats": 6,
     "R_Code": ""
   }

@@ -48,7 +48,7 @@ public class TableLogic{
     }
 
 
-    public void OccupiedTable(string checkTable, bool setBool)
+    public void OccupiedTable(string checkTable, bool setBool, string time)
     {
         _Tables = TableAccess.LoadAll();
         TableModel foundTable = _Tables.Find(x => x.T_ID == checkTable && !x.Occupied);
@@ -56,6 +56,10 @@ public class TableLogic{
         if (foundTable != null)
         {
             foundTable.Occupied = setBool;
+
+             // Add a string to the ReservedTime array
+            foundTable.ReservedTime.Add(time); // Replace "12:00 PM" with your desired string
+
             // Update the table in the list
             int index = _Tables.IndexOf(foundTable);
             _Tables[index]= foundTable;

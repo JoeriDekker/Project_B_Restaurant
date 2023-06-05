@@ -73,7 +73,7 @@ class UserLogin : UI
 
             //Write some code to go back to the menu
             //Menu.Start();
-            return acc;
+            // return acc;
         }
         else
         {
@@ -99,7 +99,7 @@ class UserLogin : UI
                     break;
                 }
             }
-            return acc;
+            // return acc;
         }
     }
     private void ResetPassword()

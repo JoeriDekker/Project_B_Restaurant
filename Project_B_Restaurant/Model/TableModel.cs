@@ -9,14 +9,14 @@ public class TableModel{
     public bool Occupied { get; set; }
 
     [JsonPropertyName("ReservedTime")]
-    public string ReservedTime { get; set; }
+    public List<string> ReservedTime { get; set; }
         
     [JsonPropertyName("T_Seats")]
     public int T_Seats { get; set; }
 
     [JsonPropertyName("R_Code")]
     public string R_Code { get; set; }
-    public TableModel(string T_id, bool occupied, string reservedTime, int t_Seats, string r_Code)
+    public TableModel(string T_id, bool occupied, List<string> reservedTime, int t_Seats, string r_Code)
     {
         this.T_ID = T_id;
         this.Occupied = occupied;

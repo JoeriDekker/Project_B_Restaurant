@@ -23,7 +23,11 @@ public class ReservationModel{
     [JsonPropertyName("PreOrders")]
     public List<Dish> PreOrders {get; set; }
 
-    public ReservationModel(int R_id, string R_Code, string Contact, string R_time, string R_TableID, int P_Amount, List<Dish> preorders)
+    
+    [JsonPropertyName("R_DateTime")]
+    public string R_DateTime {get; set; }
+
+    public ReservationModel(int R_id, string R_Code, string Contact, string R_time, string R_TableID, int P_Amount, List<Dish> preorders, string R_DateTime)
     {
         this.R_Id = R_id;
         this.R_Code = R_Code;
@@ -32,5 +36,6 @@ public class ReservationModel{
         this.R_TableID = R_TableID;
         this.P_Amount = P_Amount;
         this.PreOrders = preorders;
+        this.R_DateTime = R_DateTime;
     }
 }
