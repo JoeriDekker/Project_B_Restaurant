@@ -30,6 +30,7 @@ class RestaurantInfoUI : UI
         MenuItems.Clear();
         MenuItems.Add(new MenuItem("Create Employee Account", AccountLevel.Admin));
         MenuItems.Add(new MenuItem("Change Restaurant Info", AccountLevel.Admin));
+        MenuItems.Add(new MenuItem("Change Opening Hours", AccountLevel.Admin));
     }
 
     public override void UserChoosesOption(int option)
@@ -42,6 +43,10 @@ class RestaurantInfoUI : UI
             case "Change Restaurant Info":
                 UpdateInfoUI updateInfo = new(this);
                 updateInfo.Start();
+                break;
+            case "Change Opening Hours":
+                UpdateHoursUI updateHours = new(this);
+                updateHours.Start();
                 break;
             case "Show Restaurant Info":
                 Console.WriteLine(infoLogic.Restaurant.ToString());

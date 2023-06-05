@@ -31,7 +31,12 @@ public class OpeningUI : UI
     public override void CreateMenuItems()
     {
         MenuItems.Clear();
-        MenuItems.Add(new MenuItem(Constants.OpeningUI.LOGIN, AccountLevel.Guest));
+        if (!UserLogin.loggedIn){
+            MenuItems.Add(new MenuItem(Constants.OpeningUI.LOGIN, AccountLevel.Guest));
+        }
+        else{
+            MenuItems.Add(new MenuItem("Account Information", AccountLevel.Guest));
+        }
         MenuItems.Add(new MenuItem("Show Restaurant Info", AccountLevel.Guest));
         MenuItems.Add(new MenuItem(Constants.OpeningUI.MENU, AccountLevel.Guest));
         MenuItems.Add(new MenuItem(Constants.OpeningUI.CREATE_ACCOUNT, AccountLevel.Guest));
@@ -39,7 +44,7 @@ public class OpeningUI : UI
         MenuItems.Add(new MenuItem("Create Employee Account", AccountLevel.Admin));
         MenuItems.Add(new MenuItem("Change Restaurant Info", AccountLevel.Admin));
     }
-
+    public AccountModel acc;
     public override void UserChoosesOption(int choice)
     {
         switch (UserOptions[choice].Name)

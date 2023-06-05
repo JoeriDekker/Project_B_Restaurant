@@ -23,8 +23,8 @@ public class MenuController
 
     public MenuController()
     {
-        _dishes = MenuAccess.LoadMenu();
-        _future_dishes = MenuAccess.LoadFutureMenu();
+        _dishes = MenuAccess<Dish>.LoadMenu();
+        _future_dishes = MenuAccess<Dish>.LoadFutureMenu();
     }
 
     public void Add(string dish_name, List<string> dish_ingredients, string dish_allergies, double dish_price, string dish_type)
@@ -38,11 +38,11 @@ public class MenuController
     {
         if (IsFuture)
         {
-            Dishes = MenuAccess.LoadFutureMenu();
+            Dishes = MenuAccess<Dish>.LoadFutureMenu();
         }
         else
         {
-            Dishes = MenuAccess.LoadMenu();
+            Dishes = MenuAccess<Dish>.LoadMenu();
         }
     }
 
@@ -50,11 +50,11 @@ public class MenuController
     {
         if (IsFuture)
         {
-            MenuAccess.SaveFutureMenu(Dishes);
+            MenuAccess<Dish>.SaveFutureMenu(Dishes);
         }
         else
         {
-            MenuAccess.SaveMenu(Dishes);
+            MenuAccess<Dish>.SaveMenu(Dishes);
         }
     }
 
@@ -235,6 +235,15 @@ public class MenuController
         else
         {
             return GetDishIndexWithID(value, mid + 1, last);
+        }
+    }
+
+    public void RemovePreOderInDish(Dish dish){
+        foreach (Dish menu_dish in _dishes){
+            if (dish.ID == menu_dish.ID){
+                menu_dish.PreOrderAmount -= 1;
+                Save();
+            }
         }
     }
 }
