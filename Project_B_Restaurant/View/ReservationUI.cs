@@ -128,52 +128,39 @@ public class ReservationUI : UI
     │(2) │       │(6) │      │(6) │
     └────┘       └────┘      └────┘
 ");
-                    List<TableModel> availableTables = TableLogic.AllAvailabletables();
+            List<TableModel> availableTables = TableLogic.AllAvailabletables();
+            string availableTableId = null;
 
-                    string formattedTime = new DateTime(desiredTime.Ticks).ToString("HH:mm");
-                    string availableTableId = null;
+            foreach (TableModel table in availableTables)
+            {
+                if (!ReservationLogic.CheckReservationsFull(ReservationAccess.LoadAll(), TableAccess.LoadAll(), table.T_ID, Convert.ToString(desiredTime), out availableTableId, Convert.ToString(inp_getDate)))
+                {
+                    TableLogic.OccupiedTable(table.T_ID, true, Convert.ToString(inp_getDate), Convert.ToString(desiredTime));
+                    Console.WriteLine("Reservation made at table: " + table.T_ID);
+                    Console.WriteLine($"{table.T_ID}, {table.T_Seats}");
 
-                    foreach (TableModel table in availableTables)
+                    ReservationModel res = ReservationLogic.CreateReservation(inp_name, inp_Pamount, table.T_ID, Convert.ToString(desiredTime), Convert.ToString(inp_getDate));
+                    Console.WriteLine("Reservation has been made!");
+                    Console.WriteLine($"Your Reservation Code: {res.R_Code}\n");
+
+                    Console.WriteLine("Do you want to make a preorder? Y/N");
+                    string answer = Console.ReadLine()?.ToUpper();
+                    if (answer == "Y")
                     {
-                        if (!ReservationLogic.CheckReservationsFull(ReservationAccess.LoadAll(), TableAccess.LoadAll(), table.T_ID, Convert.ToString(desiredTime), out availableTableId))
-                        {
-
-                            // Reservations are not full, desired time slot is available
-                            TableLogic.OccupiedTable(availableTableId, true, formattedTime);
-                            Console.WriteLine("Reservation made at table: " + availableTableId);
-                            Console.WriteLine($"{availableTableId}, {table.T_Seats} ");
-
-                            string fulldate = $"{inp_getDate}#{formattedTime}";
-                            ReservationModel res = ReservationLogic.CreateReservation(inp_name, inp_Pamount, availableTableId, Convert.ToString(desiredTime), fulldate);
-
-                            Console.WriteLine("Reservation has been made!");
-
-                            Console.WriteLine($"Your Reservation Code: {res.R_Code}\n");
-
-                            // Initialize pre order module ( UI )
-                            Console.WriteLine("Do you want to make a preorder? Y/N");
-                            string answer;
-
-                            answer = Console.ReadLine() ?? string.Empty;
-                            if (answer == "Y")
-                            {
-                                preOrd = new PreOrderView(this, res);
-                                preOrd.Start();
-                            }
-                            else if (answer == "N")
-                            {   
-                                break;
-                            }
-
-                                    break;
-                                }
-                            }
-
-                    if (availableTableId == null)
-                    {
-                        Console.WriteLine("No available tables at the desired time.");
+                        preOrd = new PreOrderView(this, res);
+                        preOrd.Start();
                     }
+                    else if (answer == "N")
+                    {
+                        break;
+                    }
+                }
+            }
 
+            if (availableTableId == null)
+            {
+                Console.WriteLine("No available tables at the desired time.");
+            }
 
                     // TableLogic.OccupiedTable(table.T_ID, true);
 
@@ -182,7 +169,7 @@ public class ReservationUI : UI
                 Console.WriteLine("{0,-5} {1,-10} {2,-10} {3,-25} {4,-10} {5,-10}", "R_ID", "R_Code", "Contact", "R_time", "R_TableID", "P_Amount");
                 foreach (ReservationModel Res in ReservationLogic.GetAllReservations())
                 {
-                    Console.WriteLine("{0,-5} {1,-10} {2,-10} {3,-25} {4,-10} {5,-10}", Res.R_Id, Res.R_Code, Res.Contact, Res.R_time, Res.R_TableID, Res.P_Amount);
+                    Console.WriteLine("{0,-5} {1,-10} {2,-10} {3,-25} {4,-10} {5,-10}", Res.R_Id, Res.R_Code, Res.Contact, Res.R_Time, Res.R_Date, Res.R_TableID, Res.P_Amount);
                 }
                 break;
             case "Show pre orders":
@@ -219,7 +206,7 @@ public class ReservationUI : UI
                 Console.WriteLine("{0,-5} {1,-10} {2,-10} {3,-25} {4,-10} {5,-10}", "R_ID", "R_Code", "Contact", "R_time", "R_TableID", "P_Amount");
                 foreach (ReservationModel Res in ReservationLogic.GetAllReservations())
                 {
-                    Console.WriteLine("{0,-5} {1,-10} {2,-10} {3,-25} {4,-10} {5,-10}", Res.R_Id, Res.R_Code, Res.Contact, Res.R_time, Res.R_TableID, Res.P_Amount);
+                    Console.WriteLine("{0,-5} {1,-10} {2,-10} {3,-25} {4,-10} {5,-10}", Res.R_Id, Res.R_Code, Res.Contact, Res.R_Time, Res.R_Date, Res.R_TableID, Res.P_Amount);
                 }
 
                 Console.WriteLine("================================================================================");
@@ -237,9 +224,9 @@ public class ReservationUI : UI
 
 
                 break;
-            case "Show Available reservation times": 
+            case "Show Available reservation times (In progress)": 
 
-                ReservationLogic.GetAvailableResTimes();
+                // ReservationLogic.GetAvailableResTimes();
 
 
 
