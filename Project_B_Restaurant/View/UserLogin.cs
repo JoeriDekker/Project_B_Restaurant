@@ -131,7 +131,7 @@ class UserLogin : UI
     public void CreateAccount()
     {
         AccountLevel? CurrentLevel = AccountsLogic.CurrentAccount?.Level;
-        var level = AccountLevel.Guest;
+        var level = AccountLevel.Customer;
         if (CurrentLevel == AccountLevel.Admin)
         {
             Console.WriteLine("What type of account do you want to make? \nEnter 1 for Admin \nEnter 2 for Employee \nEnter 3 for Customer");
@@ -154,7 +154,23 @@ class UserLogin : UI
                 CreateAccount();
             }
         }
+        string fullName = GetString("What your full name?");
+        string emailAddress = GetString("What is your email address?");
+        string password = GetPassword("What is your password?");
+        var confirm_password = GetPassword("Confirm your password:");
+        while (password != confirm_password)
+        {
+            Console.WriteLine("\nThe passwords do not match. Please try again.");
+            password = GetPassword("Enter a password:");
+            confirm_password = GetPassword("Confirm your password:");
+        }
+        int id = accountsLogic.GetLastId() + 1;
+        AccountModel acc = new AccountModel(id, emailAddress, password, fullName, level);
+        accountsLogic.UpdateList(acc);
+
+        Console.WriteLine("You have succesfully created an account!");
     }
+
     public string GetPassword(string question){
         Console.WriteLine($"{question}");
         var password = string.Empty;
