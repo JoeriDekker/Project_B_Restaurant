@@ -11,6 +11,8 @@ public class TableLogic{
     //Do i need this?
     static public TableModel? CurrentTable { get; private set; }
 
+    public List<TableModel> Tables { get => _Tables; }
+
     //Get all Tables
     public TableLogic()
     {

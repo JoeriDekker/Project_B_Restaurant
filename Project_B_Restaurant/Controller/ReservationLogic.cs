@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Globalization;
 
+
 public class ReservationLogic
 {
 
@@ -52,7 +53,7 @@ public class ReservationLogic
         // We need to create a reservation model
 
         //ReservationModel.ReservationModel(int R_Id, string R_Code, string Contact, string R_TableID, int P_Amount, List<Dish> PreOrders, string R_Time, string R_Date)
-        ReservationModel res = new ReservationModel(_Reservations.Count() + 1, ResCode, c_name, TableID, c_party, new(), Time, Date );
+        ReservationModel res = new ReservationModel(_Reservations.Count() + 1, ResCode, c_name, TableID, c_party, new(), Time, Date);
 
         //Add to daaaaaaaaaa list c:
         _Reservations.Add(res);
@@ -60,7 +61,7 @@ public class ReservationLogic
         // Save this data to Reservation.json
         ReservationAccess.WriteAll(_Reservations);
 
-        
+
 
         return res;
     }
@@ -96,9 +97,10 @@ public class ReservationLogic
 
         //Remove out of Reservations list
         if (_Reservations.Remove(Res) == true)
-        {   
+        {
             MenuController Menu = new MenuController();
-            foreach (Dish dish in Res.PreOrders){
+            foreach (Dish dish in Res.PreOrders)
+            {
                 Menu.RemovePreOderInDish(dish);
             }
             // Save this data to Reservation.js 
@@ -116,48 +118,93 @@ public class ReservationLogic
         }
     }
 
-public static bool CheckReservationsFull(List<ReservationModel> reservations, List<TableModel> tables, string tableId, string desiredTime, out string availableTableId, string desiredDate)
-{
-    // Initialize availableTableId as null
-    availableTableId = null;
+    // public static bool CheckReservationsFull(List<ReservationModel> reservations, List<TableModel> tables, string tableId, string desiredTime, out string availableTableId, string desiredDate)
+    // {
+    //     // Initialize availableTableId as null
+    //     availableTableId = null;
 
-    // Get the reservations for the specified table
-    List<ReservationModel> tableReservations = reservations.FindAll(r => r.R_TableID == tableId);
+    //     // Get the reservations for the specified table
+    //     List<ReservationModel> tableReservations = reservations.FindAll(r => r.R_TableID == tableId);
 
-    // Check if the reserved time slots have reached the maximum limit
-    int maxReservations = 4; // Maximum reservations allowed per table
-    if (tableReservations.Count >= maxReservations)
+    //     // Check if the reserved time slots have reached the maximum limit
+    //     int maxReservations = 4; // Maximum reservations allowed per table
+    //     if (tableReservations.Count >= maxReservations)
+    //     {
+    //         return true; // Reservations are full
+    //     }
+
+    //     // Check if the desired time slot is already reserved
+    //     TableModel table = tables.Find(t => t.T_ID == tableId);
+
+    //     if (table != null && table.ReservedTime.ContainsKey(desiredDate) && table.ReservedTime[desiredDate].Contains(desiredTime))
+    //     {
+    //         return true; // Desired time slot is already reserved
+    //     }
+
+    //     // Check if the desired time slot conflicts with an existing reservation
+    //     foreach (ReservationModel reservation in tableReservations)
+    //     {
+    //         TimeSpan interval = TimeSpan.FromHours(2); // Minimum interval between reservations
+    //         DateTime reservationTime;
+    //         DateTime desiredDateTime;
+
+    //         if (DateTime.TryParse(reservation.R_Time, out reservationTime) && DateTime.TryParse(desiredTime, out desiredDateTime))
+    //         {
+    //             if (Math.Abs((reservationTime - desiredDateTime).TotalHours) < interval.TotalHours)
+    //             {
+    //                 return true; // Desired time slot conflicts with an existing reservation
+    //             }
+    //         }
+    //     }
+    public Tuple<DateTime, DateTime> GetTime(DateOnly date)
     {
-        return true; // Reservations are full
-    }
-
-    // Check if the desired time slot is already reserved
-    TableModel table = tables.Find(t => t.T_ID == tableId);
-
-    if (table != null && table.ReservedTime.ContainsKey(desiredDate) && table.ReservedTime[desiredDate].Contains(desiredTime))
-    {
-        return true; // Desired time slot is already reserved
-    }
-
-    // Check if the desired time slot conflicts with an existing reservation
-    foreach (ReservationModel reservation in tableReservations)
-    {
-        TimeSpan interval = TimeSpan.FromHours(2); // Minimum interval between reservations
-        DateTime reservationTime;
-        DateTime desiredDateTime;
-
-        if (DateTime.TryParse(reservation.R_Time, out reservationTime) && DateTime.TryParse(desiredTime, out desiredDateTime))
+        string day = date.DayOfWeek.ToString();
+        foreach (Dictionary<string, object> openingHour in _openingHours)
         {
-            if (Math.Abs((reservationTime - desiredDateTime).TotalHours) < interval.TotalHours)
+            foreach (KeyValuePair<string, object> kvp in openingHour)
             {
-                return true; // Desired time slot conflicts with an existing reservation
+                if (kvp.Key == day)
+                {
+                    return new(DateTime.Parse(kvp.Value.ToString()!.Split('-')[0]), DateTime.Parse(kvp.Value.ToString()!.Split('-')[1]));
+                }
             }
         }
+        return null;
     }
 
-    // If the code reaches here, reservations are not full, desired time slot is available, and no conflicts with existing reservations
-    availableTableId = tableId; // Set the availableTableId
-    return false;
+
+    public List<DateTime> GetAvailableTimes(DateOnly date)
+    {
+        List<DateTime> times = new();
+        List<List<DateTime>> AllTimes = new();
+        (DateTime openingTime, DateTime closingTime) = GetTime(date);
+
+        foreach (TableModel table in tableLogic.Tables)
+        {
+            times.Clear();
+            DateTime time = openingTime;
+
+            while (true)
+            {
+                times.Add(time);
+                time = time.AddMinutes(15);
+                Console.WriteLine(time);
+
+                if (time >= closingTime)
+                    break;
+            }
+
+
+            foreach (string reservationTime in table.ReservedTime[date.DayOfWeek.ToString()])
+            {
+                DateTime unavailableTime = DateTime.Parse(reservationTime);
+                times.RemoveAll(x => x - unavailableTime < TimeSpan.FromHours(2));
+                AllTimes.Append(times);
+            }
+        }
+
+        return AllTimes.SelectMany(x => x).Distinct().ToList();
+    }
 }
 
 
@@ -308,10 +355,10 @@ public static bool CheckReservationsFull(List<ReservationModel> reservations, Li
 //         return false;
 //     }
 
-    public void Update(ReservationModel reservation)
-    {
-        int indexToUpdate = _Reservations.FindIndex(x => x.R_Id == reservation.R_Id);
-        _Reservations[indexToUpdate].PreOrders = reservation.PreOrders;
-        ReservationAccess.WriteAll(_Reservations);
-    }
-}
+// public void Update(ReservationModel reservation)
+// {
+//     int indexToUpdate = _Reservations.FindIndex(x => x.R_Id == reservation.R_Id);
+//     _Reservations[indexToUpdate].PreOrders = reservation.PreOrders;
+//     ReservationAccess.WriteAll(_Reservations);
+// }
+// }
