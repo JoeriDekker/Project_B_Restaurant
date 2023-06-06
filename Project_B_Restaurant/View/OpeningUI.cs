@@ -31,12 +31,12 @@ public class OpeningUI : UI
     public override void CreateMenuItems()
     {
         MenuItems.Clear();
-        // if (!UserLogin.loggedIn){
-        //     MenuItems.Add(new MenuItem(Constants.OpeningUI.LOGIN, AccountLevel.Guest));
-        // }
-        // else{
-        //     MenuItems.Add(new MenuItem("Account Information", AccountLevel.Guest));
-        // }
+        if (!UserLogin.Loggedin){
+            MenuItems.Add(new MenuItem(Constants.OpeningUI.LOGIN, AccountLevel.Guest));
+        }
+        else{
+            MenuItems.Add(new MenuItem("Account Information", AccountLevel.Guest));
+        }
         MenuItems.Add(new MenuItem("Show Restaurant Info", AccountLevel.Guest));
         MenuItems.Add(new MenuItem(Constants.OpeningUI.MENU, AccountLevel.Guest));
         MenuItems.Add(new MenuItem(Constants.OpeningUI.CREATE_ACCOUNT, AccountLevel.Guest));
@@ -50,19 +50,24 @@ public class OpeningUI : UI
         switch (UserOptions[choice].Name)
         {
             case Constants.OpeningUI.LOGIN:
-                // UserLogin accountUI = new(this);
-                // accountUI.Start();
+                UserLogin userlogin = new(this);
+                userlogin.LogIn();
+                break;
+            case "Account Information":
+                // Here should come the Account information link
+                Console.WriteLine("Account info incoming");
                 break;
             case "Show Restaurant Info":
-                // RestaurantInfoUI restaurantInfo = new(this);
-                // restaurantInfo.Start();
+                RestaurantInfoUI restaurantInfo = new(this);
+                restaurantInfo.Start();
                 break;
             case Constants.OpeningUI.MENU:
                 MenuUI menu = new(this);
                 menu.Start();
                 break;
             case Constants.OpeningUI.CREATE_ACCOUNT:
-                // UserLogin.CreateAccount();
+                UserLogin user = new(this);
+                user.CreateAccount();
                 break;
             case Constants.OpeningUI.RESERVATION:
                 ReservationUI reservation = new(this);

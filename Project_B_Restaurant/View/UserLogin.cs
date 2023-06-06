@@ -2,9 +2,12 @@ using System.Text;
 
 class UserLogin : UI
 {
+
     private AccountsLogic accountsLogic = new AccountsLogic();
 
     public override string SubText => "";
+
+    public static bool Loggedin;
 
     public override string Header
     {
@@ -68,6 +71,7 @@ class UserLogin : UI
         {
             Console.WriteLine("\nWelcome back " + acc.FullName);
             Console.WriteLine("Your email number is " + acc.EmailAddress);
+            Loggedin = true;
             this.Reset();
 
 
