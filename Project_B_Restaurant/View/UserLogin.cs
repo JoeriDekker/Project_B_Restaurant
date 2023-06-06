@@ -84,7 +84,7 @@ class UserLogin : UI
             {
                 Console.WriteLine("Enter 1 to reset your password");
                 Console.WriteLine("Enter 2 to try log in again");
-                Console.WriteLine("Enter 3 Go Back");
+                Console.WriteLine("Enter 0 Go Back");
                 answer = Console.ReadLine();
                 if (answer == "1")
                 {
@@ -117,7 +117,9 @@ class UserLogin : UI
         {
             acc.Password = new_password;
             accountsLogic.UpdateList(acc);
-            Console.WriteLine("Your password has been updated!");
+            Console.WriteLine("Your password has been updated! \n");
+            
+            LogIn();
         }
         else
         {

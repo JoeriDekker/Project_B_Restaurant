@@ -33,7 +33,6 @@ class AccountUI : UI
             sb.AppendLine($"Name: {AccountsLogic.CurrentAccount.FullName}");
             sb.AppendLine($"Email: {AccountsLogic.CurrentAccount.EmailAddress}");
             sb.AppendLine($"Account type: {AccountsLogic.CurrentAccount.Level}");
-            
             sb.AppendLine("====================");
             AccountInfo = sb.ToString();
         }
