@@ -21,6 +21,9 @@ public class AccountsLogic
         _accounts = AccountsAccess.LoadAll();
     }
 
+    public List<AccountModel> GetAccountModels(){
+        return _accounts;
+    }
 
     public void UpdateList(AccountModel acc)
     {

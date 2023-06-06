@@ -1,9 +1,7 @@
 using System.Text;
 
 class PreOrderView : UI
-{
-    private PreOrderController preOrderController = new PreOrderController();
-    private ReservationLogic ReservationController = new();
+{    private ReservationLogic ReservationController = new();
 
     public MenuController Menu = new();
 

@@ -11,7 +11,7 @@
     "Price": 8.99,
     "Type": "Appetizer",
     "InStock": true,
-    "PreOrderAmount": 0,
+    "PreOrderAmount": 2,
     "MaxAmountPreOrder": 3
   },
   {
@@ -26,7 +26,7 @@
     "Price": 10.99,
     "Type": "Main",
     "InStock": true,
-    "PreOrderAmount": 0,
+    "PreOrderAmount": 1,
     "MaxAmountPreOrder": 3
   },
   {
@@ -73,7 +73,7 @@
     "Price": 5.99,
     "Type": "Dessert",
     "InStock": true,
-    "PreOrderAmount": 0,
+    "PreOrderAmount": 1,
     "MaxAmountPreOrder": 3
   },
   {
@@ -391,7 +391,7 @@
     "Price": 8.99,
     "Type": "Appetizer",
     "InStock": true,
-    "PreOrderAmount": 0,
+    "PreOrderAmount": 1,
     "MaxAmountPreOrder": 3
   },
   {
