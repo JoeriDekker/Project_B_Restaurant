@@ -4,6 +4,7 @@
     "emailAddress": "n@b.c",
     "password": "Cgo7QDgyFkM0MhZMNQwlHj0vAzI6JE9E",
     "fullName": "Nikola Tesla",
+    "reservations": [],
     "type": "Customer"
   },
   {
@@ -11,6 +12,7 @@
     "emailAddress": "test",
     "password": "test",
     "fullName": "Nikola Tesla",
+    "reservations": [],
     "type": "Customer"
   },
   {
@@ -18,6 +20,9 @@
     "emailAddress": "admin",
     "password": "admin",
     "fullName": "Nikola Tesla",
+    "reservations": [
+      "R7492"
+    ],
     "type": "Admin"
   },
   {
@@ -25,6 +30,7 @@
     "emailAddress": "john@doe.com",
     "password": "CgUKDTAcJBE6GV1UNQwDKD0sGBg\u002BD0IPMh8qRC8xcCg=",
     "fullName": "John Doe",
+    "reservations": [],
     "type": "Customer"
   },
   {
@@ -32,6 +38,7 @@
     "emailAddress": "test@name.nl",
     "password": "Cz8NDjAiJB4yMRIWPAlFLA==",
     "fullName": "Test Name",
+    "reservations": [],
     "type": "Admin"
   },
   {
@@ -39,6 +46,7 @@
     "emailAddress": "testname@gmail.com",
     "password": "nametest",
     "fullName": "Test Name",
+    "reservations": [],
     "type": "Employee"
   },
   {
@@ -46,6 +54,7 @@
     "emailAddress": "employee@test.com",
     "password": "test",
     "fullName": "Employee Test",
+    "reservations": [],
     "type": "Employee"
   }
 ]

@@ -21,6 +21,9 @@ public class AccountModel
     [JsonPropertyName("fullName")]
     public string FullName { get; set; }
 
+    [JsonPropertyName("reservations")]
+    public List<string> Reservations { get; set; }
+
     [JsonPropertyName("type")]
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public AccountLevel Level { get; set; }
@@ -33,6 +36,7 @@ public class AccountModel
         Password = password;
         FullName = fullName;
         Level = level;
+        Reservations = new List<string>();
     }
 
     public override string ToString()

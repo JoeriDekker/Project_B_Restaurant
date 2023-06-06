@@ -141,6 +141,15 @@ public class ReservationUI : UI
 
                     ReservationModel res = ReservationLogic.CreateReservation(inp_name, inp_Pamount, table.T_ID, Convert.ToString(desiredTime), Convert.ToString(inp_getDate));
                     Console.WriteLine("Reservation has been made!");
+
+                    if (AccountsLogic.CurrentAccount != null){
+                        AccountsLogic accountsLogic = new AccountsLogic();
+                        AccountModel account = AccountsLogic.CurrentAccount;
+                        account.Reservations.Add(res.R_Code);
+                        Console.WriteLine("1");
+                        accountsLogic.UpdateList(account);
+                    }
+
                     Console.WriteLine($"Your Reservation Code: {res.R_Code}\n");
 
                     Console.WriteLine("Do you want to make a preorder? Y/N");
