@@ -106,7 +106,44 @@ public class ReservationLogic
 
             // Occupied to false || on deletions
             tableLogic.RestoreOccupiedTable(Res.R_TableID);
+            
+            // AccountsLogic accountsLogic = new AccountsLogic();
+            // Console.WriteLine($"Find: {Res.R_Code}\n");
 
+            // // Create a list to store the reservations to be removed
+            // List<string> reservationsToRemove = new List<string>();
+            // AccountModel foundaccount = null; // Initialize the variable with null
+
+            // foreach (AccountModel acc in accountsLogic.GetAccountModels())
+            // {
+            //     foreach (string RCode in acc.Reservations)
+            //     {
+            //         if (RCode == Res.R_Code)
+            //         {
+            //             Console.WriteLine(RCode);
+            //             Console.WriteLine(acc);
+            //             reservationsToRemove.Add(RCode);
+            //         }
+            //     }
+            // }
+
+            // // Remove the reservations outside of the loop
+            // foreach (AccountModel acc in accountsLogic.GetAccountModels())
+            // {
+            //     foreach (string RCode in reservationsToRemove)
+            //     {
+            //         acc.Reservations.Remove(RCode);
+            //         accountsLogic.UpdateList(acc);
+            //         foundaccount = acc;
+
+            //     }
+            // }
+
+            // Update the account list in the AccountsLogic class if a matching account was found
+            // if (foundaccount != null)
+            // {
+            //     accountsLogic.UpdateList(foundaccount);
+            // }
 
             return true;
         }
