@@ -48,8 +48,6 @@ class UserLogin : UI
             case "Reset Password":
                 ResetPassword();
                 break;
-            case "Update Accountdetails":
-                break;
             case Constants.UI.GO_BACK:
             case Constants.UI.EXIT:
                 Exit();
@@ -72,7 +70,8 @@ class UserLogin : UI
             Console.WriteLine("\nWelcome back " + acc.FullName);
             Console.WriteLine("Your email number is " + acc.EmailAddress);
             Loggedin = true;
-            this.Reset();
+            OpeningUI opening = new(null);
+            opening.Start();
 
 
             //Write some code to go back to the menu
@@ -106,7 +105,7 @@ class UserLogin : UI
             // return acc;
         }
     }
-    private void ResetPassword()
+    public void ResetPassword()
     {
         string email = GetString("Please enter your email: ");
         AccountModel acc = accountsLogic.GetByEmail(email);
