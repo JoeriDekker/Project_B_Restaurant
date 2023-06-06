@@ -34,6 +34,15 @@ class AccountUI : UI
             sb.AppendLine($"Email: {AccountsLogic.CurrentAccount.EmailAddress}");
             sb.AppendLine($"Account type: {AccountsLogic.CurrentAccount.Level}");
             sb.AppendLine("====================");
+            if (AccountsLogic.CurrentAccount.Reservations.Count() != 0)
+            {
+                sb.AppendLine("Your Reservations Code(s):");
+                foreach (string rcode in AccountsLogic.CurrentAccount.Reservations){
+                    sb.AppendLine($"- {rcode}");
+                    
+                }
+                sb.AppendLine("====================");
+            }
             AccountInfo = sb.ToString();
         }
         else{
