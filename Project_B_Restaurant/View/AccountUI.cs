@@ -29,11 +29,11 @@ class AccountUI : UI
         if (AccountsLogic.CurrentAccount != null){
             StringBuilder sb = new();
             sb.AppendLine("\nACCOUNT INFORMATION");
-            sb.AppendLine("====================");
+            sb.AppendLine("======================================");
             sb.AppendLine($"Name: {AccountsLogic.CurrentAccount.FullName}");
             sb.AppendLine($"Email: {AccountsLogic.CurrentAccount.EmailAddress}");
             sb.AppendLine($"Account type: {AccountsLogic.CurrentAccount.Level}");
-            sb.AppendLine("====================");
+            sb.AppendLine("======================================");
             if (AccountsLogic.CurrentAccount.Reservations.Count() != 0)
             {
                 sb.AppendLine("Your Reservations Code(s):");
@@ -41,7 +41,7 @@ class AccountUI : UI
                     sb.AppendLine($"- {rcode}");
                     
                 }
-                sb.AppendLine("====================");
+                sb.AppendLine("======================================");
             }
             AccountInfo = sb.ToString();
         }
@@ -77,6 +77,8 @@ class AccountUI : UI
                 user.ResetPassword();
                 break;
             case "Update Accountdetails":
+                UpdateAccountUI UpdateAcc = new(this);
+                UpdateAcc.Start();
                 break;
             case Constants.UI.GO_BACK:
             case Constants.UI.EXIT:

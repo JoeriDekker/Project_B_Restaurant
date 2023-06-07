@@ -39,6 +39,8 @@ public class AccountModel
         Reservations = new List<string>();
     }
 
+    public string ShowInfo() => $"FullName: {FullName}\nEmail: {EmailAddress}\nLevel: {Level}";
+
     public override string ToString()
     {
         return $"{FullName} ({Level})";

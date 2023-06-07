@@ -10,8 +10,8 @@
   {
     "id": 2,
     "emailAddress": "test",
-    "password": "test",
-    "fullName": "Nikola Tesla",
+    "password": "test2",
+    "fullName": "kip2",
     "reservations": [],
     "type": "Customer"
   },
