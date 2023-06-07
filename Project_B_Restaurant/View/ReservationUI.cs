@@ -146,7 +146,6 @@ public class ReservationUI : UI
                         AccountsLogic accountsLogic = new AccountsLogic();
                         AccountModel account = AccountsLogic.CurrentAccount;
                         account.Reservations.Add(res.R_Code);
-                        Console.WriteLine("1");
                         accountsLogic.UpdateList(account);
                     }
 
