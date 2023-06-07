@@ -20,9 +20,7 @@
     "emailAddress": "admin",
     "password": "admin",
     "fullName": "Nikola Tesla",
-    "reservations": [
-      "R7492"
-    ],
+    "reservations": [],
     "type": "Admin"
   },
   {
