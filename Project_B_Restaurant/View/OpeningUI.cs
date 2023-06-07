@@ -37,8 +37,6 @@ public class OpeningUI : UI
         MenuItems.Add(new MenuItem(Constants.OpeningUI.MENU, AccountLevel.Guest));
         MenuItems.Add(new MenuItem(Constants.OpeningUI.CREATE_ACCOUNT, AccountLevel.Guest));
         MenuItems.Add(new MenuItem(Constants.OpeningUI.RESERVATION, AccountLevel.Guest));
-        MenuItems.Add(new MenuItem("Create Employee Account", AccountLevel.Admin));
-        MenuItems.Add(new MenuItem("Change Restaurant Info", AccountLevel.Admin));
     }
     public AccountModel acc;
     public override void UserChoosesOption(int choice)

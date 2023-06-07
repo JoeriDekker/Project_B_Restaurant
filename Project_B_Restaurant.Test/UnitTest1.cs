@@ -1,19 +1,32 @@
-namespace Project_B_Restaurant.Test;
+using Project_B_Restaurant;
 
-[TestClass]
-public class UnitTest1
+namespace Project_B_Restaurant.Test
 {
-    [TestMethod]
-    public void TestLogin()
+    [TestClass]
+    public class UnitTest1
     {
-        string startLogin = "1";
-        string username = "admin";
-        string password = "admin";
+        [TestMethod]
+        public void TestGetAccountByID()
+        {
+            // Arrange
+            AccountsLogic accController = new AccountsLogic();
+            AccountModel actual = accController.GetById(2);
 
-        OpeningUI openingUI = new(null!);
-        Console.SetIn(new StringReader($"{startLogin}\n{username}\n{password}"));
-        openingUI.Start();
+            int id = 2;
+            string emailAddress = "test";
+            string password = "test2";
+            string fullName = "kip2";
+            AccountLevel level = (AccountLevel)2;
+            AccountModel expected = new AccountModel(id, emailAddress, password, fullName, level);
 
-        
+            // Act
+            string actualInfo = actual.ShowInfo();
+            string expectedInfo = expected.ShowInfo();
+
+            // Assert
+            Assert.AreEqual(expected.Id, actual.Id);
+            Assert.AreEqual(expected.EmailAddress, actual.EmailAddress);
+            Assert.AreEqual(expectedInfo, actualInfo);
+        }
     }
 }
