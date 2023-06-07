@@ -1,5 +1,3 @@
-using Project_B_Restaurant;
-
 namespace Project_B_Restaurant.Test
 {
     [TestClass]
