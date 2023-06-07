@@ -5,7 +5,7 @@ class PreOrderView : UI
 
     public MenuController Menu = new();
 
-    public ReservationModel Reservation { get; set; }
+    public ReservationModel Reservation { get; set; }   
 
     private double totalPrice;
 

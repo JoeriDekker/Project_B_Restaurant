@@ -155,44 +155,46 @@ public class ReservationLogic
         }
     }
 
-    // public static bool CheckReservationsFull(List<ReservationModel> reservations, List<TableModel> tables, string tableId, string desiredTime, out string availableTableId, string desiredDate)
-    // {
-    //     // Initialize availableTableId as null
-    //     availableTableId = null;
+    public static bool CheckReservationsFull(List<ReservationModel> reservations, List<TableModel> tables, string tableId, string desiredTime, out string availableTableId, string desiredDate)
+    {
+        // Initialize availableTableId as null
+        availableTableId = null;
 
-    //     // Get the reservations for the specified table
-    //     List<ReservationModel> tableReservations = reservations.FindAll(r => r.R_TableID == tableId);
+        // Get the reservations for the specified table
+        List<ReservationModel> tableReservations = reservations.FindAll(r => r.R_TableID == tableId);
 
-    //     // Check if the reserved time slots have reached the maximum limit
-    //     int maxReservations = 4; // Maximum reservations allowed per table
-    //     if (tableReservations.Count >= maxReservations)
-    //     {
-    //         return true; // Reservations are full
-    //     }
+        // Check if the reserved time slots have reached the maximum limit
+        int maxReservations = 4; // Maximum reservations allowed per table
+        if (tableReservations.Count >= maxReservations)
+        {
+            return true; // Reservations are full
+        }
 
-    //     // Check if the desired time slot is already reserved
-    //     TableModel table = tables.Find(t => t.T_ID == tableId);
+        // Check if the desired time slot is already reserved
+        TableModel table = tables.Find(t => t.T_ID == tableId);
 
-    //     if (table != null && table.ReservedTime.ContainsKey(desiredDate) && table.ReservedTime[desiredDate].Contains(desiredTime))
-    //     {
-    //         return true; // Desired time slot is already reserved
-    //     }
+        if (table != null && table.ReservedTime.ContainsKey(desiredDate) && table.ReservedTime[desiredDate].Contains(desiredTime))
+        {
+            return true; // Desired time slot is already reserved
+        }
 
-    //     // Check if the desired time slot conflicts with an existing reservation
-    //     foreach (ReservationModel reservation in tableReservations)
-    //     {
-    //         TimeSpan interval = TimeSpan.FromHours(2); // Minimum interval between reservations
-    //         DateTime reservationTime;
-    //         DateTime desiredDateTime;
+        // Check if the desired time slot conflicts with an existing reservation
+        foreach (ReservationModel reservation in tableReservations)
+        {
+            TimeSpan interval = TimeSpan.FromHours(2); // Minimum interval between reservations
+            DateTime reservationTime;
+            DateTime desiredDateTime;
 
-    //         if (DateTime.TryParse(reservation.R_Time, out reservationTime) && DateTime.TryParse(desiredTime, out desiredDateTime))
-    //         {
-    //             if (Math.Abs((reservationTime - desiredDateTime).TotalHours) < interval.TotalHours)
-    //             {
-    //                 return true; // Desired time slot conflicts with an existing reservation
-    //             }
-    //         }
-    //     }
+            if (DateTime.TryParse(reservation.R_Time, out reservationTime) && DateTime.TryParse(desiredTime, out desiredDateTime))
+            {
+                if (Math.Abs((reservationTime - desiredDateTime).TotalHours) < interval.TotalHours)
+                {
+                    return true; // Desired time slot conflicts with an existing reservation
+                }
+            }
+        }
+        return false;
+    }
     public Tuple<DateTime, DateTime> GetTime(DateOnly date)
     {
         string day = date.DayOfWeek.ToString();
@@ -241,6 +243,13 @@ public class ReservationLogic
         }
 
         return AllTimes.SelectMany(x => x).Distinct().ToList();
+    }
+
+        public void Update(ReservationModel reservation)
+    {
+        int indexToUpdate = _Reservations.FindIndex(x => x.R_Id == reservation.R_Id);
+        _Reservations[indexToUpdate].PreOrders = reservation.PreOrders;
+        ReservationAccess.WriteAll(_Reservations);
     }
 }
 
