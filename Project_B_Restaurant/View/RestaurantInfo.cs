@@ -28,7 +28,7 @@ class RestaurantInfoUI : UI
     public override void CreateMenuItems()
     {
         MenuItems.Clear();
-        MenuItems.Add(new MenuItem("Create Employee Account", AccountLevel.Admin));
+        MenuItems.Add(new MenuItem("See Restaurant Layout", AccountLevel.Guest));
         MenuItems.Add(new MenuItem("Change Restaurant Info", AccountLevel.Admin));
         MenuItems.Add(new MenuItem("Change Opening Hours", AccountLevel.Admin));
     }
@@ -37,8 +37,8 @@ class RestaurantInfoUI : UI
     {
         switch (UserOptions[option].Name)
         {
-            case "Create Employee Account":
-                // UserLogin.AddEmployee();
+            case "See Restaurant Layout":
+                RestaurantLayout();
                 break;
             case "Change Restaurant Info":
                 UpdateInfoUI updateInfo = new(this);
@@ -59,5 +59,41 @@ class RestaurantInfoUI : UI
                 Console.WriteLine("Invalid input");
                 break; ;
         }
+    }
+
+    public void RestaurantLayout(){
+        Console.WriteLine("\nRESTAURANT LAYOUT");
+        Console.WriteLine("=================");
+        Console.WriteLine(@$"
+┌────┐    ┌────┐         ┌────┐
+│ 3A │    │ 1A │         │ 2A │
+│(2) │    │(2) │         │(2) │
+└────┘    └────┘         └────┘
+
+┌────┐                   ┌────┐
+│ 6A │                   │ 4A │
+│(2) │                   │(4) │
+└────┘                   └────┘
+
+┌────┐                   ┌────┐
+│ 5A │                   │ 7A │
+│(4) │                   │(2) │
+└────┘                   └────┘
+
+┌────┐                   ┌────┐
+│ 2B │                   │ 3B │
+│(4) │                   │(4) │
+└────┘                   └────┘
+
+┌────┐                   ┌────┐
+│ 5B │                   │ 4B │
+│(4) │                   │(2) │
+└────┘                   └────┘
+
+┌────┐       ┌────┐      ┌────┐
+│ 6B │       │ 1C │      │ 1B │
+│(2) │       │(6) │      │(6) │
+└────┘       └────┘      └────┘
+");
     }
 }
