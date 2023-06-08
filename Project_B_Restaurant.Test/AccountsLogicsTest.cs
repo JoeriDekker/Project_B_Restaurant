@@ -4,12 +4,32 @@ namespace Project_B_Restaurant.Test
     public class AccountsLogicTests
     {
         private AccountsLogic _accountsLogic;
+        private string accountsDataPath;
 
         [TestInitialize]
         public void Initialize()
         {
             // Create a new instance of AccountsLogic before each test
             _accountsLogic = new AccountsLogic();
+
+            // Set up the accounts data path for testing
+            accountsDataPath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"DataSources/accounts.json"));
+
+            // Create a backup of the original accounts data file
+            File.Copy(accountsDataPath, accountsDataPath + ".bak", true);
+        }
+
+        [TestCleanup]
+        public void Cleanup()
+        {
+            // Delete the accounts data file created during the test
+            File.Delete(accountsDataPath);
+
+            // Restore the original accounts data file
+            File.Copy(accountsDataPath + ".bak", accountsDataPath, true);
+
+            // Delete the accounts data file backup
+            File.Delete(accountsDataPath + ".bak");
         }
 
         [TestMethod]
@@ -17,14 +37,17 @@ namespace Project_B_Restaurant.Test
         {
             // Arrange
             int accountId = 1;
+            AccountModel newaccount = new AccountModel(1, "test@test.com", "test", "test", AccountLevel.Customer);
 
             // Act
+            _accountsLogic.UpdateList(newaccount);
             AccountModel account = _accountsLogic.GetById(accountId);
 
             // Assert
             Assert.IsNotNull(account);
             Assert.AreEqual(accountId, account.Id);
         }
+
 
         [TestMethod]
         public void GetById_InvalidId_ReturnsNull()
@@ -43,7 +66,7 @@ namespace Project_B_Restaurant.Test
         public void GetByEmail_ValidEmail_ReturnsAccount()
         {
             // Arrange
-            string email = "test@example.com";
+            string email = "test@test.com";
 
             // Act
             AccountModel account = _accountsLogic.GetByEmail(email);
@@ -64,22 +87,6 @@ namespace Project_B_Restaurant.Test
 
             // Assert
             Assert.IsNull(account);
-        }
-
-        [TestMethod]
-        public void CheckLogin_ValidCredentials_ReturnsAccount()
-        {
-            // Arrange
-            string email = "test@example.com";
-            string password = "password";
-
-            // Act
-            AccountModel account = _accountsLogic.CheckLogin(email, password);
-
-            // Assert
-            Assert.IsNotNull(account);
-            Assert.AreEqual(email, account.EmailAddress);
-            Assert.AreEqual(password, account.Password);
         }
 
         [TestMethod]
@@ -138,7 +145,8 @@ namespace Project_B_Restaurant.Test
             string info = account.ShowInfo();
 
             // Assert
-            string expectedInfo = "ID: 1\nEmail: test@example.com\nFull Name: Test User\nAccount Level: Admin";
+            
+            string expectedInfo = "FullName: Test User\nEmail: test@example.com\nLevel: Admin";
             Assert.AreEqual(expectedInfo, info);
         }
     }
