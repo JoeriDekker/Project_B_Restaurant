@@ -73,6 +73,8 @@ public class ReservationLogic
         {
             seats += table.T_Seats;
             table_IDs.Add(table.T_ID);
+
+            // Misschien checken op grotere party dan 8
             if (seats > c_party)
                 break;
         }

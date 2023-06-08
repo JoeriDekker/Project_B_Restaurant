@@ -197,10 +197,14 @@ public class ReservationUI : UI
         // Dictionary<DateTime, List<TableModel>>
         var availableTimes = ReservationLogic.GetAvailableTimesToReserve(date, partySize);
         
-        PrintAllAvailableTimes(availableTimes);
+        //Available times
+        var rewriteTimes = PrintAllAvailableTimes(availableTimes);
+
 
         // Selected time
-        DateTime selectedTime = GetUserSelectedTime(availableTimes);
+        DateTime selectedTime = GetUserSelectedTime(rewriteTimes);
+
+
 
         // Show the selected date and time
         Console.WriteLine($"Selected Date and Time: {selectedTime.ToString("yyyy-MM-dd HH:mm")}");
@@ -216,17 +220,6 @@ public class ReservationUI : UI
             preOrd = new PreOrderView(this, res);
             preOrd.Start();
             }
-
-
-        // System.Console.WriteLine("Please enter desired time: ");
-
-        // string inp_desiredTime = Console.ReadLine();
-
-        // TimeSpan desiredTime = TimeSpan.Parse(inp_desiredTime);
-
-        // Console.WriteLine("Checking for available seats...");
-
-        // ReservationLogic.GetAvailableResTimes(desiredTime);
 
         // Console.ReadLine();
 
@@ -288,41 +281,47 @@ public class ReservationUI : UI
 
 //             }
         // }
-
-        // if (availableTableId == null)
-        // {
-        //     Console.WriteLine("No available tables at the desired time.");
-        // }
     }
 
-    public Dictionary<DateTime, List<TableModel>> PrintAllAvailableTimes(Dictionary<DateTime, List<TableModel>> availableTimes)
+    public Dictionary<int, DateTime> PrintAllAvailableTimes(Dictionary<DateTime, List<TableModel>> availableTimes)
     {
         int option = 1;
+        Dictionary<int, DateTime> availableTimesDict = new Dictionary<int, DateTime>();
+
         foreach (KeyValuePair<DateTime, List<TableModel>> entry in availableTimes)
         {
             if (entry.Value.Count == 0)
                 continue;
+            
             string time = entry.Key.ToString("HH:mm");
             Console.WriteLine($"{option}: {time}");
+            
+            availableTimesDict[option] = entry.Key;
             option++;
         }
-        return availableTimes;
+        
+        return availableTimesDict;
     }
-    public DateTime GetUserSelectedTime(Dictionary<DateTime, List<TableModel>> availableTimes){
+    public DateTime GetUserSelectedTime(Dictionary<int, DateTime> availableTimesDict)
+    {
         int selectedOption;
-        while (true)
-        {
-            Console.Write("Enter the option number for the desired time: ");
-            if (int.TryParse(Console.ReadLine(), out selectedOption))
-            {
-                if (selectedOption >= 1 && selectedOption <= availableTimes.Count)
-                {
-                    var selectedEntry = availableTimes.ElementAt(selectedOption - 1);
-                    return selectedEntry.Key;
-                }
-            }
-            Console.WriteLine("Invalid option. Please try again.");
-        }
+        bool isValidOption = false;
 
-    }
+        do
+        {
+            Console.WriteLine("Please enter your selection:");
+            string input = Console.ReadLine();
+
+            if (int.TryParse(input, out selectedOption) && availableTimesDict.ContainsKey(selectedOption))
+            {
+                isValidOption = true;
+            }
+            else
+            {
+                Console.WriteLine("Invalid option. Please try again.");
+            }
+        } while (!isValidOption);
+
+        return availableTimesDict[selectedOption];
+}
 }
