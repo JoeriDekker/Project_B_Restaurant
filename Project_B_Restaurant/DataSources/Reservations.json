@@ -10,7 +10,6 @@
       "6A",
       "7A",
       "8A"
-      
     ],
     "P_Amount": 2,
     "PreOrders": [],
@@ -32,5 +31,78 @@
     "P_Amount": 2,
     "PreOrders": [],
     "R_Date": "08/06/2023 16:15"
+  },
+  {
+    "R_Id": 3,
+    "R_Code": "R8043",
+    "Contact": "Viktor",
+    "R_TableID": [
+      "1A",
+      "2A"
+    ],
+    "P_Amount": 2,
+    "PreOrders": [],
+    "R_Date": "08/06/2023 22:30"
+  },
+  {
+    "R_Id": 4,
+    "R_Code": "R9549",
+    "Contact": "Viktor",
+    "R_TableID": [
+      "1A",
+      "2A"
+    ],
+    "P_Amount": 2,
+    "PreOrders": [
+      {
+        "ID": 1,
+        "Name": "Spicy Chicken Wings",
+        "Ingredients": [
+          "Chicken Wings",
+          "Hot Sauce",
+          "Butter"
+        ],
+        "Allergies": "Chicken",
+        "Price": 8.99,
+        "Type": "Appetizer",
+        "InStock": true,
+        "PreOrderAmount": 3,
+        "MaxAmountPreOrder": 3
+      },
+      {
+        "ID": 14,
+        "Name": "Pasta Primavera",
+        "Ingredients": [
+          "Pasta",
+          "Tomato Sauce",
+          "Mozzarella Cheese",
+          "Broccoli",
+          "Carrots",
+          "Onions"
+        ],
+        "Allergies": "Wheat, Dairy",
+        "Price": 10.49,
+        "Type": "Main",
+        "InStock": true,
+        "PreOrderAmount": 1,
+        "MaxAmountPreOrder": 3
+      },
+      {
+        "ID": 5,
+        "Name": "Triple Chocolate Cake",
+        "Ingredients": [
+          "Chocolate Cake",
+          "Chocolate Frosting",
+          "Chocolate Ganache"
+        ],
+        "Allergies": "Wheat, Dairy",
+        "Price": 5.99,
+        "Type": "Dessert",
+        "InStock": true,
+        "PreOrderAmount": 2,
+        "MaxAmountPreOrder": 3
+      }
+    ],
+    "R_Date": "08/06/2023 14:00"
   }
 ]

@@ -6,19 +6,24 @@
         OpeningUI opening = new(null);
         opening.Start();
 
-    //     ReservationUI res = new(null!);
+        // ReservationUI res = new(null!);
 
 
-    //     DateOnly date = res.GetDate();
-
-    //    Dictionary<DateTime, List<TableModel>> availableTimes = res.ReservationLogic.GetAvailableTimesToReserve(date, partySize: 4);
+        // DateOnly date = res.GetDate();
         
-    //     foreach(KeyValuePair<DateTime, List<TableModel>> kvp in availableTimes)
-    //     {
-    //         string tables = string.Join("-", kvp.Value);
-    //         Console.WriteLine(kvp.Key);
-    //         Console.WriteLine(tables);
-    //     }
+        // Dictionary<DateTime, List<TableModel>> availableTimes = res.ReservationLogic.GetAvailableTimesToReserve(date, partySize: 5);
+        // List<string> tableIDs = new List<string>();
+        // tableIDs.Add("1A");
+
+        
+        // // res.ReservationLogic.CreateReservation("Vik", 2 ,tableIDs, date);
+        
+        // foreach(KeyValuePair<DateTime, List<TableModel>> kvp in availableTimes)
+        // {
+        //     string tables = string.Join("-", kvp.Value);
+        //     Console.WriteLine(kvp.Key);
+        //     Console.WriteLine($"{kvp.Value.Count()} tables total seats");
+        // }
 
         
         // List<ReservationModel> reservations = res.ReservationLogic.GetAllReservations();
