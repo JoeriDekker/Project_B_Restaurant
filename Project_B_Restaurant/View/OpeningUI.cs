@@ -64,8 +64,8 @@ public class OpeningUI : UI
                 user.CreateAccount();
                 break;
             case Constants.OpeningUI.RESERVATION:
-                // ReservationUI reservation = new(this);
-                // reservation.Start();
+                ReservationUI reservation = new(this);
+                reservation.Start();
                 break;
             case Constants.UI.GO_BACK:
             case Constants.UI.EXIT:

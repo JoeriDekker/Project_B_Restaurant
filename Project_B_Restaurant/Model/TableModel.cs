@@ -9,7 +9,7 @@ public record TableModel
     [JsonPropertyName("T_Seats")]
     public int T_Seats { get; set; }
 
-    public TableModel(string T_id, bool occupied, int t_Seats, string r_Code)
+    public TableModel(string T_id, int t_Seats)
     {
         this.T_ID = T_id;
         this.T_Seats = t_Seats;

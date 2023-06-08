@@ -1,195 +1,234 @@
-// public class ReservationUI : UI
-// {
+public class ReservationUI : UI
+{
 
-//     public ReservationLogic ReservationLogic = new ReservationLogic();
-//     TableLogic TableLogic = new TableLogic();
-//     PreOrderView preOrd;
-//     public override string Header
-//     {
-//         get => @"
-//      _____                                _   _
-//     |  __ \                              | | (_)
-//     | |__) |___  ___  ___ _ ____   ____ _| |_ _  ___  _ __  ___
-//     |  _  // _ \/ __|/ _ \ '__\ \ / / _` | __| |/ _ \| '_ \/ __|
-//     | | \ \  __/\__ \  __/ |   \ V / (_| | |_| | (_) | | | \__ \
-//     |_|  \_\___||___/\___|_|    \_/ \__,_|\__|_|\___/|_| |_|___/
-//     ============================================================
-//     ";
-//     }
+    public ReservationLogic ReservationLogic = new ReservationLogic();
+    TableLogic TableLogic = new TableLogic();
+    PreOrderView preOrd;
+    public override string Header
+    {
+        get => @"
+     _____                                _   _
+    |  __ \                              | | (_)
+    | |__) |___  ___  ___ _ ____   ____ _| |_ _  ___  _ __  ___
+    |  _  // _ \/ __|/ _ \ '__\ \ / / _` | __| |/ _ \| '_ \/ __|
+    | | \ \  __/\__ \  __/ |   \ V / (_| | |_| | (_) | | | \__ \
+    |_|  \_\___||___/\___|_|    \_/ \__,_|\__|_|\___/|_| |_|___/
+    ============================================================
+    ";
+    }
 
-//     public override string SubText
-//     {
-//         get => string.Empty;
-//     }
+    public override string SubText
+    {
+        get => string.Empty;
+    }
 
-//     // This will initialize the Reservation System (Module)
-//     public ReservationUI(UI previousUI) : base(previousUI)
-//     {
-//     }
+    // This will initialize the Reservation System (Module)
+    public ReservationUI(UI previousUI) : base(previousUI)
+    {
+    }
 
-//     public override void CreateMenuItems()
-//     {
-//         MenuItems.Add(new MenuItem("Create Reservation", AccountLevel.Guest));
-//         MenuItems.Add(new MenuItem("Show all Reservations", AccountLevel.Guest));
-//         MenuItems.Add(new MenuItem("Show pre orders", AccountLevel.Admin));
-//         MenuItems.Add(new MenuItem("Find Reservation by Reservation ID", AccountLevel.Employee));
-//         MenuItems.Add(new MenuItem("Find Reservation by Table ID", AccountLevel.Employee));
-//         MenuItems.Add(new MenuItem("Delete Reservation by ID", AccountLevel.Employee));
-//         MenuItems.Add(new MenuItem("Show Available reservation times", AccountLevel.Guest));
+    public override void CreateMenuItems()
+    {
+        MenuItems.Add(new MenuItem("Create Reservation", AccountLevel.Guest));
+        MenuItems.Add(new MenuItem("Show all Reservations", AccountLevel.Guest));
+        MenuItems.Add(new MenuItem("Show pre orders", AccountLevel.Admin));
+        MenuItems.Add(new MenuItem("Find Reservation by Reservation ID", AccountLevel.Employee));
+        MenuItems.Add(new MenuItem("Find Reservation by Table ID", AccountLevel.Employee));
+        MenuItems.Add(new MenuItem("Delete Reservation by ID", AccountLevel.Employee));
+        MenuItems.Add(new MenuItem("Show Available reservation times", AccountLevel.Guest));
 
-//     }
+    }
 
-//     public DateOnly GetDate()
-//     {
-//         string input;
-//         DateOnly Date = new();
+    public DateOnly GetDate()
+    {
+        string input;
+        DateOnly Date = new();
 
-//         DateTime today = DateTime.Today;
-//         DateTime sevenDaysAhead = today.AddDays(7);
-//         DateOnly maxDateToOrderAhead = new DateOnly(sevenDaysAhead.Year, sevenDaysAhead.Month, sevenDaysAhead.Day);
-//         do
-//         {
-//             Console.WriteLine($"Please provide the date in the following format: {DateTime.Today.ToShortDateString()}");
-//             Console.Write("?: > ");
-//             input = Console.ReadLine() ?? string.Empty;
-//         }
-//         while (!DateOnly.TryParse(input, out Date));
+        DateTime today = DateTime.Today;
+        DateTime sevenDaysAhead = today.AddDays(7);
+        DateOnly maxDateToOrderAhead = new DateOnly(sevenDaysAhead.Year, sevenDaysAhead.Month, sevenDaysAhead.Day);
+        do
+        {
+            Console.WriteLine($"Please provide the date in the following format: {DateTime.Today.ToShortDateString()}");
+            Console.Write("?: > ");
+            input = Console.ReadLine() ?? string.Empty;
+        }
+        while (!DateOnly.TryParse(input, out Date));
 
-//         if (Date > maxDateToOrderAhead)
-//         {
-//             Console.WriteLine("You can only reserve 7 days ahead\n");
-//             return GetDate();
-//         }
-//         return Date;
-//     }
+        if (Date > maxDateToOrderAhead)
+        {
+            Console.WriteLine("You can only reserve 7 days ahead\n");
+            return GetDate();
+        }
+        return Date;
+    }
 
 
-//     public override void UserChoosesOption(int choice)
-//     {
-//         switch (UserOptions[choice].Name)
-//         {
-//             case "Create Reservation":
-//                 CreateReservation();
-//                 break;
-//             case "Show all Reservations":
-//                 ShowAllReservations();
-//                 break;
-//             case "Show pre orders":
-//                 break;
-//             case "Find Reservation by Reservation ID":
-//                 FindReservationByReservationID();
-//                 break;
-//             case "Find Reservation by Table ID":
-//                 FindReservationByTableID();
-//                 break;
-//             case "Delete Reservation by ID":
-//                 DeleteReservationByID();
-//                 break;
-//             case "Show Available reservation times":
-//                 ShowAvailableReservations();
-//                 break;
-//             case Constants.UI.GO_BACK:
-//             case Constants.UI.EXIT:
-//                 Exit();
-//                 break;
-//             default:
-//                 Console.WriteLine("Invalid input");
-//                 break;
-//         }
-//     }
+    public override void UserChoosesOption(int choice)
+    {
+        switch (UserOptions[choice].Name)
+        {
+            case "Create Reservation":
+                CreateReservation();
+                break;
+            case "Show all Reservations":
+                ShowAllReservations();
+                break;
+            case "Show pre orders":
+                break;
+            case "Find Reservation by Reservation ID":
+                FindReservationByReservationID();
+                break;
+            case "Find Reservation by Table ID":
+                FindReservationByTableID();
+                break;
+            case "Delete Reservation by ID":
+                DeleteReservationByID();
+                break;
+            case "Show Available reservation times":
+                ShowAvailableReservations();
+                break;
+            case Constants.UI.GO_BACK:
+            case Constants.UI.EXIT:
+                Exit();
+                break;
+            default:
+                Console.WriteLine("Invalid input");
+                break;
+        }
+    }
 
-//     public void FindReservationByReservationID()
-//     {
-//         Console.WriteLine("Please enter a Reservation ID:");
-//         int IDinp = Convert.ToInt32(Console.ReadLine());
-//         ReservationModel ReservationMUD = ReservationLogic.getReservationByID(IDinp);
+    public void FindReservationByReservationID()
+    {
+        Console.WriteLine("Please enter a Reservation ID:");
+        int IDinp = Convert.ToInt32(Console.ReadLine());
+        ReservationModel ReservationMUD = ReservationLogic.getReservationByID(IDinp);
 
-//         if (ReservationMUD == null)
-//         {
-//             Console.WriteLine("Cannot be found");
-//         }
-//         else
-//         {
-//             Console.WriteLine($"Name: {ReservationMUD.Contact} | Party amount: {ReservationMUD.P_Amount} | TableID: {ReservationMUD.R_TableID} | ReservationID: {ReservationMUD.R_Id}");
-//         }
-//     }
+        if (ReservationMUD == null)
+        {
+            Console.WriteLine("Cannot be found");
+        }
+        else
+        {
+            Console.WriteLine($"Name: {ReservationMUD.Contact} | Party amount: {ReservationMUD.P_Amount} | TableID: {ReservationMUD.R_TableID} | ReservationID: {ReservationMUD.R_Id}");
+        }
+    }
 
-//     public void ShowAvailableReservations()
-//     {
-//         DateOnly date = GetDate();
-//         int partySize = GetInt("How Many People?");
+    public void ShowAvailableReservations()
+    {
+        DateOnly date = GetDate();
+        int partySize = GetInt("How Many People?");
 
-//         var availableTimes = ReservationLogic.GetAvailableTimesToReserve(date, partySize);
-//         PrintAllAvailableTimes(availableTimes);
-//     }
+        var availableTimes = ReservationLogic.GetAvailableTimesToReserve(date, partySize);
+        PrintAllAvailableTimes(availableTimes);
+    }
 
-//     public void DeleteReservationByID()
-//     {
-//         Console.WriteLine("{0,-5} {1,-10} {2,-10} {3,-25} {4,-10} {5,-10}", "R_ID", "R_Code", "Contact", "R_time", "R_TableID", "P_Amount");
-//         foreach (ReservationModel Res in ReservationLogic.GetAllReservations())
-//         {
-//             Console.WriteLine("{0,-5} {1,-10} {2,-10} {3,-25} {4,-10} {5,-10}", Res.R_Id, Res.R_Code, Res.Contact, Res.R_Date, Res.R_TableID, Res.P_Amount);
-//         }
+    public void DeleteReservationByID()
+    {
+        Console.WriteLine("{0,-5} {1,-10} {2,-10} {3,-25} {4,-10} {5,-10}", "R_ID", "R_Code", "Contact", "R_time", "R_TableID", "P_Amount");
+        foreach (ReservationModel Res in ReservationLogic.GetAllReservations())
+        {
+            Console.WriteLine("{0,-5} {1,-10} {2,-10} {3,-25} {4,-10} {5,-10}", Res.R_Id, Res.R_Code, Res.Contact, Res.R_Date, Res.R_TableID, Res.P_Amount);
+        }
 
-//         Console.WriteLine("================================================================================");
+        Console.WriteLine("================================================================================");
 
-//         int userInputID = GetInt("Please enter a Reservation ID to delete:");
+        int userInputID = GetInt("Please enter a Reservation ID to delete:");
 
-//         if (ReservationLogic.DeleteReservationByID(userInputID))
-//         {
-//             Console.WriteLine("Reservation has been deleted");
-//         }
-//         else
-//         {
-//             Console.WriteLine("Reservation could not be found! Please try another code.");
-//         }
-//     }
+        if (ReservationLogic.DeleteReservationByID(userInputID))
+        {
+            Console.WriteLine("Reservation has been deleted");
+        }
+        else
+        {
+            Console.WriteLine("Reservation could not be found! Please try another code.");
+        }
+    }
 
-//     public void FindReservationByTableID()
-//     {
-//         string IDinput = GetString("Please enter a Table ID:");
-//         ReservationModel ReservationByTable = ReservationLogic.getReservationByTableID(IDinput);
-//         if (ReservationByTable == null)
-//         {
-//             Console.WriteLine("Cannot be found");
-//         }
-//         else
-//         {
-//             Console.WriteLine($"Name: {ReservationByTable.Contact} | Party amount: {ReservationByTable.P_Amount} | TableID: {ReservationByTable.R_TableID} | ReservationID: {ReservationByTable.R_Id}");
-//         }
-//     }
+    public void FindReservationByTableID()
+    {
+        string IDinput = GetString("Please enter a Table ID:");
+        ReservationModel ReservationByTable = ReservationLogic.getReservationByTableID(IDinput);
+        if (ReservationByTable == null)
+        {
+            Console.WriteLine("Cannot be found");
+        }
+        else
+        {
+            Console.WriteLine($"Name: {ReservationByTable.Contact} | Party amount: {ReservationByTable.P_Amount} | TableID: {ReservationByTable.R_TableID} | ReservationID: {ReservationByTable.R_Id}");
+        }
+    }
 
-//     public void ShowAllReservations()
-//     {
-//         Console.WriteLine("{0,-5} {1,-10} {2,-10} {3,-25} {4,-10} {5,-10}", "R_ID", "R_Code", "Contact", "R_time", "R_TableID", "P_Amount");
-//         foreach (ReservationModel Res in ReservationLogic.GetAllReservations())
-//         {
-//             Console.WriteLine("{0,-5} {1,-10} {2,-10} {3,-25} {4,-10} {5,-10}", Res.R_Id, Res.R_Code, Res.Contact, Res.R_Date, Res.R_TableID, Res.P_Amount);
-//         }
-//     }
+    public void ShowAllReservations()
+    {
+        Console.WriteLine("{0,-5} {1,-10} {2,-10} {3,-25} {4,-10} {5,-10}", "R_ID", "R_Code", "Contact", "R_time", "R_TableID", "P_Amount");
+        foreach (ReservationModel Res in ReservationLogic.GetAllReservations())
+        {
+            Console.WriteLine("{0,-5} {1,-10} {2,-10} {3,-25} {4,-10} {5,-10}", Res.R_Id, Res.R_Code, Res.Contact, Res.R_Date, Res.R_TableID, Res.P_Amount);
+        }
+    }
 
-//     public void CreateReservation()
-//     {
-//         string name = GetString("Please enter a Name");
-//         int partySize = GetInt("Please enter amount of People");
-//         DateOnly date = GetDate();
+    public void CreateReservation()
+    {
 
-//         var availableTimes = ReservationLogic.GetAvailableTimesToReserve(date, partySize);
-//         PrintAllAvailableTimes(availableTimes);
+        /*
+            (1) De user geeft een datum en hoeveelheid mensen.
 
-//         System.Console.WriteLine("Please enter desired time: ");
+            (2) We zoeken beschikbaren tijden op voor gegeven datum
+                -
+            (3) Laat tijden zien aan user
+                -
+            (4) User kiest een tijd
+                -
+            (5) registreer reservering.
+                -   
+        */
 
-//         string inp_desiredTime = Console.ReadLine();
 
-//         TimeSpan desiredTime = TimeSpan.Parse(inp_desiredTime);
+        //Enter name for reservation
+        string name = GetString("Please enter a Name");
 
-//         Console.WriteLine("Checking for available seats...");
+        //Enter Party size for reservation
+        int partySize = GetInt("Please enter amount of People");
 
-//         // ReservationLogic.GetAvailableResTimes(desiredTime);
+        //Ask for date they wanna make a reservation on
+        DateOnly date = GetDate();
 
-//         System.Console.WriteLine("Available times at that date!");
+        // Dictionary<DateTime, List<TableModel>>
+        var availableTimes = ReservationLogic.GetAvailableTimesToReserve(date, partySize);
+        
+        PrintAllAvailableTimes(availableTimes);
 
-//         Console.ReadLine();
+        // Selected time
+        DateTime selectedTime = GetUserSelectedTime(availableTimes);
+
+        // Show the selected date and time
+        Console.WriteLine($"Selected Date and Time: {selectedTime.ToString("yyyy-MM-dd HH:mm")}");
+
+
+        //Create Reservation
+        ReservationModel res = ReservationLogic.CreateReservation(name, partySize, availableTimes, selectedTime);
+
+         Console.WriteLine("Do you want to make a preorder? Y/N");
+        string answer = Console.ReadLine()!.ToUpper() ?? string.Empty;
+         if (answer == "Y")
+            {
+            preOrd = new PreOrderView(this, res);
+            preOrd.Start();
+            }
+
+
+        // System.Console.WriteLine("Please enter desired time: ");
+
+        // string inp_desiredTime = Console.ReadLine();
+
+        // TimeSpan desiredTime = TimeSpan.Parse(inp_desiredTime);
+
+        // Console.WriteLine("Checking for available seats...");
+
+        // ReservationLogic.GetAvailableResTimes(desiredTime);
+
+        // Console.ReadLine();
 
 //         Console.WriteLine(@$"
 //     ┌────┐    ┌────┐         ┌────┐
@@ -223,7 +262,7 @@
 //     └────┘       └────┘      └────┘
 // ");
 
-//         string availableTableId = null;
+        // string availableTableId = null;
 
 //         foreach (TableModel table in availableTables)
 //         {
@@ -246,36 +285,44 @@
 
 //                 //Console.WriteLine($"Your Reservation Code: {res.R_Code}\n");
 
-//                 Console.WriteLine("Do you want to make a preorder? Y/N");
-//                 string answer = Console.ReadLine()!.ToUpper() ?? string.Empty;
-//                 if (answer == "Y")
-//                 {
-//                     //preOrd = new PreOrderView(this, res);
-//                     preOrd.Start();
-//                 }
-//                 else
-//                 {
-//                     break;
-//                 }
+
 //             }
-//         }
+        // }
 
-//         if (availableTableId == null)
-//         {
-//             Console.WriteLine("No available tables at the desired time.");
-//         }
-//     }
+        // if (availableTableId == null)
+        // {
+        //     Console.WriteLine("No available tables at the desired time.");
+        // }
+    }
 
-//     public void PrintAllAvailableTimes(Dictionary<DateTime, List<TableModel>> availableTimes)
-//     {
-//         int option = 1;
-//         foreach (KeyValuePair<DateTime, List<TableModel>> entry in availableTimes)
-//         {
-//             if (entry.Value.Count == 0)
-//                 continue;
-//             string time = entry.Key.ToString("HH:mm");
-//             Console.WriteLine($"{option}: {time}");
-//             option++;
-//         }
-//     }
-// }
+    public Dictionary<DateTime, List<TableModel>> PrintAllAvailableTimes(Dictionary<DateTime, List<TableModel>> availableTimes)
+    {
+        int option = 1;
+        foreach (KeyValuePair<DateTime, List<TableModel>> entry in availableTimes)
+        {
+            if (entry.Value.Count == 0)
+                continue;
+            string time = entry.Key.ToString("HH:mm");
+            Console.WriteLine($"{option}: {time}");
+            option++;
+        }
+        return availableTimes;
+    }
+    public DateTime GetUserSelectedTime(Dictionary<DateTime, List<TableModel>> availableTimes){
+        int selectedOption;
+        while (true)
+        {
+            Console.Write("Enter the option number for the desired time: ");
+            if (int.TryParse(Console.ReadLine(), out selectedOption))
+            {
+                if (selectedOption >= 1 && selectedOption <= availableTimes.Count)
+                {
+                    var selectedEntry = availableTimes.ElementAt(selectedOption - 1);
+                    return selectedEntry.Key;
+                }
+            }
+            Console.WriteLine("Invalid option. Please try again.");
+        }
+
+    }
+}

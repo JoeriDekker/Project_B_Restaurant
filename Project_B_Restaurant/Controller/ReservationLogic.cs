@@ -54,18 +54,30 @@ public class ReservationLogic
         return Rcode;
     }
 
-    public ReservationModel CreateReservation(string c_name, int c_party, List<string> TableID, DateTime Date)
+    public ReservationModel CreateReservation(string c_name, int c_party, Dictionary<DateTime, List<TableModel>> availableTimes, DateTime chosenTime,  List<Dish> PreOrders = null)
     {
-        //Get time of when they made the reservation.
-        TimeSpan currentTime = DateTime.Now.TimeOfDay;
+        string ResCode = createReservationCode();
+        int seats = 0;
+        List<string> table_IDs = new();
+        foreach (TableModel table in availableTimes[chosenTime])
+        {
+            seats += table.T_Seats;
+            table_IDs.Add(table.T_ID);
+            if (seats > c_party)
+                break;
+        }
+
+        //Handle Pre Orders
+        PreOrders ??= new List<Dish>();
+        
 
         // Reservation code needed for customer/employees ... 
-        string ResCode = createReservationCode();
 
         // We need to create a reservation model
 
-        //ReservationModel.ReservationModel(int R_Id, string R_Code, string Contact, string R_TableID, int P_Amount, List<Dish> PreOrders, string R_Time, string R_Date)
-        ReservationModel res = new ReservationModel(_Reservations.Count() + 1, ResCode, c_name, TableID, c_party, new(), Date);
+        //ReservationModel.ReservationModel(int R_Id, string R_Code, string Contact, List<string> R_TableID, int P_Amount, List<Dish> PreOrders, DateTime date)
+
+        ReservationModel res = new ReservationModel(_Reservations.Count() + 1, ResCode, c_name, table_IDs, c_party, PreOrders ,chosenTime);
 
         //Add to daaaaaaaaaa list c:
         _Reservations.Add(res);
@@ -162,7 +174,7 @@ public class ReservationLogic
                 }
             }
         }
-        return null;
+        return null!;
     }
 
 
@@ -228,11 +240,10 @@ public class ReservationLogic
         while (openingTime <= closingTime)
         {
             allTimeSlots[openingTime] = new();
-            openingTime = openingTime.AddMinutes(15);
+            openingTime = openingTime.AddMinutes(30);
         }
         return allTimeSlots;
     }
-
 }
 // public void GetAvailableResTimes()
 // {

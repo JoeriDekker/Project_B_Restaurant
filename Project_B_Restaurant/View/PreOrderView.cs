@@ -40,6 +40,7 @@ class PreOrderView : UI
                 
                 sb.Append($"\nYour total price is: {totalPrice} euro\n");
                 sb.Append($"Your Reservation Code: {Reservation.R_Code}\n");
+                sb.Append("Preorders will be saved on exit.");
                 return sb.ToString();
             }
         }
