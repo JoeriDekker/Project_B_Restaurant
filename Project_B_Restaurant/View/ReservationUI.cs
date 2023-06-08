@@ -213,6 +213,14 @@ public class ReservationUI : UI
         //Create Reservation
         ReservationModel res = ReservationLogic.CreateReservation(name, partySize, availableTimes, selectedTime);
 
+        if (AccountsLogic.CurrentAccount != null){
+            AccountsLogic accountsLogic = new AccountsLogic();
+            AccountModel account = AccountsLogic.CurrentAccount;
+            account.Reservations.Add(res.R_Code);
+            Console.WriteLine("1");
+            accountsLogic.UpdateList(account);
+        }
+
          Console.WriteLine("Do you want to make a preorder? Y/N");
         string answer = Console.ReadLine()!.ToUpper() ?? string.Empty;
          if (answer == "Y")
