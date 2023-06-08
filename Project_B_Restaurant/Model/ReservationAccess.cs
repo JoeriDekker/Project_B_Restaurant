@@ -1,4 +1,6 @@
 using System.Text.Json;
+using System.Text.Json.Serialization;
+using Newtonsoft.Json.Converters;
 
 static class ReservationAccess
 {
@@ -57,7 +59,7 @@ static class ReservationAccess
 
     public static void WriteAll(List<ReservationModel> reservations)
     {   
-        var options = new JsonSerializerOptions { WriteIndented = true };
+        var options = new JsonSerializerOptions { WriteIndented = true};
         string json = JsonSerializer.Serialize(reservations, options);
         File.WriteAllText(path, json);
     }

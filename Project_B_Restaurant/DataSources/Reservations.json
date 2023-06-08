@@ -1,91 +1,36 @@
 [
   {
-    "R_Id": 1,
-    "R_Code": "R709",
-    "Contact": "char",
-    "R_TableID": "1A",
-    "P_Amount": 3,
-    "PreOrders": [
-      {
-        "ID": 1,
-        "Name": "Spicy Chicken Wings",
-        "Ingredients": [
-          "Chicken Wings",
-          "Hot Sauce",
-          "Butter"
-        ],
-        "Allergies": "Chicken",
-        "Price": 8.99,
-        "Type": "Appetizer",
-        "InStock": true,
-        "PreOrderAmount": 2,
-        "MaxAmountPreOrder": 3
-      },
-      {
-        "ID": 1,
-        "Name": "Spicy Chicken Wings",
-        "Ingredients": [
-          "Chicken Wings",
-          "Hot Sauce",
-          "Butter"
-        ],
-        "Allergies": "Chicken",
-        "Price": 8.99,
-        "Type": "Appetizer",
-        "InStock": true,
-        "PreOrderAmount": 2,
-        "MaxAmountPreOrder": 3
-      },
-      {
-        "ID": 2,
-        "Name": "Cheese Pizza",
-        "Ingredients": [
-          "Pizza Dough",
-          "Tomato Sauce",
-          "Mozzarella Cheese"
-        ],
-        "Allergies": "Dairy",
-        "Price": 10.99,
-        "Type": "Main",
-        "InStock": true,
-        "PreOrderAmount": 1,
-        "MaxAmountPreOrder": 3
-      },
-      {
-        "ID": 5,
-        "Name": "Triple Chocolate Cake",
-        "Ingredients": [
-          "Chocolate Cake",
-          "Chocolate Frosting",
-          "Chocolate Ganache"
-        ],
-        "Allergies": "Wheat, Dairy",
-        "Price": 5.99,
-        "Type": "Dessert",
-        "InStock": true,
-        "PreOrderAmount": 1,
-        "MaxAmountPreOrder": 3
-      },
-      {
-        "ID": 24,
-        "Name": "Loaded Nachos",
-        "Ingredients": [
-          "Chips",
-          "Shredded Cheese",
-          "Diced Tomatoes",
-          "Jalapenos",
-          "Black Olives",
-          "Sour Cream"
-        ],
-        "Allergies": "",
-        "Price": 8.99,
-        "Type": "Appetizer",
-        "InStock": true,
-        "PreOrderAmount": 1,
-        "MaxAmountPreOrder": 3
-      }
+    "R_Id": 2,
+    "R_Code": "def456",
+    "Contact": "Jane Doe",
+    "R_TableID": [
+      "1A",
+      "2A",
+      "5A",
+      "6A",
+      "7A",
+      "8A"
+      
     ],
-    "R_Time": "18:00:00",
-    "R_Date": "7-6-2023"
+    "P_Amount": 2,
+    "PreOrders": [],
+    "R_Date": "08/06/2023 16:15"
+  },
+  {
+    "R_Id": 3,
+    "R_Code": "def456",
+    "Contact": "Jane Doe",
+    "R_TableID": [
+      "1B",
+      "2B",
+      "3B",
+      "4B",
+      "5B",
+      "1C",
+      "2C"
+    ],
+    "P_Amount": 2,
+    "PreOrders": [],
+    "R_Date": "08/06/2023 16:15"
   }
 ]

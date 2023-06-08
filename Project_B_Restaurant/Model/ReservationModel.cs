@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 public class ReservationModel
@@ -14,7 +16,7 @@ public class ReservationModel
     public string Contact { get; set; }
 
     [JsonPropertyName("R_TableID")]
-    public string R_TableID { get; set; }
+    public List<string> R_TableID { get; set; }
 
     [JsonPropertyName("P_Amount")]
     public int P_Amount { get; set; }
@@ -22,15 +24,13 @@ public class ReservationModel
     [JsonPropertyName("PreOrders")]
     public List<Dish> PreOrders { get; set; }
 
-    [JsonPropertyName("R_Time")]
-    public string R_Time { get; set; }
-
     [JsonPropertyName("R_Date")]
-    public string R_Date { get; set; }
+    [JsonConverter(typeof(JsonDateTimeConverter))]
+    public DateTime R_Date { get; set; }
 
-    public ReservationModel() { } // Add a default 
+    public ReservationModel() { } // Add a default constructor
 
-    public ReservationModel(int R_Id, string R_Code, string Contact, string R_TableID, int P_Amount, List<Dish> PreOrders, string R_Time, string R_Date)
+    public ReservationModel(int R_Id, string R_Code, string Contact, List<string> R_TableID, int P_Amount, List<Dish> PreOrders, DateTime date)
     {
         this.R_Id = R_Id;
         this.R_Code = R_Code;
@@ -38,7 +38,6 @@ public class ReservationModel
         this.R_TableID = R_TableID;
         this.P_Amount = P_Amount;
         this.PreOrders = PreOrders;
-        this.R_Time = R_Time;
-        this.R_Date = R_Date;
+        this.R_Date = date;
     }
 }
