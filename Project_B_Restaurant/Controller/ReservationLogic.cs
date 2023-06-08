@@ -54,12 +54,22 @@ public class ReservationLogic
         return Rcode;
     }
 
-    public ReservationModel CreateReservation(string c_name, int c_party, Dictionary<DateTime, List<TableModel>> availableTimes, DateTime chosenTime,  List<Dish> PreOrders = null)
+    public ReservationModel CreateReservation(string c_name, int c_party, Dictionary<DateTime, List<TableModel>> availableTimes, DateTime chosenTime, List<Dish> PreOrders = null)
     {
         string ResCode = createReservationCode();
         int seats = 0;
         List<string> table_IDs = new();
-        foreach (TableModel table in availableTimes[chosenTime])
+        List<TableModel> sortedSeats = new();
+        if (c_party >= 8)
+        {
+            sortedSeats = availableTimes[chosenTime].OrderByDescending(x => x.T_Seats).ToList();
+        }
+        else
+        {
+            sortedSeats = availableTimes[chosenTime].OrderBy(x => x.T_Seats).ToList();
+        }
+        Console.WriteLine($"sorted seats: {sortedSeats.Count}");
+        foreach (TableModel table in sortedSeats)
         {
             seats += table.T_Seats;
             table_IDs.Add(table.T_ID);
@@ -68,8 +78,9 @@ public class ReservationLogic
         }
 
         //Handle Pre Orders
+
         PreOrders ??= new List<Dish>();
-        
+
 
         // Reservation code needed for customer/employees ... 
 
@@ -77,7 +88,7 @@ public class ReservationLogic
 
         //ReservationModel.ReservationModel(int R_Id, string R_Code, string Contact, List<string> R_TableID, int P_Amount, List<Dish> PreOrders, DateTime date)
 
-        ReservationModel res = new ReservationModel(_Reservations.Count() + 1, ResCode, c_name, table_IDs, c_party, PreOrders ,chosenTime);
+        ReservationModel res = new ReservationModel(_Reservations.Count() + 1, ResCode, c_name, table_IDs, c_party, PreOrders, chosenTime);
 
         //Add to daaaaaaaaaa list c:
         _Reservations.Add(res);
