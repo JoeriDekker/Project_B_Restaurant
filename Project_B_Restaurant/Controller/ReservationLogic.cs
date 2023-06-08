@@ -60,6 +60,8 @@ public class ReservationLogic
         int seats = 0;
         List<string> table_IDs = new();
         List<TableModel> sortedSeats = new();
+
+
         if (c_party >= 8)
         {
             sortedSeats = availableTimes[chosenTime].OrderByDescending(x => x.T_Seats).ToList();
@@ -73,10 +75,9 @@ public class ReservationLogic
         {
             seats += table.T_Seats;
             table_IDs.Add(table.T_ID);
-
-            // Misschien checken op grotere party dan 8
-            if (seats > c_party)
+            if (seats >= c_party){
                 break;
+            }
         }
 
         //Handle Pre Orders
@@ -85,10 +86,6 @@ public class ReservationLogic
 
 
         // Reservation code needed for customer/employees ... 
-
-        // We need to create a reservation model
-
-        //ReservationModel.ReservationModel(int R_Id, string R_Code, string Contact, List<string> R_TableID, int P_Amount, List<Dish> PreOrders, DateTime date)
 
         ReservationModel res = new ReservationModel(_Reservations.Count() + 1, ResCode, c_name, table_IDs, c_party, PreOrders, chosenTime);
 
