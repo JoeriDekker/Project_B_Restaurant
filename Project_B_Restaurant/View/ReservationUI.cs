@@ -146,6 +146,11 @@ public class ReservationUI : UI
         }
     }
 
+    public bool DeleteReservationByRCode(){
+        string res_code = GetString("Please enter the reservation code to delete your reservation:");
+        return ReservationLogic.DeleteReservationByRCode(res_code);
+    }
+
     public void FindReservationByTableID()
     {
         string IDinput = GetString("Please enter a Table ID:");

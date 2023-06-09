@@ -162,6 +162,50 @@ public class ReservationLogic
             return false;
         }
     }
+
+    public bool DeleteReservationByRCode(string res_code)
+    {
+
+        //Find reservation model
+        ReservationModel? Res = _Reservations.Find(x => x.R_Code == res_code);
+
+        //Remove out of Reservations list
+        if (_Reservations.Remove(Res) == true)
+        {
+            MenuController Menu = new MenuController();
+            foreach (Dish dish in Res.PreOrders)
+            {
+                Menu.RemovePreOderInDish(dish);
+            }
+            // Save this data to Reservation.js 
+            ReservationAccess.WriteAll(_Reservations);
+
+            AccountsLogic accountsLogic = new AccountsLogic();
+            Console.WriteLine($"Find: {Res.R_Code}\n");
+
+            var reservationsToRemove = accountsLogic.GetAccountModels()
+            .SelectMany(acc => acc.Reservations)
+            .Where(RCode => RCode == Res.R_Code)
+            .ToList();
+
+            foreach (var RCode in reservationsToRemove)
+            {
+                Console.WriteLine(RCode);
+                var acc = accountsLogic.GetAccountModels()
+                    .FirstOrDefault(acc => acc.Reservations.Contains(RCode));
+                acc.Reservations.Remove(RCode);
+                accountsLogic.UpdateList(acc);
+            }
+
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+
     public Tuple<DateTime, DateTime> GetOpeningAndClosingTime(DateOnly date)
     {
         string day = date.DayOfWeek.ToString();

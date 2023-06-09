@@ -35,7 +35,6 @@ public class OpeningUI : UI
         MenuItems.Add(new MenuItem("Account Information", AccountLevel.Guest));
         MenuItems.Add(new MenuItem("Show Restaurant Info", AccountLevel.Guest));
         MenuItems.Add(new MenuItem(Constants.OpeningUI.MENU, AccountLevel.Guest));
-        MenuItems.Add(new MenuItem(Constants.OpeningUI.CREATE_ACCOUNT, AccountLevel.Guest));
         MenuItems.Add(new MenuItem(Constants.OpeningUI.RESERVATION, AccountLevel.Guest));
     }
     public AccountModel acc;
@@ -58,10 +57,6 @@ public class OpeningUI : UI
             case Constants.OpeningUI.MENU:
                 MenuUI menu = new(this);
                 menu.Start();
-                break;
-            case Constants.OpeningUI.CREATE_ACCOUNT:
-                UserLogin user = new(this);
-                user.CreateAccount();
                 break;
             case Constants.OpeningUI.RESERVATION:
                 ReservationUI reservation = new(this);

@@ -5,6 +5,8 @@ class AccountUI : UI
 
     private AccountsLogic accountsLogic = new AccountsLogic();
 
+    AccountModel account;
+
     public override string SubText => AccountInfo;
 
     public string AccountInfo = "";
@@ -27,6 +29,7 @@ class AccountUI : UI
     public AccountUI(UI previousUI) : base(previousUI)
     {
         if (AccountsLogic.CurrentAccount != null){
+            account = accountsLogic.GetById(AccountsLogic.CurrentAccount.Id);
             StringBuilder sb = new();
             sb.AppendLine("\nACCOUNT INFORMATION");
             sb.AppendLine("======================================");
@@ -34,10 +37,10 @@ class AccountUI : UI
             sb.AppendLine($"Email: {AccountsLogic.CurrentAccount.EmailAddress}");
             sb.AppendLine($"Account type: {AccountsLogic.CurrentAccount.Level}");
             sb.AppendLine("======================================");
-            if (AccountsLogic.CurrentAccount.Reservations.Count() != 0)
+            if (account.Reservations.Count() != 0)
             {
                 sb.AppendLine("Your Reservations Code(s):");
-                foreach (string rcode in AccountsLogic.CurrentAccount.Reservations){
+                foreach (string rcode in account.Reservations){
                     sb.AppendLine($"- {rcode}");
                     
                 }
@@ -54,10 +57,17 @@ class AccountUI : UI
         MenuItems.Clear();
         if (AccountsLogic.CurrentAccount == null){
             MenuItems.Add(new MenuItem("Log in", AccountLevel.Guest));
+            MenuItems.Add(new MenuItem("Create Account", AccountLevel.Guest));
         }
-        MenuItems.Add(new MenuItem("Create Account", AccountLevel.Guest));
+        
         MenuItems.Add(new MenuItem("Reset Password", AccountLevel.Customer));
         MenuItems.Add(new MenuItem("Update Accountdetails", AccountLevel.Customer));
+        if (AccountsLogic.CurrentAccount != null){
+            account = accountsLogic.GetById(AccountsLogic.CurrentAccount.Id);
+            if (account.Reservations.Count() != 0){
+                MenuItems.Add(new MenuItem("Cancel Reservation", AccountLevel.Customer));
+            }
+        }
     }
 
     public override void UserChoosesOption(int option)
@@ -79,6 +89,19 @@ class AccountUI : UI
             case "Update Accountdetails":
                 UpdateAccountUI UpdateAcc = new(this);
                 UpdateAcc.Start();
+                break;
+            case "Cancel Reservation":
+                ReservationUI reservation = new(this);
+                if(reservation.DeleteReservationByRCode())
+                {
+                Console.WriteLine("Reservation has been deleted");
+                Continue();
+                Exit();
+                }
+                else
+                {
+                    Console.WriteLine("Reservation could not be found! Please try another code.");
+                }
                 break;
             case Constants.UI.GO_BACK:
             case Constants.UI.EXIT:
