@@ -176,3 +176,9 @@ Project_B_Restaurant/bin/Debug/net6.0/Project.dll
 *.props
 *.cache
 Project_B_Restaurant/obj/Debug/net6.0/Project.GeneratedMSBuildEditorConfig.editorconfig
+*.editorconfig
+Project_B_Restaurant.Test/obj/Debug/net7.0/Project_B_Restaurant.Test.GeneratedMSBuildEditorConfig.editorconfig
+*.cache
+Project_B_Restaurant.Test/obj/Debug/net7.0/Project_B_Restaurant.Test.csproj.AssemblyReference.cache
+*.cache
+Project_B_Restaurant.Test/obj/Debug/net7.0/Project_B_Restaurant.Test.assets.cache
