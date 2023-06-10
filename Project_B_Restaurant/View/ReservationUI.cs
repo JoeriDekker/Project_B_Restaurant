@@ -34,7 +34,7 @@ public class ReservationUI : UI
         MenuItems.Add(new MenuItem("Show pre orders", AccountLevel.Admin));
         MenuItems.Add(new MenuItem("Find Reservation by Reservation ID", AccountLevel.Employee));
         MenuItems.Add(new MenuItem("Find Reservation by Table ID", AccountLevel.Employee));
-        MenuItems.Add(new MenuItem("Delete Reservation by ID", AccountLevel.Employee));
+        MenuItems.Add(new MenuItem("Delete Reservation by Reservation Code", AccountLevel.Employee));
         MenuItems.Add(new MenuItem("Show Available reservation times", AccountLevel.Guest));
 
     }
@@ -82,7 +82,7 @@ public class ReservationUI : UI
             case "Find Reservation by Table ID":
                 FindReservationByTableID();
                 break;
-            case "Delete Reservation by ID":
+            case "Delete Reservation by Reservation Code":
                 DeleteReservationByID();
                 break;
             case "Show Available reservation times":
@@ -128,13 +128,13 @@ public class ReservationUI : UI
         Console.WriteLine("{0,-5} {1,-10} {2,-10} {3,-25} {4,-15} {5,-10}", "R_ID", "R_Code", "Contact", "R_time", "R_TableID", "P_Amount");
         foreach (ReservationModel Res in ReservationLogic.GetAllReservations())
         {
-            string tables = string.Join(",", Res.R_TableID);
+            string tables = string.Join(",", Res.R_Code);
             Console.WriteLine("{0,-5} {1,-10} {2,-10} {3,-25} {4,-15} {5,-10}", Res.R_Id, Res.R_Code, Res.Contact, Res.R_Date, tables, Res.P_Amount);
         }
 
         Console.WriteLine("================================================================================");
 
-        int userInputID = GetInt("Please enter a Reservation ID to delete:");
+        string userInputID = GetString("Please enter a Reservation code to delete:");
 
         if (ReservationLogic.DeleteReservationByID(userInputID))
         {

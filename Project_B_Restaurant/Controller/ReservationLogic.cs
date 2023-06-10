@@ -121,11 +121,11 @@ public class ReservationLogic
     }
 
     //Delete reservation by ID
-    public bool DeleteReservationByID(int id)
+    public bool DeleteReservationByID(string id)
     {
 
         //Find reservation model
-        ReservationModel? Res = _Reservations.Find(x => x.R_Id == id);
+        ReservationModel? Res = _Reservations.Find(x => x.R_Code == id);
 
         //Remove out of Reservations list
         if (_Reservations.Remove(Res) == true)
