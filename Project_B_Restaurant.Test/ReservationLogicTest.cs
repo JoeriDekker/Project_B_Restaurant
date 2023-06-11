@@ -73,8 +73,8 @@ namespace Project_B_Restaurant.Test
         public void DeleteReservationByID_WithExistingID_RemovesReservation()
         {
             // Arrange
-            int id = 1;
-            ReservationModel reservation = new ReservationModel(id, "R001", "John Doe", new List<string>(), 4, new List<Dish>(), DateTime.Now);
+            string id = "R001";
+            ReservationModel reservation = new ReservationModel(1, "R001", "John Doe", new List<string>(), 4, new List<Dish>(), DateTime.Now);
             _reservationLogic.GetAllReservations().Add(reservation);
 
             // Act
@@ -89,7 +89,7 @@ namespace Project_B_Restaurant.Test
         public void DeleteReservationByID_WithNonExistingID_ReturnsFalse()
         {
             // Arrange
-            int id = 1;
+            string id = "R001";
 
             // Act
             bool result = _reservationLogic.DeleteReservationByID(id);
