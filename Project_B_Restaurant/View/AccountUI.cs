@@ -4,8 +4,9 @@ class AccountUI : UI
 {
 
     private AccountsLogic accountsLogic = new AccountsLogic();
+    private ReservationLogic reservationLogic = new();
 
-    AccountModel account;
+    AccountModel? account;
 
     public override string SubText => AccountInfo;
 
@@ -28,44 +29,56 @@ class AccountUI : UI
 
     public AccountUI(UI previousUI) : base(previousUI)
     {
-        if (AccountsLogic.CurrentAccount != null){
-            account = accountsLogic.GetById(AccountsLogic.CurrentAccount.Id);
-            StringBuilder sb = new();
-            sb.AppendLine("\nACCOUNT INFORMATION");
-            sb.AppendLine("======================================");
-            sb.AppendLine($"Name: {AccountsLogic.CurrentAccount.FullName}");
-            sb.AppendLine($"Email: {AccountsLogic.CurrentAccount.EmailAddress}");
-            sb.AppendLine($"Account type: {AccountsLogic.CurrentAccount.Level}");
-            sb.AppendLine("======================================");
-            if (account.Reservations.Count() != 0)
-            {
-                sb.AppendLine("Your Reservations Code(s):");
-                foreach (string rcode in account.Reservations){
-                    sb.AppendLine($"- {rcode}");
-                    
-                }
-                sb.AppendLine("======================================");
-            }
-            AccountInfo = sb.ToString();
-        }
-        else{
+        if (AccountsLogic.CurrentAccount != null)
+            AccountInfo = GenerateSubText();
+        else
             AccountInfo = "\nYou have not been loggedin.\nPlease log in to show you account details\n";
-        }
+
     }
+    public string GenerateSubText()
+    {
+
+        account = accountsLogic.GetById(AccountsLogic.CurrentAccount!.Id);
+        StringBuilder sb = new();
+        sb.AppendLine("\nACCOUNT INFORMATION");
+        sb.AppendLine("======================================");
+        sb.AppendLine($"Name: {AccountsLogic.CurrentAccount.FullName}");
+        sb.AppendLine($"Email: {AccountsLogic.CurrentAccount.EmailAddress}");
+        sb.AppendLine($"Account type: {AccountsLogic.CurrentAccount.Level}");
+        sb.AppendLine("======================================");
+
+        if (account!.Reservations.Count() != 0)
+        {
+            sb.AppendLine("Your Reservations:");
+            foreach (string rcode in account.Reservations)
+            {
+                sb.AppendLine($"  - {reservationLogic.getReservationByCode(rcode)!.ToString()}");
+
+            }
+            sb.AppendLine("======================================");
+        }
+        return sb.ToString();
+    }
+
+
     public override void CreateMenuItems()
     {
         MenuItems.Clear();
-        if (AccountsLogic.CurrentAccount == null){
+        if (AccountsLogic.CurrentAccount == null)
+        {
             MenuItems.Add(new MenuItem("Log in", AccountLevel.Guest));
             MenuItems.Add(new MenuItem("Create Account", AccountLevel.Guest));
         }
-        
+
         MenuItems.Add(new MenuItem("Reset Password", AccountLevel.Customer));
         MenuItems.Add(new MenuItem("Update Accountdetails", AccountLevel.Customer));
-        if (AccountsLogic.CurrentAccount != null){
+        if (AccountsLogic.CurrentAccount != null)
+        {
             account = accountsLogic.GetById(AccountsLogic.CurrentAccount.Id);
-            if (account.Reservations.Count() != 0){
+            if (account!.Reservations.Count() != 0)
+            {
                 MenuItems.Add(new MenuItem("Cancel Reservation", AccountLevel.Customer));
+                MenuItems.Add(new MenuItem("Update Reservation", AccountLevel.Customer));
             }
         }
     }
@@ -79,7 +92,6 @@ class AccountUI : UI
                 login.LogIn();
                 break;
             case "Create Account":
-                UserLogin create_account = new(this);
                 CreateAccount();
                 break;
             case "Reset Password":
@@ -91,20 +103,16 @@ class AccountUI : UI
                 UpdateAcc.Start();
                 break;
             case "Cancel Reservation":
-                ReservationUI reservation = new(this);
-                if(reservation.DeleteReservationByRCode())
-                {
-                Console.WriteLine("Reservation has been deleted");
-                Continue();
-                Exit();
-                }
-                else
-                {
-                    Console.WriteLine("Reservation could not be found! Please try another code.");
-                }
+                CancelReservation();
+                AccountInfo = GenerateSubText();
+                break;
+            case "Update Reservation":
+                UpdateReservation();
+                AccountInfo = GenerateSubText();
                 break;
             case Constants.UI.GO_BACK:
             case Constants.UI.EXIT:
+                AccountsLogic.CurrentAccount = account;
                 Exit();
                 break;
             default:
@@ -112,7 +120,31 @@ class AccountUI : UI
                 break; ;
         }
     }
+    public void CancelReservation()
+    {
+        string res_code = GetString("Enter the Reservation Code").ToUpper();
+        if (reservationLogic.getReservationByCode(res_code) != null)
+        {
+            reservationLogic.DeleteReservationByID(res_code);
+            accountsLogic.RemoveReservationCode(res_code);
+        }
+        else
+        {
+            Console.WriteLine("Reservation could not be found! Please try another code.");
+        }
+    }
 
+    public void UpdateReservation()
+    {
+        string res_code = GetString("Enter the Reservation Code").ToUpper();
+        if (account!.Reservations.Contains(res_code))
+        {
+            UpdateReservationUI res = new(this, reservationLogic.getReservationByCode(res_code)!);
+            res.Start();
+        }
+        else
+            Console.WriteLine("Reservation not found in account");
+    }
 
     public void CreateAccount()
     {
@@ -121,7 +153,7 @@ class AccountUI : UI
         if (CurrentLevel == AccountLevel.Admin)
         {
             Console.WriteLine("What type of account do you want to make? \nEnter 1 for Admin \nEnter 2 for Employee \nEnter 3 for Customer");
-            string choice = Console.ReadLine();
+            string choice = Console.ReadLine() ?? string.Empty;
             if (choice == "1")
             {
                 level = AccountLevel.Admin;

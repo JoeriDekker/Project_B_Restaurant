@@ -52,17 +52,18 @@ public class ReservationUI : UI
         var currentAccount = AccountsLogic.CurrentAccount;
         if (currentAccount == null || currentAccount.Reservations.Count == 0)
         {
-            Console.WriteLine("Here");
             return string.Empty;
         }
         StringBuilder sb = new();
 
+        sb.AppendLine("======================================");
         sb.AppendLine("Your Reservations:\n");
         foreach (var code in currentAccount.Reservations)
         {
             string reservation = ReservationLogic.getReservationByCode(code)!.ToString();
             sb.AppendLine($" - {reservation}");
         }
+        sb.AppendLine("======================================");
         return sb.ToString();
     }
 
@@ -176,6 +177,7 @@ public class ReservationUI : UI
         string res_code = GetString("Please enter the reservation code to delete your reservation:");
         return ReservationLogic.DeleteReservationByRCode(res_code);
     }
+
 
     public void FindReservationByTableID()
     {

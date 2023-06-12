@@ -67,7 +67,9 @@ class PreOrderView : UI
         MenuItems.Clear();
         MenuItems.Add(new MenuItem("Add Single Dish", AccountLevel.Guest));
         MenuItems.Add(new MenuItem("Add Full Course", AccountLevel.Guest));
-        MenuItems.Add(new MenuItem("Remove Dish From Pre-Order", AccountLevel.Guest));
+
+        if (Reservation.PreOrders.Count > 0)
+            MenuItems.Add(new MenuItem("Remove Dish From Pre-Order", AccountLevel.Guest));
     }
 
     public override void UserChoosesOption(int option)

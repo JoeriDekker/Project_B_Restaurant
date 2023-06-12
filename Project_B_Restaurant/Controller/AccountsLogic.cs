@@ -14,7 +14,7 @@ public class AccountsLogic
     //Static properties are shared across all instances of the class
     //This can be used to get the current logged in account from anywhere in the program
     //private set, so this can only be set by the class itself
-    static public AccountModel? CurrentAccount { get; private set; }
+    static public AccountModel? CurrentAccount { get; set; }
 
     public AccountsLogic()
     {
@@ -97,6 +97,13 @@ public class AccountsLogic
         // return the password
         return Encoding.UTF8.GetString(key);
     }
+    public void RemoveReservationCode(string code)
+    {
+        foreach (AccountModel acc in _accounts)
+            if (acc.Reservations.Contains(code))
+                acc.Reservations.Remove(code);
+    }
+
     public int GetLastId()
     {
         AccountModel last = _accounts.Last();
