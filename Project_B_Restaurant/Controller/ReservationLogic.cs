@@ -58,27 +58,13 @@ public class ReservationLogic
     {
         string ResCode = createReservationCode();
         int seats = 0;
-        List<string> table_IDs = new();
         List<TableModel> sortedSeats = new();
 
 
-        if (c_party >= 8)
-        {
-            sortedSeats = availableTimes[chosenTime].OrderByDescending(x => x.T_Seats).ToList();
-        }
-        else
-        {
-            sortedSeats = availableTimes[chosenTime].OrderBy(x => x.T_Seats).ToList();
-        }
-        Console.WriteLine($"sorted seats: {sortedSeats.Count}");
-        foreach (TableModel table in sortedSeats)
-        {
-            seats += table.T_Seats;
-            table_IDs.Add(table.T_ID);
-            if (seats >= c_party){
-                break;
-            }
-        }
+        var allCombos = RecGenerateCombinations(0, availableTimes[chosenTime], new(), new());
+        allCombos = allCombos.Where(t => t.Count != 0).ToList();
+        List<TableModel> bestCombo = BestCombinationOfTables(allCombos, c_party);
+        List<string> table_IDs = bestCombo.Select(t => t.T_ID).ToList();
 
         //Handle Pre Orders
 
@@ -209,28 +195,76 @@ public class ReservationLogic
     public Tuple<DateTime, DateTime> GetOpeningAndClosingTime(DateOnly date)
     {
         string day = date.DayOfWeek.ToString();
-        foreach (Dictionary<string, object> openingHour in _openingHours)
-        {
-            foreach (KeyValuePair<string, object> kvp in openingHour)
-            {
-                if (kvp.Key == day)
-                {
-                    DateTime opening = DateTime.Parse(kvp.Value.ToString()!.Split('-')[0]);
-                    DateTime closing = DateTime.Parse(kvp.Value.ToString()!.Split('-')[1]);
+        // Getting opening and closing time from JSON
+        DateTime openingTime = DateTime.Parse(_openingHours[0][day].ToString()!.Split('-')[0]);
+        DateTime closingTime = DateTime.Parse(_openingHours[0][day].ToString()!.Split('-')[1]);
+        // Adding the correct date
+        DateTime openingTimeAndDay = new(date.Year, date.Month, date.Day, openingTime.Hour, 0, 0);
+        DateTime closingTimeAndDay = new(date.Year, date.Month, date.Day, closingTime.Hour, 0, 0);
+        // If we close after midnight the date will be incorrect, i.e. 14:00-02:00. So we add one day 
+        if (closingTimeAndDay < openingTimeAndDay)
+            closingTimeAndDay = closingTimeAndDay.AddDays(1);
 
-                    DateTime openingTime = new(date.Year, date.Month, date.Day, opening.Hour, 0, 0);
-                    DateTime closingTime = new(date.Year, date.Month, date.Day, closing.Hour, 0, 0);
-
-                    if (closingTime < openingTime)
-                        closingTime = closingTime.AddDays(1);
-
-                    return new(openingTime, closingTime);
-                }
-            }
-        }
-        return null!;
+        return new(openingTime, closingTime);
     }
 
+    public List<List<TableModel>> RecGenerateCombinations(int i, List<TableModel> tables, List<List<TableModel>> result, List<TableModel> subset)
+    {
+        if (i == tables.Count)
+        {
+            result.Add(subset.ToList());
+            return result;
+        }
+
+        // Add tables[i] to the current subset
+        subset.Add(tables[i]);
+        RecGenerateCombinations(i + 1, tables, result, subset);
+
+        // Backtrack by removing last element
+        subset.RemoveAt(subset.Count - 1);
+        RecGenerateCombinations(i + 1, tables, result, subset);
+
+        return result;
+    }
+
+    public List<TableModel> BestCombinationOfTables(List<List<TableModel>> possibleCombos, int partySize)
+    {
+        // Set the factors we like to test for and assign an arbitrary value adding up to 1.0
+        Dictionary<string, double> factors = new()
+        {
+            { "TotalTablesUsed", 0.6 },
+            { "PercentageFilled", 0.4 }
+        };
+        List<TableModel> bestCombo = new();
+        double bestScore = double.MinValue;
+
+        foreach (var combo in possibleCombos.Where(a => a.Sum(t => t.T_Seats) >= partySize))
+        {
+            // Set variables
+            double score = 0.0;
+            double totalTablesUsed = combo.Count;
+
+            double tablesUsedPenalty = 1 - (totalTablesUsed * 0.2);
+            double percentageFiled = 0.0;
+
+            if (combo.Sum(t => t.T_Seats) > 0)
+            {
+                percentageFiled = partySize / combo.Sum(t => t.T_Seats);
+            }
+            // Calculate score
+            score += tablesUsedPenalty * factors["TotalTablesUsed"];
+            score += percentageFiled * factors["PercentageFilled"];
+
+            // If we score better than our current highest replace it.
+            if (score > bestScore)
+            {
+                bestScore = score;
+                bestCombo = combo;
+            }
+        }
+
+        return bestCombo;
+    }
 
     public Dictionary<DateTime, List<TableModel>> GetAvailableTimesToReserve(DateOnly date, int partySize)
     {
@@ -238,13 +272,15 @@ public class ReservationLogic
         (DateTime openingTime, DateTime closingTime) = GetOpeningAndClosingTime(date);
         // Get all timeslots for that day and initialise a dictionary
         Dictionary<DateTime, List<TableModel>> availableTimesToReserve = GetAllTimeSlotsBetween(openingTime, closingTime);
+        DateTime dateDate = DateTime.Parse(date.ToString());
 
         // Loop through the tables and times
         foreach (TableModel table in tableLogic.Tables)
             foreach (DateTime time in availableTimesToReserve.Keys)
             {
                 // Get all the reservedtimes for the current tableID
-                List<DateTime> reservedTimes = _Reservations
+                List<DateTime> reservedTimes = _Reservations.Where(r => r.R_Date.Date == dateDate.Date)
+                    .ToList()
                     .FindAll(r => r.R_TableID.Contains(table.T_ID))
                     .Select(r => r.R_Date)
                     .ToList();

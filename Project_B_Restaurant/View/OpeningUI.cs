@@ -31,9 +31,11 @@ public class OpeningUI : UI
     public override void CreateMenuItems()
     {
         MenuItems.Clear();
-        MenuItems.Add(new MenuItem(Constants.OpeningUI.LOGIN, AccountLevel.Guest));
-        MenuItems.Add(new MenuItem("Account Information", AccountLevel.Guest));
-        MenuItems.Add(new MenuItem("Show Restaurant Info", AccountLevel.Guest));
+
+        if (AccountsLogic.CurrentAccount == null)
+            MenuItems.Add(new MenuItem(Constants.OpeningUI.LOGIN, AccountLevel.Guest));
+        MenuItems.Add(new MenuItem("Account Info", AccountLevel.Guest));
+        MenuItems.Add(new MenuItem("Restaurant Info", AccountLevel.Guest));
         MenuItems.Add(new MenuItem(Constants.OpeningUI.MENU, AccountLevel.Guest));
         MenuItems.Add(new MenuItem(Constants.OpeningUI.RESERVATION, AccountLevel.Guest));
     }
@@ -46,11 +48,11 @@ public class OpeningUI : UI
                 UserLogin userlogin = new(this);
                 userlogin.LogIn();
                 break;
-            case "Account Information":
+            case "Account Info":
                 AccountUI account = new(this);
                 account.Start();
                 break;
-            case "Show Restaurant Info":
+            case "Restaurant Info":
                 RestaurantInfoUI restaurantInfo = new(this);
                 restaurantInfo.Start();
                 break;

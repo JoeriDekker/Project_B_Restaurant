@@ -174,7 +174,8 @@ public class ReservationUI : UI
         }
     }
 
-    public void CreateReservation()
+    //TODO: Infinite loop If there are no timeslots available for given party size
+    public void CreateReservation() 
     {
 
         /*

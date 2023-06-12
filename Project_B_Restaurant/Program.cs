@@ -10,11 +10,17 @@
 
 
         // DateOnly date = res.GetDate();
-        
-        // Dictionary<DateTime, List<TableModel>> availableTimes = res.ReservationLogic.GetAvailableTimesToReserve(date, partySize: 5);
-        // List<string> tableIDs = new List<string>();
-        // tableIDs.Add("1A");
+        // int partySize = 17;
+        // Dictionary<DateTime, List<TableModel>> availableTimes = res.ReservationLogic.GetAvailableTimesToReserve(date, partySize);
+        // var options = res.PrintAllAvailableTimes(availableTimes);
+        // DateTime timeslot = res.GetUserSelectedTime(options);
 
+        // var allCombos = res.ReservationLogic.RecGenerateCombinations(0, availableTimes[timeslot], new(), new());
+        // Console.WriteLine(allCombos.Count);
+        // allCombos.Select(t => t.Count != 0);
+        // List<TableModel> bestCombo = res.ReservationLogic.BestCombinationOfTables(allCombos, partySize);
+        // bestCombo.ForEach(t => Console.WriteLine(t));
+        // Console.WriteLine($"Total Seats used: {bestCombo.Sum(t => t.T_Seats)}, Total tables: {bestCombo.Count}");
         
         // // res.ReservationLogic.CreateReservation("Vik", 2 ,tableIDs, date);
         
