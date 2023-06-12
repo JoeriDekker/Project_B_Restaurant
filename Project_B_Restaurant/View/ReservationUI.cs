@@ -31,17 +31,16 @@ public class ReservationUI : UI
     }
 
     // Gets _subText to be always up to date
-    public override void Reset()
-    {
-        base.Reset();
-        _subText = GenerateSubText();
-    }
 
     public override void CreateMenuItems()
     {
         MenuItems.Add(new MenuItem("Create Reservation", AccountLevel.Guest));
         MenuItems.Add(new MenuItem("Show all Reservations", AccountLevel.Employee));
-        MenuItems.Add(new MenuItem("Show pre orders", AccountLevel.Admin));
+
+        if (AccountsLogic.CurrentAccount != null && AccountsLogic.CurrentAccount.Reservations.Count != 0)
+            MenuItems.Add(new MenuItem("Update Reservation", AccountLevel.Customer));
+
+        MenuItems.Add(new MenuItem("Update any Reservation as Admin", AccountLevel.Admin));
         MenuItems.Add(new MenuItem("Find Reservation by Reservation ID", AccountLevel.Employee));
         MenuItems.Add(new MenuItem("Find Reservation by Table ID", AccountLevel.Employee));
         MenuItems.Add(new MenuItem("Delete Reservation by Reservation Code", AccountLevel.Employee));
@@ -52,8 +51,10 @@ public class ReservationUI : UI
     {
         var currentAccount = AccountsLogic.CurrentAccount;
         if (currentAccount == null || currentAccount.Reservations.Count == 0)
+        {
+            Console.WriteLine("Here");
             return string.Empty;
-
+        }
         StringBuilder sb = new();
         sb.AppendLine("Your Reservations:\n");
         foreach (var code in currentAccount.Reservations)
@@ -64,28 +65,10 @@ public class ReservationUI : UI
         return sb.ToString();
     }
 
-    public DateOnly GetDate()
+    public new void Reset()
     {
-        string input;
-        DateOnly Date = new();
-
-        DateTime today = DateTime.Today;
-        DateTime sevenDaysAhead = today.AddDays(7);
-        DateOnly maxDateToOrderAhead = new DateOnly(sevenDaysAhead.Year, sevenDaysAhead.Month, sevenDaysAhead.Day);
-        do
-        {
-            Console.WriteLine($"Please provide the date in the following format: {DateTime.Today.ToShortDateString()}");
-            Console.Write("?: > ");
-            input = Console.ReadLine() ?? string.Empty;
-        }
-        while (!DateOnly.TryParse(input, out Date));
-
-        if (Date > maxDateToOrderAhead)
-        {
-            Console.WriteLine("You can only reserve 7 days ahead\n");
-            return GetDate();
-        }
-        return Date;
+        base.Reset();
+        _subText = GenerateSubText();
     }
 
 
@@ -95,11 +78,13 @@ public class ReservationUI : UI
         {
             case "Create Reservation":
                 CreateReservation();
+                _subText = GenerateSubText();
                 break;
             case "Show all Reservations":
                 ShowAllReservations();
                 break;
-            case "Show pre orders":
+            case "Update Reservation": // TODO ?
+                UpdateReservation();
                 break;
             case "Find Reservation by Reservation ID":
                 FindReservationByReservationID();
@@ -139,9 +124,21 @@ public class ReservationUI : UI
         }
     }
 
+    public void UpdateReservation()
+    {
+        string code = GetString("Provide the Code of the Reservation you wish to update.");
+
+        if (!AccountsLogic.CurrentAccount!.Reservations.Contains(code))
+        {
+            Console.WriteLine("Incorrect Reservation Code");
+            return;
+        }
+        UpdateReservationUI updateReservationUI = new(this, ReservationLogic.getReservationByCode(code)!);
+        updateReservationUI.Start();
+    }
     public void ShowAvailableReservations()
     {
-        DateOnly date = GetDate();
+        DateTime date = GetDate();
         int partySize = GetInt("How Many People?");
 
         var availableTimes = ReservationLogic.GetAvailableTimesToReserve(date, partySize);
@@ -166,6 +163,13 @@ public class ReservationUI : UI
         }
     }
 
+    public void ShowSingleReservation(ReservationModel Res)
+    {
+        Console.WriteLine("{0,-5} {1,-10} {2,-10} {3,-25} {4,-15} {5,-10}", "R_ID", "R_Code", "Contact", "R_time", "R_TableID", "P_Amount");
+        Console.WriteLine("---------------------------------------------------------------------------------");
+        Console.WriteLine("{0,-5} {1,-10} {2,-10} {3,-25} {4,-15} {5,-10}", Res.R_Id, Res.R_Code, Res.Contact, Res.R_Date, string.Join(", ", Res.R_TableID), Res.P_Amount);
+    }
+
     public bool DeleteReservationByRCode()
     {
         string res_code = GetString("Please enter the reservation code to delete your reservation:");
@@ -188,21 +192,15 @@ public class ReservationUI : UI
 
     public void ShowAllReservations()
     {
-        Console.WriteLine("{0,-5} {1,-10} {2,-10} {3,-25} {4,-15} {5,-10}", "R_ID", "R_Code", "Contact", "R_time", "R_TableID", "P_Amount");
+        Console.WriteLine();
+        Console.WriteLine("=================================================================================");
+        Console.WriteLine("{0,-5} {1,-10} {2,-10} {3,-25} {4,-10} {5,-10}", "R_ID", "R_Code", "Contact", "R_time", "R_TableID", "P_Amount");
         Console.WriteLine("---------------------------------------------------------------------------------");
 
         foreach (ReservationModel Res in ReservationLogic.GetAllReservations())
         {
             Console.WriteLine("{0,-5} {1,-10} {2,-10} {3,-25} {4,-15} {5,-10}", Res.R_Id, Res.R_Code, Res.Contact, Res.R_Date, string.Join(", ", Res.R_TableID), Res.P_Amount);
         }
-    }
-
-    
-    public void ShowSingleReservation(ReservationModel Res)
-    {
-        Console.WriteLine("{0,-5} {1,-10} {2,-10} {3,-25} {4,-15} {5,-10}", "R_ID", "R_Code", "Contact", "R_time", "R_TableID", "P_Amount");
-        Console.WriteLine("---------------------------------------------------------------------------------");
-        Console.WriteLine("{0,-5} {1,-10} {2,-10} {3,-25} {4,-15} {5,-10}", Res.R_Id, Res.R_Code, Res.Contact, Res.R_Date, string.Join(", ", Res.R_TableID), Res.P_Amount);
     }
 
     //TODO: Infinite loop If there are no timeslots available for given party size
@@ -230,7 +228,7 @@ public class ReservationUI : UI
         int partySize = GetInt("Please enter amount of People");
 
         //Ask for date they wanna make a reservation on
-        DateOnly date = GetDate();
+        DateTime date = GetDate();
 
         // Dictionary<DateTime, List<TableModel>>
         var availableTimes = ReservationLogic.GetAvailableTimesToReserve(date, partySize);
@@ -369,5 +367,27 @@ public class ReservationUI : UI
         } while (!isValidOption);
 
         return availableTimesDict[selectedOption];
+    }
+    public DateTime GetDate()
+    {
+        string input;
+        DateTime Date = new();
+
+        DateTime today = DateTime.Today;
+        DateTime sevenDaysAhead = today.AddDays(7);
+        do
+        {
+            Console.WriteLine($"Please provide the date in the following format: {DateTime.Today.ToShortDateString()}");
+            Console.Write("?: > ");
+            input = Console.ReadLine() ?? string.Empty;
+        }
+        while (!DateTime.TryParse(input, out Date));
+
+        if (Date > sevenDaysAhead)
+        {
+            Console.WriteLine("You can only reserve 7 days ahead\n");
+            return GetDate();
+        }
+        return Date;
     }
 }

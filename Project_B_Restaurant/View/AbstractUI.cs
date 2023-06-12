@@ -130,7 +130,8 @@ public abstract class UI
         return input;
     }
 
-    public string GetPassword(string question){
+    public string GetPassword(string question)
+    {
         Console.WriteLine($"{question}");
         var password = string.Empty;
         ConsoleKey key;

@@ -57,8 +57,6 @@ public class ReservationLogic
     public ReservationModel CreateReservation(string c_name, int c_party, Dictionary<DateTime, List<TableModel>> availableTimes, DateTime chosenTime, List<Dish> PreOrders = null)
     {
         string ResCode = createReservationCode();
-        int seats = 0;
-        List<TableModel> sortedSeats = new();
 
 
         var allCombos = RecGenerateCombinations(0, availableTimes[chosenTime], new(), new());
@@ -77,6 +75,8 @@ public class ReservationLogic
 
         //Add to daaaaaaaaaa list c:
         _Reservations.Add(res);
+        if (AccountsLogic.CurrentAccount != null)
+            AccountsLogic.CurrentAccount.Reservations.Add(ResCode);
 
         // Save this data to Reservation.json
         ReservationAccess.WriteAll(_Reservations);
@@ -197,7 +197,7 @@ public class ReservationLogic
     }
 
 
-    public Tuple<DateTime, DateTime> GetOpeningAndClosingTime(DateOnly date)
+    public Tuple<DateTime, DateTime> GetOpeningAndClosingTime(DateTime date)
     {
         string day = date.DayOfWeek.ToString();
         // Getting opening and closing time from JSON
@@ -272,7 +272,7 @@ public class ReservationLogic
         return bestCombo;
     }
 
-    public Dictionary<DateTime, List<TableModel>> GetAvailableTimesToReserve(DateOnly date, int partySize)
+    public Dictionary<DateTime, List<TableModel>> GetAvailableTimesToReserve(DateTime date, int partySize)
     {
         // Get opening and closing time for date
         (DateTime openingTime, DateTime closingTime) = GetOpeningAndClosingTime(date);
