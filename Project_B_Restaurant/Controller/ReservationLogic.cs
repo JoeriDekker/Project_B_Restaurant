@@ -97,6 +97,11 @@ public class ReservationLogic
         ReservationModel? getRes = _Reservations.Find(x => x.R_Id == id);
         return getRes;
     }
+    public ReservationModel? getReservationByCode(string code)
+    {
+        ReservationModel? getRes = _Reservations.Find(x => x.R_Code == code);
+        return getRes;
+    }
 
     //! Can be null | Check on null when trying to find a reservation!
     public ReservationModel? getReservationByTableID(string id)

@@ -1,3 +1,5 @@
+using System.Text;
+
 public class ReservationUI : UI
 {
 
@@ -16,27 +18,50 @@ public class ReservationUI : UI
     ============================================================
     ";
     }
-
+    private string _subText;
     public override string SubText
     {
-        get => string.Empty;
+        get => _subText;
     }
 
     // This will initialize the Reservation System (Module)
     public ReservationUI(UI previousUI) : base(previousUI)
     {
+        _subText = GenerateSubText();
+    }
+
+    // Gets _subText to be always up to date
+    public override void Reset()
+    {
+        base.Reset();
+        _subText = GenerateSubText();
     }
 
     public override void CreateMenuItems()
     {
         MenuItems.Add(new MenuItem("Create Reservation", AccountLevel.Guest));
-        MenuItems.Add(new MenuItem("Show all Reservations", AccountLevel.Guest));
+        MenuItems.Add(new MenuItem("Show all Reservations", AccountLevel.Employee));
         MenuItems.Add(new MenuItem("Show pre orders", AccountLevel.Admin));
         MenuItems.Add(new MenuItem("Find Reservation by Reservation ID", AccountLevel.Employee));
         MenuItems.Add(new MenuItem("Find Reservation by Table ID", AccountLevel.Employee));
         MenuItems.Add(new MenuItem("Delete Reservation by Reservation Code", AccountLevel.Employee));
         MenuItems.Add(new MenuItem("Show Available reservation times", AccountLevel.Guest));
+    }
 
+    public string GenerateSubText()
+    {
+        var currentAccount = AccountsLogic.CurrentAccount;
+        if (currentAccount == null || currentAccount.Reservations.Count == 0)
+            return string.Empty;
+
+        StringBuilder sb = new();
+        sb.AppendLine("Your Reservations:\n");
+        foreach (var code in currentAccount.Reservations)
+        {
+            string reservation = ReservationLogic.getReservationByCode(code)!.ToString();
+            sb.AppendLine($" - {reservation}");
+        }
+        return sb.ToString();
     }
 
     public DateOnly GetDate()
@@ -146,7 +171,8 @@ public class ReservationUI : UI
         }
     }
 
-    public bool DeleteReservationByRCode(){
+    public bool DeleteReservationByRCode()
+    {
         string res_code = GetString("Please enter the reservation code to delete your reservation:");
         return ReservationLogic.DeleteReservationByRCode(res_code);
     }
@@ -175,7 +201,7 @@ public class ReservationUI : UI
     }
 
     //TODO: Infinite loop If there are no timeslots available for given party size
-    public void CreateReservation() 
+    public void CreateReservation()
     {
 
         /*
@@ -203,7 +229,7 @@ public class ReservationUI : UI
 
         // Dictionary<DateTime, List<TableModel>>
         var availableTimes = ReservationLogic.GetAvailableTimesToReserve(date, partySize);
-        
+
         //Available times
         var rewriteTimes = PrintAllAvailableTimes(availableTimes);
 
@@ -220,80 +246,81 @@ public class ReservationUI : UI
         //Create Reservation
         ReservationModel res = ReservationLogic.CreateReservation(name, partySize, availableTimes, selectedTime);
 
-        if (AccountsLogic.CurrentAccount != null){
+        if (AccountsLogic.CurrentAccount != null)
+        {
             AccountsLogic accountsLogic = new AccountsLogic();
             AccountModel account = accountsLogic.GetById(AccountsLogic.CurrentAccount.Id);
             account.Reservations.Add(res.R_Code);
             accountsLogic.UpdateList(account);
         }
 
-         Console.WriteLine("Do you want to make a preorder? Y/N");
+        Console.WriteLine("Do you want to make a preorder? Y/N");
         string answer = Console.ReadLine()!.ToUpper() ?? string.Empty;
-         if (answer == "Y")
-            {
+        if (answer == "Y")
+        {
             preOrd = new PreOrderView(this, res);
             preOrd.Start();
-            }
+        }
 
         // Console.ReadLine();
 
-//         Console.WriteLine(@$"
-//     ┌────┐    ┌────┐         ┌────┐
-//     │ 3A │    │ 1A │         │ 2A │
-//     │(2) │    │(2) │         │(2) │
-//     └────┘    └────┘         └────┘
+        //         Console.WriteLine(@$"
+        //     ┌────┐    ┌────┐         ┌────┐
+        //     │ 3A │    │ 1A │         │ 2A │
+        //     │(2) │    │(2) │         │(2) │
+        //     └────┘    └────┘         └────┘
 
-//     ┌────┐                   ┌────┐
-//     │ 6A │                   │ 4A │
-//     │(2) │                   │(4) │
-//     └────┘                   └────┘
+        //     ┌────┐                   ┌────┐
+        //     │ 6A │                   │ 4A │
+        //     │(2) │                   │(4) │
+        //     └────┘                   └────┘
 
-//     ┌────┐                   ┌────┐
-//     │ 5A │                   │ 7A │
-//     │(4) │                   │(2) │
-//     └────┘                   └────┘
+        //     ┌────┐                   ┌────┐
+        //     │ 5A │                   │ 7A │
+        //     │(4) │                   │(2) │
+        //     └────┘                   └────┘
 
-//     ┌────┐                   ┌────┐
-//     │ 2B │                   │ 3B │
-//     │(4) │                   │(4) │
-//     └────┘                   └────┘
+        //     ┌────┐                   ┌────┐
+        //     │ 2B │                   │ 3B │
+        //     │(4) │                   │(4) │
+        //     └────┘                   └────┘
 
-//     ┌────┐                   ┌────┐
-//     │ 5B │                   │ 4B │
-//     │(4) │                   │(2) │
-//     └────┘                   └────┘
+        //     ┌────┐                   ┌────┐
+        //     │ 5B │                   │ 4B │
+        //     │(4) │                   │(2) │
+        //     └────┘                   └────┘
 
-//     ┌────┐       ┌────┐      ┌────┐
-//     │ 6B │       │ 1C │      │ 1B │
-//     │(2) │       │(6) │      │(6) │
-//     └────┘       └────┘      └────┘
-// ");
+        //     ┌────┐       ┌────┐      ┌────┐
+        //     │ 6B │       │ 1C │      │ 1B │
+        //     │(2) │       │(6) │      │(6) │
+        //     └────┘       └────┘      └────┘
+        // ");
 
         // string availableTableId = null;
 
-//         foreach (TableModel table in availableTables)
-//         {
-//             if (true)
-//             {
-//                 //TableLogic.OccupiedTable(table.T_ID, true, Convert.ToString(inp_getDate), Convert.ToString(desiredTime));
-//                 Console.WriteLine("Reservation made at table: " + table.T_ID);
-//                 Console.WriteLine($"{table.T_ID}, {table.T_Seats}");
+        //         foreach (TableModel table in availableTables)
+        //         {
+        //             if (true)
+        //             {
+        //                 //TableLogic.OccupiedTable(table.T_ID, true, Convert.ToString(inp_getDate), Convert.ToString(desiredTime));
+        //                 Console.WriteLine("Reservation made at table: " + table.T_ID);
+        //                 Console.WriteLine($"{table.T_ID}, {table.T_Seats}");
 
-//                 //ReservationModel res = ReservationLogic.CreateReservation(inp_name, inp_Pamount, table.T_ID, Convert.ToString(desiredTime), Convert.ToString(inp_getDate));
-//                 Console.WriteLine("Reservation has been made!");
+        //                 //ReservationModel res = ReservationLogic.CreateReservation(inp_name, inp_Pamount, table.T_ID, Convert.ToString(desiredTime), Convert.ToString(inp_getDate));
+        //                 Console.WriteLine("Reservation has been made!");
 
-//                 if (AccountsLogic.CurrentAccount != null)
-//                 {
-//                     AccountsLogic accountsLogic = new AccountsLogic();
-//                     AccountModel account = AccountsLogic.CurrentAccount;
-//                     //account.Reservations.Add(res.R_Code); //needs to be fixed
-//                     accountsLogic.UpdateList(account);
-//                 }
+        //                 if (AccountsLogic.CurrentAccount != null)
+        //                 {
+        //                     AccountsLogic accountsLogic = new AccountsLogic();
+        //                     AccountModel account = AccountsLogic.CurrentAccount;
+        //                     //account.Reservations.Add(res.R_Code); //needs to be fixed
+        //                     accountsLogic.UpdateList(account);
+        //                 }
 
-//                 //Console.WriteLine($"Your Reservation Code: {res.R_Code}\n");
+        //                 //Console.WriteLine($"Your Reservation Code: {res.R_Code}\n");
 
 
-//             }
+        //             }
         // }
     }
 
@@ -306,14 +333,14 @@ public class ReservationUI : UI
         {
             if (entry.Value.Count == 0)
                 continue;
-            
+
             string time = entry.Key.ToString("HH:mm");
             Console.WriteLine($"{option}: {time}");
-            
+
             availableTimesDict[option] = entry.Key;
             option++;
         }
-        
+
         return availableTimesDict;
     }
     public DateTime GetUserSelectedTime(Dictionary<int, DateTime> availableTimesDict)
@@ -337,5 +364,5 @@ public class ReservationUI : UI
         } while (!isValidOption);
 
         return availableTimesDict[selectedOption];
-}
+    }
 }

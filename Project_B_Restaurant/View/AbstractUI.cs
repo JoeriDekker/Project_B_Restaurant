@@ -46,7 +46,7 @@ public abstract class UI
         }
     }
 
-    public void Reset()
+    public virtual void Reset()
     {
         MenuItems.Clear();
         CreateMenuItems();

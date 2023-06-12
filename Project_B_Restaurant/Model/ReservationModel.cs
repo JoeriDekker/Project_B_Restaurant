@@ -40,4 +40,9 @@ public class ReservationModel
         this.PreOrders = PreOrders;
         this.R_Date = date;
     }
+
+    public override string ToString()
+    {
+        return $"Code: {R_Code}, Name: {Contact}, Party Size: {P_Amount}, Date: {R_Date.ToShortDateString()}, Time: {R_Date.ToShortTimeString()}";
+    }
 }
