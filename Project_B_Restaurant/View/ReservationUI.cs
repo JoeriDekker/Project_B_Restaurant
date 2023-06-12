@@ -135,7 +135,7 @@ public class ReservationUI : UI
         }
         else
         {
-            Console.WriteLine($"Name: {ReservationMUD.Contact} | Party amount: {ReservationMUD.P_Amount} | TableID: {ReservationMUD.R_TableID} | ReservationID: {ReservationMUD.R_Id}");
+            ShowSingleReservation(ReservationMUD);
         }
     }
 
@@ -150,12 +150,7 @@ public class ReservationUI : UI
 
     public void DeleteReservationByID()
     {
-        Console.WriteLine("{0,-5} {1,-10} {2,-10} {3,-25} {4,-15} {5,-10}", "R_ID", "R_Code", "Contact", "R_time", "R_TableID", "P_Amount");
-        foreach (ReservationModel Res in ReservationLogic.GetAllReservations())
-        {
-            string tables = string.Join(",", Res.R_Code);
-            Console.WriteLine("{0,-5} {1,-10} {2,-10} {3,-25} {4,-15} {5,-10}", Res.R_Id, Res.R_Code, Res.Contact, Res.R_Date, tables, Res.P_Amount);
-        }
+        ShowAllReservations();
 
         Console.WriteLine("================================================================================");
 
@@ -200,6 +195,14 @@ public class ReservationUI : UI
         {
             Console.WriteLine("{0,-5} {1,-10} {2,-10} {3,-25} {4,-15} {5,-10}", Res.R_Id, Res.R_Code, Res.Contact, Res.R_Date, string.Join(", ", Res.R_TableID), Res.P_Amount);
         }
+    }
+
+    
+    public void ShowSingleReservation(ReservationModel Res)
+    {
+        Console.WriteLine("{0,-5} {1,-10} {2,-10} {3,-25} {4,-15} {5,-10}", "R_ID", "R_Code", "Contact", "R_time", "R_TableID", "P_Amount");
+        Console.WriteLine("---------------------------------------------------------------------------------");
+        Console.WriteLine("{0,-5} {1,-10} {2,-10} {3,-25} {4,-15} {5,-10}", Res.R_Id, Res.R_Code, Res.Contact, Res.R_Date, string.Join(", ", Res.R_TableID), Res.P_Amount);
     }
 
     //TODO: Infinite loop If there are no timeslots available for given party size
