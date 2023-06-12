@@ -2,7 +2,8 @@
 {
     public static void Main()
     {
-        // MenuAccess.LoadMenuPreOder();
+        // Needed to print '€'
+        Console.OutputEncoding = System.Text.Encoding.Unicode;
         OpeningUI opening = new(null);
         opening.Start();
 

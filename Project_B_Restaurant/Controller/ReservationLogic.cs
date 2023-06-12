@@ -234,7 +234,7 @@ public class ReservationLogic
 
     public List<TableModel> BestCombinationOfTables(List<List<TableModel>> possibleCombos, int partySize)
     {
-        // Set the factors we like to test for and assign an arbitrary value adding up to 1.0
+        // Set the factors we like to test for and assign an arbitrary weight to them
         Dictionary<string, double> factors = new()
         {
             { "TotalTablesUsed", 0.6 },

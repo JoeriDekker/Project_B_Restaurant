@@ -19,30 +19,7 @@ class UpdateReservationUI : UI
 
     public override string SubText
     {
-
-        get
-        {
-            StringBuilder sb = new();
-            sb.AppendLine("===========================================");
-            sb.AppendLine($"Code: {Reservation.R_Code}");
-            sb.AppendLine($"Name: {Reservation.Contact}");
-            sb.AppendLine($"Party Size: {Reservation.P_Amount}");
-            sb.AppendLine($"Date: {Reservation.R_Date}");
-
-            if (AccountsLogic.CurrentAccount!.Level >= AccountLevel.Employee)
-                sb.AppendLine($"Tables:");
-                for (int i = 0; i < Reservation.R_TableID.Count; i++)
-                    sb.AppendLine($"  - {Reservation.R_TableID[i]}");
-
-            if (Reservation.PreOrders.Count > 0)
-                sb.AppendLine($"Selected Pre-Orders: ");
-                foreach (var preOrder in Reservation.PreOrders)
-                    sb.AppendLine($"  - ID: {preOrder.ID}, Name: {preOrder.Name}");
-
-            sb.AppendLine("===========================================");
-            
-            return sb.ToString();
-        }
+        get => GenerateSubText();
     }
 
 
@@ -56,10 +33,8 @@ class UpdateReservationUI : UI
         MenuItems.Clear();
         MenuItems.Add(new MenuItem("Change Name"));
         MenuItems.Add(new MenuItem("Change Date"));
-        MenuItems.Add(new MenuItem("Change Party Size"));
-        // MenuItems.Add(new MenuItem("Change Tables", AccountLevel.Admin));
+        MenuItems.Add(new MenuItem("Change Other Information"));
         MenuItems.Add(new MenuItem("Change Pre-Orders"));
-
     }
 
     public override void UserChoosesOption(int option)
@@ -72,7 +47,7 @@ class UpdateReservationUI : UI
             case "Change Pre-Orders":
                 ChangePreOrders();
                 break;
-            case "Changing other Information":
+            case "Change Other Information":
                 ShowInfoToDelete();
                 break;
             case Constants.UI.GO_BACK:
@@ -90,13 +65,42 @@ class UpdateReservationUI : UI
         Reservation.Contact = GetString("Please enter the correct name");
     }
 
+    public string GenerateSubText()
+    {
+        {
+            StringBuilder sb = new();
+            sb.AppendLine("===========================================");
+            sb.AppendLine($"Code: {Reservation.R_Code}");
+            sb.AppendLine($"Name: {Reservation.Contact}");
+            sb.AppendLine($"Party Size: {Reservation.P_Amount}");
+            sb.AppendLine($"Date: {Reservation.R_Date}");
+
+            if (AccountsLogic.CurrentAccount!.Level >= AccountLevel.Employee)
+                sb.AppendLine($"Tables:");
+            for (int i = 0; i < Reservation.R_TableID.Count; i++)
+                sb.AppendLine($"  - {Reservation.R_TableID[i]}");
+
+            if (Reservation.PreOrders.Count > 0)
+            {
+                sb.AppendLine($"Selected Pre-Orders: ");
+
+                foreach (var preOrder in Reservation.PreOrders)
+                    sb.AppendLine($"  - ID: {preOrder.ID}, Name: {preOrder.Name}");
+
+                sb.AppendLine($"Pre-Order Price: €{Reservation.PreOrders.Sum(d => d.Price)}");
+            }
+            sb.AppendLine("===========================================");
+
+            return sb.ToString();
+        }
+    }
     public void ShowInfoToDelete()
     {
         Console.WriteLine("It is not possible to update any other details.");
         Console.WriteLine("Please go back to the previous screen and delete your current Reservation.");
         Console.WriteLine("You can then create a new one with the correct details.");
     }
-    
+
     public void ChangePreOrders()
     {
         PreOrderView preOrder = new(this, Reservation);

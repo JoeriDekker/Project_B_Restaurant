@@ -26,21 +26,22 @@ class PreOrderView : UI
         get
         {
             if (Reservation.PreOrders.Count <= 0)
-                return $"No Preorders yet";
+                return $"Reservation Code: {Reservation.R_Code}";
             else
             {
                 StringBuilder sb = new();
+                sb.Append($"Reservation Code: {Reservation.R_Code}\n");
                 totalPrice = 0;
                 for (int i = 0; i < Reservation.PreOrders.Count; i++)
                 {
                     Dish dish = Reservation.PreOrders[i];
                     totalPrice += dish.Price;
-                    sb.Append($"{dish.Name}\n{dish.Price}\n");
+                    sb.AppendLine("==================================");
+                    sb.AppendLine($"ID: {dish.ID}\nName: {dish.Name}\nPrice: {dish.Price} euro");
                 }
-                
-                sb.Append($"\nYour total price is: {totalPrice} euro\n");
-                sb.Append($"Your Reservation Code: {Reservation.R_Code}\n");
-                sb.Append("Preorders will be saved on exit.");
+                sb.AppendLine("==================================");
+                sb.AppendLine($"\nYour total price is: €{Math.Round(totalPrice, 2)}");
+                sb.AppendLine("Preorders will be saved on exit.");
                 return sb.ToString();
             }
         }
@@ -64,19 +65,23 @@ class PreOrderView : UI
     public override void CreateMenuItems()
     {
         MenuItems.Clear();
-        MenuItems.Add(new MenuItem("Add single Dish", AccountLevel.Guest));
-        MenuItems.Add(new MenuItem("Add course menu", AccountLevel.Guest));
+        MenuItems.Add(new MenuItem("Add Single Dish", AccountLevel.Guest));
+        MenuItems.Add(new MenuItem("Add Full Course", AccountLevel.Guest));
+        MenuItems.Add(new MenuItem("Remove Dish From Pre-Order", AccountLevel.Guest));
     }
 
     public override void UserChoosesOption(int option)
     {
         switch (UserOptions[option].Name)
         {
-            case "Add single Dish":
+            case "Add Single Dish":
                 AddSingleDish();
                 break;
-            case "Add course menu":
+            case "Add Full Course":
                 AddCourseMenus();
+                break;
+            case "Remove Dish From Pre-Order":
+                RemoveDish();
                 break;
             case Constants.UI.GO_BACK:
             case Constants.UI.EXIT:
@@ -120,6 +125,18 @@ class PreOrderView : UI
         AddMain();
         AddDessert();
         Menu.Save();
+    }
+
+    public void RemoveDish()
+    {
+        int ID = GetInt("ID of Dish to remove?");
+        Dish? dish = Reservation.PreOrders.Find(d => d.ID == ID);
+        if(dish != null)
+        {
+            Reservation.PreOrders.Remove(dish);
+            Menu.RemovePreOderInDish(dish);
+        }else
+            Console.WriteLine("Dish not found in Pre-Order");
     }
 
     

@@ -56,6 +56,7 @@ public class ReservationUI : UI
             return string.Empty;
         }
         StringBuilder sb = new();
+
         sb.AppendLine("Your Reservations:\n");
         foreach (var code in currentAccount.Reservations)
         {
@@ -63,12 +64,6 @@ public class ReservationUI : UI
             sb.AppendLine($" - {reservation}");
         }
         return sb.ToString();
-    }
-
-    public new void Reset()
-    {
-        base.Reset();
-        _subText = GenerateSubText();
     }
 
 
@@ -85,6 +80,7 @@ public class ReservationUI : UI
                 break;
             case "Update Reservation": // TODO ?
                 UpdateReservation();
+                _subText = GenerateSubText();
                 break;
             case "Find Reservation by Reservation ID":
                 FindReservationByReservationID();
@@ -94,6 +90,7 @@ public class ReservationUI : UI
                 break;
             case "Delete Reservation by Reservation Code":
                 DeleteReservationByID();
+                _subText = GenerateSubText();
                 break;
             case "Show Available reservation times":
                 ShowAvailableReservations();
@@ -128,12 +125,12 @@ public class ReservationUI : UI
     {
         string code = GetString("Provide the Code of the Reservation you wish to update.");
 
-        if (!AccountsLogic.CurrentAccount!.Reservations.Contains(code))
+        if (!AccountsLogic.CurrentAccount!.Reservations.Contains(code.ToUpper()))
         {
             Console.WriteLine("Incorrect Reservation Code");
             return;
         }
-        UpdateReservationUI updateReservationUI = new(this, ReservationLogic.getReservationByCode(code)!);
+        UpdateReservationUI updateReservationUI = new(this, ReservationLogic.getReservationByCode(code.ToUpper())!);
         updateReservationUI.Start();
     }
     public void ShowAvailableReservations()
@@ -151,11 +148,15 @@ public class ReservationUI : UI
 
         Console.WriteLine("================================================================================");
 
-        string userInputID = GetString("Please enter a Reservation code to delete:");
+        string userInputID = GetString("Please enter a Reservation code to delete:").ToUpper();
 
         if (ReservationLogic.DeleteReservationByID(userInputID))
         {
             Console.WriteLine("Reservation has been deleted");
+            if (AccountsLogic.CurrentAccount!.Reservations.Contains(userInputID))
+            {
+                AccountsLogic.CurrentAccount!.Reservations.Remove(userInputID);
+            }
         }
         else
         {
@@ -361,7 +362,8 @@ public class ReservationUI : UI
             {
                 isValidOption = true;
             }
-            else if (input == "0"){
+            else if (input == "0")
+            {
                 Start();
             }
             else

@@ -62,7 +62,6 @@ public class MenuUI : UI
 
         sb.AppendLine(header);
         sb.AppendLine(divider);
-        Console.OutputEncoding = System.Text.Encoding.Unicode;
         for (int i = Index; i < Index + Step && i < Menu.Dishes.Count; i++)
         {
             Dish dish = Menu.Dishes[i];
