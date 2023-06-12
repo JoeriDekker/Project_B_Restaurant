@@ -353,12 +353,16 @@ public class ReservationUI : UI
 
         do
         {
+            Console.WriteLine("0: Go Back");
             Console.WriteLine("Please enter your selection:");
             string input = Console.ReadLine();
 
             if (int.TryParse(input, out selectedOption) && availableTimesDict.ContainsKey(selectedOption))
             {
                 isValidOption = true;
+            }
+            else if (input == "0"){
+                Start();
             }
             else
             {
