@@ -240,9 +240,10 @@ public class ReservationLogic
             { "TotalTablesUsed", 0.6 },
             { "PercentageFilled", 0.4 }
         };
+        // We save our current bestCombo and Score
         List<TableModel> bestCombo = new();
         double bestScore = double.MinValue;
-
+        // Loop through every combo with enough seats.
         foreach (var combo in possibleCombos.Where(a => a.Sum(t => t.T_Seats) >= partySize))
         {
             // Set variables
@@ -250,15 +251,15 @@ public class ReservationLogic
             double totalTablesUsed = combo.Count;
 
             double tablesUsedPenalty = 1 - (totalTablesUsed * 0.2);
-            double percentageFiled = 0.0;
+            double percentageFilled = 0.0;
 
             if (combo.Sum(t => t.T_Seats) > 0)
             {
-                percentageFiled = partySize / combo.Sum(t => t.T_Seats);
+                percentageFilled = partySize / combo.Sum(t => t.T_Seats);
             }
             // Calculate score
             score += tablesUsedPenalty * factors["TotalTablesUsed"];
-            score += percentageFiled * factors["PercentageFilled"];
+            score += percentageFilled * factors["PercentageFilled"];
 
             // If we score better than our current highest replace it.
             if (score > bestScore)
@@ -285,10 +286,10 @@ public class ReservationLogic
             {
                 // Get all the reservedtimes for the current tableID
                 List<DateTime> reservedTimes = _Reservations.Where(r => r.R_Date.Date == dateDate.Date)
-                    .ToList()
-                    .FindAll(r => r.R_TableID.Contains(table.T_ID))
-                    .Select(r => r.R_Date)
-                    .ToList();
+                                                            .ToList()
+                                                            .FindAll(r => r.R_TableID.Contains(table.T_ID))
+                                                            .Select(r => r.R_Date)
+                                                            .ToList();
                 // Is the current timeslot within 2 hours of an active reservation?
                 bool isReserved = reservedTimes.Any(reservedTime =>
                     time > reservedTime.AddHours(-2) && time < reservedTime.AddHours(2));
@@ -317,7 +318,6 @@ public class ReservationLogic
                 availableTimeSlots[kvp.Key].RemoveAll(table => true);
             }
         }
-
         return availableTimeSlots;
 
     }
@@ -332,7 +332,8 @@ public class ReservationLogic
     public Dictionary<DateTime, List<TableModel>> GetAllTimeSlotsBetween(DateTime openingTime, DateTime closingTime)
     {
         Dictionary<DateTime, List<TableModel>> allTimeSlots = new();
-        while (openingTime <= closingTime)
+        DateTime kitchenClosingTime = new(openingTime.Year, openingTime.Month, openingTime.Day, 22, 0, 0);
+        while (openingTime <= closingTime && openingTime <= kitchenClosingTime)
         {
             allTimeSlots[openingTime] = new();
             openingTime = openingTime.AddMinutes(30);
