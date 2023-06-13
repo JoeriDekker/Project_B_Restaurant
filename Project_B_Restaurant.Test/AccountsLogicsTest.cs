@@ -1,7 +1,7 @@
 namespace Project_B_Restaurant.Test
 {
     [TestClass]
-    public class AccountsLogicTests
+    public class AccountsLogicTests : IUnitTest
     {
         private AccountsLogic _accountsLogic;
         private string accountsDataPath;
