@@ -48,16 +48,7 @@ class PreOrderView : UI
         }
     }
 
-    public string ShowPreOrders()
-    {
-        StringBuilder sb = new();
-
-        for (int i = 0; i < Reservation.PreOrders.Count; i++)
-            sb.Append(Reservation.PreOrders[i].ToString());
-
-        return sb.ToString();
-
-    }
+    
 
     public PreOrderView(UI previousUI, ReservationModel reservation) : base(previousUI)
     {
