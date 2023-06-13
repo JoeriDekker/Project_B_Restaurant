@@ -204,8 +204,8 @@ public class ReservationLogic
         DateTime openingTime = DateTime.Parse(_openingHours[0][day].ToString()!.Split('-')[0]);
         DateTime closingTime = DateTime.Parse(_openingHours[0][day].ToString()!.Split('-')[1]);
         // Adding the correct date
-        DateTime openingTimeAndDay = new(date.Year, date.Month, date.Day, openingTime.Hour, 0, 0);
-        DateTime closingTimeAndDay = new(date.Year, date.Month, date.Day, closingTime.Hour, 0, 0);
+        DateTime openingTimeAndDay = new(date.Year, date.Month, date.Day, openingTime.Hour, openingTime.Minute, 0);
+        DateTime closingTimeAndDay = new(date.Year, date.Month, date.Day, closingTime.Hour, closingTime.Minute, 0);
         // If we close after midnight the date will be incorrect, i.e. 14:00-02:00. So we add one day 
         if (closingTimeAndDay < openingTimeAndDay)
             closingTimeAndDay = closingTimeAndDay.AddDays(1);
