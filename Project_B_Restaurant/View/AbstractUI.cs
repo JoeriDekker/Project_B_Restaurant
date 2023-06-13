@@ -12,9 +12,6 @@ public abstract class UI
 
     public UI? PreviousUI { get; set; }
     public abstract string Header { get; }
-
-    public bool _futuremenu;
-
     public abstract string SubText { get; }
 
     public UI(UI previousUI)

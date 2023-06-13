@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text.Json;
 
 
-//This class is not static so later on we can use inheritance and interfaces
 public class AccountsLogic
 {
     private List<AccountModel> _accounts;

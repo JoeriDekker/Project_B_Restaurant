@@ -1,7 +1,6 @@
 public class MenuItem
 {
     public string Name { get; set; }
-
     public AccountLevel Level { get; set; }
     public MenuItem(string name, AccountLevel level)
     {
