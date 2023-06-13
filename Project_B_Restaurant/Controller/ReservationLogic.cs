@@ -210,7 +210,7 @@ public class ReservationLogic
         if (closingTimeAndDay < openingTimeAndDay)
             closingTimeAndDay = closingTimeAndDay.AddDays(1);
 
-        return new(openingTime, closingTime);
+        return new(openingTimeAndDay, closingTimeAndDay);
     }
 
     public List<List<TableModel>> RecGenerateCombinations(int i, List<TableModel> tables, List<List<TableModel>> result, List<TableModel> subset)
