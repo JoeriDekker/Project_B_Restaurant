@@ -129,9 +129,9 @@ class PreOrderView : UI
 
     public void AddCourseMenus()
     {
-        AddAppetizer();
-        AddMain();
-        AddDessert();
+        AddDishToCM("Appetizer");
+        AddDishToCM("Main");
+        AddDishToCM("Dessert");
         Menu.Save();
     }
 
@@ -149,98 +149,35 @@ class PreOrderView : UI
     }
 
 
-    public void AddAppetizer()
+    public void AddDishToCM(string course)
     {
         Console.Clear();
-        ShowDishes("Appetizer");
+        ShowDishes(course);
         int appetizer_id = GetInt("Please type here the dish ID you want to pre order:");
         if (!Menu.FindDishWithID(appetizer_id))
         {
-            AddAppetizer();
+            AddDishToCM(course);
         }
         int dish_index = Menu.GetDishIndexWithID(appetizer_id);
         Dish dish = new();
         dish = Menu.Dishes[dish_index];
-        if (dish == null || dish.Type != "Appetizer" || dish.Type == "Drink")
+        if (dish == null || dish.Type != course || dish.Type == "Drink")
         {
-            Console.WriteLine("This Dish is not a Appetizer\nPress Enter to continue");
+            Console.WriteLine($"This Dish is not a(n) {course}\nPress Enter to continue");
             Console.ReadLine();
-            AddAppetizer();
+            AddDishToCM(course);
         }
         else if (dish.MaxAmountPreOrder <= dish.PreOrderAmount)
         {
             Console.WriteLine("This dish is not in stock right now\nPlease select another dish\nPress Enter to continue");
             Console.ReadLine();
-            AddAppetizer();
+            AddDishToCM(course);
         }
         else
         {
             Menu.Dishes[dish_index].PreOrderAmount += 1;
             Reservation.PreOrders.Add(dish);
 
-        }
-    }
-
-    public void AddMain()
-    {
-        Console.Clear();
-        ShowDishes("Main");
-        int main_id = GetInt("Please type here the dish ID you want to pre order:");
-        if (!Menu.FindDishWithID(main_id))
-        {
-            AddMain();
-        }
-
-        int dish_index = Menu.GetDishIndexWithID(main_id);
-        Dish dish = new();
-        dish = Menu.Dishes[dish_index];
-        if (dish == null || dish.Type != "Main" || dish.Type == "Drink")
-        {
-            Console.WriteLine("This Dish is not a Main\nPress Enter to continue");
-            Console.ReadLine();
-            AddMain();
-        }
-        else if (dish.MaxAmountPreOrder <= dish.PreOrderAmount)
-        {
-            Console.WriteLine("This dish is not in stock right now\nPlease select another dish\nPress Enter to continue");
-            Console.ReadLine();
-            AddMain();
-        }
-        else
-        {
-            Reservation.PreOrders.Add(dish);
-            Menu.Dishes[dish_index].PreOrderAmount += 1;
-        }
-    }
-
-    public void AddDessert()
-    {
-        Console.Clear();
-        ShowDishes("Dessert");
-        int dessert_id = GetInt("Please type here the dish ID you want to pre order:");
-        if (!Menu.FindDishWithID(dessert_id))
-        {
-            AddDessert();
-        }
-        int dish_index = Menu.GetDishIndexWithID(dessert_id);
-        Dish dish = new();
-        dish = Menu.Dishes[dish_index];
-        if (dish == null || dish.Type != "Dessert" || dish.Type == "Drink")
-        {
-            Console.WriteLine("This Dish is not a Dessert\nPress Enter to continue");
-            Console.ReadLine();
-            AddDessert();
-        }
-        else if (dish.MaxAmountPreOrder <= dish.PreOrderAmount)
-        {
-            Console.WriteLine("This dish is not in stock right now\nPlease select another dish\nPress Enter to continue");
-            Console.ReadLine();
-            AddDessert();
-        }
-        else
-        {
-            Reservation.PreOrders.Add(dish);
-            Menu.Dishes[dish_index].PreOrderAmount += 1;
         }
     }
 
