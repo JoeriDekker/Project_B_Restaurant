@@ -2,10 +2,10 @@ using System.Text;
 
 public class ReservationUI : UI
 {
-
+    PreOrderView preOrd;
     public ReservationLogic ReservationLogic = new ReservationLogic();
     TableLogic TableLogic = new TableLogic();
-    PreOrderView preOrd;
+
     public override string Header
     {
         get => @"
@@ -36,6 +36,7 @@ public class ReservationUI : UI
     {
         MenuItems.Add(new MenuItem("Create Reservation", AccountLevel.Guest));
         MenuItems.Add(new MenuItem("Show all Reservations", AccountLevel.Employee));
+        MenuItems.Add(new MenuItem("Show all pre orders", AccountLevel.Admin));
 
         if (AccountsLogic.CurrentAccount != null && AccountsLogic.CurrentAccount.Reservations.Count != 0)
             MenuItems.Add(new MenuItem("Update Reservation", AccountLevel.Customer));
@@ -79,6 +80,9 @@ public class ReservationUI : UI
             case "Show all Reservations":
                 ShowAllReservations();
                 break;
+            case "Show all pre orders":
+                ShowPreOrders();
+                break;
             case "Update Reservation": // TODO ?
                 UpdateReservation();
                 _subText = GenerateSubText();
@@ -105,7 +109,6 @@ public class ReservationUI : UI
                 break;
         }
     }
-
     public void FindReservationByReservationID()
     {
         Console.WriteLine("Please enter a Reservation ID:");
@@ -120,6 +123,25 @@ public class ReservationUI : UI
         {
             ShowSingleReservation(ReservationMUD);
         }
+    }
+
+    public string ShowPreOrders()
+    {
+        StringBuilder sb = new();
+
+        var reservations = ReservationLogic.GetAllReservations().Select(r => (r.R_Code, r.Contact, r.PreOrders)).ToList();
+
+        foreach (var res in reservations)
+        {
+            Console.WriteLine("\n" + res.R_Code + ": " + res.Contact + "\n");
+            foreach (var preOrder in res.PreOrders)
+            {
+                Console.WriteLine(preOrder.Name.ToString());
+            }
+            Console.Write("\n=========================================\n");
+        }
+        return sb.ToString();
+
     }
 
     public void UpdateReservation()
@@ -268,6 +290,7 @@ public class ReservationUI : UI
             preOrd.Start();
         }
 
+
         // Console.ReadLine();
 
         //         Console.WriteLine(@$"
@@ -376,6 +399,7 @@ public class ReservationUI : UI
 
         return availableTimesDict[selectedOption];
     }
+
     public DateTime GetDate()
     {
         string input;
