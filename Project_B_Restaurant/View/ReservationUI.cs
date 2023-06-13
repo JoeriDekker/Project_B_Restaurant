@@ -87,6 +87,9 @@ public class ReservationUI : UI
                 UpdateReservation();
                 _subText = GenerateSubText();
                 break;
+            case "Update any Reservation as Admin": // TODO ?
+                UpdateReservation();
+                break;
             case "Find Reservation by Reservation ID":
                 FindReservationByReservationID();
                 break;
@@ -155,6 +158,17 @@ public class ReservationUI : UI
         }
         UpdateReservationUI updateReservationUI = new(this, ReservationLogic.getReservationByCode(code.ToUpper())!);
         updateReservationUI.Start();
+    }
+
+    public void UpdateReservationAsAdmin()
+    {
+        ShowAllReservations();
+        string code = GetString("Please provide the Reservation Code you wish to update.");
+        if (ReservationLogic.getReservationByCode(code) != null)
+        {
+            UpdateReservationUI updateReservationUI = new(this, ReservationLogic.getReservationByCode(code.ToUpper())!);
+            updateReservationUI.Start();
+        }
     }
     public void ShowAvailableReservations()
     {
