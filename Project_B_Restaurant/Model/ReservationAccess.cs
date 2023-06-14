@@ -32,7 +32,7 @@ public static class ReservationAccess
             return new List<Dictionary<string, object>>();
         }
 
-        List<Dictionary<string, object>> reservations = JsonSerializer.Deserialize<List<Dictionary<string, object>>>(json);
+        List<Dictionary<string, object>>? reservations = JsonSerializer.Deserialize<List<Dictionary<string, object>>>(json);
         return reservations ?? new List<Dictionary<string, object>>();
     }
 

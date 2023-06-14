@@ -93,7 +93,7 @@ public class MenuController
         return false;
     }
 
-    public Dish GetDishByName(string dish_name)
+    public Dish? GetDishByName(string dish_name)
     {
         foreach (Dish dish in Dishes)
         {
