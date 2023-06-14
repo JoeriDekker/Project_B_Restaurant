@@ -10,7 +10,6 @@ namespace Project_B_Restaurant.Test
     {
         ReservationLogic reservationLogic = new();
         private static TableLogic tables = new();
-        private static TableLogic tables = new();
         private static int totalPeopleInReservationWindow = 0;
 
         public void Initialize()
@@ -87,7 +86,6 @@ namespace Project_B_Restaurant.Test
             // Arrange
             DateTime date = new(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 15, 0, 0);
             int partySize = tables.Tables.Sum(t => t.T_Seats) + 1;
-            int partySize = tables.Tables.Sum(t => t.T_Seats) + 1;
 
             // Act
             Dictionary<DateTime, List<TableModel>> availableTimes =
@@ -131,17 +129,8 @@ namespace Project_B_Restaurant.Test
             Dictionary<DateTime, List<TableModel>> availableTimes =
                 reservationLogic.GetAvailableTimesToReserve(date, partySize);
             List<Dish> preOrders = new List<Dish>();
-            DateTime date = new(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 15, 0, 0);
-            int partySize = tables.Tables.Sum(t => t.T_Seats);
-            Dictionary<DateTime, List<TableModel>> availableTimes =
-                reservationLogic.GetAvailableTimesToReserve(date, partySize);
-            List<Dish> preOrders = new List<Dish>();
 
             // Act
-            DateTime chosenTime = new(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 15, 0, 0);
-            ReservationModel reservation =
-                reservationLogic.CreateReservation(contact, partySize, availableTimes, chosenTime, preOrders);
-            bool result = reservationLogic.DeleteReservationByRCode(reservation.R_Code);
             DateTime chosenTime = new(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 15, 0, 0);
             ReservationModel reservation =
                 reservationLogic.CreateReservation(contact, partySize, availableTimes, chosenTime, preOrders);
