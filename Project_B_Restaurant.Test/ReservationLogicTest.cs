@@ -83,7 +83,6 @@ namespace Project_B_Restaurant.Test
         [DataRow("John Doe")]
         [TestMethod]
         public void CreateReservationNotEnoughSpots(string contact)
-        public void CreateReservationNotEnoughSpots(string contact)
         {
             // Arrange
             DateTime date = new(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 15, 0, 0);
