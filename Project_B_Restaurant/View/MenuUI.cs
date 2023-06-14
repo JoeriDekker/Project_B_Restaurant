@@ -207,6 +207,9 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
                 break;
             case Constants.UI.EXIT:
             case Constants.UI.GO_BACK:
+                if (MenuController.IsFuture){
+                    MenuController.IsFuture = !MenuController.IsFuture;
+                }
                 this.Exit();
                 break;
             default:
