@@ -147,12 +147,12 @@ public class MenuController
         foreach (Dish dish in Dishes)
         {
             if (isAlergies){
-                if (!dish.Allergies.Contains(query)){
+                if (dish.Allergies.Contains(query)){
                     filteredItems.Add(dish);
                 }
             }
             else{
-                if(!dish.Type.Contains(query)){
+                if(dish.Type.Contains(query)){
                     filteredItems.Add(dish);
                 }
             }

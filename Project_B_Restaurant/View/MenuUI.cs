@@ -301,7 +301,7 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
         }
         else if (choice == 2)
         {
-            Console.WriteLine("     1: Side");
+            Console.WriteLine("     1: Dessert");
             Console.WriteLine("     2: Main");
             Console.WriteLine("     3: Appetizer");
             Console.WriteLine("     0: Go Back");
@@ -309,7 +309,7 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
             switch (new_choice)
             {
                 case 1:
-                    Menu.Filter("Side", false);
+                    Menu.Filter("Dessert", false);
                     break;
                 case 2:
                     Menu.Filter("Main", false);
