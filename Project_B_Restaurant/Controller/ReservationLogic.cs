@@ -136,7 +136,6 @@ public class ReservationLogic
             ReservationAccess.WriteAll(_Reservations);
 
             AccountsLogic accountsLogic = new AccountsLogic();
-            Console.WriteLine($"Find: {Res.R_Code}\n");
 
             var reservationsToRemove = accountsLogic.GetAccountModels()
                 .SelectMany(acc => acc.Reservations)
@@ -178,7 +177,6 @@ public class ReservationLogic
             ReservationAccess.WriteAll(_Reservations);
 
             AccountsLogic accountsLogic = new AccountsLogic();
-            Console.WriteLine($"Find: {Res.R_Code}\n");
 
             var reservationsToRemove = accountsLogic.GetAccountModels()
                 .SelectMany(acc => acc.Reservations)
