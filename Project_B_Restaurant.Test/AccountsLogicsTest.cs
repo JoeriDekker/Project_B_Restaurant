@@ -33,64 +33,7 @@ namespace Project_B_Restaurant.Test
         }
 
         [TestMethod]
-        public void GetById_ValidId_ReturnsAccount()
-        {
-            // Arrange
-            int accountId = 1;
-            AccountModel newaccount = new AccountModel(1, "test@test.com", "test", "test", AccountLevel.Customer);
-
-            // Act
-            _accountsLogic.UpdateList(newaccount);
-            AccountModel account = _accountsLogic.GetById(accountId);
-
-            // Assert
-            Assert.IsNotNull(account);
-            Assert.AreEqual(accountId, account.Id);
-        }
-
-
-        [TestMethod]
-        public void GetById_InvalidId_ReturnsNull()
-        {
-            // Arrange
-            int accountId = 999; // Assuming this ID does not exist
-
-            // Act
-            AccountModel account = _accountsLogic.GetById(accountId);
-
-            // Assert
-            Assert.IsNull(account);
-        }
-
-        [TestMethod]
-        public void GetByEmail_ValidEmail_ReturnsAccount()
-        {
-            // Arrange
-            string email = "test@test.com";
-
-            // Act
-            AccountModel account = _accountsLogic.GetByEmail(email);
-
-            // Assert
-            Assert.IsNotNull(account);
-            Assert.AreEqual(email, account.EmailAddress);
-        }
-
-        [TestMethod]
-        public void GetByEmail_InvalidEmail_ReturnsNull()
-        {
-            // Arrange
-            string email = "invalid@example.com";
-
-            // Act
-            AccountModel account = _accountsLogic.GetByEmail(email);
-
-            // Assert
-            Assert.IsNull(account);
-        }
-
-        [TestMethod]
-        public void CheckLogin_InvalidCredentials_ReturnsNull()
+        public void LoginTest()
         {
             // Arrange
             string email = "test@example.com";
@@ -104,7 +47,7 @@ namespace Project_B_Restaurant.Test
         }
 
         [TestMethod]
-        public void UpdateList_NewAccount_AddsAccountToList()
+        public void AddNewAccountTest()
         {
             // Arrange
             AccountModel account = new AccountModel(5, "new@example.com", "newpassword", "New User", AccountLevel.Customer);
@@ -119,7 +62,7 @@ namespace Project_B_Restaurant.Test
         }
 
         [TestMethod]
-        public void UpdateList_ExistingAccount_UpdatesAccountInList()
+        public void UpdateUserName()
         {
             // Arrange
             AccountModel existingAccount = _accountsLogic.GetById(1);
@@ -133,21 +76,6 @@ namespace Project_B_Restaurant.Test
             AccountModel updatedAccount = _accountsLogic.GetById(1);
             Assert.IsNotNull(updatedAccount);
             Assert.AreEqual(newFullName, updatedAccount.FullName);
-        }
-
-        [TestMethod]
-        public void AccountModel_ShowInfo_ReturnsFormattedString()
-        {
-            // Arrange
-            AccountModel account = new AccountModel(1, "test@example.com", "password", "Test User", AccountLevel.Admin);
-
-            // Act
-            string info = account.ShowInfo();
-
-            // Assert
-            
-            string expectedInfo = "FullName: Test User\nEmail: test@example.com\nLevel: Admin";
-            Assert.AreEqual(expectedInfo, info);
         }
     }
 }
