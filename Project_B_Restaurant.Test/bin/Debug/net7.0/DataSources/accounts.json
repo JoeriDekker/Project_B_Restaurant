@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "emailAddress": "test@test.com",
+    "password": "newpassword",
+    "fullName": "Updated User",
+    "reservations": [],
+    "type": "Customer"
+  },
+  {
+    "id": 5,
+    "emailAddress": "new@example.com",
+    "password": "newpassword",
+    "fullName": "New User",
+    "reservations": [],
+    "type": "Customer"
+  }
+]

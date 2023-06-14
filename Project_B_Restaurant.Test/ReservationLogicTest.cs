@@ -9,7 +9,7 @@ namespace Project_B_Restaurant.Test
     public class ReservationLogicTests : IUnitTest
     {
         ReservationLogic reservationLogic = new();
-        private static TableLogic tables = new();
+        private TableLogic tables = new();
         private static int totalPeopleInReservationWindow = 0;
 
         public void Initialize()
@@ -51,14 +51,12 @@ namespace Project_B_Restaurant.Test
             Assert.AreEqual(partySize, reservation.P_Amount);
             Assert.AreEqual(chosenTime, reservation.R_Date);
         }
-
-        [DataRow("John Doe")]
+        [DataRow("John Doe", 46)]
         [TestMethod]
-        public void CreateReservationMaxSpots(string contact)
+        public void CreateReservationMaxSpots(string contact, int partySize)
         {
             // Arrange
             DateTime date = new(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 15, 0, 0);
-            int partySize = tables.Tables.Sum(t => t.T_Seats);
             Dictionary<DateTime, List<TableModel>> availableTimes =
                 reservationLogic.GetAvailableTimesToReserve(date, partySize);
             List<Dish> preOrders = new List<Dish>();
@@ -73,16 +71,15 @@ namespace Project_B_Restaurant.Test
             Assert.AreEqual(contact, reservation.Contact);
             Assert.AreEqual(partySize, reservation.P_Amount);
             Assert.AreEqual(chosenTime, reservation.R_Date);
-            Assert.IsFalse(availableTimes[chosenTime].Count == 0);
         }
-
-        [DataRow("John Doe")]
+        [DataRow("John Doe", 46)]
+        [DataRow("John Doe", 47)]
         [TestMethod]
-        public void CreateReservationNotEnoughSpots(string contact)
+        public void CreateReservationNotEnoughSpots(string contact, int partySize)
         {
             // Arrange
             DateTime date = new(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 15, 0, 0);
-            int partySize = tables.Tables.Sum(t => t.T_Seats) + 1;
+            int maxSeatsAvailable = tables.Tables.Sum(t => t.T_Seats);
 
             // Act
             Dictionary<DateTime, List<TableModel>> availableTimes =
@@ -90,9 +87,11 @@ namespace Project_B_Restaurant.Test
             DateTime chosenTime = new(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 15, 0, 0);
 
             
-            // Assert that there is nothing available for a partySize larger than amount of seats.
-            Assert.IsTrue(availableTimes[chosenTime].Count == 0);
-
+            // Assert that there is nothing available
+            if (partySize > maxSeatsAvailable)
+                Assert.IsTrue(availableTimes[chosenTime].Count == 0);
+            else
+                Assert.IsFalse(availableTimes[chosenTime].Count == 0);
         }
 
         [TestMethod]

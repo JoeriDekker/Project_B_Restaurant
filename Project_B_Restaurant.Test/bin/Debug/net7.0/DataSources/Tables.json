@@ -1,0 +1,58 @@
+[
+    {
+      "T_ID": "1A",
+      "T_Seats": 2
+    },
+    {
+      "T_ID": "2A",
+      "T_Seats": 2
+    },
+    {
+      "T_ID": "3A",
+      "T_Seats": 2
+    },
+    {
+      "T_ID": "4A",
+      "T_Seats": 2
+    },
+    {
+      "T_ID": "5A",
+      "T_Seats": 2
+    },
+    {
+      "T_ID": "7A",
+      "T_Seats": 2
+    },
+    {
+      "T_ID": "8A",
+      "T_Seats": 2
+    },
+    {
+      "T_ID": "1B",
+      "T_Seats": 4
+    },
+    {
+      "T_ID": "2B",
+      "T_Seats": 4
+    },
+    {
+      "T_ID": "3B",
+      "T_Seats": 4
+    },
+    {
+      "T_ID": "4B",
+      "T_Seats": 4
+    },
+    {
+      "T_ID": "5B",
+      "T_Seats": 4
+    },
+    {
+      "T_ID": "1C",
+      "T_Seats": 6
+    },
+    {
+      "T_ID": "2C",
+      "T_Seats": 6
+    }
+  ]
