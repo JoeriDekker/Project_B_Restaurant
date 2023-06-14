@@ -2,7 +2,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using Newtonsoft.Json.Converters;
 
-static class ReservationAccess
+public static class ReservationAccess
 {
     // Access needed data
 

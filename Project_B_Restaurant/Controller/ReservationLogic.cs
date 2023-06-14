@@ -20,8 +20,12 @@ using System.Globalization;
 
 public class ReservationLogic
 {
-
     private List<ReservationModel> _Reservations;
+
+    public List<ReservationModel> Reservation
+    {
+        get => _Reservations;
+    }
 
     private List<Dictionary<string, object>> _openingHours;
 
@@ -38,7 +42,6 @@ public class ReservationLogic
         _Reservations = ReservationAccess.LoadAll();
         // Load opening hours dynamically
         _openingHours = ReservationAccess.LoadOpeningHours();
-
     }
 
     public string createReservationCode()
@@ -54,7 +57,8 @@ public class ReservationLogic
         return Rcode;
     }
 
-    public ReservationModel CreateReservation(string c_name, int c_party, Dictionary<DateTime, List<TableModel>> availableTimes, DateTime chosenTime, List<Dish> PreOrders = null)
+    public ReservationModel CreateReservation(string c_name, int c_party,
+        Dictionary<DateTime, List<TableModel>> availableTimes, DateTime chosenTime, List<Dish> PreOrders = null)
     {
         string ResCode = createReservationCode();
 
@@ -71,7 +75,8 @@ public class ReservationLogic
 
         // Reservation code needed for customer/employees ... 
 
-        ReservationModel res = new ReservationModel(_Reservations.Count() + 1, ResCode, c_name, table_IDs, c_party, PreOrders, chosenTime);
+        ReservationModel res = new ReservationModel(_Reservations.Count() + 1, ResCode, c_name, table_IDs, c_party,
+            PreOrders, chosenTime);
 
         //Add to daaaaaaaaaa list c:
         _Reservations.Add(res);
@@ -97,6 +102,7 @@ public class ReservationLogic
         ReservationModel? getRes = _Reservations.Find(x => x.R_Id == id);
         return getRes;
     }
+
     public ReservationModel? getReservationByCode(string code)
     {
         ReservationModel? getRes = _Reservations.Find(x => x.R_Code == code);
@@ -114,7 +120,6 @@ public class ReservationLogic
     //Delete reservation by ID
     public bool DeleteReservationByID(string id)
     {
-
         //Find reservation model
         ReservationModel? Res = _Reservations.Find(x => x.R_Code == id);
 
@@ -126,6 +131,7 @@ public class ReservationLogic
             {
                 Menu.RemovePreOderInDish(dish);
             }
+
             // Save this data to Reservation.js 
             ReservationAccess.WriteAll(_Reservations);
 
@@ -133,9 +139,9 @@ public class ReservationLogic
             Console.WriteLine($"Find: {Res.R_Code}\n");
 
             var reservationsToRemove = accountsLogic.GetAccountModels()
-            .SelectMany(acc => acc.Reservations)
-            .Where(RCode => RCode == Res.R_Code)
-            .ToList();
+                .SelectMany(acc => acc.Reservations)
+                .Where(RCode => RCode == Res.R_Code)
+                .ToList();
 
             foreach (var RCode in reservationsToRemove)
             {
@@ -156,7 +162,6 @@ public class ReservationLogic
 
     public bool DeleteReservationByRCode(string res_code)
     {
-
         //Find reservation model
         ReservationModel? Res = _Reservations.Find(x => x.R_Code == res_code);
 
@@ -168,6 +173,7 @@ public class ReservationLogic
             {
                 Menu.RemovePreOderInDish(dish);
             }
+
             // Save this data to Reservation.js 
             ReservationAccess.WriteAll(_Reservations);
 
@@ -175,9 +181,9 @@ public class ReservationLogic
             Console.WriteLine($"Find: {Res.R_Code}\n");
 
             var reservationsToRemove = accountsLogic.GetAccountModels()
-            .SelectMany(acc => acc.Reservations)
-            .Where(RCode => RCode == Res.R_Code)
-            .ToList();
+                .SelectMany(acc => acc.Reservations)
+                .Where(RCode => RCode == Res.R_Code)
+                .ToList();
 
             foreach (var RCode in reservationsToRemove)
             {
@@ -213,7 +219,8 @@ public class ReservationLogic
         return new(openingTimeAndDay, closingTimeAndDay);
     }
 
-    public List<List<TableModel>> RecGenerateCombinations(int i, List<TableModel> tables, List<List<TableModel>> result, List<TableModel> subset)
+    public List<List<TableModel>> RecGenerateCombinations(int i, List<TableModel> tables, List<List<TableModel>> result,
+        List<TableModel> subset)
     {
         if (i == tables.Count)
         {
@@ -257,6 +264,7 @@ public class ReservationLogic
             {
                 percentageFilled = partySize / combo.Sum(t => t.T_Seats);
             }
+
             // Calculate score
             score += tablesUsedPenalty * factors["TotalTablesUsed"];
             score += percentageFilled * factors["PercentageFilled"];
@@ -277,33 +285,35 @@ public class ReservationLogic
         // Get opening and closing time for date
         (DateTime openingTime, DateTime closingTime) = GetOpeningAndClosingTime(date);
         // Get all timeslots for that day and initialise a dictionary
-        Dictionary<DateTime, List<TableModel>> availableTimesToReserve = GetAllTimeSlotsBetween(openingTime, closingTime);
+        Dictionary<DateTime, List<TableModel>> availableTimesToReserve =
+            GetAllTimeSlotsBetween(openingTime, closingTime);
         DateTime dateDate = DateTime.Parse(date.ToString());
 
         // Loop through the tables and times
         foreach (TableModel table in tableLogic.Tables)
-            foreach (DateTime time in availableTimesToReserve.Keys)
-            {
-                // Get all the reservedtimes for the current tableID
-                List<DateTime> reservedTimes = _Reservations.Where(r => r.R_Date.Date == dateDate.Date)
-                                                            .ToList()
-                                                            .FindAll(r => r.R_TableID.Contains(table.T_ID))
-                                                            .Select(r => r.R_Date)
-                                                            .ToList();
-                // Is the current timeslot within 2 hours of an active reservation?
-                bool isReserved = reservedTimes.Any(reservedTime =>
-                    time > reservedTime.AddHours(-2) && time < reservedTime.AddHours(2));
-                // If its not reserved we add the table to the timeslot
-                if (!isReserved)
-                    availableTimesToReserve[time].Add(table);
-            }
+        foreach (DateTime time in availableTimesToReserve.Keys)
+        {
+            // Get all the reservedtimes for the current tableID
+            List<DateTime> reservedTimes = _Reservations.Where(r => r.R_Date.Date == dateDate.Date)
+                .ToList()
+                .FindAll(r => r.R_TableID.Contains(table.T_ID))
+                .Select(r => r.R_Date)
+                .ToList();
+            // Is the current timeslot within 2 hours of an active reservation?
+            bool isReserved = reservedTimes.Any(reservedTime =>
+                time > reservedTime.AddHours(-2) && time < reservedTime.AddHours(2));
+            // If its not reserved we add the table to the timeslot
+            if (!isReserved)
+                availableTimesToReserve[time].Add(table);
+        }
 
         FilterTimeSlotsForPartySize(availableTimesToReserve, partySize);
         // Return all timeslots and available tables/
         return availableTimesToReserve;
     }
 
-    public Dictionary<DateTime, List<TableModel>> FilterTimeSlotsForPartySize(Dictionary<DateTime, List<TableModel>> availableTimeSlots, int partySize)
+    public Dictionary<DateTime, List<TableModel>> FilterTimeSlotsForPartySize(
+        Dictionary<DateTime, List<TableModel>> availableTimeSlots, int partySize)
     {
         foreach (KeyValuePair<DateTime, List<TableModel>> kvp in availableTimeSlots)
         {
@@ -318,8 +328,8 @@ public class ReservationLogic
                 availableTimeSlots[kvp.Key].RemoveAll(table => true);
             }
         }
-        return availableTimeSlots;
 
+        return availableTimeSlots;
     }
 
     public void Update(ReservationModel reservation)
@@ -338,6 +348,7 @@ public class ReservationLogic
             allTimeSlots[openingTime] = new();
             openingTime = openingTime.AddMinutes(30);
         }
+
         return allTimeSlots;
     }
 }
@@ -441,7 +452,6 @@ public class ReservationLogic
 //         }
 //     }
 // }
-
 
 
 //     private bool IsDesiredTimeAvailable(TimeSpan desiredReservationTime, TimeSpan start, TimeSpan end, TimeSpan interval, string day)

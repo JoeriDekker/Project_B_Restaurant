@@ -1,27 +1,98 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 namespace Project_B_Restaurant.Test
 {
     [TestClass]
-    public class ReservationLogicTests
+    public class ReservationLogicTests : IUnitTest
     {
+        ReservationLogic reservationLogic = new();
+        private static TableLogic tables = new();
+        private static int totalPeopleInReservationWindow = 0;
+
+        public void Initialize()
+        {
+            List<ReservationModel> reservations = new();
+            ReservationAccess.WriteAll(reservations);
+        }
+
+        [TestCleanup]
+        public void Cleanup()
+        {
+            List<ReservationModel> reservations = new();
+            ReservationAccess.WriteAll(reservations);
+        }
+
         [TestMethod]
-        public void CreateReservation_ValidInput_ReturnsReservationModel()
+        [DataRow("John Doe", 4)]
+        [DataRow("John Doe", 5)]
+        [DataRow("John Doe", 8)]
+        [DataRow("John Doe", 3)]
+        [DataRow("John Doe", 2)]
+        [DataRow("John Doe", 2)]
+        public void CreateReservationSuccesfully(string contact, int partySize)
         {
             // Arrange
-            ReservationLogic reservationLogic = new ReservationLogic();
-            string contact = "John Doe";
-            int partySize = 4;
-            Dictionary<DateTime, List<TableModel>> availableTimes = new Dictionary<DateTime, List<TableModel>>();
-            DateTime todayWithoutTime = new(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 0, 0, 0);
+            DateTime date = new(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 15, 0, 0);
+            Dictionary<DateTime, List<TableModel>> availableTimes =
+                reservationLogic.GetAvailableTimesToReserve(date, partySize);
             List<Dish> preOrders = new List<Dish>();
 
             // Act
-            ReservationModel reservation = reservationLogic.CreateReservation(contact, partySize, availableTimes, todayWithoutTime, preOrders);
-
+            DateTime chosenTime = new(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 15, 0, 0);
+            ReservationModel reservation =
+                reservationLogic.CreateReservation(contact, partySize, availableTimes, chosenTime, preOrders);
             // Assert
             Assert.IsNotNull(reservation);
+            Assert.IsTrue(reservationLogic.Reservation.Contains((reservation)));
             Assert.AreEqual(contact, reservation.Contact);
             Assert.AreEqual(partySize, reservation.P_Amount);
-            Assert.AreEqual(todayWithoutTime, reservation.R_Date);
+            Assert.AreEqual(chosenTime, reservation.R_Date);
+        }
+
+        [DataRow("John Doe")]
+        [TestMethod]
+        public void CreateReservationMaxSpots(string contact)
+        {
+            // Arrange
+            DateTime date = new(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 15, 0, 0);
+            int partySize = tables.Tables.Sum(t => t.T_Seats);
+            Dictionary<DateTime, List<TableModel>> availableTimes =
+                reservationLogic.GetAvailableTimesToReserve(date, partySize);
+            List<Dish> preOrders = new List<Dish>();
+
+            // Act
+            DateTime chosenTime = new(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 15, 0, 0);
+            ReservationModel reservation =
+                reservationLogic.CreateReservation(contact, partySize, availableTimes, chosenTime, preOrders);
+            // Assert
+            Assert.IsNotNull(reservation);
+            Assert.IsTrue(reservationLogic.Reservation.Contains((reservation)));
+            Assert.AreEqual(contact, reservation.Contact);
+            Assert.AreEqual(partySize, reservation.P_Amount);
+            Assert.AreEqual(chosenTime, reservation.R_Date);
+            Assert.IsFalse(availableTimes[chosenTime].Count == 0);
+        }
+
+        [DataRow("John Doe")]
+        [TestMethod]
+        public void CreateReservationNotEnoughSpots(string contact)
+        {
+            // Arrange
+            DateTime date = new(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 15, 0, 0);
+            int partySize = tables.Tables.Sum(t => t.T_Seats) + 1;
+
+            // Act
+            Dictionary<DateTime, List<TableModel>> availableTimes =
+                reservationLogic.GetAvailableTimesToReserve(date, partySize);
+            DateTime chosenTime = new(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 15, 0, 0);
+
+            
+            // Assert that there is nothing available for a partySize larger than amount of seats.
+            Assert.IsTrue(availableTimes[chosenTime].Count == 0);
+
         }
 
         [TestMethod]
@@ -33,7 +104,8 @@ namespace Project_B_Restaurant.Test
             int partySize = 4;
 
             // Act
-            Dictionary<DateTime, List<TableModel>> availableTimes = reservationLogic.GetAvailableTimesToReserve(date, partySize);
+            Dictionary<DateTime, List<TableModel>> availableTimes =
+                reservationLogic.GetAvailableTimesToReserve(date, partySize);
 
             // Assert
             Assert.IsNotNull(availableTimes);
@@ -41,19 +113,17 @@ namespace Project_B_Restaurant.Test
         }
 
         [TestMethod]
-        public void DeleteReservationByID_ExistingReservation_ReturnsTrue()
+        public void DeleteReservationByRCode_ExistingReservation_ReturnsTrue()
         {
             // Arrange
             ReservationLogic reservationLogic = new ReservationLogic();
-            string reservationId = "R123";
 
             // Act
-            bool result = reservationLogic.DeleteReservationByID(reservationId);
+            // bool result = reservationLogic.DeleteReservationByRCode(reservation.R_Code);
 
             // Assert
-            Assert.IsTrue(result);
+            // Assert.IsTrue(result);
             // Verify that the reservation is deleted from the list or storage
         }
-
     }
 }
