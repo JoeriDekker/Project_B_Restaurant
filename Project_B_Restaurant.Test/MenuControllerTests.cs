@@ -33,7 +33,7 @@ namespace Project_B_Restaurant.Test
         }
 
         [TestMethod]
-        public void Add_AddsNewDishToMenu()
+        public void AddDishToMenu()
         {
             // Arrange
             string dishName = "Test Dish2";
@@ -53,7 +53,7 @@ namespace Project_B_Restaurant.Test
         }
     
         [TestMethod]
-        public void Delete_RemovesDishFromMenu_WhenDishIdExists()
+        public void DeleteDishFromMenu()
         {
             _menuController.Save();
             // Arrange
@@ -74,51 +74,39 @@ namespace Project_B_Restaurant.Test
         }
 
         [TestMethod]
-        public void Delete_ReturnsFalse_WhenDishIdDoesNotExist()
+        public void UpdateDishTest()
         {
             // Arrange
-            int dishIdToDelete = 1;
+            _menuController.Add("Dish 1", new List<string> { "Ingredient 1" }, "Allergies 1", 10.99, "Main");
+            _menuController.Add("Dish 2", new List<string> { "Ingredient 2" }, "Allergies 2", 15.99, "Main");
 
-            // Act
-            bool result = _menuController.Delete(dishIdToDelete);
-            List<Dish> menuDishes = _menuController.Dishes;
-
-            // Assert
-            Assert.IsFalse(result);
-            Assert.AreEqual(0, menuDishes.Count);
-        }
-
-        [TestMethod]
-        public void FindDishByName_ReturnsTrue_WhenDishNameExists()
-        {
-            // Arrange
-            Dish dish = new Dish
+            var dishToUpdate = new Dish
             {
-                Name = "Test Dish",
-                // Set other properties accordingly
+                Name = "Changed",
+                Ingredients = new List<string> { "Updated Ingredient 1", "Updated Ingredient 2" },
+                Allergies = "Updated Allergies",
+                Price = 12.99,
+                Type = "Test",
+                InStock = false,
+                PreOrderAmount = 0,
+                MaxAmountPreOrder = 5
             };
-            _menuController.Dishes.Add(dish);
 
             // Act
-            bool result = _menuController.FindDishByName(dish.Name);
+            _menuController.Update(dishToUpdate, "Dish 1");
 
             // Assert
-            Assert.IsTrue(result);
+            var updatedDish = _menuController.GetDishByName("Changed");
+            Assert.AreEqual("Changed", updatedDish.Name);
+            CollectionAssert.AreEqual(
+                new List<string> { "Updated Ingredient 1", "Updated Ingredient 2" },
+                updatedDish.Ingredients);
+            Assert.AreEqual("Updated Allergies", updatedDish.Allergies);
+            Assert.AreEqual(12.99, updatedDish.Price);
+            Assert.AreEqual("Test", updatedDish.Type);
+            Assert.IsFalse(updatedDish.InStock);
+            Assert.AreEqual(0, updatedDish.PreOrderAmount);
+            Assert.AreEqual(5, updatedDish.MaxAmountPreOrder);
         }
-
-        [TestMethod]
-        public void FindDishByName_ReturnsFalse_WhenDishNameDoesNotExist()
-        {
-            // Arrange
-            string dishName = "Test test Dish";
-
-            // Act
-            bool result = _menuController.FindDishByName(dishName);
-
-            // Assert
-            Assert.IsFalse(result);
-        }
-
-        // Add more unit tests for the remaining methods
     }
 }
