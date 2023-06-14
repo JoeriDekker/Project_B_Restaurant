@@ -341,7 +341,7 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
 
         string dish_type = GetString("What is the Dish Type?");
 
-        Menu.Add(dish_name, dish_ingredients.Split(' ').ToList(), dish_allergies, dish_price, dish_type);
+        Menu.Add(dish_name, dish_ingredients.Split(", ").ToList(), dish_allergies, dish_price, dish_type);
 
 
     }
