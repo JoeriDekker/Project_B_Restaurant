@@ -112,7 +112,7 @@ namespace Project_B_Restaurant.Test
             // Perform additional assertions based on expected behavior
         }
 
-        [DataRow("John Doe")]
+        [DataRow("Jane Doe")]
         [TestMethod]
         public void DeleteReservationByRCode_ExistingReservation_ReturnsTrue(string contact)
         {
