@@ -10,23 +10,28 @@ public class ReservationModel
     public int R_Id { get; set; }
 
     [JsonPropertyName("R_Code")]
-    public string R_Code { get; set; }
+    public string? R_Code { get; set; }
 
     [JsonPropertyName("Contact")]
-    public string Contact { get; set; }
+    public string? Contact { get; set; }
 
     [JsonPropertyName("R_TableID")]
-    public List<string> R_TableID { get; set; }
+    public List<string>? R_TableID { get; set; }
 
     [JsonPropertyName("P_Amount")]
     public int P_Amount { get; set; }
 
     [JsonPropertyName("PreOrders")]
-    public List<Dish> PreOrders { get; set; }
+    public List<Dish>? PreOrders { get; set; }
 
     [JsonPropertyName("R_Date")]
     [JsonConverter(typeof(JsonDateTimeConverter))]
     public DateTime R_Date { get; set; }
+
+    public ReservationModel()
+    {
+
+    }
 
     public ReservationModel(int R_Id, string R_Code, string Contact, List<string> R_TableID, int P_Amount, List<Dish> PreOrders, DateTime date)
     {

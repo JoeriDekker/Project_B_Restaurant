@@ -136,11 +136,12 @@ public class ReservationUI : UI
         foreach (var res in reservations)
         {
             Console.WriteLine("\n" + res.R_Code + ": " + res.Contact + "\n");
-            foreach (var preOrder in res.PreOrders)
-            {
-                Console.WriteLine(preOrder.Name.ToString());
-            }
-            Console.Write("\n=========================================\n");
+            if (res.PreOrders != null)
+                foreach (var preOrder in res.PreOrders)
+                {
+                    Console.WriteLine(preOrder.Name.ToString());
+                }
+                Console.Write("\n=========================================\n");
         }
         return sb.ToString();
 
@@ -204,7 +205,7 @@ public class ReservationUI : UI
     {
         Console.WriteLine("{0,-5} {1,-10} {2,-10} {3,-25} {4,-15} {5,-10}", "R_ID", "R_Code", "Contact", "R_time", "R_TableID", "P_Amount");
         Console.WriteLine("---------------------------------------------------------------------------------");
-        Console.WriteLine("{0,-5} {1,-10} {2,-10} {3,-25} {4,-15} {5,-10}", Res.R_Id, Res.R_Code, Res.Contact, Res.R_Date, string.Join(", ", Res.R_TableID), Res.P_Amount);
+        Console.WriteLine("{0,-5} {1,-10} {2,-10} {3,-25} {4,-15} {5,-10}", Res.R_Id, Res.R_Code, Res.Contact, Res.R_Date, string.Join(", ", Res.R_TableID!), Res.P_Amount);
     }
 
     public bool DeleteReservationByRCode()
@@ -237,7 +238,7 @@ public class ReservationUI : UI
 
         foreach (ReservationModel Res in ReservationLogic.GetAllReservations())
         {
-            Console.WriteLine("{0,-5} {1,-10} {2,-10} {3,-25} {4,-15} {5,-10}", Res.R_Id, Res.R_Code, Res.Contact, Res.R_Date, string.Join(", ", Res.R_TableID), Res.P_Amount);
+            Console.WriteLine("{0,-5} {1,-10} {2,-10} {3,-25} {4,-15} {5,-10}", Res.R_Id, Res.R_Code, Res.Contact, Res.R_Date, string.Join(", ", Res.R_TableID!), Res.P_Amount);
         }
     }
 
@@ -291,7 +292,7 @@ public class ReservationUI : UI
         {
             AccountsLogic accountsLogic = new AccountsLogic();
             AccountModel account = accountsLogic.GetById(AccountsLogic.CurrentAccount.Id)!;
-            account.Reservations.Add(res.R_Code);
+            account.Reservations.Add(res.R_Code!);
             accountsLogic.UpdateList(account);
         }
 

@@ -26,7 +26,7 @@ class PreOrderView : UI
     {
         get
         {
-            if (Reservation!.PreOrders.Count <= 0)
+            if (Reservation!.PreOrders!.Count <= 0)
                 return $"Reservation Code: {Reservation.R_Code}";
             else
             {
@@ -60,7 +60,7 @@ class PreOrderView : UI
         MenuItems.Add(new MenuItem("Add Single Dish", AccountLevel.Guest));
         MenuItems.Add(new MenuItem("Add Full Course", AccountLevel.Guest));
 
-        if (Reservation != null && Reservation.PreOrders.Count > 0)
+        if (Reservation != null && Reservation.PreOrders!.Count > 0)
             MenuItems.Add(new MenuItem("Remove Dish From Pre-Order", AccountLevel.Guest));
     }
     public override void UserChoosesOption(int option)
@@ -114,7 +114,7 @@ class PreOrderView : UI
         {
             Menu.Dishes[dish_index].PreOrderAmount += 1;
             Menu.Save();
-            Reservation!.PreOrders.Add(chosen_dish);
+            Reservation!.PreOrders!.Add(chosen_dish);
         }
     }
 
@@ -129,7 +129,7 @@ class PreOrderView : UI
     public void RemoveDish()
     {
         int ID = GetInt("ID of Dish to remove?");
-        Dish? dish = Reservation!.PreOrders.Find(d => d.ID == ID);
+        Dish? dish = Reservation!.PreOrders!.Find(d => d.ID == ID);
         if (dish != null)
         {
             Reservation.PreOrders.Remove(dish);
@@ -167,7 +167,7 @@ class PreOrderView : UI
         else
         {
             Menu.Dishes[dish_index].PreOrderAmount += 1;
-            Reservation!.PreOrders.Add(dish);
+            Reservation!.PreOrders!.Add(dish);
 
         }
     }

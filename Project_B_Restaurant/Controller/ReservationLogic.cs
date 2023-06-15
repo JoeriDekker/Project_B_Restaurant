@@ -112,7 +112,7 @@ public class ReservationLogic
     //! Can be null | Check on null when trying to find a reservation!
     public ReservationModel? getReservationByTableID(string id)
     {
-        ReservationModel? getRes = _Reservations.Find(x => x.R_TableID.Contains(id));
+        ReservationModel? getRes = _Reservations.Find(x => x.R_TableID!.Contains(id));
 
         return getRes;
     }
@@ -130,10 +130,11 @@ public class ReservationLogic
         if (_Reservations.Remove(Res) == true)
         {
             MenuController Menu = new MenuController();
-            foreach (Dish dish in Res.PreOrders)
-            {
-                Menu.RemovePreOderInDish(dish);
-            }
+            if (Res.PreOrders != null)
+                foreach (Dish dish in Res.PreOrders)
+                {
+                    Menu.RemovePreOderInDish(dish);
+                }
 
             // Save this data to Reservation.js 
             ReservationAccess.WriteAll(_Reservations);
@@ -174,10 +175,11 @@ public class ReservationLogic
         if (_Reservations.Remove(Res) == true)
         {
             MenuController Menu = new MenuController();
-            foreach (Dish dish in Res.PreOrders)
-            {
-                Menu.RemovePreOderInDish(dish);
-            }
+            if (Res.PreOrders != null)    
+                foreach (Dish dish in Res.PreOrders)
+                {
+                    Menu.RemovePreOderInDish(dish);
+                }
 
             // Save this data to Reservation.js 
             ReservationAccess.WriteAll(_Reservations);
@@ -300,7 +302,7 @@ public class ReservationLogic
                 // Get all the reservedtimes for the current tableID
                 List<DateTime> reservedTimes = _Reservations.Where(r => r.R_Date.Date == dateDate.Date)
                     .ToList()
-                    .FindAll(r => r.R_TableID.Contains(table.T_ID))
+                    .FindAll(r => r.R_TableID!.Contains(table.T_ID))
                     .Select(r => r.R_Date)
                     .ToList();
                 // Is the current timeslot within 2 hours of an active reservation?

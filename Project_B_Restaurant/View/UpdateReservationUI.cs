@@ -77,10 +77,10 @@ class UpdateReservationUI : UI
 
             if (AccountsLogic.CurrentAccount!.Level >= AccountLevel.Employee)
                 sb.AppendLine($"Tables:");
-            for (int i = 0; i < Reservation.R_TableID.Count; i++)
+            for (int i = 0; i < Reservation.R_TableID!.Count; i++)
                 sb.AppendLine($"  - {Reservation.R_TableID[i]}");
 
-            if (Reservation.PreOrders.Count > 0)
+            if (Reservation.PreOrders!.Count > 0)
             {
                 sb.AppendLine($"Selected Pre-Orders: ");
 
