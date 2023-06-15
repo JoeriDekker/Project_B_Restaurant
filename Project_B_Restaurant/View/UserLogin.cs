@@ -108,8 +108,8 @@ class UserLogin : UI
         AccountModel acc = accountsLogic.GetByEmail(email)!;
         if (acc == null)
         {
-            Console.WriteLine("Email has not been found!");
-            ResetPassword();
+            Console.WriteLine("Email has not been found!\n");
+            return;
         }
         string new_password = GetPassword("Please enter your new password: ");
         string confirm_password = GetPassword("Please enter your new password again to confirm: ");
