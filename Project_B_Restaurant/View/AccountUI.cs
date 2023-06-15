@@ -70,9 +70,9 @@ class AccountUI : UI
             MenuItems.Add(new MenuItem("Create Account", AccountLevel.Guest));
         }
 
-        
         if (AccountsLogic.CurrentAccount != null)
         {
+            MenuItems.Add(new MenuItem("Log out", AccountLevel.Customer));
             MenuItems.Add(new MenuItem("Reset Password", AccountLevel.Customer));
             MenuItems.Add(new MenuItem("Update Account Details", AccountLevel.Customer));
             MenuItems.Add(new MenuItem("Create Account", AccountLevel.Admin));
@@ -93,6 +93,11 @@ class AccountUI : UI
             case "Log in":
                 UserLogin login = new(this);
                 login.LogIn();
+                break;
+            case "Log out":
+                AccountsLogic.CurrentAccount = null;
+                OpeningUI opening = new(null);
+                opening.Start();
                 break;
             case "Create Account":
                 CreateAccount();
