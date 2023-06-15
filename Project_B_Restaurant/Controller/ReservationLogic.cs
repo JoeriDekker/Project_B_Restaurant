@@ -59,9 +59,8 @@ public class ReservationLogic
         string ResCode = createReservationCode();
 
 
-        var allCombos = RecGenerateCombinations(0, availableTimes[chosenTime], new(), new());
-        allCombos = allCombos.Where(t => t.Count != 0).ToList();
-        List<TableModel> bestCombo = BestCombinationOfTables(allCombos, c_party);
+        var AllCombinationsOfTables = GenerateCombinations(0, availableTimes[chosenTime], new(), new(), c_party);
+        List<TableModel> bestCombo = BestCombinationOfTables(AllCombinationsOfTables, c_party);
         List<string> table_IDs = bestCombo.Select(t => t.T_ID).ToList();
 
         //Handle Pre Orders
@@ -221,10 +220,16 @@ public class ReservationLogic
         return new(openingTimeAndDay, closingTimeAndDay);
     }
 
-    public List<List<TableModel>> RecGenerateCombinations(int i, List<TableModel> tables, List<List<TableModel>> result,
-        List<TableModel> subset)
+    public static List<List<TableModel>> GenerateCombinations(
+        int i,
+        List<TableModel> tables,
+        List<List<TableModel>> result,
+        List<TableModel> subset,
+        int partySize,
+        int totalSeats = 0)
     {
-        if (i == tables.Count)
+        // If we reached the end of the array, or we already have enough seats we stop exploring.
+        if (i == tables.Count || totalSeats >= partySize)
         {
             result.Add(subset.ToList());
             return result;
@@ -232,11 +237,11 @@ public class ReservationLogic
 
         // Add tables[i] to the current subset
         subset.Add(tables[i]);
-        RecGenerateCombinations(i + 1, tables, result, subset);
+        GenerateCombinations(i + 1, tables, result, subset, partySize, subset.Sum(t => t.T_Seats));
 
-        // Backtrack by removing last element
+        // Backtrack by removing the last character
         subset.RemoveAt(subset.Count - 1);
-        RecGenerateCombinations(i + 1, tables, result, subset);
+        GenerateCombinations(i + 1, tables, result, subset, partySize, subset.Sum(t => t.T_Seats));
 
         return result;
     }
@@ -343,6 +348,7 @@ public class ReservationLogic
 
     public Dictionary<DateTime, List<TableModel>> GetAllTimeSlotsBetween(DateTime openingTime, DateTime closingTime)
     {
+        // Setting closing time and limit to reservation time 
         Dictionary<DateTime, List<TableModel>> allTimeSlots = new();
         DateTime kitchenClosingTime = new(openingTime.Year, openingTime.Month, openingTime.Day, 22, 0, 0);
         while (openingTime <= closingTime && openingTime <= kitchenClosingTime)
