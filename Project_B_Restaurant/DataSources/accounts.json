@@ -20,7 +20,9 @@
     "emailAddress": "admin",
     "password": "KAkDBho=",
     "fullName": "Nikola Tesla",
-    "reservations": [],
+    "reservations": [
+      "R2272"
+    ],
     "type": "Admin"
   },
   {
@@ -110,5 +112,37 @@
     "fullName": "je",
     "reservations": [],
     "type": "Admin"
+  },
+  {
+    "id": 15,
+    "emailAddress": "bb",
+    "password": "KB0eChg=",
+    "fullName": "B",
+    "reservations": [],
+    "type": "Customer"
+  },
+  {
+    "id": 16,
+    "emailAddress": "bb",
+    "password": "appel",
+    "fullName": "boy",
+    "reservations": [],
+    "type": "Customer"
+  },
+  {
+    "id": 17,
+    "emailAddress": "testing",
+    "password": "testing",
+    "fullName": "testing",
+    "reservations": [],
+    "type": "Customer"
+  },
+  {
+    "id": 18,
+    "emailAddress": "test",
+    "password": "PQgdGw==",
+    "fullName": "test",
+    "reservations": [],
+    "type": "Customer"
   }
 ]

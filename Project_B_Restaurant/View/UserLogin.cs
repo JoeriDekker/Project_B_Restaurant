@@ -153,7 +153,7 @@ class UserLogin : UI
                 CreateAccount();
             }
         }
-        string fullName = GetString("What your full name?");
+        string fullName = GetString("What's your full name?");
         string emailAddress = GetString("What is your email address?");
         string password = GetPassword("What is your password?");
         var confirm_password = GetPassword("Confirm your password:");

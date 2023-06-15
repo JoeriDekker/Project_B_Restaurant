@@ -8,9 +8,6 @@ using System.Text.Json;
 class infoController
 {
  
-    //Static properties are shared across all instances of the class
-    //This can be used to get the current logged in account from anywhere in the program
-    //private set, so this can only be set by the class itself
     public InfoModel Restaurant { get; private set; }
 
     public infoController()

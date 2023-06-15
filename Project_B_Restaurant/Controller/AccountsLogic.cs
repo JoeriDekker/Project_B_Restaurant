@@ -12,7 +12,6 @@ public class AccountsLogic
 
     //Static properties are shared across all instances of the class
     //This can be used to get the current logged in account from anywhere in the program
-    //private set, so this can only be set by the class itself
     static public AccountModel? CurrentAccount { get; set; }
 
     public AccountsLogic()
@@ -73,8 +72,6 @@ public class AccountsLogic
             return null;
         }
     }
-
-    // Encryption and Decryption broke on the last day. Something regarding padding and it needing to be a multiple of 4
 
     public static string Encrypt(string password)
     {
