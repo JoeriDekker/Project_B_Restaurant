@@ -74,7 +74,7 @@ class AccountUI : UI
         if (AccountsLogic.CurrentAccount != null)
         {
             MenuItems.Add(new MenuItem("Reset Password", AccountLevel.Customer));
-            MenuItems.Add(new MenuItem("Update Accountdetails", AccountLevel.Customer));
+            MenuItems.Add(new MenuItem("Update Account Details", AccountLevel.Customer));
             MenuItems.Add(new MenuItem("Create Account", AccountLevel.Admin));
 
             account = accountsLogic.GetById(AccountsLogic.CurrentAccount.Id);
@@ -101,7 +101,7 @@ class AccountUI : UI
                 UserLogin user = new(this);
                 user.ResetPassword();
                 break;
-            case "Update Accountdetails":
+            case "Update Account Details":
                 UpdateAccountUI UpdateAcc = new(this);
                 UpdateAcc.Start();
                 break;
