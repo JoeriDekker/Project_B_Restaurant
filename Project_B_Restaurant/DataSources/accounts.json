@@ -2,7 +2,7 @@
   {
     "id": 1,
     "emailAddress": "n@b.c",
-    "password": "Cgo7QDgyFkM0MhZMNQwlHj0vAzI6JE9E",
+    "password": "CgoBWCUyAgs/GChTPw0uBCM/GBg\u002BD0IPMh8qRC8xcCg=",
     "fullName": "Nikola Tesla",
     "reservations": [],
     "type": "Customer"
@@ -10,7 +10,7 @@
   {
     "id": 2,
     "emailAddress": "test",
-    "password": "test2",
+    "password": "PQgdG0Y=",
     "fullName": "kip2",
     "reservations": [],
     "type": "Customer"
@@ -18,15 +18,17 @@
   {
     "id": 3,
     "emailAddress": "admin",
-    "password": "admin",
+    "password": "KAkDBho=",
     "fullName": "Nikola Tesla",
-    "reservations": [],
+    "reservations": [
+      "R5345"
+    ],
     "type": "Admin"
   },
   {
     "id": 4,
     "emailAddress": "john@doe.com",
-    "password": "CgUKDTAcJBE6GV1UNQwDKD0sGBg\u002BD0IPMh8qRC8xcCg=",
+    "password": "Cgo7JDAiJBEzMSBVNTNFHCM/GDA9IUIKNCcEWSFEAD0jB0wHNzFBCwYgFVg=",
     "fullName": "John Doe",
     "reservations": [],
     "type": "Customer"
@@ -34,7 +36,7 @@
   {
     "id": 5,
     "emailAddress": "test@name.nl",
-    "password": "Cz8NDjAiJB4yMRIWPAlFLA==",
+    "password": "ChdWITAcJBszMVEaPzc9Hj0vAzI6JE9E",
     "fullName": "Test Name",
     "reservations": [],
     "type": "Admin"
@@ -42,7 +44,7 @@
   {
     "id": 6,
     "emailAddress": "testname@gmail.com",
-    "password": "nametest",
+    "password": "JwwDCgATFgY=",
     "fullName": "Test Name",
     "reservations": [],
     "type": "Employee"
@@ -50,9 +52,49 @@
   {
     "id": 7,
     "emailAddress": "employee@test.com",
-    "password": "test",
+    "password": "PQgdGw==",
     "fullName": "Employee Test",
     "reservations": [],
     "type": "Employee"
+  },
+  {
+    "id": 8,
+    "emailAddress": "boys@hotmail.com",
+    "password": "KB0eChgQCRMJ",
+    "fullName": "Boy Stroo",
+    "reservations": [],
+    "type": "Customer"
+  },
+  {
+    "id": 9,
+    "emailAddress": "bs@gmail.com",
+    "password": "KB0eChgQCRMJ",
+    "fullName": "Boy",
+    "reservations": [],
+    "type": "Customer"
+  },
+  {
+    "id": 10,
+    "emailAddress": "ff",
+    "password": "appelflap",
+    "fullName": "f",
+    "reservations": [],
+    "type": "Customer"
+  },
+  {
+    "id": 11,
+    "emailAddress": "dd",
+    "password": "appe",
+    "fullName": "ff",
+    "reservations": [],
+    "type": "Customer"
+  },
+  {
+    "id": 12,
+    "emailAddress": "aa",
+    "password": "KB0eChgQCRMJ",
+    "fullName": "a",
+    "reservations": [],
+    "type": "Customer"
   }
 ]

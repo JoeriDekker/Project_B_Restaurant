@@ -28,8 +28,6 @@ public class ReservationModel
     [JsonConverter(typeof(JsonDateTimeConverter))]
     public DateTime R_Date { get; set; }
 
-    public ReservationModel() { } // Add a default constructor
-
     public ReservationModel(int R_Id, string R_Code, string Contact, List<string> R_TableID, int P_Amount, List<Dish> PreOrders, DateTime date)
     {
         this.R_Id = R_Id;

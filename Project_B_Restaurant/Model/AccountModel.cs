@@ -15,7 +15,7 @@ public class AccountModel
     public string Password
     {
         get => AccountsLogic.Decrypt(_password);
-        set => _password = AccountsLogic.Encrypt(value);
+        set => _password = value;
     }
 
     [JsonPropertyName("fullName")]
@@ -33,10 +33,15 @@ public class AccountModel
     {
         Id = id;
         EmailAddress = emailAddress;
-        Password = password;
+        Password = AccountsLogic.Encrypt(password);
         FullName = fullName;
         Level = level;
         Reservations = new List<string>();
+    }
+
+    public AccountModel(int id, string emailAddress, string password, string fullName, AccountLevel level, List<string> reservation) : this(id, emailAddress, password, fullName, level)
+    {
+        Reservations = reservation;
     }
 
     public string ShowInfo() => $"FullName: {FullName}\nEmail: {EmailAddress}\nLevel: {Level}";

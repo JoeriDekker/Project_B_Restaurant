@@ -43,49 +43,49 @@ class UpdateHoursUI : UI
         {
             case "Change Monday":
                 Console.WriteLine("What would you like to be the new opening hours on this day?");
-                string Monday = Console.ReadLine();
+                string Monday = Console.ReadLine() ?? string.Empty;
                 infoLogic.Restaurant.Monday = Monday;
                 infoLogic.UpdateInfo();
                 Console.WriteLine("The opening hours have been updated!");
                 break;
             case "Change Tuesday":
                 Console.WriteLine("What would you like to be the new opening hours on this day?");
-                string Tuesday = Console.ReadLine();
+                string Tuesday = Console.ReadLine() ?? string.Empty;
                 infoLogic.Restaurant.Tuesday = Tuesday;
                 infoLogic.UpdateInfo();
                 Console.WriteLine("The opening hours have been updated!");
                 break;
             case "Change Wednesday":
                 Console.WriteLine("What would you like to be the new opening hours on this day?");
-                string Wednesday = Console.ReadLine();
+                string Wednesday = Console.ReadLine() ?? string.Empty;
                 infoLogic.Restaurant.Wednesday = Wednesday;
                 infoLogic.UpdateInfo();
                 Console.WriteLine("The opening hours have been updated!");
                 break;
             case "Change Thursday":
                 Console.WriteLine("What would you like to be the new opening hours on this day?");
-                string Thursday = Console.ReadLine();
+                string Thursday = Console.ReadLine() ?? string.Empty;
                 infoLogic.Restaurant.Thursday = Thursday;
                 infoLogic.UpdateInfo();
                 Console.WriteLine("The opening hours have been updated!");
                 break;
             case "Change Friday":
                 Console.WriteLine("What would you like to be the new opening hours on this day?");
-                string Friday = Console.ReadLine();
+                string Friday = Console.ReadLine() ?? string.Empty;
                 infoLogic.Restaurant.Friday = Friday;
                 infoLogic.UpdateInfo();
                 Console.WriteLine("The opening hours have been updated!");
                 break;
             case "Change Saturday":
                 Console.WriteLine("What would you like to be the new opening hours on this day?");
-                string Saturday = Console.ReadLine();
+                string Saturday = Console.ReadLine() ?? string.Empty;
                 infoLogic.Restaurant.Saturday = Saturday;
                 infoLogic.UpdateInfo();
                 Console.WriteLine("The opening hours have been updated!");
                 break;
             case "Change Sunday":
                 Console.WriteLine("What would you like to be the new opening hours on this day?");
-                string Sunday = Console.ReadLine();
+                string Sunday = Console.ReadLine() ?? string.Empty;
                 infoLogic.Restaurant.Sunday = Sunday;
                 infoLogic.UpdateInfo();
                 Console.WriteLine("The opening hours have been updated!");

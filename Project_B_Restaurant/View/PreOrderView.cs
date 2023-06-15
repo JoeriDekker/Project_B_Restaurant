@@ -26,7 +26,7 @@ class PreOrderView : UI
     {
         get
         {
-            if (Reservation.PreOrders.Count <= 0)
+            if (Reservation!.PreOrders.Count <= 0)
                 return $"Reservation Code: {Reservation.R_Code}";
             else
             {
@@ -78,7 +78,7 @@ class PreOrderView : UI
                 break;
             case Constants.UI.GO_BACK:
             case Constants.UI.EXIT:
-                ReservationController.Update(Reservation);
+                ReservationController.Update(Reservation!);
                 Exit();
                 break;
             default:
@@ -114,7 +114,7 @@ class PreOrderView : UI
         {
             Menu.Dishes[dish_index].PreOrderAmount += 1;
             Menu.Save();
-            Reservation.PreOrders.Add(chosen_dish);
+            Reservation!.PreOrders.Add(chosen_dish);
         }
     }
 
@@ -129,7 +129,7 @@ class PreOrderView : UI
     public void RemoveDish()
     {
         int ID = GetInt("ID of Dish to remove?");
-        Dish? dish = Reservation.PreOrders.Find(d => d.ID == ID);
+        Dish? dish = Reservation!.PreOrders.Find(d => d.ID == ID);
         if (dish != null)
         {
             Reservation.PreOrders.Remove(dish);
@@ -167,14 +167,14 @@ class PreOrderView : UI
         else
         {
             Menu.Dishes[dish_index].PreOrderAmount += 1;
-            Reservation.PreOrders.Add(dish);
+            Reservation!.PreOrders.Add(dish);
 
         }
     }
 
     public ReservationModel EndPreOrder()
     {
-        return this.Reservation;
+        return this.Reservation!;
     }
     public static void Change()
     {

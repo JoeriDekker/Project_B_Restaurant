@@ -67,7 +67,7 @@ class UserLogin : UI
             Console.WriteLine("\nWelcome back " + acc.FullName);
             Console.WriteLine("Your email number is " + acc.EmailAddress);
             Loggedin = true;
-            OpeningUI opening = new(null);
+            OpeningUI opening = new(null!);
             opening.Start();
 
 
@@ -85,7 +85,7 @@ class UserLogin : UI
                 Console.WriteLine("Enter 1 to reset your password");
                 Console.WriteLine("Enter 2 to try log in again");
                 Console.WriteLine("Enter 0 Go Back");
-                answer = Console.ReadLine();
+                answer = Console.ReadLine() ?? string.Empty;
                 if (answer == "1")
                 {
                     ResetPassword();
@@ -105,7 +105,7 @@ class UserLogin : UI
     public void ResetPassword()
     {
         string email = GetString("Please enter your email: ");
-        AccountModel acc = accountsLogic.GetByEmail(email);
+        AccountModel acc = accountsLogic.GetByEmail(email)!;
         if (acc == null)
         {
             Console.WriteLine("Email has not been found!");
@@ -115,7 +115,7 @@ class UserLogin : UI
         string confirm_password = GetPassword("Please enter your new password again to confirm: ");
         if (new_password == confirm_password)
         {
-            acc.Password = new_password;
+            acc!.Password = new_password;
             accountsLogic.UpdateList(acc);
             Console.WriteLine("Your password has been updated! \n");
             
@@ -134,7 +134,7 @@ class UserLogin : UI
         if (CurrentLevel == AccountLevel.Admin)
         {
             Console.WriteLine("What type of account do you want to make? \nEnter 1 for Admin \nEnter 2 for Employee \nEnter 3 for Customer");
-            string choice = Console.ReadLine();
+            string choice = Console.ReadLine() ?? string.Empty;
             if (choice == "1")
             {
                 level = AccountLevel.Admin;

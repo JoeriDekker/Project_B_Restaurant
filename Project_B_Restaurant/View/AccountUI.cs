@@ -183,7 +183,7 @@ class AccountUI : UI
             confirm_password = GetPassword("Confirm your password:");
         }
         int id = accountsLogic.GetLastId() + 1;
-        AccountModel acc = new AccountModel(id, emailAddress, password, fullName, level);
+        AccountModel acc = new AccountModel(id, emailAddress, AccountsLogic.Encrypt(password), fullName, level);
         accountsLogic.UpdateList(acc);
 
         Console.WriteLine("You have succesfully created an account!");

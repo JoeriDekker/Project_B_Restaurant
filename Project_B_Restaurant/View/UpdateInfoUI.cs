@@ -42,42 +42,42 @@ class UpdateInfoUI : UI
         {
             case "Change restaurant name":
                 Console.WriteLine("What would you like to be the new name?");
-                string Name = Console.ReadLine();
+                string Name = Console.ReadLine() ?? string.Empty;
                 infoLogic.Restaurant.Name = Name;
                 infoLogic.UpdateInfo();
                 Console.WriteLine("The restaurant name has been updated!");
                 break;
             case "Change address":
                 Console.WriteLine("What would you like to be the new address?");
-                string Address = Console.ReadLine();
+                string Address = Console.ReadLine() ?? string.Empty;
                 infoLogic.Restaurant.Address = Address;
                 infoLogic.UpdateInfo();
                 Console.WriteLine("The restaurant address has been updated!");
                 break;
             case "Change postal code":
                 Console.WriteLine("What would you like to be the new postal code?");
-                string PostalCode = Console.ReadLine();
+                string PostalCode = Console.ReadLine() ?? string.Empty;
                 infoLogic.Restaurant.PostalCode = PostalCode;
                 infoLogic.UpdateInfo();
                 Console.WriteLine("The postal code has been updated!");
                 break;
             case "Change city":
                 Console.WriteLine("What would you like to be the new city?");
-                string City = Console.ReadLine();
+                string City = Console.ReadLine() ?? string.Empty;
                 infoLogic.Restaurant.City = City;
                 infoLogic.UpdateInfo();
                 Console.WriteLine("The city has been updated!");
                 break;
             case "Change telephone number":
                 Console.WriteLine("What would you like to be the new telephone number?");
-                string Telephone = Console.ReadLine();
+                string Telephone = Console.ReadLine() ?? string.Empty;
                 infoLogic.Restaurant.Telephone = Telephone;
                 infoLogic.UpdateInfo();
                 Console.WriteLine("The telephone number has been updated!");
                 break;
             case "Change e-mailaddress":
                 Console.WriteLine("What would you like to be the new e-mailaddress?");
-                string Email = Console.ReadLine();
+                string Email = Console.ReadLine() ?? string.Empty;
                 infoLogic.Restaurant.EmailAddress = Email;
                 infoLogic.UpdateInfo();
                 Console.WriteLine("The e-mailaddress has been updated!");

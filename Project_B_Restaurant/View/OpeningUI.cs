@@ -39,7 +39,6 @@ public class OpeningUI : UI
         MenuItems.Add(new MenuItem(Constants.OpeningUI.MENU, AccountLevel.Guest));
         MenuItems.Add(new MenuItem(Constants.OpeningUI.RESERVATION, AccountLevel.Guest));
     }
-    public AccountModel acc;
     public override void UserChoosesOption(int choice)
     {
         switch (UserOptions[choice].Name)

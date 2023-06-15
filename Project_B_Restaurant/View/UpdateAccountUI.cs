@@ -19,7 +19,7 @@ class UpdateAccountUI : UI
         
         get => @$"
 ======================================
-{AccountsLogic.CurrentAccount.ShowInfo()}
+{AccountsLogic.CurrentAccount!.ShowInfo()}
 ======================================
         ";
     }
@@ -63,14 +63,14 @@ class UpdateAccountUI : UI
 
     public void ChangeName(){
         String NewName = GetString("What is your Full Name?");
-        CurrentAccount.FullName = NewName;
+        CurrentAccount!.FullName = NewName;
         AccountController.UpdateList(CurrentAccount);
         Start();
     }
 
     public void ChangeEmail(){
         String NewEmail = GetString("What is your new Email?");
-        CurrentAccount.EmailAddress = NewEmail;
+        CurrentAccount!.EmailAddress = NewEmail;
         AccountController.UpdateList(CurrentAccount);
         Start();
     }

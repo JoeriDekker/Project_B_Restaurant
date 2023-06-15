@@ -31,8 +31,16 @@ public class AccountsLogic
 
         if (index != -1)
         {
-            //update existing model
-            _accounts[index] = acc;
+            //update existing model encryption wouldnt work. So we just create the account anew with the old details
+            AccountModel oldAccount = _accounts[index];
+            AccountModel sameOldAccount = new(oldAccount.Id,
+                                              oldAccount.EmailAddress,
+                                              AccountsLogic.Encrypt(acc.Password),
+                                              oldAccount.FullName,
+                                              oldAccount.Level,
+                                              oldAccount.Reservations);
+
+            _accounts[index] = sameOldAccount;
         }
         else
         {
@@ -56,7 +64,7 @@ public class AccountsLogic
     {
         try
         {
-            CurrentAccount = _accounts.Find(i => i.EmailAddress == email && i.Password == password);
+            CurrentAccount = _accounts.Find(i => i.EmailAddress == email && i.Password == AccountsLogic.Encrypt(password));
             return CurrentAccount;
         }
         catch (ArgumentNullException)
