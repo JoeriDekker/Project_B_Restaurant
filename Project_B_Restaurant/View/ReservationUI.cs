@@ -2,7 +2,6 @@ using System.Text;
 
 public class ReservationUI : UI
 {
-    PreOrderView preOrd;
     public ReservationLogic ReservationLogic = new ReservationLogic();
     TableLogic TableLogic = new TableLogic();
 
@@ -116,7 +115,7 @@ public class ReservationUI : UI
     {
         Console.WriteLine("Please enter a Reservation ID:");
         int IDinp = Convert.ToInt32(Console.ReadLine());
-        ReservationModel ReservationMUD = ReservationLogic.getReservationByID(IDinp);
+        ReservationModel? ReservationMUD = ReservationLogic.getReservationByID(IDinp);
 
         if (ReservationMUD == null)
         {
@@ -218,7 +217,7 @@ public class ReservationUI : UI
     public void FindReservationByTableID()
     {
         string IDinput = GetString("Please enter a Table ID:");
-        ReservationModel ReservationByTable = ReservationLogic.getReservationByTableID(IDinput);
+        ReservationModel? ReservationByTable = ReservationLogic.getReservationByTableID(IDinput);
         if (ReservationByTable == null)
         {
             Console.WriteLine("Cannot be found");
@@ -291,7 +290,7 @@ public class ReservationUI : UI
         if (AccountsLogic.CurrentAccount != null)
         {
             AccountsLogic accountsLogic = new AccountsLogic();
-            AccountModel account = accountsLogic.GetById(AccountsLogic.CurrentAccount.Id);
+            AccountModel account = accountsLogic.GetById(AccountsLogic.CurrentAccount.Id)!;
             account.Reservations.Add(res.R_Code);
             accountsLogic.UpdateList(account);
         }
@@ -300,7 +299,7 @@ public class ReservationUI : UI
         string answer = Console.ReadLine()!.ToUpper() ?? string.Empty;
         if (answer == "Y")
         {
-            preOrd = new PreOrderView(this, res);
+            PreOrderView preOrd = new PreOrderView(this, res);
             preOrd.Start();
         }
     }
@@ -333,7 +332,7 @@ public class ReservationUI : UI
         {
             Console.WriteLine("0: Go Back");
             Console.WriteLine("Please enter your selection:");
-            string input = Console.ReadLine();
+            string input = Console.ReadLine() ?? string.Empty;
 
             if (int.TryParse(input, out selectedOption) && availableTimesDict.ContainsKey(selectedOption))
             {
