@@ -303,68 +303,6 @@ public class ReservationUI : UI
             preOrd = new PreOrderView(this, res);
             preOrd.Start();
         }
-
-
-        // Console.ReadLine();
-
-        //         Console.WriteLine(@$"
-        //     ┌────┐    ┌────┐         ┌────┐
-        //     │ 3A │    │ 1A │         │ 2A │
-        //     │(2) │    │(2) │         │(2) │
-        //     └────┘    └────┘         └────┘
-
-        //     ┌────┐                   ┌────┐
-        //     │ 6A │                   │ 4A │
-        //     │(2) │                   │(4) │
-        //     └────┘                   └────┘
-
-        //     ┌────┐                   ┌────┐
-        //     │ 5A │                   │ 7A │
-        //     │(4) │                   │(2) │
-        //     └────┘                   └────┘
-
-        //     ┌────┐                   ┌────┐
-        //     │ 2B │                   │ 3B │
-        //     │(4) │                   │(4) │
-        //     └────┘                   └────┘
-
-        //     ┌────┐                   ┌────┐
-        //     │ 5B │                   │ 4B │
-        //     │(4) │                   │(2) │
-        //     └────┘                   └────┘
-
-        //     ┌────┐       ┌────┐      ┌────┐
-        //     │ 6B │       │ 1C │      │ 1B │
-        //     │(2) │       │(6) │      │(6) │
-        //     └────┘       └────┘      └────┘
-        // ");
-
-        // string availableTableId = null;
-
-        //         foreach (TableModel table in availableTables)
-        //         {
-        //             if (true)
-        //             {
-        //                 //TableLogic.OccupiedTable(table.T_ID, true, Convert.ToString(inp_getDate), Convert.ToString(desiredTime));
-        //                 Console.WriteLine("Reservation made at table: " + table.T_ID);
-        //                 Console.WriteLine($"{table.T_ID}, {table.T_Seats}");
-
-        //                 //ReservationModel res = ReservationLogic.CreateReservation(inp_name, inp_Pamount, table.T_ID, Convert.ToString(desiredTime), Convert.ToString(inp_getDate));
-        //                 Console.WriteLine("Reservation has been made!");
-
-        //                 if (AccountsLogic.CurrentAccount != null)
-        //                 {
-        //                     AccountsLogic accountsLogic = new AccountsLogic();
-        //                     AccountModel account = AccountsLogic.CurrentAccount;
-        //                     //account.Reservations.Add(res.R_Code); //needs to be fixed
-        //                     accountsLogic.UpdateList(account);
-        //                 }
-
-        //                 //Console.WriteLine($"Your Reservation Code: {res.R_Code}\n");
-
-
-        //             }
-        // }
     }
 
     public Dictionary<int, DateTime> PrintAllAvailableTimes(Dictionary<DateTime, List<TableModel>> availableTimes)

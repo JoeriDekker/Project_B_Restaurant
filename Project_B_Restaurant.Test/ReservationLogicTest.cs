@@ -121,7 +121,7 @@ namespace Project_B_Restaurant.Test
 
         [DataRow("Jane Doe")]
         [TestMethod]
-        public void DeleteReservationByRCode_ExistingReservation_ReturnsTrue(string contact)
+        public void DeleteReservationWithRCodeTest(string contact)
         {
             // Arrange
             DateTime date = new(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 15, 0, 0);

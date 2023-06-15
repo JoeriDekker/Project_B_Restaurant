@@ -93,7 +93,7 @@ public class MenuController
         return false;
     }
 
-    public Dish GetDishByName(string dish_name)
+    public Dish? GetDishByName(string dish_name)
     {
         foreach (Dish dish in Dishes)
         {
@@ -147,12 +147,12 @@ public class MenuController
         foreach (Dish dish in Dishes)
         {
             if (isAlergies){
-                if (!dish.Allergies.Contains(query)){
+                if (dish.Allergies.Contains(query)){
                     filteredItems.Add(dish);
                 }
             }
             else{
-                if(!dish.Type.Contains(query)){
+                if(dish.Type.Contains(query)){
                     filteredItems.Add(dish);
                 }
             }
