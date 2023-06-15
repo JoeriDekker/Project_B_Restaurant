@@ -21,7 +21,7 @@ public abstract class UI
     }
 
 
-    // Switch case the option and the Constants used in MenuItems, see OpeningUI or MenuUI for implementation.
+    // Switch case the option and the string used in MenuItems, see OpeningUI or MenuUI for implementation.
     public abstract void UserChoosesOption(int option);
 
     // Add the strings as Constants in Constants.cs then create the MenuItems with those constants by implementing this function.
