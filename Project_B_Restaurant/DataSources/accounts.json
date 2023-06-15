@@ -8,14 +8,6 @@
     "type": "Customer"
   },
   {
-    "id": 2,
-    "emailAddress": "test",
-    "password": "PQgdG0Y=",
-    "fullName": "kip2",
-    "reservations": [],
-    "type": "Customer"
-  },
-  {
     "id": 3,
     "emailAddress": "admin",
     "password": "KAkDBho=",
@@ -25,122 +17,10 @@
   },
   {
     "id": 4,
-    "emailAddress": "john@doe.com",
-    "password": "Cgo7JDAiJBEzMSBVNTNFHCM/GDA9IUIKNCcEWSFEAD0jB0wHNzFBCwYgFVg=",
-    "fullName": "John Doe",
-    "reservations": [],
-    "type": "Customer"
-  },
-  {
-    "id": 5,
-    "emailAddress": "test@name.nl",
-    "password": "ChdWITAcJBszMVEaPzc9Hj0vAzI6JE9E",
-    "fullName": "Test Name",
-    "reservations": [],
-    "type": "Admin"
-  },
-  {
-    "id": 6,
-    "emailAddress": "testname@gmail.com",
-    "password": "JwwDCgATFgY=",
-    "fullName": "Test Name",
+    "emailAddress": "employee",
+    "password": "LAAeAxsPABc=",
+    "fullName": "Employee",
     "reservations": [],
     "type": "Employee"
-  },
-  {
-    "id": 7,
-    "emailAddress": "employee@test.com",
-    "password": "PQgdGw=",
-    "fullName": "Employee Test",
-    "reservations": [],
-    "type": "Employee"
-  },
-  {
-    "id": 8,
-    "emailAddress": "boys@hotmail.com",
-    "password": "KB0eChgQCRMJ",
-    "fullName": "Boy Stroo",
-    "reservations": [],
-    "type": "Customer"
-  },
-  {
-    "id": 9,
-    "emailAddress": "bs@gmail.com",
-    "password": "KB0eChgQCRMJ",
-    "fullName": "Boy",
-    "reservations": [],
-    "type": "Customer"
-  },
-  {
-    "id": 10,
-    "emailAddress": "ff",
-    "password": "appelflap",
-    "fullName": "f",
-    "reservations": [],
-    "type": "Customer"
-  },
-  {
-    "id": 11,
-    "emailAddress": "dd",
-    "password": "appe",
-    "fullName": "ff",
-    "reservations": [],
-    "type": "Customer"
-  },
-  {
-    "id": 12,
-    "emailAddress": "aa",
-    "password": "KB0eChgQCRMJ",
-    "fullName": "a",
-    "reservations": [],
-    "type": "Customer"
-  },
-  {
-    "id": 13,
-    "emailAddress": "123",
-    "password": "KB0eChg=",
-    "fullName": "B",
-    "reservations": [],
-    "type": "Customer"
-  },
-  {
-    "id": 14,
-    "emailAddress": "je",
-    "password": "je",
-    "fullName": "je",
-    "reservations": [],
-    "type": "Admin"
-  },
-  {
-    "id": 15,
-    "emailAddress": "bb",
-    "password": "KB0eChg=",
-    "fullName": "B",
-    "reservations": [],
-    "type": "Customer"
-  },
-  {
-    "id": 16,
-    "emailAddress": "bb",
-    "password": "appel",
-    "fullName": "boy",
-    "reservations": [],
-    "type": "Customer"
-  },
-  {
-    "id": 17,
-    "emailAddress": "testing",
-    "password": "testing",
-    "fullName": "testing",
-    "reservations": [],
-    "type": "Customer"
-  },
-  {
-    "id": 18,
-    "emailAddress": "test",
-    "password": "PQgdGw==",
-    "fullName": "test",
-    "reservations": [],
-    "type": "Customer"
   }
 ]
