@@ -35,7 +35,7 @@ public class AccountsLogic
             AccountModel oldAccount = _accounts[index];
             AccountModel sameOldAccount = new(oldAccount.Id,
                                               oldAccount.EmailAddress,
-                                              AccountsLogic.Encrypt(acc.Password),
+                                              acc.Password,
                                               oldAccount.FullName,
                                               oldAccount.Level,
                                               oldAccount.Reservations);
@@ -64,7 +64,7 @@ public class AccountsLogic
     {
         try
         {
-            CurrentAccount = _accounts.Find(i => i.EmailAddress == email && i.Password == AccountsLogic.Encrypt(password));
+            CurrentAccount = _accounts.Find(i => i.EmailAddress == email && i.Password == password);
             return CurrentAccount;
         }
         catch (ArgumentNullException)
@@ -73,37 +73,40 @@ public class AccountsLogic
             return null;
         }
     }
-    public static string Encrypt(string password)
-    {
-        string secret_key = "Imnotverysecret";
 
-        byte[] key = Encoding.UTF8.GetBytes(password);
-        byte[] secret = Encoding.UTF8.GetBytes(secret_key);
+    // Encryption and Decryption broke on the last day. Something regarding padding and it needing to be a multiple of 4
 
-        // XOR the key and secret key
-        for (int i = 0; i < key.Length; i++)
-        {
-            key[i] = (byte)(key[i] ^ secret[i % secret.Length]);
-        }
-        // return the password
-        return Convert.ToBase64String(key);
-    }
+    // public static string Encrypt(string password)
+    // {
+    //     string secret_key = "Imnotverysecret";
 
-    public static string Decrypt(string password)
-    {
-        string secret_key = "Imnotverysecret";
+    //     byte[] key = Encoding.UTF8.GetBytes(password);
+    //     byte[] secret = Encoding.UTF8.GetBytes(secret_key);
 
-        byte[] key = Convert.FromBase64String(password);
-        byte[] secret = Encoding.UTF8.GetBytes(secret_key);
+    //     // XOR the key and secret key
+    //     for (int i = 0; i < key.Length; i++)
+    //     {
+    //         key[i] = (byte)(key[i] ^ secret[i % secret.Length]);
+    //     }
+    //     // return the password
+    //     return Convert.ToBase64String(key);
+    // }
 
-        // XOR the key and secret key
-        for (int i = 0; i < key.Length; i++)
-        {
-            key[i] = (byte)(key[i] ^ secret[i % secret.Length]);
-        }
-        // return the password
-        return Encoding.UTF8.GetString(key);
-    }
+    // public static string Decrypt(string password)
+    // {
+    //     string secret_key = "Imnotverysecret";
+
+    //     byte[] key = Convert.FromBase64String(password);
+    //     byte[] secret = Encoding.UTF8.GetBytes(secret_key);
+
+    //     // XOR the key and secret key
+    //     for (int i = 0; i < key.Length; i++)
+    //     {
+    //         key[i] = (byte)(key[i] ^ secret[i % secret.Length]);
+    //     }
+    //     // return the password
+    //     return Encoding.UTF8.GetString(key);
+    // }
     public void RemoveReservationCode(string code)
     {
         foreach (AccountModel acc in _accounts)

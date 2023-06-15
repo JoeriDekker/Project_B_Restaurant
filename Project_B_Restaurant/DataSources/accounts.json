@@ -52,7 +52,7 @@
   {
     "id": 7,
     "emailAddress": "employee@test.com",
-    "password": "PQgdGw==",
+    "password": "PQgdGw=",
     "fullName": "Employee Test",
     "reservations": [],
     "type": "Employee"
@@ -94,6 +94,14 @@
     "emailAddress": "aa",
     "password": "KB0eChgQCRMJ",
     "fullName": "a",
+    "reservations": [],
+    "type": "Customer"
+  },
+  {
+    "id": 13,
+    "emailAddress": "123",
+    "password": "KB0eChg=",
+    "fullName": "B",
     "reservations": [],
     "type": "Customer"
   }
