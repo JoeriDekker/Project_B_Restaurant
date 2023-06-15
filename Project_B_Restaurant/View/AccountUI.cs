@@ -32,7 +32,7 @@ class AccountUI : UI
         if (AccountsLogic.CurrentAccount != null)
             AccountInfo = GenerateSubText();
         else
-            AccountInfo = "\nYou have not been loggedin.\nPlease log in to show you account details\n";
+            AccountInfo = "\nYou have not been logged in.\nPlease log in to show you account details\n";
 
     }
     public string GenerateSubText()
