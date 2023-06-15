@@ -76,37 +76,22 @@ public class AccountsLogic
 
     // Encryption and Decryption broke on the last day. Something regarding padding and it needing to be a multiple of 4
 
-    // public static string Encrypt(string password)
-    // {
-    //     string secret_key = "Imnotverysecret";
+    public static string Encrypt(string password)
+    {
+        string secret_key = "Imnotverysecret";
 
-    //     byte[] key = Encoding.UTF8.GetBytes(password);
-    //     byte[] secret = Encoding.UTF8.GetBytes(secret_key);
+        byte[] key = Encoding.UTF8.GetBytes(password);
+        byte[] secret = Encoding.UTF8.GetBytes(secret_key);
 
-    //     // XOR the key and secret key
-    //     for (int i = 0; i < key.Length; i++)
-    //     {
-    //         key[i] = (byte)(key[i] ^ secret[i % secret.Length]);
-    //     }
-    //     // return the password
-    //     return Convert.ToBase64String(key);
-    // }
+        // XOR the key and secret key
+        for (int i = 0; i < key.Length; i++)
+        {
+            key[i] = (byte)(key[i] ^ secret[i % secret.Length]);
+        }
+        // return the password
+        return Convert.ToBase64String(key);
+    }
 
-    // public static string Decrypt(string password)
-    // {
-    //     string secret_key = "Imnotverysecret";
-
-    //     byte[] key = Convert.FromBase64String(password);
-    //     byte[] secret = Encoding.UTF8.GetBytes(secret_key);
-
-    //     // XOR the key and secret key
-    //     for (int i = 0; i < key.Length; i++)
-    //     {
-    //         key[i] = (byte)(key[i] ^ secret[i % secret.Length]);
-    //     }
-    //     // return the password
-    //     return Encoding.UTF8.GetString(key);
-    // }
     public void RemoveReservationCode(string code)
     {
         foreach (AccountModel acc in _accounts)

@@ -82,12 +82,12 @@ public class ReservationUI : UI
             case "Show all pre orders":
                 ShowPreOrders();
                 break;
-            case "Update Reservation": // TODO ?
+            case "Update Reservation":
                 UpdateReservation();
                 _subText = GenerateSubText();
                 break;
-            case "Update any Reservation as Admin": // TODO ?
-                UpdateReservation();
+            case "Update any Reservation as Admin": 
+                UpdateReservationAsAdmin();
                 break;
             case "Find Reservation by Reservation ID":
                 FindReservationByReservationID();
@@ -163,7 +163,7 @@ public class ReservationUI : UI
     public void UpdateReservationAsAdmin()
     {
         ShowAllReservations();
-        string code = GetString("Please provide the Reservation Code you wish to update.");
+        string code = GetString("Please provide the Reservation Code you wish to update.").ToUpper();
         if (ReservationLogic.getReservationByCode(code) != null)
         {
             UpdateReservationUI updateReservationUI = new(this, ReservationLogic.getReservationByCode(code.ToUpper())!);
@@ -295,8 +295,10 @@ public class ReservationUI : UI
             account.Reservations.Add(res.R_Code!);
             accountsLogic.UpdateList(account);
         }
-
+        Console.WriteLine("Here at the Saucy Darcy, we are trying a revolutionary idea of pre-ordering for your reservation");
+        Console.WriteLine("This ensures that you'll receive your food as fast as possible!");
         Console.WriteLine("Do you want to make a preorder? Y/N");
+        Console.Write("? > ");
         string answer = Console.ReadLine()!.ToUpper() ?? string.Empty;
         if (answer == "Y")
         {

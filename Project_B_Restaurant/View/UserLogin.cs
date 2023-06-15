@@ -59,7 +59,7 @@ class UserLogin : UI
     {
         Console.WriteLine("Welcome to the login page");
         string email = GetString("Please enter your email address");
-        var password = GetPassword("Please enter your password");
+        var password = AccountsLogic.Encrypt(GetPassword("Please enter your password"));
 
         AccountModel? acc = accountsLogic.CheckLogin(email, password);
         if (acc != null)
@@ -115,7 +115,8 @@ class UserLogin : UI
         string confirm_password = GetPassword("Please enter your new password again to confirm: ");
         if (new_password == confirm_password)
         {
-            acc!.Password = new_password;
+            acc!.Password = AccountsLogic.Encrypt(new_password);
+            Console.WriteLine(acc.Password);
             accountsLogic.UpdateList(acc);
             Console.WriteLine("Your password has been updated! \n");
             

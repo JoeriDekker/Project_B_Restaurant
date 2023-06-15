@@ -5,18 +5,6 @@ using System.Linq;
 using System.Text.Json;
 using System.Globalization;
 
-/*
-(1) De user geeft een datum en hoeveelheid mensen.
-
-(2) We zoeken beschikbaren tijden op voor gegeven datum
-    -
-(3) Laat tijden zien aan user
-    -
-(4) User kiest een tijd
-    -
-(5) registreer reservering.
-    -   
-*/
 
 public class ReservationLogic
 {
@@ -60,6 +48,14 @@ public class ReservationLogic
     public ReservationModel CreateReservation(string c_name, int c_party,
         Dictionary<DateTime, List<TableModel>> availableTimes, DateTime chosenTime, List<Dish> PreOrders = null!)
     {
+
+        /*
+        (1) The user chooses a date and the party size.
+        (2) Look for available times for tables for the given date.
+        (3) Show available times to the user.
+        (4) User chooses desired time.
+        (5) Registrate reservation.
+        */
         string ResCode = createReservationCode();
 
 
@@ -175,7 +171,7 @@ public class ReservationLogic
         if (_Reservations.Remove(Res) == true)
         {
             MenuController Menu = new MenuController();
-            if (Res.PreOrders != null)    
+            if (Res.PreOrders != null)
                 foreach (Dish dish in Res.PreOrders)
                 {
                     Menu.RemovePreOderInDish(dish);
@@ -354,159 +350,7 @@ public class ReservationLogic
             allTimeSlots[openingTime] = new();
             openingTime = openingTime.AddMinutes(30);
         }
-
-        return allTimeSlots;
+        // Removing any timeslots earlier than now + 2 hours. So if it is 01-01-2023 14:00 you can reserve from 16:00 onwards.
+        return allTimeSlots.Where((kvp) => kvp.Key > DateTime.Now.AddHours(2)).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
     }
 }
-// public void GetAvailableResTimes()
-// {
-//     foreach (Dictionary<string, object> openingHour in _openingHours)
-//     {
-//         foreach (KeyValuePair<string, object> kvp in openingHour)
-//         {
-//             string day = kvp.Key;
-//             string openingHours = kvp.Value.ToString();
-
-//             // Opening hours
-//             Console.WriteLine($"{day}: {openingHours}");
-
-//             // Extract the start time and end time
-//             string[] times = openingHours.Split('-');
-
-//             if (times.Length != 2)
-//             {
-//                 Console.WriteLine("Invalid opening hours format. Expected format: HH:mm-HH:mm");
-//                 continue;
-//             }
-
-//             string startTime = times[0].Trim();
-//             string endTime = times[1].Trim();
-
-//             // Calculate and display available reservation times
-//             TimeSpan start, end;
-//             if (!TimeSpan.TryParse(startTime, out start))
-//             {
-//                 Console.WriteLine("Invalid start time format. Expected format: HH:mm");
-//                 continue;
-//             }
-
-//             if (!TimeSpan.TryParse(endTime, out end))
-//             {
-//                 Console.WriteLine("Invalid end time format. Expected format: HH:mm");
-//                 continue;
-//             }
-
-//             TimeSpan interval = TimeSpan.FromHours(2);
-
-//             if (end < start)
-//             {
-//                 end = end.Add(TimeSpan.FromDays(1)); // Consider it as next day's time
-//             }
-
-//             // UI stuff
-//             Console.WriteLine("Available reservation times:");
-//             Console.WriteLine("-----------------------------------");
-//             Console.WriteLine("|   Start Time   |    End Time    |");
-//             Console.WriteLine("-----------------------------------");
-
-//             for (TimeSpan reservationTime = start; reservationTime.Add(interval) <= end; reservationTime = reservationTime.Add(interval))
-//             {
-//                 TimeSpan nextReservationTime = reservationTime.Add(interval);
-//                 bool isAvailable = true;
-
-//                 // Check if the reservation time falls within any existing reservations
-//                 foreach (ReservationModel reservation in _Reservations)
-//                 {
-//                     string resDateTime = reservation.R_time;
-//                     DateTime resDate;
-//                     if (!DateTime.TryParseExact(resDateTime, "dd/MM/yyyy#HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out resDate))
-//                     {
-//                         Console.WriteLine("Invalid reservation time format. Expected format: dd/MM/yyyy#HH:mm");
-//                         continue;
-//                     }
-
-//                     // Check if the reservation date and day match
-//                     if (resDate.Date == DateTime.Now.Date && resDate.DayOfWeek.ToString() == day)
-//                     {
-//                         TimeSpan resTime = resDate.TimeOfDay;
-//                         TimeSpan resEndTime = resTime.Add(interval);
-
-//                         // Check if the reservation time overlaps with the existing reservation
-//                         if ((reservationTime >= resTime && reservationTime < resEndTime) ||
-//                             (nextReservationTime > resTime && nextReservationTime <= resEndTime))
-//                         {
-//                             isAvailable = false;
-//                             break;
-//                         }
-//                     }
-//                 }
-
-//                 if (isAvailable)
-//                 {
-//                     Console.WriteLine($"| {reservationTime.ToString(@"hh\:mm")}           |  {nextReservationTime.ToString(@"hh\:mm")}   |");
-//                 }
-//                 else
-//                 {
-//                     Console.ForegroundColor = ConsoleColor.Red;
-//                     Console.WriteLine($"| {reservationTime.ToString(@"hh\:mm")}           |  {nextReservationTime.ToString(@"hh\:mm")}   |");
-//                     Console.ResetColor();
-//                 }
-//             }
-
-//             Console.WriteLine("-----------------------------------");
-//             Console.WriteLine();
-//         }
-//     }
-// }
-
-
-//     private bool IsDesiredTimeAvailable(TimeSpan desiredReservationTime, TimeSpan start, TimeSpan end, TimeSpan interval, string day)
-//     {
-//         for (TimeSpan reservationTime = start; reservationTime.Add(interval) <= end; reservationTime = reservationTime.Add(interval))
-//         {
-//             TimeSpan nextReservationTime = reservationTime.Add(interval);
-
-//             if (desiredReservationTime >= reservationTime && desiredReservationTime < nextReservationTime)
-//             {
-//                 bool isAvailable = true;
-
-//                 foreach (ReservationModel reservation in _Reservations)
-//                 {
-//                     string[] dayTime = reservation.R_time.Split('#');
-//                     string ResDay = dayTime[0].Trim();
-
-//                     // Split the date into year, month, and day components
-//                     string[] splitDate = ResDay.Split('/');
-//                     int year = Convert.ToInt32(splitDate[0]);
-//                     int month = Convert.ToInt32(splitDate[1]);
-//                     int dayOfMonth = Convert.ToInt32(splitDate[2]);
-
-//                     // Create a DateTime object for the reservation date
-//                     DateTime reservationDate = new DateTime(year, month, dayOfMonth);
-
-//                     string ResTime = dayTime[1].Trim();
-//                     TimeSpan resTimeParsed = TimeSpan.Parse(ResTime);
-
-//                     // Check if the reservation time overlaps with the existing reservation
-//                     if (reservationDate.DayOfWeek == Enum.Parse<DayOfWeek>(day) &&
-//                         (desiredReservationTime >= resTimeParsed && desiredReservationTime < resTimeParsed.Add(interval)))
-//                     {
-//                         isAvailable = false;
-//                         break;
-//                     }
-//                 }
-
-//                 return isAvailable;
-//             }
-//         }
-
-//         return false;
-//     }
-
-// public void Update(ReservationModel reservation)
-// {
-//     int indexToUpdate = _Reservations.FindIndex(x => x.R_Id == reservation.R_Id);
-//     _Reservations[indexToUpdate].PreOrders = reservation.PreOrders;
-//     ReservationAccess.WriteAll(_Reservations);
-// }
-// }

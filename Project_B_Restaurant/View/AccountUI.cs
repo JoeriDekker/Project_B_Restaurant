@@ -70,10 +70,13 @@ class AccountUI : UI
             MenuItems.Add(new MenuItem("Create Account", AccountLevel.Guest));
         }
 
-        MenuItems.Add(new MenuItem("Reset Password", AccountLevel.Customer));
-        MenuItems.Add(new MenuItem("Update Accountdetails", AccountLevel.Customer));
+        
         if (AccountsLogic.CurrentAccount != null)
         {
+            MenuItems.Add(new MenuItem("Reset Password", AccountLevel.Customer));
+            MenuItems.Add(new MenuItem("Update Accountdetails", AccountLevel.Customer));
+            MenuItems.Add(new MenuItem("Create Account", AccountLevel.Admin));
+
             account = accountsLogic.GetById(AccountsLogic.CurrentAccount.Id);
             if (account!.Reservations.Count() != 0)
             {

@@ -20,9 +20,7 @@
     "emailAddress": "admin",
     "password": "KAkDBho=",
     "fullName": "Nikola Tesla",
-    "reservations": [
-      "R5345"
-    ],
+    "reservations": [],
     "type": "Admin"
   },
   {
@@ -104,5 +102,13 @@
     "fullName": "B",
     "reservations": [],
     "type": "Customer"
+  },
+  {
+    "id": 14,
+    "emailAddress": "je",
+    "password": "je",
+    "fullName": "je",
+    "reservations": [],
+    "type": "Admin"
   }
 ]
