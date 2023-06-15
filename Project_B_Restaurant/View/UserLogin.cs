@@ -116,7 +116,6 @@ class UserLogin : UI
         if (new_password == confirm_password)
         {
             acc!.Password = AccountsLogic.Encrypt(new_password);
-            Console.WriteLine(acc.Password);
             accountsLogic.UpdateList(acc);
             Console.WriteLine("Your password has been updated! \n");
             
