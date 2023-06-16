@@ -96,7 +96,7 @@ class AccountUI : UI
                 break;
             case "Log out":
                 AccountsLogic.CurrentAccount = null;
-                OpeningUI opening = new(null);
+                OpeningUI opening = new(null!);
                 opening.Start();
                 break;
             case "Create Account":
