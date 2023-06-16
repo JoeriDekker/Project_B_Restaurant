@@ -182,3 +182,9 @@ Project_B_Restaurant.Test/obj/Debug/net7.0/Project_B_Restaurant.Test.GeneratedMS
 Project_B_Restaurant.Test/obj/Debug/net7.0/Project_B_Restaurant.Test.csproj.AssemblyReference.cache
 *.cache
 Project_B_Restaurant.Test/obj/Debug/net7.0/Project_B_Restaurant.Test.assets.cache
+*.cache
+*.editorconfig
+Project_B_Restaurant.Test/bin/Debug/net7.0/CoverletSourceRootsMapping
+Project_B_Restaurant.Test/obj/Debug/net7.0/Project_B_Restaurant.Test.assets.cache
+Project_B_Restaurant.Test/obj/Debug/net7.0/Project_B_Restaurant.Test.csproj.AssemblyReference.cache
+Project_B_Restaurant.Test/obj/Debug/net7.0/Project_B_Restaurant.Test.GeneratedMSBuildEditorConfig.editorconfig

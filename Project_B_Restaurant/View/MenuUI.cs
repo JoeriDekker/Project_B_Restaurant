@@ -339,6 +339,11 @@ Max amount of pre-order: {dish.MaxAmountPreOrder}
 
         double dish_price = GetDouble("What is the Dish price?");
 
+        while (dish_price == 0 )
+        {
+            dish_price = GetDouble("What is the Dish price?");
+        }
+
         string dish_type = GetString("What is the Dish Type?");
 
         Menu.Add(dish_name, dish_ingredients.Split(", ").ToList(), dish_allergies, dish_price, dish_type);
